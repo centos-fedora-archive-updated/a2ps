@@ -309,7 +309,7 @@ AC_OUTPUT
 
 if test $MEDIUM = libpaper; then
   libpaper_msg="
-*   (\`libpaper' means a2ps asks the medium to libpaper.  See man paperconf.)"
+*   (\`libpaper' means a2ps asks libpaper for the medium.  See man paper.)"
 fi
 
 AC_MSG_RESULT([

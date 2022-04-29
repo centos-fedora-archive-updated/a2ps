@@ -1375,7 +1375,7 @@ This options specify the general layout, how the sheet should be used.
 @defvr {Option}  -M @var{medium}
 @defvrx {Option} -@b{-}medium=@var{medium}
 @cindex @code{libpaper}
-@cindex @code{paperconf}
+@cindex @code{paper}
 use output medium @var{medium}.  See the output of @samp{a2ps
 --list=media} for the list of supported media.  Typical values are
 @samp{A3}, @samp{A4}, @samp{A5}, @samp{B4}, @samp{B5}, @samp{Letter},
@@ -1387,7 +1387,7 @@ that printer needs bigger margins.
 The special @var{medium} @samp{libpaper} means that you want @pack{} to
 ask the library @code{libpaper} for the medium to use.  This choice is
 valid only if @code{libpaper} was available when @pack{} was configured.
-See the man page of @code{paperconf} for more information.
+See the man page of @code{paper} for more information.
 @end defvr
 
 @defvr {Option}  -r
