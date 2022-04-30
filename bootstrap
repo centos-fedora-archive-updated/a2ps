@@ -1,6 +1,6 @@
 #! /bin/sh
 # Print a version string.
-scriptversion=2019-01-04.17; # UTC
+scriptversion=2022-04-29.20; # UTC
 
 # Bootstrap this package from checked-out sources.
 
@@ -228,7 +228,7 @@ excluded_files=
 
 # File that should exist in the top directory of a checked out hierarchy,
 # but not in a distribution tarball.
-checkout_only_file=README-hacking
+checkout_only_file=HACKING
 
 # Whether to use copies instead of symlinks.
 copy=false
