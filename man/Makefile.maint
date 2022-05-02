@@ -11,9 +11,9 @@ $(man_MANS): $(top_srcdir)/configure.ac common.x
 regular_men = $(filter-out $(irregular_men),$(man_MANS))
 $(regular_men): %.1: $(top_srcdir)/contrib/%.in
 
-executable = $(wildcard $(top_srcdir)/*/$(basename $@) $(top_builddir)/*/$(basename $@))
+executable = $(firstword $(wildcard $(top_srcdir)/*/$(basename $@) $(top_builddir)/*/$(basename $@)))
 $(man_MANS): %.1: %.x $(HELP2MAN)
-	@if test -f $(executable); then \
+	@if test -f "$(executable)"; then \
 	  echo "Updating man page $@"; \
 	  rm -f $@-t; \
 	  $(HELP2MAN-run) \
