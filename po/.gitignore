@@ -1,3 +1,5 @@
+/Makefile.in.in
+/Makefile.in.in~
 *.gmo
 /POTFILES
 /a2ps.pot
@@ -10,4 +12,5 @@
 /boldquot.sed
 /Rules-quot
 /Makevars.template
+/Makevars
 /stamp-po
