@@ -109,6 +109,9 @@ if test -n "`ls`"; then
   echo "  There are differences with reference PostScript files:"
   cat $builddir/sum-ps-diff
   failure=1
+else
+  rm $builddir/sum-ps-diff
+  rm -rf $DIFF
 fi
 
 cd $GDIFF
@@ -118,6 +121,9 @@ if test -n "`ls`"; then
   echo "  There are differences with reference PostScript files (with -g):"
   cat $builddir/sum-gps-diff
   failure=1
+else
+  rm $builddir/sum-gps-diff
+  rm -rf $GDIFF
 fi
 
 exit $failure
