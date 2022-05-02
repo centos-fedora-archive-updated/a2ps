@@ -26,25 +26,11 @@
 ;;; Boston, MA 02111-1307, USA.
 ;;;
 
-;; This file is (not yet) part of GNU Emacs.
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.ssh\\'" . a2ps-mode))
 
-;; $Id: a2ps.el,v 1.1.1.1.2.2 2007/12/29 01:58:11 mhatta Exp $
-
-;; to autoload a2ps lisp code:
-;; (autoload 'a2ps-mode "a2ps-mode" nil t)
-;;
-;; or can use (load "a2ps-mode") or (require 'a2ps-mode) to just load it
-;;
-;; to try to "auto-detect" a2ps files:
-;; (setq auto-mode-alist
-;;	 (cons '(".*\\.a2ps$" . a2ps-mode)
-;;	       auto-mode-alist))
-
-;; Thanks to Didier Verna <verna@inf.enst.fr> for
-;; a2ps-compile-regexp
-
-;;path to the a2ps program
-(defvar a2ps-program "/usr/local/bin/a2ps")
+;; Name or full path of program invoked for a2ps
+(defvar a2ps-program "a2ps")
 
 ;;thank god for make-regexp.el!
 (defvar a2ps-font-lock-keywords
@@ -78,40 +64,6 @@
 (modify-syntax-entry ?_  "w" a2ps-mode-syntax-table)
 (modify-syntax-entry ?*  "w" a2ps-mode-syntax-table)
 
-;;; a2ps-compile-regexp
-
-;;; Author:        Didier Verna on metheny <verna@inf.enst.fr>
-;;; Maintainer:    Verna@inf.enst.fr
-;;; Created:       Wed Aug  6 08:54:37 1997 under emacs
-;;; Last revision: Wed Aug  6 10:32:40 1997
-;;;
-;;; Removed this now the syntax is completely different.
-;;; (defun a2ps-compile-regexp (start end)
-;;;   "Compile a list of keywords or operators to the optimized regexp.
-;;; - Select the region of keywords and type M-x a2ps-compile-regexp."
-;;;   (interactive "r")
-;;;   (let (thelist lines)
-;;; 	(setq lines (count-lines start end))
-;;; 	(goto-char start)
-;;; 	(save-excursion
-;;; 	  (while (< (point) end)
-;;; 	    (re-search-forward "[^ #,\"\t\n]+")
-;;; 	    (setq thelist (cons (match-string 0) thelist))
-;;; 	    (goto-char (+ (match-end 0) 1))))
-;;; 	(let ((i 1))
-;;; 	  (beginning-of-line)
-;;; 	  (while (<= i lines)
-;;; 	    (if (not (string= (char-to-string (following-char)) "#"))
-;;; 		(insert "#"))
-;;; 	    (forward-line)
-;;; 	    (setq i (+ i 1))))
-;;; 	(insert "/")
-;;; 	(save-excursion
-;;; 	  (insert (prin1-to-string (make-regexp thelist)))
-;;; 	  (delete-char -1)
-;;; 	  (insert "/\n"))
-;;; 	(delete-char 1)))
-
 (defvar a2ps-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map "\C-c\C-b" 'a2ps-a2ps-buffer)
@@ -142,24 +94,7 @@
     a2ps-mode-map
     "Menu used in a2ps mode."
   (list "a2ps"
-	["Compile region" a2ps-compile-regexp t]
-	["Documentation" a2ps-goto-info-page t]
-;	["Complete" TeX-complete-symbol t]
-;	["Save Document" TeX-save-document t]
-;	["Next Error" TeX-next-error t]
-;	["Kill Job" TeX-kill-job t]
-;	["Debug Bad Boxes" TeX-toggle-debug-boxes
-;	 :style toggle :selected TeX-debug-bad-boxes ]
-;	["Switch to Original File" TeX-home-buffer t]
-;	["Recenter Output Buffer" TeX-recenter-output-buffer t]
-;	;; ["Uncomment" TeX-un-comment t]
-;	["Uncomment Region" TeX-un-comment-region t]
-;	;; ["Comment Paragraph" TeX-comment-paragraph t]
-;	["Comment Region" TeX-comment-region t]
-;	["Switch to Master file" TeX-home-buffer t]
-;	["Submit bug report" TeX-submit-bug-report t]
-;	["Reset Buffer" TeX-normal-mode t]
-;	["Reset AUC TeX" (TeX-normal-mode t) :keys "C-u C-c C-n"]
+        ["Documentation" a2ps-goto-info-page t]
 	))
 
 ;; Open info on the page on How to write a style sheet
@@ -169,6 +104,7 @@
   (require 'info)
   (Info-goto-node "(a2ps)Style sheets implementation"))
 
+;;;###autoload
 (defun a2ps-mode ()
   "A major-mode to edit a2ps style sheet files
 \\{a2ps-mode-map}
@@ -181,13 +117,6 @@
   (setq comment-start "#")
   (make-local-variable 'parse-sexp-ignore-comments)
   (setq parse-sexp-ignore-comments t)
-
-  ; Used to have a cooler environment
-  (require 'filladapt)
-  (filladapt-mode)
-
-  ; Used to compile regexps
-;  (load "make-regexp")
 
   ; Used for the menus
   (require 'easymenu)
@@ -208,18 +137,5 @@
   (run-hooks 'a2ps-mode-hook))
 
 (provide 'a2ps-mode)
-
-;;stuff to play with for debugging
-;(char-to-string (char-syntax ?`))
-
-;;; (setq foo (make-regexp '("a2ps" "alphabet" "alphabets" "ancestors" "are" "by" "case" "closers" "documentation" "end" "exceptions" "first" "in" "insensitive" "is" "keywords" "requires" "second" "sensitive" "operators" "optional" "sequences" "style" "version" "written") t))
-
-;;; (setq bar (make-regexp '("\\\\forall" "\\\\exists" "\\\\suchthat" "\\\\cong" "\\\\Alpha" "\\\\Beta" "\\\\Chi" "\\\\Delta" "\\\\Epsilon" "\\\\Phi" "\\\\Gamma" "\\\\Eta" "\\\\Iota" "\\\\vartheta" "\\\\Kappa" "\\\\Lambda" "\\\\Mu" "\\\\Nu" "\\\\Omicron" "\\\\Pi" "\\\\Theta" "\\\\Rho" "\\\\Sigma" "\\\\Tau" "\\\\Upsilon" "\\\\varsigma" "\\\\Omega" "\\\\Xi" "\\\\Psi" "\\\\Zeta" "\\\\therefore" "\\\\perp" "\\\\radicalex" "\\\\alpha" "\\\\beta" "\\\\chi" "\\\\delta" "\\\\epsilon" "\\\\phi" "\\\\gamma" "\\\\eta" "\\\\iota" "\\\\varphi" "\\\\kappa" "\\\\lambda" "\\\\mu" "\\\\nu" "\\\\omicron" "\\\\pi" "\\\\theta" "\\\\rho" "\\\\sigma" "\\\\tau" "\\\\upsilon" "\\\\varpi" "\\\\omega" "\\\\xi" "\\\\psi" "\\\\zeta" "\\\\sim" "\\\\varUpsilon" "\\\\prime" "\\\\leq" "\\\\infty" "\\\\florin" "\\\\clubsuit" "\\\\diamondsuit" "\\\\heartsuit" "\\\\spadesuit" "\\\\leftrightarrow" "\\\\leftarrow" "\\\\uparrow" "\\\\rightarrow" "\\\\downarrow" "\\\\circ" "\\\\pm" "\\\\geq" "\\\\times" "\\\\propto" "\\\\partial" "\\\\bullet" "\\\\div" "\\\\neq" "\\\\equiv" "\\\\approx" "\\\\ldots" "---" "\\\\carriagereturn" "\\\\aleph" "\\\\Im" "\\\\Re" "\\\\wp" "\\\\otimes" "\\\\oplus" "\\\\emptyset" "\\\\cap" "\\\\cup" "\\\\supset" "\\\\supseteq" "\\\\not\\\\subset" "\\\\subset" "\\\\subseteq" "\\\\in" "\\\\not\\\\in" "\\\\angle" "\\\\nabla" "\\\\varregister" "\\\\varcopyright" "\\\\vartrademark" "\\\\prod" "\\\\surd" "\\\\cdot" "\\\\not" "\\\\wedge" "\\\\vee" "\\\\Leftrightarrow" "\\\\Leftarrow" "\\\\Uparrow" "\\\\Rightarrow" "\\\\Downarrow" "\\\\vardiamondsuit" "\\\\langle" "\\\\register" "\\\\copyright" "\\\\trademark" "\\\\sum" "\\\\lceil" "\\\\lfloor" "\\\\apple" "\\\\rangle" "\\\\int" "\\\\rceil" "\\\\rfloor")))
-
-
-;;; (defvar foobar (make-regexp '("Plain" "Keyword" "Keyword_strong" "Comment" "Comment_strong" "Label" "Label_strong" "String" "Symbol" "Tag1" "Tag2" "Tag3" "Tag4" "Index1" "Index2" "Index3" "Index4" "Error" "Encoding" "Invisible" "C-string" "C-char")))
-
-
-;;; (setq forall (make-regexp '("\\\\forall" "\\\\bullet")))
 
 ;;; a2ps.el ends here
