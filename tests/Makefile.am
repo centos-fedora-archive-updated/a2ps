@@ -28,7 +28,6 @@ deleg-2.tst	\
 encoding.tst	\
 guess-1.tst	\
 guess-2.tst	\
-inline.tst	\
 inout-1.tst	\
 inout-2.tst	\
 inout-3.tst	\
