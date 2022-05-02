@@ -1,0 +1,13 @@
+*.gmo
+/POTFILES
+/a2ps.pot
+/remove-potcdate.sed
+/remove-potcdate.sin
+/quot.sed
+/insert-header.sin
+/en@quot.header
+/en@boldquot.header
+/boldquot.sed
+/Rules-quot
+/Makevars.template
+/stamp-po

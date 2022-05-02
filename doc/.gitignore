@@ -1,0 +1,6 @@
+*.info
+/stamp-vti
+/encoding.texi
+/prologue.texi
+/sheets.texi
+/version.texi

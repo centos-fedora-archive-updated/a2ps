@@ -1,0 +1,10 @@
+*-o.pfa
+*-o.afm
+*-o.ps
+/aclocal.m4
+/autom4te.cache
+/config.log
+/config.status
+/configure
+/composeglyphs
+/ogonkify

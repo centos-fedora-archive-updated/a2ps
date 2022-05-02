@@ -1,0 +1,4 @@
+*.log
+*.trs
+/a2ps-tst.cfg
+/defs

@@ -1,0 +1,7 @@
+*.la
+/confg.c
+/fonts.c
+/lexppd.c
+/parseppd.c
+/parseppd.h
+/parseppd.output
