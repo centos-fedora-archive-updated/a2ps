@@ -31,7 +31,7 @@ echo "-------------------------------------"
 echo "   Comparing generated PostScript"
 echo "-------------------------------------"
 
-# We explicitely give the style sheet to use, because:
+# We explicitly give the style sheet to use, because:
 # - it avoids the problems with broken file(1)
 # - it is not the purpose of this test to test automatic style selection
 # - some languages share the same suffix
