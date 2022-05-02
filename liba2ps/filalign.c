@@ -52,7 +52,7 @@ file_align_argmatch (const char * option, const char * arg)
 {
   int i;
 
-  //ARGMATCH_VERIFY (file_align_args, file_align_types);
+  ARGMATCH_VERIFY (file_align_args, file_align_types);
 
   i = ARGMATCH (arg, file_align_args, file_align_types);
   if (i >= 0)
@@ -70,7 +70,7 @@ file_align_to_string (file_align_t file_align)
   static char buf[25];
 
   if (file_align < 0)
-    return ARGMATCH_TO_ARGUMENT (file_align,
+    return ARGMATCH_TO_ARGUMENT ((char *)&file_align,
 				 file_align_args, file_align_types);
 
   sprintf (buf, "%d", file_align);
