@@ -34,7 +34,6 @@ inout-3.tst	\
 options-1.tst	\
 pages-1.tst	\
 pages-2.tst	\
-po.tst		\
 printers.tst	\
 prolog-1.tst	\
 prolog-2.tst	\
