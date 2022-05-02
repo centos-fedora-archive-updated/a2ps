@@ -192,10 +192,10 @@ static void
 signal_handler (int signum)
 {
   /* Error calls exit which calls atexit which removes the files. */
-  char * strsignal = NULL;
+  char strsignal[SIG2STR_MAX];
   sig2str (signum, strsignal);
   error (EXIT_FAILURE, 0,
-	 _("received signal %d: %s"), signum, strsignal);
+	 _("received SIG%s"), strsignal);
 }
 
 /************************************************************************
