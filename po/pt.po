@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: a2ps 4.12\n"
 "Report-Msgid-Bugs-To: bug-a2ps@gnu.org\n"
-"POT-Creation-Date: 2017-09-17 22:54+0200\n"
+"POT-Creation-Date: 2022-05-02 16:01+0100\n"
 "PO-Revision-Date: 2000-01-14 10:48+01:00\n"
 "Last-Translator: Paulo Matos <pjsm@students.fct.unl.pt>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
@@ -23,7 +23,7 @@ msgid "any type"
 msgstr "qualquer tipo"
 
 # lib/confg.c:264 lib/encoding.c:577 lib/encoding.c:617 lib/prolog.c:146
-#: src/delegate.c:129 confg.gperf:171 liba2ps/encoding.c:525
+#: src/delegate.c:129 liba2ps/confg.gperf:171 liba2ps/encoding.c:525
 #: liba2ps/encoding.c:571 liba2ps/encoding.c:611 liba2ps/output.c:295
 #: liba2ps/pair_ht.c:286 liba2ps/prolog.c:135
 #, c-format
@@ -64,8 +64,8 @@ msgstr "`%s' é uma directoria"
 
 # lib/confg.c:288 lib/confg.c:451 lib/routines.c:154 src/generate.c:96
 # src/main.c:558 src/main.c:580
-#: src/generate.c:90 src/main.c:555 src/main.c:577 confg.gperf:201
-#: confg.gperf:364 liba2ps/routines.c:145
+#: src/generate.c:90 src/main.c:555 src/main.c:577 liba2ps/confg.gperf:201
+#: liba2ps/confg.gperf:364 liba2ps/routines.c:145
 #, c-format
 msgid "cannot open file `%s'"
 msgstr "não consigo abrir ficheiro `%s'"
@@ -158,13 +158,13 @@ msgid "plain"
 msgstr "normal"
 
 # /home/akim/src/a2ps-4.12/src/lexssh.l:348
-#: lexssh.l:350
+#: src/lexssh.l:350
 msgid "end-of-line in string constant"
 msgstr "fim de linha em string"
 
 # /home/akim/src/a2ps-4.12/src/lexssh.l:415 src/sheets-map.l:152
 # src/sheets-map.l:191
-#: lexssh.l:417 src/sheets-map.l:156 src/sheets-map.l:195
+#: src/lexssh.l:417 src/sheets-map.l:156 src/sheets-map.l:195
 #, c-format
 msgid "end of line inside a %s"
 msgstr "fim de linha dentro de %s"
@@ -812,7 +812,7 @@ msgid "unexpected character `%c'"
 msgstr "caracter `%c' inesperado"
 
 # /home/akim/src/a2ps-4.12/lib/lexppd.l:211 src/sheets-map.l:210
-#: src/sheets-map.l:214 lexppd.l:213
+#: src/sheets-map.l:214 liba2ps/lexppd.l:213
 #, c-format
 msgid "too many includes"
 msgstr "demasiadas inclusões"
@@ -827,8 +827,8 @@ msgstr "não há chave definida para `%s'"
 # /home/akim/src/a2ps-4.12/lib/fonts.l:839
 # /home/akim/src/a2ps-4.12/lib/fonts.l:841 lib/pathwalk.c:328
 # lib/pathwalk.c:414 src/select.c:122 src/ssheet.c:866
-#: src/select.c:119 src/ssheet.c:859 fonts.l:839 fonts.l:841 fonts.l:843
-#: liba2ps/pathwalk.c:323 liba2ps/pathwalk.c:409
+#: src/select.c:119 src/ssheet.c:859 liba2ps/fonts.l:839 liba2ps/fonts.l:841
+#: liba2ps/fonts.l:843 liba2ps/pathwalk.c:325 liba2ps/pathwalk.c:411
 #, c-format
 msgid "cannot find file `%s'"
 msgstr "não consigo encontrar o ficheiro `%s'"
@@ -899,35 +899,35 @@ msgid "question-mark (i.e., `?')"
 msgstr "interrogação (i.e., `?')"
 
 # lib/confg.c:253 lib/encoding.c:639
-#: confg.gperf:160 liba2ps/encoding.c:633
+#: liba2ps/confg.gperf:160 liba2ps/encoding.c:633
 #, c-format
 msgid "invalid option `%s'"
 msgstr "opção inválida `%s'"
 
 # lib/confg.c:320 lib/confg.c:327 lib/confg.c:334
-#: confg.gperf:233 confg.gperf:240 confg.gperf:247
+#: liba2ps/confg.gperf:233 liba2ps/confg.gperf:240 liba2ps/confg.gperf:247
 #, c-format
 msgid "invalid definition for printer `%s': %s"
 msgstr "definição inválida para a impressora `%s': %s"
 
 # lib/confg.c:325 lib/confg.c:328
-#: confg.gperf:238 confg.gperf:241 liba2ps/printers.c:42
+#: liba2ps/confg.gperf:238 liba2ps/confg.gperf:241 liba2ps/printers.c:42
 msgid "Unknown Printer"
 msgstr "Impressora Desconhecida"
 
 # lib/confg.c:332 lib/confg.c:335
-#: confg.gperf:245 confg.gperf:248 liba2ps/printers.c:41
+#: liba2ps/confg.gperf:245 liba2ps/confg.gperf:248 liba2ps/printers.c:41
 msgid "Default Printer"
 msgstr "Impressora por Omissão"
 
 # lib/confg.c:388 lib/options.c:703
-#: confg.gperf:301 liba2ps/options.c:687
+#: liba2ps/confg.gperf:301 liba2ps/options.c:687
 #, c-format
 msgid "invalid variable identifier `%s'"
 msgstr "identificador de variável inválido `%s'"
 
 # lib/confg.c:417
-#: confg.gperf:330
+#: liba2ps/confg.gperf:330
 #, c-format
 msgid "obsolete `%s' entry.  Ignored"
 msgstr "entrada `%s' obsoleta. Ignorada"

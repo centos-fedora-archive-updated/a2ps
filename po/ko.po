@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: a2ps-4.10.1\n"
 "Report-Msgid-Bugs-To: bug-a2ps@gnu.org\n"
-"POT-Creation-Date: 2017-09-17 22:54+0200\n"
+"POT-Creation-Date: 2022-05-02 16:01+0100\n"
 "PO-Revision-Date: 1999-01-24 13:02+01:00\n"
 "Last-Translator: CHOI Junho <junker@jazz.snu.ac.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "any type"
 msgstr "모든 종류"
 
-#: src/delegate.c:129 confg.gperf:171 liba2ps/encoding.c:525
+#: src/delegate.c:129 liba2ps/confg.gperf:171 liba2ps/encoding.c:525
 #: liba2ps/encoding.c:571 liba2ps/encoding.c:611 liba2ps/output.c:295
 #: liba2ps/pair_ht.c:286 liba2ps/prolog.c:135
 #, fuzzy, c-format
@@ -52,8 +52,8 @@ msgstr "어플리케이션은 위임 설정이 되었습니다"
 msgid "`%s' is a directory"
 msgstr "`%s'는 디렉토리입니다"
 
-#: src/generate.c:90 src/main.c:555 src/main.c:577 confg.gperf:201
-#: confg.gperf:364 liba2ps/routines.c:145
+#: src/generate.c:90 src/main.c:555 src/main.c:577 liba2ps/confg.gperf:201
+#: liba2ps/confg.gperf:364 liba2ps/routines.c:145
 #, c-format
 msgid "cannot open file `%s'"
 msgstr "파일 `%s'을 열 수 없습니다"
@@ -130,11 +130,11 @@ msgstr "[%s (바이너리): 무시함]\n"
 msgid "plain"
 msgstr "보통"
 
-#: lexssh.l:350
+#: src/lexssh.l:350
 msgid "end-of-line in string constant"
 msgstr "문자열 상수 안에서 행의 끝"
 
-#: lexssh.l:417 src/sheets-map.l:156 src/sheets-map.l:195
+#: src/lexssh.l:417 src/sheets-map.l:156 src/sheets-map.l:195
 #, fuzzy, c-format
 msgid "end of line inside a %s"
 msgstr "정규식에서 행의 끝"
@@ -690,7 +690,7 @@ msgstr "a2ps 버전 %s를 필요로 하는 `%s'를 처리할 수 없습니다"
 msgid "unexpected character `%c'"
 msgstr "잘못된 옵션: `%c' (%d)"
 
-#: src/sheets-map.l:214 lexppd.l:213
+#: src/sheets-map.l:214 liba2ps/lexppd.l:213
 #, c-format
 msgid "too many includes"
 msgstr ""
@@ -700,8 +700,8 @@ msgstr ""
 msgid "no key defined for `%s'"
 msgstr "파일 `%s%s'을 찾을 수 없습니다"
 
-#: src/select.c:119 src/ssheet.c:859 fonts.l:839 fonts.l:841 fonts.l:843
-#: liba2ps/pathwalk.c:323 liba2ps/pathwalk.c:409
+#: src/select.c:119 src/ssheet.c:859 liba2ps/fonts.l:839 liba2ps/fonts.l:841
+#: liba2ps/fonts.l:843 liba2ps/pathwalk.c:325 liba2ps/pathwalk.c:411
 #, fuzzy, c-format
 msgid "cannot find file `%s'"
 msgstr "파일 `%s%s'을 찾을 수 없습니다"
@@ -760,30 +760,30 @@ msgstr "emacs (예> `C-c', `M-C-c' 등등.)"
 msgid "question-mark (i.e., `?')"
 msgstr "의문부호 (예> `?')"
 
-#: confg.gperf:160 liba2ps/encoding.c:633
+#: liba2ps/confg.gperf:160 liba2ps/encoding.c:633
 #, fuzzy, c-format
 msgid "invalid option `%s'"
 msgstr "%s: 잘못된 옵션 -- %c\n"
 
-#: confg.gperf:233 confg.gperf:240 confg.gperf:247
+#: liba2ps/confg.gperf:233 liba2ps/confg.gperf:240 liba2ps/confg.gperf:247
 #, c-format
 msgid "invalid definition for printer `%s': %s"
 msgstr "프린터 `%s'에 대한 잘못된 정의: %s"
 
-#: confg.gperf:238 confg.gperf:241 liba2ps/printers.c:42
+#: liba2ps/confg.gperf:238 liba2ps/confg.gperf:241 liba2ps/printers.c:42
 msgid "Unknown Printer"
 msgstr "알 수 없는 프린터"
 
-#: confg.gperf:245 confg.gperf:248 liba2ps/printers.c:41
+#: liba2ps/confg.gperf:245 liba2ps/confg.gperf:248 liba2ps/printers.c:41
 msgid "Default Printer"
 msgstr "기본 프린터"
 
-#: confg.gperf:301 liba2ps/options.c:687
+#: liba2ps/confg.gperf:301 liba2ps/options.c:687
 #, fuzzy, c-format
 msgid "invalid variable identifier `%s'"
 msgstr "잘못된 매크로 식별자: `%s'"
 
-#: confg.gperf:330
+#: liba2ps/confg.gperf:330
 #, c-format
 msgid "obsolete `%s' entry.  Ignored"
 msgstr "사용하지 않는 `%s' 엔트리. 무시합니다"

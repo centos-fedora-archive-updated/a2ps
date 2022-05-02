@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: a2ps 4.9\n"
 "Report-Msgid-Bugs-To: bug-a2ps@gnu.org\n"
-"POT-Creation-Date: 2017-09-17 22:54+0200\n"
+"POT-Creation-Date: 2022-05-02 16:01+0100\n"
 "PO-Revision-Date: 2002-03-25 18:17+0100\n"
 "Last-Translator: H. Turgut Uyar <uyar@cs.itu.edu.tr>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "any type"
 msgstr "her tip"
 
-#: src/delegate.c:129 confg.gperf:171 liba2ps/encoding.c:525
+#: src/delegate.c:129 liba2ps/confg.gperf:171 liba2ps/encoding.c:525
 #: liba2ps/encoding.c:571 liba2ps/encoding.c:611 liba2ps/output.c:295
 #: liba2ps/pair_ht.c:286 liba2ps/prolog.c:135
 #, c-format
@@ -53,8 +53,8 @@ msgstr "Üstlenici olarak ayarlanan uygulamalar"
 msgid "`%s' is a directory"
 msgstr "`%s' bir dizin"
 
-#: src/generate.c:90 src/main.c:555 src/main.c:577 confg.gperf:201
-#: confg.gperf:364 liba2ps/routines.c:145
+#: src/generate.c:90 src/main.c:555 src/main.c:577 liba2ps/confg.gperf:201
+#: liba2ps/confg.gperf:364 liba2ps/routines.c:145
 #, c-format
 msgid "cannot open file `%s'"
 msgstr "`%s' dosyasý açýlamýyor"
@@ -131,11 +131,11 @@ msgstr "[%s (ikili): gözardý edildi]\n"
 msgid "plain"
 msgstr "sade"
 
-#: lexssh.l:350
+#: src/lexssh.l:350
 msgid "end-of-line in string constant"
 msgstr "katar sabitinde satýr-sonu"
 
-#: lexssh.l:417 src/sheets-map.l:156 src/sheets-map.l:195
+#: src/lexssh.l:417 src/sheets-map.l:156 src/sheets-map.l:195
 #, fuzzy, c-format
 msgid "end of line inside a %s"
 msgstr "düzgün deyimde satýr-sonu"
@@ -700,7 +700,7 @@ msgstr "`%s' iþlenemiyor, a2ps %s sürümü gerekli"
 msgid "unexpected character `%c'"
 msgstr ""
 
-#: src/sheets-map.l:214 lexppd.l:213
+#: src/sheets-map.l:214 liba2ps/lexppd.l:213
 #, c-format
 msgid "too many includes"
 msgstr ""
@@ -710,8 +710,8 @@ msgstr ""
 msgid "no key defined for `%s'"
 msgstr "`%s' dosyasý bulunamýyor"
 
-#: src/select.c:119 src/ssheet.c:859 fonts.l:839 fonts.l:841 fonts.l:843
-#: liba2ps/pathwalk.c:323 liba2ps/pathwalk.c:409
+#: src/select.c:119 src/ssheet.c:859 liba2ps/fonts.l:839 liba2ps/fonts.l:841
+#: liba2ps/fonts.l:843 liba2ps/pathwalk.c:325 liba2ps/pathwalk.c:411
 #, c-format
 msgid "cannot find file `%s'"
 msgstr "`%s' dosyasý bulunamýyor"
@@ -769,30 +769,30 @@ msgstr "emacs (yani `C-c', `M-C-c' gibi)"
 msgid "question-mark (i.e., `?')"
 msgstr "soru iþareti (yani `?')"
 
-#: confg.gperf:160 liba2ps/encoding.c:633
+#: liba2ps/confg.gperf:160 liba2ps/encoding.c:633
 #, c-format
 msgid "invalid option `%s'"
 msgstr "geçersiz seçenek `%s'"
 
-#: confg.gperf:233 confg.gperf:240 confg.gperf:247
+#: liba2ps/confg.gperf:233 liba2ps/confg.gperf:240 liba2ps/confg.gperf:247
 #, c-format
 msgid "invalid definition for printer `%s': %s"
 msgstr "`%s' yazýcýsý için hatalý tanýmlama: %s"
 
-#: confg.gperf:238 confg.gperf:241 liba2ps/printers.c:42
+#: liba2ps/confg.gperf:238 liba2ps/confg.gperf:241 liba2ps/printers.c:42
 msgid "Unknown Printer"
 msgstr "Tanýnmayan Yazýcý"
 
-#: confg.gperf:245 confg.gperf:248 liba2ps/printers.c:41
+#: liba2ps/confg.gperf:245 liba2ps/confg.gperf:248 liba2ps/printers.c:41
 msgid "Default Printer"
 msgstr "Öntanýmlý Yazýcý"
 
-#: confg.gperf:301 liba2ps/options.c:687
+#: liba2ps/confg.gperf:301 liba2ps/options.c:687
 #, c-format
 msgid "invalid variable identifier `%s'"
 msgstr "geçersiz deðiþken adý `%s'"
 
-#: confg.gperf:330
+#: liba2ps/confg.gperf:330
 #, c-format
 msgid "obsolete `%s' entry.  Ignored"
 msgstr "`%s' kaydý artýk anlamsýz.  Gözardý edildi"

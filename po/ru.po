@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: a2ps 4.12j\n"
 "Report-Msgid-Bugs-To: bug-a2ps@gnu.org\n"
-"POT-Creation-Date: 2017-09-17 22:54+0200\n"
+"POT-Creation-Date: 2022-05-02 16:01+0100\n"
 "PO-Revision-Date: 2000-01-27 23:28+03:00\n"
 "Last-Translator: Dmitry S. Sivachenko <dima@Chg.RU>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "any type"
 msgstr "произвольного типа"
 
-#: src/delegate.c:129 confg.gperf:171 liba2ps/encoding.c:525
+#: src/delegate.c:129 liba2ps/confg.gperf:171 liba2ps/encoding.c:525
 #: liba2ps/encoding.c:571 liba2ps/encoding.c:611 liba2ps/output.c:295
 #: liba2ps/pair_ht.c:286 liba2ps/prolog.c:135
 #, c-format
@@ -52,8 +52,8 @@ msgstr "Приложения, сконфигурированные для делегирования"
 msgid "`%s' is a directory"
 msgstr "`%s' является каталогом"
 
-#: src/generate.c:90 src/main.c:555 src/main.c:577 confg.gperf:201
-#: confg.gperf:364 liba2ps/routines.c:145
+#: src/generate.c:90 src/main.c:555 src/main.c:577 liba2ps/confg.gperf:201
+#: liba2ps/confg.gperf:364 liba2ps/routines.c:145
 #, c-format
 msgid "cannot open file `%s'"
 msgstr "не удается открыть файл `%s'"
@@ -130,11 +130,11 @@ msgstr "[%s (двоичный): игнорирован]\n"
 msgid "plain"
 msgstr "простой"
 
-#: lexssh.l:350
+#: src/lexssh.l:350
 msgid "end-of-line in string constant"
 msgstr "конец строки внутри строковой константы"
 
-#: lexssh.l:417 src/sheets-map.l:156 src/sheets-map.l:195
+#: src/lexssh.l:417 src/sheets-map.l:156 src/sheets-map.l:195
 #, c-format
 msgid "end of line inside a %s"
 msgstr "конец строки в %s"
@@ -735,7 +735,7 @@ msgstr "не удается обработать `%s', который требует a2ps версии %s"
 msgid "unexpected character `%c'"
 msgstr "неожиданный знак `%c'"
 
-#: src/sheets-map.l:214 lexppd.l:213
+#: src/sheets-map.l:214 liba2ps/lexppd.l:213
 #, c-format
 msgid "too many includes"
 msgstr "слишком много включений"
@@ -745,8 +745,8 @@ msgstr "слишком много включений"
 msgid "no key defined for `%s'"
 msgstr "не определен ключ для `%s'"
 
-#: src/select.c:119 src/ssheet.c:859 fonts.l:839 fonts.l:841 fonts.l:843
-#: liba2ps/pathwalk.c:323 liba2ps/pathwalk.c:409
+#: src/select.c:119 src/ssheet.c:859 liba2ps/fonts.l:839 liba2ps/fonts.l:841
+#: liba2ps/fonts.l:843 liba2ps/pathwalk.c:325 liba2ps/pathwalk.c:411
 #, c-format
 msgid "cannot find file `%s'"
 msgstr "не удается найти файл `%s'"
@@ -804,30 +804,30 @@ msgstr "emacs (т.е. `C-c', `M-C-c' и т.д.)"
 msgid "question-mark (i.e., `?')"
 msgstr "знак вопроса (т.е. `?')"
 
-#: confg.gperf:160 liba2ps/encoding.c:633
+#: liba2ps/confg.gperf:160 liba2ps/encoding.c:633
 #, c-format
 msgid "invalid option `%s'"
 msgstr "неверный ключ `%s'"
 
-#: confg.gperf:233 confg.gperf:240 confg.gperf:247
+#: liba2ps/confg.gperf:233 liba2ps/confg.gperf:240 liba2ps/confg.gperf:247
 #, c-format
 msgid "invalid definition for printer `%s': %s"
 msgstr "неверное определение принтера `%s': %s"
 
-#: confg.gperf:238 confg.gperf:241 liba2ps/printers.c:42
+#: liba2ps/confg.gperf:238 liba2ps/confg.gperf:241 liba2ps/printers.c:42
 msgid "Unknown Printer"
 msgstr "Неизвестный принтер"
 
-#: confg.gperf:245 confg.gperf:248 liba2ps/printers.c:41
+#: liba2ps/confg.gperf:245 liba2ps/confg.gperf:248 liba2ps/printers.c:41
 msgid "Default Printer"
 msgstr "Принтер по умолчанию"
 
-#: confg.gperf:301 liba2ps/options.c:687
+#: liba2ps/confg.gperf:301 liba2ps/options.c:687
 #, c-format
 msgid "invalid variable identifier `%s'"
 msgstr "неверный идентификатор переменной `%s'"
 
-#: confg.gperf:330
+#: liba2ps/confg.gperf:330
 #, c-format
 msgid "obsolete `%s' entry.  Ignored"
 msgstr "устаревшая запись `%s'. Игнорирована"

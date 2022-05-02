@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: a2ps 4.13b\n"
 "Report-Msgid-Bugs-To: bug-a2ps@gnu.org\n"
-"POT-Creation-Date: 2017-09-17 22:54+0200\n"
+"POT-Creation-Date: 2022-05-02 16:01+0100\n"
 "PO-Revision-Date: 2007-09-30 22:49+0200\n"
 "Last-Translator: Benno Schulenberg <benno@vertaalt.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "any type"
 msgstr "willekeurig"
 
-#: src/delegate.c:129 confg.gperf:171 liba2ps/encoding.c:525
+#: src/delegate.c:129 liba2ps/confg.gperf:171 liba2ps/encoding.c:525
 #: liba2ps/encoding.c:571 liba2ps/encoding.c:611 liba2ps/output.c:295
 #: liba2ps/pair_ht.c:286 liba2ps/prolog.c:135
 #, c-format
@@ -55,8 +55,8 @@ msgstr "Programma's waarnaar gedelegeerd kan worden"
 msgid "`%s' is a directory"
 msgstr "'%s' is een map"
 
-#: src/generate.c:90 src/main.c:555 src/main.c:577 confg.gperf:201
-#: confg.gperf:364 liba2ps/routines.c:145
+#: src/generate.c:90 src/main.c:555 src/main.c:577 liba2ps/confg.gperf:201
+#: liba2ps/confg.gperf:364 liba2ps/routines.c:145
 #, c-format
 msgid "cannot open file `%s'"
 msgstr "kan bestand '%s' niet openen"
@@ -133,11 +133,11 @@ msgstr "[%s (binair) -- genegeerd]\n"
 msgid "plain"
 msgstr "gewoon"
 
-#: lexssh.l:350
+#: src/lexssh.l:350
 msgid "end-of-line in string constant"
 msgstr "regeleindeteken in tekstconstante"
 
-#: lexssh.l:417 src/sheets-map.l:156 src/sheets-map.l:195
+#: src/lexssh.l:417 src/sheets-map.l:156 src/sheets-map.l:195
 #, c-format
 msgid "end of line inside a %s"
 msgstr "regeleinde binnen een %s"
@@ -737,7 +737,7 @@ msgstr "kan '%s' niet verwerken; dit vereist versie %s van 'a2ps'"
 msgid "unexpected character `%c'"
 msgstr "onverwacht teken '%c'"
 
-#: src/sheets-map.l:214 lexppd.l:213
+#: src/sheets-map.l:214 liba2ps/lexppd.l:213
 #, c-format
 msgid "too many includes"
 msgstr "te veel insluitingen ('includes')"
@@ -747,8 +747,8 @@ msgstr "te veel insluitingen ('includes')"
 msgid "no key defined for `%s'"
 msgstr "geen sleutel gedefinieerd voor '%s'"
 
-#: src/select.c:119 src/ssheet.c:859 fonts.l:839 fonts.l:841 fonts.l:843
-#: liba2ps/pathwalk.c:323 liba2ps/pathwalk.c:409
+#: src/select.c:119 src/ssheet.c:859 liba2ps/fonts.l:839 liba2ps/fonts.l:841
+#: liba2ps/fonts.l:843 liba2ps/pathwalk.c:325 liba2ps/pathwalk.c:411
 #, c-format
 msgid "cannot find file `%s'"
 msgstr "kan bestand '%s' niet vinden"
@@ -806,30 +806,30 @@ msgstr "emacs ('C-c', 'M-C-c' enz.)"
 msgid "question-mark (i.e., `?')"
 msgstr "vraagteken ('?')"
 
-#: confg.gperf:160 liba2ps/encoding.c:633
+#: liba2ps/confg.gperf:160 liba2ps/encoding.c:633
 #, c-format
 msgid "invalid option `%s'"
 msgstr "ongeldige optie '%s'"
 
-#: confg.gperf:233 confg.gperf:240 confg.gperf:247
+#: liba2ps/confg.gperf:233 liba2ps/confg.gperf:240 liba2ps/confg.gperf:247
 #, c-format
 msgid "invalid definition for printer `%s': %s"
 msgstr "ongeldige definitie voor printer '%s': %s"
 
-#: confg.gperf:238 confg.gperf:241 liba2ps/printers.c:42
+#: liba2ps/confg.gperf:238 liba2ps/confg.gperf:241 liba2ps/printers.c:42
 msgid "Unknown Printer"
 msgstr "Onbekende printer"
 
-#: confg.gperf:245 confg.gperf:248 liba2ps/printers.c:41
+#: liba2ps/confg.gperf:245 liba2ps/confg.gperf:248 liba2ps/printers.c:41
 msgid "Default Printer"
 msgstr "Standaardprinter"
 
-#: confg.gperf:301 liba2ps/options.c:687
+#: liba2ps/confg.gperf:301 liba2ps/options.c:687
 #, c-format
 msgid "invalid variable identifier `%s'"
 msgstr "ongeldige variabelenaam '%s'"
 
-#: confg.gperf:330
+#: liba2ps/confg.gperf:330
 #, c-format
 msgid "obsolete `%s' entry.  Ignored"
 msgstr "verouderd item '%s' -- genegeerd"
