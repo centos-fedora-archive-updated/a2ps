@@ -980,7 +980,7 @@ main (int argc, char *argv[])
   /* Prepare to receive in the hash table of the delegations */
   delegation_table = delegation_table_new ();
 
-  /* Set the syntax that has be chosen for regexp */
+  /* Set the a2ps-specific regex syntax */
   re_set_syntax (RE_SYNTAX_A2PS);
 
   /* The spine of a2ps */

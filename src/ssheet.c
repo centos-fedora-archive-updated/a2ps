@@ -1491,9 +1491,9 @@ get_style_sheet (const char * key)
   if (!item)
     return NULL;
 
-  /* To me, it looks like an horror: the syntax table is not
-   * stored in the regex buffer.  As a consequence, each time
-   * we change sheet, make sure to update the re_syntax_table */
+  /* To me, it's a horror: the syntax table is not stored in the regex
+   * buffer.  As a consequence, each time we change sheet, make sure to
+   * update the re_syntax_table */
   re_syntax_table = (char *) item->alpha1;
 
   return item;
