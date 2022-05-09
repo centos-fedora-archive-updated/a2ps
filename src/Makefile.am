@@ -39,7 +39,7 @@ yy2ssh.h lexps.h
 
 BUILT_SOURCES = parsessh.c parsessh.h
 
-YFLAGS = -dtv
+AM_YFLAGS = -dtv
 LEX = @LEX@
 
 a2ps_LDADD = $(top_builddir)/liba2ps/liba2ps.la $(LIBINTL) ../lib/libgnu.la -lm -L/opt/local/lib -lpaper # FIXME: hard coded.
