@@ -19,11 +19,8 @@ Contents:
 =========
 
 1. Installation
-2. Upgrading from versions prior to 4.10
-3. Upgrading from versions prior to 4.12
-4. Upgrading from versions prior to 4.13
-5. Distribution content
-6. More?
+2. Distribution content
+3. More?
 
 
 1. Installation
@@ -107,63 +104,7 @@ Do not, *ever*, send bug reports to a2ps@gnu.org.  Well, pleeeeeease,
 I mean.
 
 
-
-2. Upgrading from versions prior to 4.10
-========================================
-
-Because the organization of the library files is different, it is
-strongly suggested to get rid of your old library files (usually rm
--rf .../share/a2ps is enough).
-
-There _will_be_ problems if you don't remove them, because the new
-a2ps may use files meant for the old versions.  If you don't want to
-remove these files, at least make sure they won't be installed in the
-same place.
-
-There can be strange things happening with `make check'.  This is due
-to a painful behavior of some shared library handlers: they use an old
-a2ps library with the new a2ps executable.
-
-Doing `make install' _before_ make check solves the problem.
-
-
-
-
-3. Upgrading from versions prior to 4.12
-========================================
-
-The most sensitive changes in the interface are that -D no longer
-means --setpagedevice, but --define, and -S no longer means
---statusdict, but --setpagedevice.
-
-
-
-4. Upgrading from versions prior to 4.13
-========================================
-
-There's a big change in the syntax of the style sheets.  I must
-confess I took a very bad decision when I first implemented this: I
-wanted to be compatible with the regexp of Emacs, for obscure and not
-really interesting reasons.
-
-*All* the style sheets shipped with a2ps are updated (of course,
-otherwise my life would be in danger).  While I did try, I probably
-didn't managed to fix your own .ssh file hidden on your disk.  So you
-may have to handle this by yourself.  Here's the piece of NEWS stating
-the problem:
-
- * Regexp are now \`egrep'  and \`Perl' like, and no longer \`Emacs' like.
-   Before some characters had to be backslashed to denote the
-   operators.  Now, it is just the contrary.  For instance before
-   `\\(' and `\\)' used to be the grouping operator and `(' and `)'
-   were standing for the characters parentheses; while now it is the
-   converse.
-   Affected characters are `(', `)', `|', `{', and `}'.
-   Make sure to update your own style sheets.
-
-
-
-5. Distribution content
+2. Distribution content
 =======================
 
 Some interesting files/directories you might want to look at are:
@@ -187,9 +128,8 @@ ogonkify/	The full distribution of the fantastic
 		Latin1 so that other Latin encodings are supported.
 
 
-
-6. More ?
-=========
+3. More?
+========
 
 a2ps has a home page where the latest version may be found.
 
@@ -207,10 +147,6 @@ announcements, wishes etc.  Before sending a mail there, remember many
 people will read your mail.
 
 Bug reports should be sent to bug-a2ps@gnu.org
-
-PS(um): if you're happy with this program, or just if you installed
-it, please _let_us_know_!   That's about the only contact we have from
-the world of outside, since there are never bug reports 8*)
 
 Local Variables:
 mode: indented-text
