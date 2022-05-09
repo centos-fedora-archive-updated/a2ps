@@ -2,4 +2,4 @@
 a2ps \- format files for printing on a PostScript printer
 
 [DESCRIPTION]
-." Add any additional description here
+.\" Add any additional description here
