@@ -413,13 +413,13 @@ FileCommand: @FILE_LINK@
 # with a hook to post-process PostScript (to call psbook for instance).
 # Something like `#{lp.hook} lp  #{lp.options}'
 #             or `#{lp.hook} lpr #{lp.options}'.
-Variable: lp.default #{lp.hook} @LPR@ #{lp.options}
+Variable: lp.default #{lp.hook} a2ps-lpr-wrapper #{lp.options}
 
 
 # The same, but when a printer is specified.
 # Something like `#{lp.hook} lp  #{lp.options} -d'
 #             or `#{lp.hook} lpr #{lp.options} -P'.
-Variable: lp #{lp.hook} @LPR@ #{lp.options} @LPR_QUEUE_OPTION@
+Variable: lp #{lp.hook} a2ps-lpr-wrapper #{lp.options} -d
 
 
 # To avoid that the next installation of a2ps destroys your

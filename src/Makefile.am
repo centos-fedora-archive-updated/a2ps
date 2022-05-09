@@ -22,6 +22,7 @@
 AM_CPPFLAGS = -I.. -I$(srcdir) -I$(top_srcdir)/liba2ps -I$(top_builddir)/intl \
 	-I$(top_srcdir)/lib -DLOCALEDIR=\"$(localedir)\"
 
+bin_SCRIPTS = a2ps-lpr-wrapper
 bin_PROGRAMS = a2ps
 
 a2ps_SOURCES = main.c \
@@ -43,7 +44,7 @@ LEX = @LEX@
 
 a2ps_LDADD = $(top_builddir)/liba2ps/liba2ps.la $(LIBINTL) ../lib/libgnu.la -lm -L/opt/local/lib -lpaper # FIXME: hard coded.
 
-EXTRA_DIST = $(BUILT_SOURCES)
+EXTRA_DIST = $(BUILT_SOURCES) $(bin_SCRIPTS)
 
 clean-local:
 	rm -rf *.dSYM
