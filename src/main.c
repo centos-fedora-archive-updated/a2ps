@@ -572,7 +572,7 @@ spy_user (struct a2ps_job *a_job, FILE * stream)
   /* Yes, I know, there are certainly better means.  Just teach them
      to me...  */
   fclose (spy);
-  fopen (spyname, "r");
+  spy = fopen (spyname, "r");
   if (!spy)
     error (1, errno, _("cannot open file `%s'"), quotearg (spyname));
 
