@@ -2,3 +2,5 @@
 *.trs
 /a2ps-tst.cfg
 /defs
+/ps-chk
+/gps-chk
