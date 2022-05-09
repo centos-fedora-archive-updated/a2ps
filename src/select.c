@@ -162,7 +162,7 @@ shell_escape(const char *fn)
   if could not be run.  */
 
 static char *
-file_verdict_on (const unsigned char *filename)
+file_verdict_on (const unsigned char *filename_)
 {
   char *cp = NULL, * command;
   char buf [1024];
@@ -171,8 +171,8 @@ file_verdict_on (const unsigned char *filename)
   if (IS_EMPTY (job->file_command))
     return NULL;
 
-  filename = shell_escape(filename);
-  if(filename == NULL)
+  char *filename = shell_escape (filename_);
+  if (filename == NULL)
     return NULL;
   /* Call file(1) with the correct option */
   command = ALLOCA (char, (4
@@ -193,8 +193,13 @@ file_verdict_on (const unsigned char *filename)
     }
 
   /* Get the answer */
-  fgets (buf, sizeof (buf), file_out);
+  char * res = fgets (buf, sizeof (buf), file_out);
   pclose (file_out);
+  if (res == NULL)
+    {
+      error (0, errno, _("error running file(!)"));
+      return NULL;
+    }
   message (msg_tool, (stderr, "file(1): %s", buf));
 
   /* File is expected to answer:
