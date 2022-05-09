@@ -34,6 +34,7 @@ struct a2ps_job;	/* Declared in jobs.h which includes this file */
  */
 unsigned int char_WX (struct a2ps_job * job, unsigned char c);
 unsigned int string_WX (struct a2ps_job * job, unsigned char * string);
+unsigned int char_composite_WX (struct a2ps_job * job, unsigned char c);
 
 
 /************************************************************************/
@@ -47,6 +48,7 @@ void encoding_self_print (struct encoding * item,
 					FILE * stream);
 int encoding_char_exists (struct encoding * enc,
 					enum face_e face, unsigned char c);
+int encoding_get_composite_flag (struct encoding * enc);
 struct encoding *
 get_encoding_by_alias (struct a2ps_job * job, 
 			       char *string);
@@ -62,6 +64,12 @@ const char * encoding_resolve_font_substitute
 		 struct encoding * encoding,
 		 const char * font_name);
 
+
+const char * encoding_resolve_composite_font
+	(struct a2ps_job * job,
+		 struct encoding * encoding,
+		 const char * font_name);
+ 
 /*
  * Have a struct encoding determine the faces_wx
  */

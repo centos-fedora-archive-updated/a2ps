@@ -93,6 +93,12 @@ koi8r			koi8
 koi8			koi8
 koi			koi8
 
+euc-jp			euc-jp
+eucjp			euc-jp
+japanese		euc-jp
+ja			euc-jp
+jp			euc-jp
+
 ########################################################################
 # Some architectures specific char sets
 ########################################################################

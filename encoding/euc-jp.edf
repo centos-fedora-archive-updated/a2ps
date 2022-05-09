@@ -1,0 +1,95 @@
+# Description of the EUC-JP encoding
+# Copyright (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+# Copyright (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+# Copyright (c) 2003 Masayuki Hatta
+#
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; see the file COPYING.  If not, write to
+# the Free Software Foundation, 59 Temple Place - Suite 330,
+# Boston, MA 02111-1307, USA.
+#
+
+Name: EUC-JP
+
+Documentation
+The EUC-JP encoding is a 8-bit character set widely used in Japan.
+EndDocumentation
+
+# If there is an unknown font requested, use Courier
+Default: Courier
+
+# Automatic spell checking :)
+Substitute: 	Times			Times-Roman
+Substitute: 	Helvetica-Italic	Helvetica-Oblique
+Substitute: 	Helvetica-BoldItalic	Helvetica-BoldOblique
+
+
+# SlantFont for Japanese Italic Kanji font
+#		new font			source font		value
+SlantFont:	Ryumin-Light-EUC-H-Italic	Ryumin-Light-EUC-H	0.2
+SlantFont:	GothicBBB-Medium-EUC-H-Italic	GothicBBB-Medium-EUC-H	0.2
+
+# Compose fonts for Japanese EUC code
+#		target font		additional font			width	size rate
+DefaultComposite:			Ryumin-Light-EUC-H		1.0	1.1
+
+# 1:2 fixed
+#DefaultComposite:			Ryumin-Light-EUC-H		1.0	0.8333
+
+# 1:1 fixed
+#DefaultComposite:			Ryumin-Light-EUC-H		1.0	1.6666
+
+Composite:	Helvetica		GothicBBB-Medium-EUC-H		1.0	1.1
+Composite:	Helvetica-Oblique	GothicBBB-Medium-EUC-H-Italic	1.0 	1.1
+Composite:	Helvetica-Bold		GothicBBB-Medium-EUC-H  	1.0 	1.1
+Composite:	Helvetica-BoldOblique	GothicBBB-Medium-EUC-H-Italic	1.0	1.1
+
+Composite:	Courier-Oblique		Ryumin-Light-EUC-H-Italic	1.0	1.1
+Composite:	Courier-Bold		GothicBBB-Medium-EUC-H		1.0	1.1
+Composite:	Courier-BoldOblique	GothicBBB-Medium-EUC-H-Italic	1.0	1.1
+Composite:	Times-Bold		GothicBBB-Medium-EUC-H		1.0	1.1
+
+Vector:
+.notdef .notdef .notdef .notdef .notdef .notdef .notdef .notdef
+.notdef .notdef .notdef .notdef .notdef .notdef .notdef .notdef
+.notdef .notdef .notdef .notdef .notdef .notdef .notdef .notdef
+.notdef .notdef .notdef .notdef .notdef .notdef .notdef .notdef
+space exclam quotedbl numbersign dollar percent ampersand quoteright
+parenleft parenright asterisk plus comma minus period slash
+zero one two three four five six seven
+eight nine colon semicolon less equal greater question
+at A B C D E F G
+H I J K L M N O
+P Q R S T U V W
+X Y Z bracketleft backslash bracketright asciicircum underscore
+quoteleft a b c d e f g
+h i j k l m n o
+p q r s t u v w
+x y z braceleft bar braceright asciitilde .notdef
+.notdef .notdef .notdef .notdef .notdef .notdef .notdef .notdef
+.notdef .notdef .notdef .notdef .notdef .notdef .notdef .notdef
+.notdef .notdef .notdef .notdef .notdef .notdef .notdef .notdef
+.notdef .notdef .notdef .notdef .notdef .notdef .notdef .notdef
+space exclamdown cent sterling currency yen brokenbar section
+dieresis copyright ordfeminine guillemotleft logicalnot hyphen registered macron
+degree plusminus twosuperior threesuperior acute mu paragraph bullet
+cedilla onesuperior ordmasculine guillemotright onequarter onehalf threequarters questiondown
+Agrave Aacute Acircumflex Atilde Adieresis Aring AE Ccedilla
+Egrave Eacute Ecircumflex Edieresis Igrave Iacute Icircumflex Idieresis
+Eth Ntilde Ograve Oacute Ocircumflex Otilde Odieresis multiply
+Oslash Ugrave Uacute Ucircumflex Udieresis Yacute Thorn germandbls
+agrave aacute acircumflex atilde adieresis aring ae ccedilla
+egrave eacute ecircumflex edieresis igrave iacute icircumflex idieresis
+eth ntilde ograve oacute ocircumflex otilde odieresis divide
+oslash ugrave uacute ucircumflex udieresis yacute thorn ydieresis

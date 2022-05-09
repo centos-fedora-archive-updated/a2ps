@@ -55,6 +55,10 @@ void pair_delete (struct pair_htable * table, const char * key);
  */
 char * pair_get (struct pair_htable * table,
 			 const char * key);
+int    pair_get_wx (struct pair_htable * table,
+			    const char * key);
+float  pair_get_ratio (struct pair_htable * table,
+			       const char * key);
 
 void pair_table_list_short (struct pair_htable * table,
 				    FILE * stream);
@@ -62,6 +66,10 @@ void pair_table_list_long (struct pair_htable * table,
 				   FILE * stream);
 void pair_table_self_print (struct pair_htable * table,
 				    FILE * stream);
+
+void pair_add2 (struct pair_htable * table, 
+		       const char * key, const char * value,
+			int wx, float ratio);
 
 /*
  * Map a function to the content of the table

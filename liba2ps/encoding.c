@@ -384,16 +384,27 @@ font_entry_set_used (struct hash_table_s * table, const char * name)
  * Association of suffixes rules, and corresponding style sheet
  * (The hashing is upon `alias')
  */
+struct slantfont_info {
+  char * name;
+  char * src;
+  float ratio;
+};
+
 struct encoding {
   char * key;			/* e.g. latin1			*/
   char * name;			/* e.g. ISO Latin 1		*/
-  unsigned char * documentation;		/* Useful pieces of text	*/
+  int    composite_flag;		/* flag for composite font	*/
+  unsigned char * documentation;	/* Useful pieces of text	*/
 
   char * default_font;		/* When a font can't be used
 				   define the font to use	*/
   struct pair_htable * substitutes;	/* e.g. in latin2, don't use
 					 * Courier, but Courier-Ogonki	*/
 
+  struct pair_htable * composite;
+
+  struct slantfont_info     slantfont[NB_FACES];
+ 
   char * vector[256];	/* Define the char set			*/
   struct darray * font_names_used;
 				/* E.g. Courier has been used, but
@@ -402,6 +413,9 @@ struct encoding {
   struct hash_table_s * fonts;	/* Contains cells that are
 				 * 1. name of font, 2. int wx[256] 	*/
   unsigned int * faces_wx[NB_FACES];
+
+  unsigned int   composite_wx[NB_FACES];     /* fixed length font width */
+  float          composite_ratio[NB_FACES];  /* size ratio of additonal and original font */
 };
 
 /*
@@ -418,9 +432,12 @@ encoding_new (const char * key)
   res->name = NULL;
   res->default_font = NULL;
   res->documentation = NULL;
+  res->composite_flag = false;
 
   /* Vector will be set by setup */
   res->substitutes = pair_table_new ();
+  res->composite = pair_table_new ();
+  res->slantfont[0].name = NULL;
   res->font_names_used = da_new ("List of font names", 10,
 				 da_linear, 10,
 				 (da_print_func_t) da_str_print,
@@ -463,6 +480,34 @@ encoding_add_font_substitute (struct encoding * encoding,
 			      const char * orig, const char * subs)
 {
   pair_add (encoding->substitutes, orig, subs);
+}
+
+/*
+ * Add a composite font in the current encoding
+ */
+static void
+encoding_add_composite_font (struct encoding * encoding,
+			      const char * orig, const char * subs,
+			      int wx, float ratio)
+{
+  encoding->composite_flag = true;
+  pair_add2 (encoding->composite, orig, subs, wx, ratio);
+}
+
+/*
+ * Add a composite font in the current encoding
+ */
+static void
+encoding_add_slant_font (struct encoding * encoding,
+			 const char * new, const char * src,
+			 float ratio)
+{
+  static int num =  0;
+  encoding->slantfont[num].name = strdup(new);
+  encoding->slantfont[num].src  = strdup(src);
+  encoding->slantfont[num].ratio = ratio;
+  encoding->slantfont[num+1].name = NULL;
+  num++;
 }
 
 /*
@@ -510,6 +555,77 @@ encoding_resolve_font_substitute (struct a2ps_job * job,
 	       last_font_name);
     }
 
+  message (msg_enc,
+	   (stderr, "In encoding %s, composite font for %s is resolved as %s\n",
+	    encoding->key, font_name, res));
+  return res;
+}
+
+/*
+ * Get composite font size and ratio
+ */
+static int
+composite_font_info_get_wx(struct a2ps_job * job,
+			   struct encoding * encoding,
+			   const char * font_list)
+{
+  int wx= -1;
+  char * font_list_copy;
+  char * font_name;
+  astrcpy (font_list_copy, font_list);
+  font_name = strtok (font_list_copy, ",<>;");
+
+  wx = pair_get_wx (encoding->composite, font_name);
+  if (wx<0)
+      wx = pair_get_wx (encoding->composite, "default_composite__");
+
+  return wx;
+}
+
+static float
+composite_font_info_get_ratio(struct a2ps_job * job,
+			      struct encoding * encoding,
+			      const char * font_list)
+{
+  float ratio= -1;
+  char * font_list_copy;
+  char * font_name;
+
+  astrcpy (font_list_copy, font_list);
+  font_name = strtok (font_list_copy, ",<>;");
+
+  ratio = pair_get_ratio (encoding->composite, font_name);
+  if (ratio<0)
+      ratio = pair_get_ratio (encoding->composite, "default_composite__");
+  return ratio;
+}
+
+const char *
+encoding_resolve_composite_font (struct a2ps_job * job,
+				  struct encoding * encoding,
+				  const char * font_list)
+{
+  const char * res = NULL;
+  char * font_list_copy;
+  char * font_name;
+
+  astrcpy (font_list_copy, font_list);
+  font_name = strtok (font_list_copy, ",<>;");
+
+  /* Find if there is a substitute for that font */
+  res = pair_get (encoding->composite, font_name);
+
+  /* We've found nothing interesting.  Last chance is the default
+   * font */
+  if (!res)
+    {
+      res = pair_get (encoding->composite, "default_composite__");
+
+      if (!res)
+	error (1, 0, "Cannot find font %s, nor any composite font",
+	       font_name);
+    }
+  
   message (msg_enc,
 	   (stderr, "In encoding %s, font %s is resolved as %s\n",
 	    encoding->key, font_name, res));
@@ -629,6 +745,66 @@ load_encoding_description_file (a2ps_job * job,
 	  CHECK_TOKEN ();
 	  subs = token2;
 	  encoding_add_font_substitute (encoding, orig, subs);
+	}
+      else if (strequ (token, "DefaultComposite:"))
+	{
+	  char * orig, * subs;
+	  int wx;
+	  float ratio;
+
+	  token2 = GET_TOKEN (NULL);
+	  CHECK_TOKEN ();
+	  subs = token2;
+	  token2 = GET_TOKEN (NULL);
+	  CHECK_TOKEN ();
+	  wx = (int)atof(token2)*1000;
+	  token2 = GET_TOKEN (NULL);
+	  CHECK_TOKEN ();
+	  ratio = atof(token2);
+	  encoding_add_composite_font(encoding, "default_composite__",
+				      subs, wx, ratio);
+	}
+      else if (strequ (token, "Composite:"))
+	{
+	  char * orig, * subs;
+	  int wx;
+	  float ratio;
+
+	  token2 = GET_TOKEN (NULL);
+	  CHECK_TOKEN ();
+	  orig = token2;
+	  token2 = GET_TOKEN (NULL);
+	  CHECK_TOKEN ();
+	  subs = token2;
+	  token2 = GET_TOKEN (NULL);
+	  CHECK_TOKEN ();
+	  wx = (int)atof(token2)*1000;
+	  token2 = GET_TOKEN (NULL);
+	  CHECK_TOKEN ();
+	  ratio = atof(token2);
+	  encoding_add_composite_font(encoding, orig, subs, wx, ratio);
+	}
+      else if (strequ (token, "SlantFont:"))
+	{
+	  char * new, * src;
+	  float ratio;
+	  unsigned int num;
+
+	  token2 = GET_TOKEN (NULL);
+	  CHECK_TOKEN ();
+	  new = token2;
+	  token2 = GET_TOKEN (NULL);
+	  CHECK_TOKEN ();
+	  src = token2;
+	  token2 = GET_TOKEN (NULL);
+	  CHECK_TOKEN ();
+	  ratio = atof(token2);
+	  for (num = 0 ; encoding->slantfont[num].name ; num ++ );
+	  if (num > sizeof encoding->slantfont - 1){
+	      error_at_line (1, 0, fname, firstline,
+			   _("too many slant font: `%s'"), new);
+	  }
+	  encoding_add_slant_font(encoding, new, src, ratio);
 	}
       else
         error_at_line (1, 0, fname, firstline,
@@ -751,6 +927,15 @@ encoding_char_exists (struct encoding * enc,
 }
 
 /*
+ * Return the flag of composite flag
+ */
+int
+encoding_get_composite_flag (struct encoding * enc)
+{
+  return enc->composite_flag;
+}
+
+/*
  * Prepare the environment (a dictionary) for the support
  * of ENCODING, dump it into STREAM.
  *
@@ -763,8 +948,10 @@ dump_encoding_setup (FILE * stream,
 		     struct encoding * encoding)
 {
   size_t i, nb;
+  size_t ns;
   const char * real_font_name;		/* After subsitution	*/
   char ** font_names = (char **) encoding->font_names_used->content;
+
 
   /* How many fonts are there? */
   da_qsort (encoding->font_names_used);
@@ -784,15 +971,46 @@ dump_encoding_setup (FILE * stream,
    * in the current ENCODING	*/
   nb = encoding->font_names_used->len;
 
+  /* The number of slant fonts */
+  for (i= 0, ns=0 ; encoding->slantfont[i].name ; i++ )
+      ns++;
+
   /* Create the dictionary and fill it */
   fprintf (stream, "%% Dictionary for %s support\n",
 	  encoding->name);
-  fprintf (stream, "/%sdict %zu dict begin\n", encoding->key, nb);
+  fprintf (stream, "/%sdict %zu dict begin\n", encoding->key,
+	   (encoding->composite_flag == true)? nb+nb+ns:nb+ns);
   for (i = 0 ; i < nb ; i++)
     fprintf (stream, "  /f%s %sEncoding /%s reencode_font\n",
 	     font_names [i],
 	     encoding->name,
 	     encoding_resolve_font_substitute (job, encoding, font_names [i]));
+
+  /* Slant font setting */
+  for (i = 0 ; encoding->slantfont[i].name ; i++ )
+    fprintf (stream, "  /%s /%s %f slantfont  definefont pop\n",
+	     encoding->slantfont[i].name,
+	     encoding->slantfont[i].src,
+	     encoding->slantfont[i].ratio);
+
+  /*
+   * Composite font setting.
+   * If kanji font size is larger than alphabet character, 
+   * set base font size to kanji charactor size.
+   */
+  if (encoding->composite_flag == true) {
+    for (i = 0 ; i < nb ; i++)
+      fprintf (stream, "  /f%s /f%s /%s %f %f false  compositefont "
+	               "%f scalefont def\n",
+	       font_names [i],
+	       font_names [i],
+	       encoding_resolve_composite_font (job, encoding, font_names [i]),
+	       encoding->composite_ratio[i],
+	       (encoding->composite_ratio[i] > 1.0)?
+	       0: (1-encoding->composite_ratio[i])/2.0,
+	       (encoding->composite_ratio[i] > 1.0)?
+	       1.0/encoding->composite_ratio[i]: 1.0 );
+  }
   fputs ("currentdict end def\n", stream);
 }
 
@@ -936,6 +1154,22 @@ encoding_build_faces_wx (a2ps_job * job, struct encoding * encoding)
 				   true_font_name,
 				   encoding->vector,
 				   encoding->faces_wx [face]);
+
+      if (encoding->composite_flag)
+	{
+	  encoding->composite_ratio[i] =
+	    composite_font_info_get_ratio(job, encoding, 
+					  job->face_eo_font [face]);
+
+	  encoding->composite_wx[i] =
+	    composite_font_info_get_wx(job, encoding, 
+				       job->face_eo_font [face]);
+
+	  /* If kanji font size is larger than alphabet character, 
+	     fit kanji charactor size to base font size */
+	  if (encoding->composite_ratio[i] < 1.0)
+	      encoding->composite_wx[i] *= encoding->composite_ratio[i]; 
+	}
     }
 }
 
@@ -1068,6 +1302,13 @@ char_WX (a2ps_job * job, unsigned char c)
     }
 
   return 0;	/* For -Wall */
+}
+
+unsigned int
+char_composite_WX (a2ps_job * job, unsigned char c)
+{
+  return (job->encoding->composite_wx[job->status->face]/
+	  job->encoding->composite_ratio[job->status->face]);
 }
 
 /*

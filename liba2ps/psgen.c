@@ -864,35 +864,60 @@ ps_print_char (a2ps_job * job, int c, enum face_e new_face)
   print:
   default:
     {
+      static int mb_flag = 0;
       unsigned char buf[256];
       int nchars;
       *buf = '\0';
 
-  /* Is this a new font? */
-  if (job->status->face != new_face) {
-    if (!job->status->face_declared)
-      output (jdiv, ") %s\n(", face_eo_ps (job->status->face));
-    else
-      output (jdiv, ") S\n(");
-    job->status->face = new_face;
-    job->status->face_declared = false;
-  }
+      /* Is this a new font? */
+      if (job->status->face != new_face) {
+        if (!job->status->face_declared)
+          output (jdiv, ") %s\n(", face_eo_ps (job->status->face));
+        else
+          output (jdiv, ") S\n(");
+        job->status->face = new_face;
+        job->status->face_declared = false;
+      }
 
-      nchars = ps_escape_char (job, c, buf);
-      job->status->wx += char_WX (job, c);
-      job->status->column += nchars;
-      if (line_full) {
-	if (job->folding) {
-	  fold_line (job, new_face);
-	  job->status->column = nchars;
-	  job->status->wx = char_WX (job, c);
-	} else {
-	  job->status->is_in_cut = true;
-	  return;
-	}
+      if (c > 127 && encoding_get_composite_flag (job->encoding) &&
+          job->status->face != Symbol) {
+        if (mb_flag) {
+          nchars = ps_escape_char (job, mb_flag, buf) + 
+            ps_escape_char (job, c, buf);
+          job->status->wx += char_composite_WX(job, c);
+          job->status->column += nchars;
+          if (line_full) {
+	    if (job->folding) {
+              fold_line (job, new_face);
+              job->status->column = nchars*2;
+              job->status->wx = char_composite_WX(job, c);
+	    } else {
+	      job->status->is_in_cut = true;
+	      return;
+	    }
+          }
+          mb_flag = 0;
+        } else {
+          mb_flag = c;
+          return;
+        }
+      } else {
+        nchars = ps_escape_char (job, c, buf);
+        job->status->wx += char_WX (job, c);
+        job->status->column += nchars;
+        if (line_full) {
+          if (job->folding) {
+            fold_line (job, new_face);
+            job->status->column = nchars;
+            job->status->wx = char_WX (job, c);
+          } else {
+            job->status->is_in_cut = true;
+            return;
+          }
+        }
       }
       output (jdiv, "%s", buf);
-      job->status->chars++;
+      job->status->chars+=nchars;
     }
     break;
   }

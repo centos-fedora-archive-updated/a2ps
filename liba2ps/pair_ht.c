@@ -39,6 +39,8 @@ struct pair
 {
   char * key;
   char * value;
+  float  ratio;
+  int    wx;
 };
 
 /*
@@ -155,6 +157,37 @@ pair_add (struct hash_table_s * table,
 }
 
 /*
+ *  Add a pair, with your own allocation for them.
+ * It KEY is yet used, override its value with VALUE
+ */
+void
+pair_add2 (struct hash_table_s * table,
+	  const char * key, const char * value, int wx, float ratio)
+{
+  struct pair * item, token;
+  
+  token.key = (char *) key;
+  item = (struct pair *) hash_find_item (table, &token);
+
+  if (item) {
+    if (item->value)
+      free (item->value);
+  } else {
+    item = XMALLOC (struct pair);
+    item->key = xstrdup(key);
+    item->wx    = wx;
+    item->ratio = ratio;
+  }
+  
+  if (value)
+    item->value = xstrdup (value);
+  else
+    item->value = NULL;
+
+  hash_insert (table, item);
+}
+
+/*
  * Remove a pair and free it.
  * It KEY is yet used, override its value with VALUE
  */
@@ -189,6 +222,34 @@ pair_get (struct hash_table_s * table, const char * key)
     return item->value;
   else
     return NULL;
+}
+
+int
+pair_get_wx (struct hash_table_s * table, const char * key)
+{
+  struct pair * item, token;
+  
+  token.key = (char *) key;
+  item = (struct pair *) hash_find_item (table, &token);
+
+  if (item)
+    return item->wx;
+  else
+    return -1;
+}
+
+float
+pair_get_ratio (struct hash_table_s * table, const char * key)
+{
+  struct pair * item, token;
+  
+  token.key = (char *) key;
+  item = (struct pair *) hash_find_item (table, &token);
+
+  if (item)
+    return item->ratio;
+  else
+    return -1;
 }
 
 /*
