@@ -41,7 +41,8 @@
 #  backupfile \
 #  dirname \
 #  filenamecat \
-#  gettext \
+#  gettext-h \
+#  havelib \
 #  isdir \
 #  long-options \
 #  obstack \
@@ -61,7 +62,8 @@ gl_MODULES([
   backupfile
   dirname
   filenamecat
-  gettext
+  gettext-h
+  havelib
   isdir
   long-options
   obstack

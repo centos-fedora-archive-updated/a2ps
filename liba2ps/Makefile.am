@@ -30,7 +30,7 @@ AM_YFLAGS = -dtv
 GPERFFLAGS = -t -D -L ANSI-C
 BUILT_SOURCES = parseppd.c parseppd.h liba2ps.h confg.c
 
-liba2ps_la_LDFLAGS = -version-info @LIBVERSION@
+liba2ps_la_LDFLAGS = -version-info @LIBVERSION@ $(LTLIBINTL) $(LIBSOCKET) $(GETHOSTNAME_LIB)
 
 liba2psheaders = encoding.h media.h jobs.h output.h		\
 routines.h psgen.h prolog.h faces.h confg.h useropt.h		\
