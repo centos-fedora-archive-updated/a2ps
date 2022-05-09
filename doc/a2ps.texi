@@ -23,12 +23,12 @@
 @c `a2ps'.  Avoid those quotes.
 @iftex
 @macro pack
-@code{@value{PACKAGE}}@c
+@code{@value{PACKAGE}}
 @end macro
 @end iftex
 @ifnottex
 @macro pack
-@value{PACKAGE}@c
+@value{PACKAGE}
 @end macro
 @end ifnottex
 
