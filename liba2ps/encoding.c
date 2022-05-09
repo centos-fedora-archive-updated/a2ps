@@ -536,7 +536,9 @@ encoding_resolve_font_substitute (struct a2ps_job * job,
       last_font_name = font_name;
       /* Find if there is a substitute for that font */
       res = pair_get (encoding->substitutes, font_name);
-      if (!res)
+      if (res)
+	res = xstrdup (res);
+      else
 	/* No. Check if this font is supported */
 	if (font_exists (job, font_name))
 	  /* Avoid returning sth alloca'd */
