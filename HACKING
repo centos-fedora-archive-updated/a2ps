@@ -1,8 +1,7 @@
 -*- outline -*-
 
 This file attempts to describe the rules to use when hacking A2ps.
-Don't put this file into the distribution.  Don't mention it in the
-ChangeLog.
+Don't put this file into the distribution.
 
 Everything related to the development of A2ps is on Savannah:
 
@@ -16,11 +15,8 @@ First, if it is a large change, you must make sure they have signed
 the appropriate paperwork.  Second, be sure to add their name and
 email address to THANKS.
 
-** If a change fixes a test, mention the test in the ChangeLog entry.
-
 ** Bug reports
-If somebody reports a new bug, mention his name in the ChangeLog entry
-and in the test case you write.  Put him into THANKS.
+If somebody reports a new bug, add them to THANKS.
 
 The correct response to most actual bugs is to write a new test case
 which demonstrates the bug.  Then fix the bug, re-run the test suite,
@@ -74,16 +70,12 @@ PO files too.
 The version number, *and* the date of the release (including for
 betas).
 
-** Update ChangeLog
-Should have an entry similar to `Version 1.49b.'.
-Check all this in once `make distcheck' passes.
-
 ** make alpha
 Running `make alpha' is absolutely perfect for beta releases: it makes
 the tarballs, the xdeltas, and prepares (in /tmp/) a proto
 announcement.  It is so neat, that that's what I use anyway for
 genuine releases, but adjusting things by hand (e.g., the urls in the
-announcement file, the ChangeLog which is not needed etc.).
+announcement file).
 
 If it fails, you're on your own...
 
