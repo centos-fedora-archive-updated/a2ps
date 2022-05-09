@@ -1,11 +1,11 @@
 AC_PREREQ([2.69])
-AC_COPYRIGHT([Copyright 2017 Free Software Foundation, Inc.])
+AC_COPYRIGHT([Copyright 2022 Free Software Foundation, Inc.])
 
 ## ---------------- ##
 ## Initialization.  ##
 ## ---------------- ##
 
-AC_INIT([GNU a2ps], [4.14], [bug-a2ps@gnu.org])
+AC_INIT([GNU a2ps], [4.15], [bug-a2ps@gnu.org])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([build-aux])
 m4_pattern_forbid([^jm_[A-Z]])

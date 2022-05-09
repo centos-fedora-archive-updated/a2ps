@@ -1,5 +1,25 @@
                     User visible changes in GNU a2ps.
 
+Version 4.15        May 10, 2022
+ * New Maintainer.
+ * This is a maintenance release.
+ * Build:
+   - Updated and fixed the build system, using gnulib and modern Autotools.
+   - Remove OS/2 support.
+ * Predefined delegations:
+   - Remove support for defunct Netscape and proprietary Acrobat Reader.
+   - Add lpr wrapper for automatic detection of different printing systems,
+     including CUPS support.
+ * Encodings:
+   - Use libre fonts for KOI-8.
+   - Composite fonts support.
+ * Documentation:
+   - Some English fixes.
+   - Man page for fixnt.
+ * Bug fixes:
+   - Fixes for security bugs CVE-2015-8107 and CVE-2014-0466.
+   - Minor bugs fixed.
+
 Version 4.14	    Dec 29, 2007 
  * New Maintainer.
  * No UTF-8 support yet ;-<  Basically this is a maintenance release.
