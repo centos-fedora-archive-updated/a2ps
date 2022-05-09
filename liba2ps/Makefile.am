@@ -25,7 +25,7 @@ AM_CPPFLAGS = -I$(top_builddir) -I$(top_builddir)/intl -I$(srcdir) -I$(top_srcdi
 lib_LTLIBRARIES = liba2ps.la
 
 # --debug, --defines, --verbose
-YFLAGS = -dtv
+AM_YFLAGS = -dtv
 # Use a struct, handle duplicates, produce ANSI-C
 GPERFFLAGS = -t -D -L ANSI-C
 BUILT_SOURCES = parseppd.c parseppd.h liba2ps.h confg.c
@@ -54,33 +54,21 @@ mylibitsources = message.c xstrrpl.c getshline.c pathwalk.c		\
 darray.c dstring.c printlen.c pair_ht.c filtdir.c str_ht.c		\
 title.c xbackupfile.c getnum.c tterm.c lister.c userdata.c
 
-noinst_HEADERS = $(liba2psheaders) $(mylibitheaders)
-
 libitheaders = argv.h hashtab.h
 
 libitsources = argv.c hashtab.c
 
-noinst_HEADERS = $(liba2psheaders) $(libitheaders) $(mylibitheaders)   \
-$(libitpureheaders)
+noinst_HEADERS = $(liba2psheaders) $(libitheaders) $(mylibitheaders)
 
-
-liba2ps_la_SOURCES = $(liba2pssources) $(libitsources) $(mylibitsources) \
-$(libitpuresources)
+liba2ps_la_SOURCES = $(liba2pssources) $(libitsources) $(mylibitsources)
 
 liba2ps_la_LIBADD = ../lib/libgnu.la
 
 #
 # Handling the Gperf code
 #
-# We change `signed char' to short, because `signed char' is ANSI,
-# hence not portable.  We could have produced KnR C with gperf, but
-# since prototypes would have been missing, there are many warnings
-# with modern compilers.  And many warnings means many complains from
-# user.
 confg.c: confg.gperf
-	$(GPERF) $(GPERFFLAGS) $< >confg.tmp
-	sed -e 's/ signed char/ short/g' <confg.tmp >$@
-	rm -f confg.tmp
+	$(GPERF) $(GPERFFLAGS) $< >$@
 
 #
 # Building the header for using liba2ps
