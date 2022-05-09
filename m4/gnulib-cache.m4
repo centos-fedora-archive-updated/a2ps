@@ -45,7 +45,6 @@
 #  isdir \
 #  long-options \
 #  obstack \
-#  regex \
 #  sig2str \
 #  stpncpy \
 #  strverscmp \
@@ -66,7 +65,6 @@ gl_MODULES([
   isdir
   long-options
   obstack
-  regex
   sig2str
   stpncpy
   strverscmp

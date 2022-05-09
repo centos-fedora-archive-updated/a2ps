@@ -17,7 +17,7 @@
 #
 
 AM_CPPFLAGS = -I$(top_builddir) -I$(top_builddir)/intl -I$(srcdir) -I$(top_srcdir)/lib \
-	-DLOCALEDIR=\"$(localedir)\" -DSYSCONFFILE=\"$(sysconfdir)/a2ps.cfg\"
+	-DLOCALEDIR=\"$(localedir)\" -DSYSCONFFILE=\"$(sysconfdir)/a2ps.cfg\" -DHAVE_CONFIG_H
 
 #
 # Definition of the local target
@@ -47,11 +47,11 @@ fjobs.c common.c madir.c filalign.c lexppd.l			\
 parseppd.y
 
 mylibitheaders = msg.h msg.c message.h xstrrpl.h getshline.h pathwalk.h	\
-darray.h dstring.h printlen.h pair_ht.h filtdir.h str_ht.h		\
+darray.h dstring.h printlen.h pair_ht.h filtdir.h regex.h str_ht.h	\
 title.h xbackupfile.h getnum.h tterm.h lister.h userdata.h xobstack.h
 
 mylibitsources = message.c xstrrpl.c getshline.c pathwalk.c		\
-darray.c dstring.c printlen.c pair_ht.c filtdir.c str_ht.c		\
+darray.c dstring.c printlen.c pair_ht.c filtdir.c regex.c str_ht.c	\
 title.c xbackupfile.c getnum.c tterm.c lister.c userdata.c
 
 libitheaders = argv.h hashtab.h
