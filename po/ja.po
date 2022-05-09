@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: a2ps 4.13b\n"
 "Report-Msgid-Bugs-To: bug-a2ps@gnu.org\n"
-"POT-Creation-Date: 2022-05-02 16:01+0100\n"
+"POT-Creation-Date: 2022-05-09 23:40+0100\n"
 "PO-Revision-Date: 2003-03-23 18:22+0900\n"
 "Last-Translator: Masayuki Hatta <mhatta@po.airs.net>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
@@ -21,9 +21,9 @@ msgstr ""
 msgid "any type"
 msgstr "全てのタイプ"
 
-#: src/delegate.c:129 liba2ps/confg.gperf:171 liba2ps/encoding.c:525
-#: liba2ps/encoding.c:571 liba2ps/encoding.c:611 liba2ps/output.c:295
-#: liba2ps/pair_ht.c:286 liba2ps/prolog.c:135
+#: src/delegate.c:129 liba2ps/confg.gperf:171 liba2ps/encoding.c:643
+#: liba2ps/encoding.c:689 liba2ps/encoding.c:729 liba2ps/output.c:295
+#: liba2ps/pair_ht.c:347 liba2ps/prolog.c:135
 #, c-format
 msgid "missing argument for `%s'"
 msgstr "`%s'に対する引数が足りません"
@@ -142,8 +142,9 @@ msgid "end of line inside a %s"
 msgstr "%s 文字列中に行末がきています"
 
 #: src/main.c:198
-#, c-format
-msgid "received signal %d: %s"
+#, fuzzy, c-format
+#| msgid "received signal %d: %s"
+msgid "received SIG%s"
 msgstr "シグナル%dを受け取りました: %s"
 
 #: src/main.c:237
@@ -737,6 +738,11 @@ msgstr "ファイル`%s'が見つかりません"
 msgid "automatic style selection cancelled"
 msgstr "自動スタイル選択がキャンセルされました"
 
+#: src/select.c:200
+#, c-format
+msgid "error running file(!)"
+msgstr ""
+
 #: src/ssheet.c:288
 #, c-format
 msgid "cannot compile regular expression `%s': %s"
@@ -785,7 +791,7 @@ msgstr "emacs (例, `C-c', `M-C-c'等)"
 msgid "question-mark (i.e., `?')"
 msgstr "question-mark (例, `?')"
 
-#: liba2ps/confg.gperf:160 liba2ps/encoding.c:633
+#: liba2ps/confg.gperf:160 liba2ps/encoding.c:811
 #, c-format
 msgid "invalid option `%s'"
 msgstr "間違ったオプションです: `%s'"
@@ -813,7 +819,12 @@ msgstr "おかしな変数証明です `%s'"
 msgid "obsolete `%s' entry.  Ignored"
 msgstr "旧式の`%s'エントリです.  無効です"
 
-#: liba2ps/encoding.c:1109 liba2ps/encoding.c:1130
+#: liba2ps/encoding.c:805
+#, c-format
+msgid "too many slant font: `%s'"
+msgstr ""
+
+#: liba2ps/encoding.c:1352 liba2ps/encoding.c:1373
 msgid "Known Encodings"
 msgstr "利用可能なエンコード"
 

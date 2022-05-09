@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: a2ps-4.10.1\n"
 "Report-Msgid-Bugs-To: bug-a2ps@gnu.org\n"
-"POT-Creation-Date: 2022-05-02 16:01+0100\n"
+"POT-Creation-Date: 2022-05-09 23:40+0100\n"
 "PO-Revision-Date: 1999-01-24 13:02+01:00\n"
 "Last-Translator: CHOI Junho <junker@jazz.snu.ac.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -19,9 +19,9 @@ msgstr ""
 msgid "any type"
 msgstr "모든 종류"
 
-#: src/delegate.c:129 liba2ps/confg.gperf:171 liba2ps/encoding.c:525
-#: liba2ps/encoding.c:571 liba2ps/encoding.c:611 liba2ps/output.c:295
-#: liba2ps/pair_ht.c:286 liba2ps/prolog.c:135
+#: src/delegate.c:129 liba2ps/confg.gperf:171 liba2ps/encoding.c:643
+#: liba2ps/encoding.c:689 liba2ps/encoding.c:729 liba2ps/output.c:295
+#: liba2ps/pair_ht.c:347 liba2ps/prolog.c:135
 #, fuzzy, c-format
 msgid "missing argument for `%s'"
 msgstr "`%s'의 인수 없음"
@@ -141,7 +141,7 @@ msgstr "정규식에서 행의 끝"
 
 #: src/main.c:198
 #, c-format
-msgid "received signal %d: %s"
+msgid "received SIG%s"
 msgstr ""
 
 #: src/main.c:237
@@ -711,6 +711,11 @@ msgstr "파일 `%s%s'을 찾을 수 없습니다"
 msgid "automatic style selection cancelled"
 msgstr "자동 스타일 선택은 취소되었습니다"
 
+#: src/select.c:200
+#, c-format
+msgid "error running file(!)"
+msgstr ""
+
 #: src/ssheet.c:288
 #, fuzzy, c-format
 msgid "cannot compile regular expression `%s': %s"
@@ -760,7 +765,7 @@ msgstr "emacs (예> `C-c', `M-C-c' 등등.)"
 msgid "question-mark (i.e., `?')"
 msgstr "의문부호 (예> `?')"
 
-#: liba2ps/confg.gperf:160 liba2ps/encoding.c:633
+#: liba2ps/confg.gperf:160 liba2ps/encoding.c:811
 #, fuzzy, c-format
 msgid "invalid option `%s'"
 msgstr "%s: 잘못된 옵션 -- %c\n"
@@ -788,7 +793,12 @@ msgstr "잘못된 매크로 식별자: `%s'"
 msgid "obsolete `%s' entry.  Ignored"
 msgstr "사용하지 않는 `%s' 엔트리. 무시합니다"
 
-#: liba2ps/encoding.c:1109 liba2ps/encoding.c:1130
+#: liba2ps/encoding.c:805
+#, c-format
+msgid "too many slant font: `%s'"
+msgstr ""
+
+#: liba2ps/encoding.c:1352 liba2ps/encoding.c:1373
 msgid "Known Encodings"
 msgstr "알려진 인코딩"
 

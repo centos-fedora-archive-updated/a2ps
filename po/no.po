@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: a2ps 4.12\n"
 "Report-Msgid-Bugs-To: bug-a2ps@gnu.org\n"
-"POT-Creation-Date: 2022-05-02 16:01+0100\n"
+"POT-Creation-Date: 2022-05-09 23:40+0100\n"
 "PO-Revision-Date: 1999-02-11 17:50+01:00\n"
 "Last-Translator: Jon Ross <jonr@sdata.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -18,9 +18,9 @@ msgstr ""
 msgid "any type"
 msgstr "alle typer"
 
-#: src/delegate.c:129 liba2ps/confg.gperf:171 liba2ps/encoding.c:525
-#: liba2ps/encoding.c:571 liba2ps/encoding.c:611 liba2ps/output.c:295
-#: liba2ps/pair_ht.c:286 liba2ps/prolog.c:135
+#: src/delegate.c:129 liba2ps/confg.gperf:171 liba2ps/encoding.c:643
+#: liba2ps/encoding.c:689 liba2ps/encoding.c:729 liba2ps/output.c:295
+#: liba2ps/pair_ht.c:347 liba2ps/prolog.c:135
 #, c-format
 msgid "missing argument for `%s'"
 msgstr "det mangler argument efter `%s'"
@@ -139,8 +139,9 @@ msgid "end of line inside a %s"
 msgstr "end-of-line i regulært uttrykk"
 
 #: src/main.c:198
-#, c-format
-msgid "received signal %d: %s"
+#, fuzzy, c-format
+#| msgid "received signal %d: %s"
+msgid "received SIG%s"
 msgstr "mottok signal %d: %s"
 
 #: src/main.c:237
@@ -638,6 +639,11 @@ msgstr "finner ikke filen `%s%s'"
 msgid "automatic style selection cancelled"
 msgstr "automatisk mal-valg kanselert"
 
+#: src/select.c:200
+#, c-format
+msgid "error running file(!)"
+msgstr ""
+
 #: src/ssheet.c:288
 #, fuzzy, c-format
 msgid "cannot compile regular expression `%s': %s"
@@ -686,7 +692,7 @@ msgstr "emacs (f.eks `C-c', `M-C-c' etc.)"
 msgid "question-mark (i.e., `?')"
 msgstr "spørsmålstegn (`?')"
 
-#: liba2ps/confg.gperf:160 liba2ps/encoding.c:633
+#: liba2ps/confg.gperf:160 liba2ps/encoding.c:811
 #, fuzzy, c-format
 msgid "invalid option `%s'"
 msgstr "%s: ugyldig opsjon -- %c"
@@ -714,7 +720,12 @@ msgstr "ulovlig variabel identifkator `%s'"
 msgid "obsolete `%s' entry.  Ignored"
 msgstr "Ignorerer innslaget `%s' fordi det er foreldet/ugyldig"
 
-#: liba2ps/encoding.c:1109 liba2ps/encoding.c:1130
+#: liba2ps/encoding.c:805
+#, c-format
+msgid "too many slant font: `%s'"
+msgstr ""
+
+#: liba2ps/encoding.c:1352 liba2ps/encoding.c:1373
 msgid "Known Encodings"
 msgstr ""
 
