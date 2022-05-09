@@ -174,7 +174,6 @@ ABOUT_NLS	A presentation of GNU's Native Language Support
 		project
 TODO		Some things to be done
 afm/		Files that describe the width of the chars of a font
-arch/		Files to help to port a2ps to non Unix OSes
 doc/		The whole documentation
 encoding/	Description of the encodings.
 etc/a2ps_cfg	The default configuration (after configure/make)
