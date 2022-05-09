@@ -11,7 +11,7 @@ AC_CONFIG_AUX_DIR([build-aux])
 m4_pattern_forbid([^jm_[A-Z]])
 
 # Initialize automake
-AM_INIT_AUTOMAKE([1.15 foreign dist-bzip2 no-dist-gzip subdir-objects silent-rules -Wall])
+AM_INIT_AUTOMAKE([1.15 foreign subdir-objects silent-rules -Wall])
 
 AC_CONFIG_HEADERS([config.h])
 

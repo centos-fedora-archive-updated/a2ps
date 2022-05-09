@@ -18,3 +18,4 @@ Makefile.in
 /lib
 /libtool
 /stamp-h1
+/a2ps-*.tar.gz
