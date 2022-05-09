@@ -110,8 +110,7 @@ if test -n "`ls`"; then
   cat $builddir/sum-ps-diff
   failure=1
 else
-  rm $builddir/sum-ps-diff
-  rm -rf $DIFF
+  rm -rf $builddir/sum-ps-diff $DIFF $CHK_DIR
 fi
 
 cd $GDIFF
@@ -122,8 +121,7 @@ if test -n "`ls`"; then
   cat $builddir/sum-gps-diff
   failure=1
 else
-  rm $builddir/sum-gps-diff
-  rm -rf $GDIFF
+  rm -rf $builddir/sum-gps-diff $GDIFF $GCHK_DIR
 fi
 
 exit $failure
