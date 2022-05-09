@@ -17,7 +17,7 @@ Version 4.15        May 10, 2022
    - Some English fixes.
    - Man page for fixnt.
  * Bug fixes:
-   - Fixes for security bugs CVE-2015-8107 and CVE-2014-0466.
+   - Fixes for security bugs CVE-2001-1593, CVE-2015-8107 and CVE-2014-0466.
    - Minor bugs fixed.
 
 Version 4.14	    Dec 29, 2007 
