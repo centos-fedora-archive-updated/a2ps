@@ -12,9 +12,9 @@ AC_DEFUN([AC_PROG_GPERF],[
 	fi
 	min_gperf_version=ifelse([$1], ,2.7,$1)
 	AC_MSG_CHECKING(for gperf - version >= $min_gperf_version)
-	gperf_major_version=`$GPERF --version | \
+	gperf_major_version=`$GPERF --version | head -1 | \
 		sed 's/GNU gperf \([[0-9]]*\).\([[0-9]]*\)/\1/'`
-	gperf_minor_version=`$GPERF --version | \
+	gperf_minor_version=`$GPERF --version | head -1 | \
 		sed 's/GNU gperf \([[0-9]]*\).\([[0-9]]*\)/\2/'`
 	no_gperf=""
 dnl
@@ -42,7 +42,7 @@ my_strdup (char *str)
 }
 
 int 
-main ()
+main (void)
 {
   char  *tmp_version;
   
