@@ -180,7 +180,7 @@ How to print
 Interfacing with Other Programs
 
 * Interfacing With a Mailer::   Printing Mails or News
-* Netscape::                    Interfacing with Netscape
+* Post-processing::             Processing the output of other programs
 
 Invoking @pack{}
 
@@ -967,7 +967,7 @@ Here are some tips on how to use @pack{} with other programs.
 
 @menu
 * Interfacing With a Mailer::   Printing Mails or News
-* Netscape::                    Interfacing with Netscape
+* Post-processing::             Processing the output of other programs
 @end menu
 
 @node  Interfacing With a Mailer
@@ -1006,11 +1006,10 @@ personal-print-command=a2ps -=mail -d
 
 
 
-@node Netscape
-@subsection Netscape
+@node Post-processing
+@subsection Processing the output of other programs
 
-This is actually valid for any program that generates PostScript that
-you want to post-process with @pack{}.  Use the following command:
+Use the following command:
 @example
 a2ps
 @end example
@@ -1025,8 +1024,8 @@ delegate.  In case one one these conditions is not met, use:
 a2ps -ZEps
 @end example
 
-Do not forget to tell Netscape whether your printer supports colors, and
-the type of paper it uses.
+Do not forget to tell the program whose output you are processing
+whether your printer supports colors, and the type of paper it uses.
 
 
 @c  ###
@@ -6555,7 +6554,6 @@ Wondering something?
 * Is a2ps Y2K compliant?::      Printing dates in short format
 * The Options Have Changed::    Respect The Users
 * Why not using yacc::          Why Using Style Sheets
-* Why do you not use mozilla::  Using remote commands
 @end menu
 
 @node Is a2ps Y2K compliant?
@@ -6617,16 +6615,6 @@ on the other hand, @pack{}, which would make it PostScript.  This schema
 seems to us a good compromise.  If it is still not enough for you, you
 can use the library.
 @c FIXME:  (@pxref{Programming with the Library}).
-
-@node Why do you not use mozilla
-@subsection Why do you not use mozilla
-
-To print with netscape (and other gecko browser as mozilla), we use
-remote commands (http://home.netscape.com/newsref/std/x-remote.html).
-
-But in mozilla, the remote command @code{saveas()} does not exist. And we
-cannot save open file as postscript file.
-
 
 @c  #####
 @c #     #  #        ####    ####    ####     ##    #####    #   #

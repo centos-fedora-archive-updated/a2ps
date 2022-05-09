@@ -213,41 +213,13 @@ ad_CHECK_PROG(dvips)
 ad_CHECK_PROG(convert)
 
 # HTML delegation
-ad_CHECK_PROGS([netscape, html2ps])
-if test "x$COM_netscape" = x; then
-  AC_CACHE_CHECK([whether netscape support remote-command], [my_cv_remote_com_netscape],
-  [$netscape --help >conftest.help 2>&1
-  if fgrep -e -remote  conftest.help >/dev/null &&
-     fgrep -e -noraise conftest.help >/dev/null; then
-     my_cv_remote_com_netscape=yes
-  else
-     my_cv_remote_com_netscape=no
-  fi
-  rm -f conftest.help])
-  test "$my_cv_remote_com_netscape" = no && COM_netscape='#'
-fi
+ad_CHECK_PROGS([html2ps])
 
 # PDF delegation
-ad_CHECK_PROGS([acroread, pdf2ps])
-COM_acroread4='#'
-AC_SUBST(COM_acroread4)
-# If we have acroread, is it a version which supports -shrink etc.?
-if test "x$COM_acroread" = x; then
-  AC_CACHE_CHECK(whether acroread is acroread 4, a2_cv_com_acroread4,
-  [$acroread -helpall >conftest.help
-  if fgrep -e -size   conftest.help >/dev/null &&
-     fgrep -e -shrink conftest.help >/dev/null; then
-     a2_cv_com_acroread4=yes
-  else
-     a2_cv_com_acroread4=no
-  fi
-  rm -f conftest.help])
-  test "$a2_cv_com_acroread4" = yes && COM_acroread4=''
-fi
+ad_CHECK_PROGS([pdf2ps])
 
 # Outputting PDF
-ad_CHECK_PROGS([distill, ps2pdf])
-test "$COM_distill$COM_ps2pdf" = "##" && COM_PS2PDF="#"
+ad_CHECK_PROGS([ps2pdf])
 AC_SUBST(COM_PS2PDF)
 
 # PostScript delegation.  Check for psutils 1.17

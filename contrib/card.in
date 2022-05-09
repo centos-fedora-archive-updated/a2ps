@@ -55,7 +55,7 @@ Options:
  -o, --output=FILE    save the output in FILE
  -l, --language=LL    print the help in the language LL (default: English)
      --command=CMD    perform pretty-printing on the output of CMD
-                      (e.g. --command='netscape -help')
+                      (e.g. --command='a2ps --help')
 
 Options for a2ps are given after \`--', for instance
 

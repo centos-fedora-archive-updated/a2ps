@@ -66,7 +66,7 @@ UnknownPrinter: | #{lp} #o
 #Printer: wc | wc -l
 
 # You can also save in a file if you wish.
-#Printer: netscape >netscape.ps
+#Printer: ps2pdf >output.pdf
 
 # This example uses the fact that `$N' expands in the input file name,
 # so a2ps foo -P gzip will save the output in foo.ps.gz.

@@ -131,15 +131,6 @@ Variable: cfg.wrapped 1
 # Some variables for the delegations
 #
 
-# Calling AcrobatReader for PDF to PostScript.
-@COM_acroread@Variable: del.acroread \
-@COM_acroread@   @acroread@ -toPostScript
-
-# Acrobat 4 lets us specify the medium, which is precious sometimes, and
-# that we should shrink the document to the size of the medium.
-@COM_acroread4@Variable: del.acroread \
-@COM_acroread4@   @acroread@ -toPostScript -size "#wx#h" -shrink
-
 # Passes the options to psnup.  A problem with psnup is that even if
 # no service is requested, the PostScript is altered.  There are such
 # problems with dvips.  A symptom is that the figure are spread on
@@ -259,40 +250,11 @@ $3p<-$3p> $4l# lines\n||
 # Delegated to html2ps
 @COM_PSUTILS@@COM_html2ps@Delegation: html2ps html:ps \
 @COM_PSUTILS@@COM_html2ps@    html2ps -D -o #f0 '$f' && #{del.psselect} #f0 | #{del.psnup}
-# Delegated to Netscape
-# Pass HTML to Netscape, hoping that there is an Netscape running...
-# Tricks:
-# 1. Netscape can't output on stdout, hence use a tmp file (#f0)
-# 2. openfile refuses relative paths, so prepend cwd (%d) when relative
-# 3. remote 'openfile' -remote 'saveas' is bad, because it is handled
-#    asynchronously, and the output can correspond to a previously
-#    loaded page (not that of openfile).  So run Netscape twice.
-# 4. It asks the user if s/he wants to replace an existing output file,
-#    so rm before.
-@COM_PSUTILS@@COM_netscape@Delegation: Netscape html:ps    \
-@COM_PSUTILS@@COM_netscape@  if test -L /home/kcnarf/.netscape/lock; then \
-@COM_PSUTILS@@COM_netscape@    rm -f #f0; \
-@COM_PSUTILS@@COM_netscape@    if echo '$f' | grep '^/' >/dev/null 2>&1; then \
-@COM_PSUTILS@@COM_netscape@      ${NETSCAPE:-netscape} -noraise -remote 'openfile($f)'; \
-@COM_PSUTILS@@COM_netscape@    else \
-@COM_PSUTILS@@COM_netscape@      ${NETSCAPE:-netscape} -noraise -remote 'openfile(%d/$f)'; \
-@COM_PSUTILS@@COM_netscape@    fi && \
-@COM_PSUTILS@@COM_netscape@    ${NETSCAPE:-netscape} -noraise -remote 'saveas(#f0,postscript)' && \
-@COM_PSUTILS@@COM_netscape@    #{del.psselect} #f0 | #{del.psnup}; \
-@COM_PSUTILS@@COM_netscape@  elif (which html2ps) >/dev/null 2>&1; then \
-@COM_PSUTILS@@COM_netscape@    html2ps -D -o #f0 '$f' && #{del.psselect} #f0 | #{del.psnup}; \
-@COM_PSUTILS@@COM_netscape@  else \
-@COM_PSUTILS@@COM_netscape@    echo "cannot delegate html: Netscape and html2ps are not available" >&2; \
-@COM_PSUTILS@@COM_netscape@    exit 1; \
-@COM_PSUTILS@@COM_netscape@  fi
 
 ########## PDF files
 # Delegated to pdf2ps, GS 5.10
 @COM_PSUTILS@@COM_pdf2ps@Delegation: pdf2ps pdf:ps \
 @COM_PSUTILS@@COM_pdf2ps@   @pdf2ps@ '$f' #f0 && #{del.psselect} #f0 | #{del.psnup}
-# Delegated to AcrobatReader
-@COM_PSUTILS@@COM_acroread@Delegation: Acrobat pdf:ps \
-@COM_PSUTILS@@COM_acroread@   #{del.acroread} < '$f' | #{del.psselnup}
 
 ########## PostScript files
 # Pass the PostScript files to psnup and psselect
