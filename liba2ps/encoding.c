@@ -481,12 +481,14 @@ encoding_resolve_font_substitute (struct a2ps_job * job,
   const char * res = NULL;
   char * font_list_copy;
   char * font_name;
+  char * last_font_name;
 
   astrcpy (font_list_copy, font_list);
   font_name = strtok (font_list_copy, ",<>;");
 
   do
     {
+      last_font_name = font_name;
       /* Find if there is a substitute for that font */
       res = pair_get (encoding->substitutes, font_name);
       if (!res)
@@ -505,7 +507,7 @@ encoding_resolve_font_substitute (struct a2ps_job * job,
 	res = encoding->default_font;
       else
 	error (1, 0, "Cannot find font %s, nor any substitute",
-	       font_name);
+	       last_font_name);
     }
 
   message (msg_enc,
