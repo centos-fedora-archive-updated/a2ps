@@ -73,7 +73,7 @@ static bool style_sheet_check (struct style_sheet * sheet);
 	"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789")
 
 static void
-alphabet_self_print (char *a, FILE *s)
+alphabet_self_print (unsigned char *a, FILE *s)
 {
   if (ALPHABET_IS_UNDEFINED (a))
     fputs ("<undefined>\n", s);
@@ -256,7 +256,7 @@ rule_new_internal_word (unsigned char * word,
  */
 inline static struct rule *
 rule_new_internal_regexp (struct pattern *pattern,
-			  char *regexp, int regexp_len,
+			  char *regexp, size_t regexp_len,
 			  struct darray *rhs,
 			  const char *filename, size_t line)
 {
@@ -277,7 +277,7 @@ rule_new_internal_regexp (struct pattern *pattern,
   error_msg = re_compile_pattern (regexp, regexp_len, res->regex);
   /* The pattern is nul terminated, no fear to have */
   if (error_msg)
-    error_at_line (1, 0, filename, line,
+    error_at_line (1, 0, filename, (unsigned) line,
 		   _("cannot compile regular expression `%s': %s"),
 		   regexp, error_msg);
   res->rhs = rhs;
@@ -316,7 +316,7 @@ keyword_rule_new (unsigned char * word, struct pattern * pattern,
 		  struct darray * rhs,
 		  const char *filename, size_t line)
 {
-  int pattern_len = 0;
+  size_t pattern_len = 0;
   char * pattern_to_compile = NULL;
 
   if (pattern)
@@ -645,14 +645,14 @@ sequence_self_print (struct sequence * tmp, FILE * stream)
  * Dealing with the style sheets
  */
 struct style_sheet *
-new_style_sheet (const unsigned char * name)
+new_style_sheet (const char * name)
 {
   struct style_sheet * res = XMALLOC (struct style_sheet);
 
   res->name = name;
-  res->author = UNULL;
+  res->author = NULL;
   version_set_to_null (res->version);
-  res->documentation = UNULL;
+  res->documentation = NULL;
   version_set_to_null (res->requirement);
   res->ancestors = ancestors_new ();
   res->sensitiveness = case_undefined;
@@ -678,7 +678,7 @@ new_style_sheet (const unsigned char * name)
 `---------------------------------------------------------*/
 
 static char *
-style_sheet_mixed_new (const unsigned char * ancestors)
+style_sheet_mixed_new (const char * ancestors)
 {
   struct style_sheet *sheet, *ancestor;
   char *ancestor_key, *key, *cp;
@@ -710,7 +710,7 @@ style_sheet_mixed_new (const unsigned char * ancestors)
   message (msg_sheet,
 	   (stderr, "Creating a mixed style sheet \"%s\"\n", key));
   /* Its name is its key. */
-  sheet = new_style_sheet ((unsigned char *) key);
+  sheet = new_style_sheet (key);
   sheet->key = strdup (key);
   da_concat (sheet->ancestors, ancestors_array);
   style_sheet_finalize (sheet);
@@ -864,7 +864,7 @@ style_sheet_self_print (struct style_sheet * sheet, FILE * stream)
 static void
 style_sheet_print_signature (FILE * stream, struct style_sheet * sheet)
 {
-  int i, title_bar_len;
+  size_t i, title_bar_len;
 
   if (!version_null_p (sheet->version))
     {
@@ -995,9 +995,8 @@ list_style_sheets_html (FILE * stream)
 {
   struct style_sheet * sheet;
   struct darray * entries;
-  size_t i;
+  size_t i, rows;
   version_t version_index, requirement;
-  int rows;
 
   entries = pw_glob_on_suffix (job->common.path, SSH_SUFFIX);
 

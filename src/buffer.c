@@ -133,9 +133,9 @@ buffer_pipe_set (buffer_t * buffer, FILE * stream, enum eol_e eol)
 }
 
 void
-buffer_string_set (buffer_t * buffer, const unsigned char * string, enum eol_e eol)
+buffer_string_set (buffer_t * buffer, const char * string, enum eol_e eol)
 {
-  buffer_internal_set (buffer, NULL, string, strlen (string), false, eol);
+  buffer_internal_set (buffer, NULL, (unsigned char *) string, strlen (string), false, eol);
 }
 
 void
@@ -191,7 +191,7 @@ buffer_set_lower_case (buffer_t * buffer, bool sensitive)
 static inline bool
 buffer_stream_get_line (buffer_t * buffer)
 {
-  register int c, d;
+  int c, d;
 
   while ((c = sgetc (buffer)) != EOF)
     switch (c)
@@ -225,7 +225,7 @@ buffer_stream_get_line (buffer_t * buffer)
 	    break;
 	  }
 	/* End it.  No need to NUL-terminate */
-	obstack_1grow (&buffer->obstack, c);
+	obstack_1grow (&buffer->obstack, (char) c);
 	return true;
 
       case '\r':
@@ -260,12 +260,12 @@ buffer_stream_get_line (buffer_t * buffer)
 	    break;
 	  }
 	/* End it.  No need to NUL-terminate */
-	obstack_1grow (&buffer->obstack, c);
+	obstack_1grow (&buffer->obstack, (char) c);
 	return true;
 
       default:
       stream_plain_char:
-	obstack_1grow (&buffer->obstack, c);
+	obstack_1grow (&buffer->obstack, (char) c);
 	break;
       }
 
@@ -288,7 +288,7 @@ buffer_stream_get_line (buffer_t * buffer)
 static inline bool
 buffer_string_get_line (buffer_t * buffer)
 {
-  register int c, d;
+  int c, d;
 
   while ((c = bgetc (buffer)) != EOF)
     switch (c)
@@ -322,7 +322,7 @@ buffer_string_get_line (buffer_t * buffer)
 	    break;
 	  }
 	/* End it.  No need to NUL-terminate */
-	obstack_1grow (&buffer->obstack, c);
+	obstack_1grow (&buffer->obstack, (char) c);
 	return true;
 
       case '\r':
@@ -357,12 +357,12 @@ buffer_string_get_line (buffer_t * buffer)
 	    break;
 	  }
 	/* End it.  No need to NUL-terminate */
-	obstack_1grow (&buffer->obstack, c);
+	obstack_1grow (&buffer->obstack, (char) c);
 	return true;
 
       default:
       string_plain_char:
-	obstack_1grow (&buffer->obstack, c);
+	obstack_1grow (&buffer->obstack, (char) c);
 	break;
       }
 
@@ -397,7 +397,10 @@ buffer_get (buffer_t * buffer)
      test on the length of the buffer. */
   buffer->len = obstack_object_size (&buffer->obstack);
   obstack_1grow (&buffer->obstack, '\0');
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-conversion"
   buffer->content = (unsigned char *) obstack_finish (&buffer->obstack);
+#pragma GCC diagnostic pop
 
   /* One more line read */
   buffer->line++;
@@ -420,7 +423,7 @@ buffer_get (buffer_t * buffer)
 	xnrealloc (buffer->value, buffer->allocsize, sizeof(unsigned char));
 
       for (i = 0; i <= buffer->len; i++)
-	buffer->value[i] = tolower (buffer->content[i]);
+	buffer->value[i] = (unsigned char) tolower (buffer->content[i]);
     }
   else
     {
@@ -444,11 +447,11 @@ buffer_sample_get (buffer_t * buffer, const char *filename)
   FILE *out = xwfopen (filename);
   size_t cur = 0;
   int c;
-  char *sample_buffer = XNMALLOC (SAMPLE_SIZE, char);
+  unsigned char *sample_buffer = XNMALLOC (SAMPLE_SIZE, unsigned char);
 
   for (; (cur < SAMPLE_SIZE) && ((c = sgetc (buffer)) != EOF); cur++)
     {
-      sample_buffer[cur] = c;
+      sample_buffer[cur] = (unsigned char) c;
       putc (c, out);
     }
 

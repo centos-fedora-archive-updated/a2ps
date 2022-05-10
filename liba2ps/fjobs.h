@@ -26,7 +26,7 @@ struct a2ps_job;
  */
 struct file_job
 {
-  unsigned char * name;			/* Guess what it is :)			*/
+  char * name;			/* Guess what it is :)			*/
 
   /* A tmp file associated with this file.  It is used only privately
      by a2ps-prog.  If the file is delegated, the output of the
@@ -50,15 +50,15 @@ struct file_job
   int pages;			/* These are defined because it eases	*/
   int sheets;			/* delayed integers (cf. output_marker)	*/
   int num;			/* No of the file in the args		*/
-  int top_line;			/* The top most line of the current page */
+  size_t top_line;		/* The top most line of the current page */
   int top_page;			/* The first page appearing in curr sheet */
-  int lines;			/* Current line number			*/
+  size_t lines;			/* Current line number			*/
 };
 
 
 /* in the output session JOB, create a new input session NAME */
 struct file_job *
-_a2ps_file_job_new (unsigned char * name, int num, struct tm * run_tm);
+_a2ps_file_job_new (char * name, int num, struct tm * run_tm);
 
 int file_name_cmp (struct file_job * f1, struct file_job * f2);
 

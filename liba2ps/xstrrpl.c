@@ -63,7 +63,7 @@ xstrrpl (const char * string, const char * subst[][2])
   assert (strlen (string) * (max + 1) < cp - res);
 #endif
 
-  res = xnrealloc (res, cp - res + 1, sizeof(char));
+  res = xnrealloc (res, (size_t) (cp - res + 1), sizeof(char));
 
   return res;
 }

@@ -45,6 +45,7 @@
 #  havelib \
 #  isdir \
 #  long-options \
+#  manywarnings \
 #  obstack \
 #  sig2str \
 #  stpncpy \
@@ -66,6 +67,7 @@ gl_MODULES([
   havelib
   isdir
   long-options
+  manywarnings
   obstack
   sig2str
   stpncpy

@@ -92,8 +92,8 @@
  *  with BETWEEN).  They must be separated with ',', and
  * use this convention "First Last <email>".
  */
-static inline void
-authors_print (const unsigned char * authors, FILE * stream,
+static void
+authors_print (const char * authors, FILE * stream,
 	       const char *before,
 	       const char *author_fmt, const char *between,
 	       const char *after)
@@ -127,7 +127,10 @@ authors_print (const unsigned char * authors, FILE * stream,
         }
       else
         fputs (between, stream);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
       fprintf (stream, author_fmt, author, email);
+#pragma GCC diagnostic pop
       cp = strtok (NULL, ",");
     }
   if (!first)
@@ -138,7 +141,7 @@ authors_print (const unsigned char * authors, FILE * stream,
  * Plain : nothing to change
  */
 void
-authors_print_plain (const unsigned char * authors, FILE * stream,
+authors_print_plain (const char * authors, FILE * stream,
 		     const char *before)
 {
   authors_print (authors, stream,
@@ -149,7 +152,7 @@ authors_print_plain (const unsigned char * authors, FILE * stream,
  * HTML : nothing to change
  */
 void
-authors_print_html (const unsigned char * authors, FILE * stream,
+authors_print_html (const char * authors, FILE * stream,
 		    const char *before)
 {
   authors_print (authors, stream,
@@ -162,13 +165,12 @@ authors_print_html (const unsigned char * authors, FILE * stream,
  * Plain : nothing to change
  */
 void
-authors_print_texinfo (const unsigned char * authors, FILE * stream,
+authors_print_texinfo (const char * authors, FILE * stream,
 		       const char *before)
 {
-  unsigned char *cp;
   /* We must quote the @ of the emails */
-  cp = (unsigned char *) xvstrrpl ((const char *) authors,
-			   AUTHORS_TO_TEXINFO);
+  char *cp = xvstrrpl ((const char *) authors,
+                       AUTHORS_TO_TEXINFO);
 
   /* Don't print the email, that makes too wide output. */
   authors_print (cp, stream,
@@ -179,42 +181,45 @@ authors_print_texinfo (const unsigned char * authors, FILE * stream,
 /************************************************************************/
 /* 1. Plain ASCII */
 void
-documentation_print_plain (const unsigned char * documentation,
+documentation_print_plain (const char * documentation,
 			   const char *format, FILE * stream)
 {
-  char *cp;
-
   if (!documentation)
     return;
 
-  cp = xvstrrpl ((const char *) documentation, DOC_TO_PLAIN);
+  char *cp = xvstrrpl (documentation, DOC_TO_PLAIN);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
   fprintf (stream, format, cp);
+#pragma GCC diagnostic pop
 }
 
 /* 2. Towards HTML */
 void
-documentation_print_html (const unsigned char * documentation,
+documentation_print_html (const char * documentation,
 			  const char *format, FILE * stream)
 {
-  char *cp;
-
   if (!documentation)
     return;
 
-  cp = xvstrrpl ((const char *) documentation, DOC_TO_HTML);
+  char *cp = xvstrrpl (documentation, DOC_TO_HTML);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
   fprintf (stream, format, cp);
+#pragma GCC diagnostic pop
 }
 
 /* 3. Towards Texinfo */
-void
-documentation_print_texinfo (const unsigned char * documentation,
+_GL_ATTRIBUTE_FORMAT_PRINTF(2, 0) void
+documentation_print_texinfo (const char * documentation,
 			     const char *format, FILE * stream)
 {
-  char *cp;
-
   if (!documentation)
     return;
 
-  cp = xvstrrpl ((const char *) documentation, DOC_TO_TEXINFO);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+  char *cp = xvstrrpl (documentation, DOC_TO_TEXINFO);
   fprintf (stream, format, cp);
+#pragma GCC diagnostic pop
 }

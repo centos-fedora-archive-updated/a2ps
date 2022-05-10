@@ -153,10 +153,10 @@ symbol	[^/#, \t\r\f\n\":()+]*
 
 <STATE_USTRING>{		/* string of characters */
   [:\n]		{ /* return the string */
-    unsigned char * string;
+    char * string;
 
     obstack_1grow (&string_stack, '\0');
-    string = (unsigned char *) obstack_finish (&string_stack);
+    string = obstack_finish (&string_stack);
 
     obstack_free (&string_stack, string);
 

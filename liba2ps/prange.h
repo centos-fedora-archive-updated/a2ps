@@ -29,17 +29,17 @@ struct page_range;
 struct page_range * page_range_new (void);
 
 void a2ps_page_range_set_string (struct a2ps_job * job,
-					 const char * string);
+                                 const char * string);
 
 void report_pages_to_print (struct a2ps_job * job,
-				    FILE * stream);
+                            FILE * stream);
 
 int print_page (struct a2ps_job * job,
 			int page_num);
 
 void page_range_to_buffer (struct page_range * page_range,
-				   unsigned char * buf, int offset);
+                           char * buf, int offset);
 int page_range_applies_above (struct page_range * page_range,
-				      int offset);
+                              int offset);
 
 #endif

@@ -93,6 +93,7 @@ ppd_self_print (struct ppd * ppd, FILE * stream)
 			       (lister_width_t) strlen,
 			       (lister_print_t) fputs);
     }
+  free (fonts);
 }
 
 /*
@@ -108,6 +109,7 @@ _a2ps_ppd_get (char * const * path, const char * key)
   ppd_filepath = xpw_find_file (path, key, ".ppd");
   res = a2ps_ppd_parse (ppd_filepath, path);
   res->key = xstrdup (key);
+  free (ppd_filepath);
   return res;
 }
 

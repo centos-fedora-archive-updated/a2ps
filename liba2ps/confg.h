@@ -26,7 +26,7 @@ struct a2ps_job;
  * Type of the functions that can be used as hooks when reading
  * the config files
  */
-typedef void (* config_hook) (const char * filename, int line,
+typedef void (* config_hook) (const char * filename, unsigned line,
 				      char * config_line);
 extern config_hook delegation_hook;
 extern config_hook toc_entry_hook;

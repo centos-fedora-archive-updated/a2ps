@@ -150,7 +150,7 @@ bool delegate_p = true;
 /*
  * --toc[=format], generate a table of content
  */
-unsigned char *toc = NULL;
+char *toc = NULL;
 
 /*
  * -E: style sheet to use. NULL => automated
@@ -354,7 +354,7 @@ list_options (struct a2ps_job *a_job, FILE *stream)
     sprintf ((char *) buf, _("%d lines per page"),
 	     a_job->lines_requested);
   else
-    sprintf ((char *) buf, _("font size is %gpt"), a_job->fontsize);
+    sprintf ((char *) buf, _("font size is %gpt"), (double) a_job->fontsize);
 
   switch (a_job->numbering)
     {
@@ -518,7 +518,7 @@ list_options (struct a2ps_job *a_job, FILE *stream)
    */
   title (stream, '-', false, _("Internals:\n"));
   fprintf (stream, _("\
-  verbosity level     = %d\n\
+  verbosity level     = %u\n\
   file command        = %s\n\
   library path        = \n"),
 	   msg_verbosity,
@@ -557,8 +557,8 @@ spy_user (struct a2ps_job *a_job, FILE * stream)
      of my time.  */
   fputs ("SPY-BEGIN\n", spy);
   fputs ((char *) expand_user_string (job, CURRENT_FILE (job),
-				      (const unsigned char *) "Debugging info",
-				      (const unsigned char *) "%V was called with #!$|| |\n\n"),
+				      "Debugging info",
+                                      "%V was called with #!$|| |\n\n"),
 	 spy);
 
   list_options (a_job, spy);
@@ -901,7 +901,7 @@ handle_a2ps_option (int option, char *optional_arg)
 
     case 167:			/* --toc[=toc format]           */
       /* If no argument is given, use #{toc}. */
-      xustrcpy (toc, optional_arg ? optional_arg : "#{toc}");
+      xstrcpy (toc, optional_arg ? optional_arg : "#{toc}");
       break;
 
     case 169:			/* --end-of-line=TYPE           */
@@ -1023,10 +1023,10 @@ main (int argc, char *argv[])
       /* Act like file(1) does: report guessed ssh key */
       if (argn < argc)
 	for (; argn < argc; argn++)
-	  guess ((unsigned char *) argv[argn]);
+	  guess (argv[argn]);
       else
 	/* A guess is asked upon stdin */
-	guess (UNULL);
+	guess (NULL);
       break;
 
       /* FIXME: for expand, which, and glob, should we give an error
@@ -1037,7 +1037,7 @@ main (int argc, char *argv[])
       for (; argn < argc; argn++)
 	{
 	  fputs (expand_user_string (job, FIRST_FILE (job),
-				     "--list=expand", (unsigned char *) argv[argn]),
+				     "--list=expand", argv[argn]),
 		 stdout);
 	  putc ('\n', stdout);
 	}
@@ -1049,7 +1049,7 @@ main (int argc, char *argv[])
       for (; argn < argc; argn++)
 	{
 	  char *cp;
-	  cp = pw_find_file (job->common.path, (unsigned char *) argv[argn], NULL);
+	  cp = pw_find_file (job->common.path, argv[argn], NULL);
 	  if (cp)
 	    {
 	      fputs (cp, stdout);
@@ -1062,12 +1062,12 @@ main (int argc, char *argv[])
       /* Glob the arguments in the library, and report the full
          paths. */
       for (; argn < argc; argn++)
-	pw_glob_print (job->common.path, (unsigned char *) argv[argn], stdout);
+	pw_glob_print (job->common.path, argv[argn], stdout);
       break;
 
     case b_version:
       version_etc (stdout, NULL, GNU_PACKAGE, VERSION,
-		   "Akim Demaille", "Miguel Santana", (char const *) NULL);
+		   "Akim Demaille", "Miguel Santana", NULL);
       break;
 
     case b_help:
@@ -1148,13 +1148,13 @@ main (int argc, char *argv[])
 	a2ps_open_output_session (job);
 
 	if (argn == argc)	/* Print stdin */
-	  print (UNULL, &native_jobs, &delegated_jobs);
+	  print (NULL, &native_jobs, &delegated_jobs);
 	else			/* Print following files */
 	  for (; argn < argc; argn++)
-	    print ((unsigned char *) argv[argn], &native_jobs, &delegated_jobs);
+	    print (argv[argn], &native_jobs, &delegated_jobs);
 
 	if (!IS_EMPTY (toc))
-	  print_toc ((unsigned char *) _("Table of Content"), toc, &native_jobs);
+	  print_toc (_("Table of Content"), toc, &native_jobs);
 
 	if ((native_jobs == 0) && (delegated_jobs == 1))
 	  {

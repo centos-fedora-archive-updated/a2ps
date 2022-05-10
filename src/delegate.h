@@ -34,7 +34,7 @@ struct delegation
 
 struct hash_table_s *delegation_table_new (void);
 
-void add_delegation (const char *filename, int line,
+void add_delegation (const char *filename, unsigned line,
 			     char *contract_line);
 struct delegation *get_subcontract (const char *src_type,
 					    const char *dest_type);

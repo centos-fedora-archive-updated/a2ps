@@ -38,8 +38,8 @@ sheets_map_add (const char *pattern, int on_file_verdict,
 /* Pattern matching is run on NAME_TO_MATCH, and file(1)
  * is run of NAME_TO_FILE
  */
-const char * get_command (const unsigned char * name_to_match,
-				  const unsigned char * name_to_file);
+const char * get_command (const char * name_to_match,
+                          const char * name_to_file);
 
 struct pattern_rule *
 pattern_rule_new (const char *pattern,

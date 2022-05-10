@@ -35,7 +35,7 @@ void version_cpy (version_t d, version_t s);
 void version_self_print (version_t version , FILE *stream);
 
 /* Return the length occupied by this version number once printed */
-int version_length (version_t version);
+size_t version_length (version_t version);
 
 void version_add (version_t v1, version_t v2);
 

@@ -75,7 +75,7 @@ extern void *hash_deleted_item;
 # define STRING_HASH_1(_key_, _result_) do { \
   unsigned char const *kk = (unsigned char const *) (_key_) - 1; \
   while (*++kk) \
-    (_result_) += (*kk << (kk[1] & 0xf)); \
+    (_result_) += (typeof (_result_))(*kk << (kk[1] & 0xf));     \
 } while (0)
 # define return_STRING_HASH_1(_key_) do { \
   unsigned long result = 0; \
@@ -86,7 +86,7 @@ extern void *hash_deleted_item;
 # define STRING_HASH_2(_key_, _result_) do { \
   unsigned char const *kk = (unsigned char const *) (_key_) - 1; \
   while (*++kk) \
-    (_result_) += (*kk << (kk[1] & 0x7)); \
+    (_result_) += (typeof (_result_))(*kk << (kk[1] & 0x7));      \
 } while (0)
 # define return_STRING_HASH_2(_key_) do { \
   unsigned long result = 0; \

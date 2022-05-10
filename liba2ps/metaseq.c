@@ -172,13 +172,13 @@ static void
 grow_user_string_obstack (struct obstack * user_string_stack,
 			  struct a2ps_job * job,
 			  struct file_job * file,
-			  const unsigned char * context_name,
-			  const unsigned char * str)
+			  const char * context_name,
+			  const char * str)
 {
-  unsigned char * cp, * cp2;
+  char * cp, * cp2;
   size_t i = 0, j;
-  unsigned char padding = ' ' ;	/* Char used to complete %20 (usually ` ' or `.' */
-  unsigned char buf[512], buf2[512], buf3[256];
+  char padding = ' ' ;	/* Char used to complete %20 (usually ` ' or `.' */
+  char buf[512], buf2[512], buf3[256];
   size_t width = 0;
   int justification = 1;
 
@@ -262,7 +262,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'a':	/* `%a' NLS'ed `printed by USERNAME */
-	    sprintf ((char *) buf2,
+	    sprintf (buf2,
 		     _("Printed by %s"),
 		     macro_meta_sequence_get (job, VAR_USER_NAME));
 	    APPEND_STR (buf2);
@@ -272,15 +272,15 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    cp = macro_meta_sequence_get (job, VAR_USER_NAME);
 	    cp2 = macro_meta_sequence_get (job, VAR_USER_HOST);
 	    if (cp2)
-	      sprintf ((char *) buf3,
+	      sprintf (buf3,
 		       _("Printed by %s from %s"), cp, cp2);
 	    else
-	      sprintf ((char *) buf3, _("Printed by %s"), cp);
+	      sprintf (buf3, _("Printed by %s"), cp);
 	    APPEND_STR (buf3);
 	    break;
 
 	  case 'c':	/* `%c' trailing component of pwd. */
-	    cp = (unsigned char *) getcwd (NULL, 0);
+	    cp = getcwd (NULL, 0);
 	    if (!cp)
 	      error (1, errno,
 		     _("cannot get current working directory"));
@@ -292,13 +292,13 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    APPEND_STR (cp2);
 	    break;
 	  case 'C':	/* `%C' runtime in `hh:mm:ss' format */
-	    sprintf ((char *)buf, "%d:%02d:%02d", job->run_tm.tm_hour,
+	    sprintf (buf, "%d:%02d:%02d", job->run_tm.tm_hour,
 		     job->run_tm.tm_min, job->run_tm.tm_sec);
 	    APPEND_STR (buf);
 	    break;
 
 	  case 'd':	/* `%d' current working directory */
-	    cp = (unsigned char *) getcwd (NULL, 0);
+	    cp = getcwd (NULL, 0);
 	    if (!cp)
 	      error (1, errno,
 		     _("cannot get current working directory"));
@@ -318,13 +318,12 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 			 context_name, "%D{}");
 
 		buf2[j] = '\0';
-		strftime ((char *) buf, sizeof (buf),
-			  (char *) buf2, &job->run_tm);
+		strftime (buf, sizeof (buf), buf2, &job->run_tm);
 	      }
 	    else
 	      {
 		/* `%D' run date in `yy-mm-dd' format */
-		sprintf ((char *)buf, "%02d-%02d-%02d",
+		sprintf (buf, "%02d-%02d-%02d",
 			 job->run_tm.tm_year % 100,
 			 job->run_tm.tm_mon + 1,
 			 job->run_tm.tm_mday);
@@ -333,7 +332,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'e':	/* `%e' run date in localized short format */
-	    strftime ((char *) buf, sizeof (buf),
+	    strftime (buf, sizeof (buf),
 		      /* Translators: please make a short date format
 		       * according to the std form in your language, using
 		       * the standard strftime(3) */
@@ -345,13 +344,13 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    /* Translators: please make a long date format
 	     * according to the std form in your language, using
 	     * the standard strftime (3) */
-	    strftime ((char *) buf, sizeof (buf),
+	    strftime (buf, sizeof (buf),
 		      (_("%A %B %d, %Y")), &job->run_tm);
 	    APPEND_STR (buf);
 	    break;
 
 	  case 'F':	/* `%F' run date in `dd.mm.yyyy' format */
-	    sprintf ((char *)buf, "%d.%d.%d",
+	    sprintf (buf, "%d.%d.%d",
 		     job->run_tm.tm_mday,
 		     job->run_tm.tm_mon + 1,
 		     job->run_tm.tm_year+1900);
@@ -383,7 +382,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	  case 'p':	/* `%p' related to the pages of the job */
 	    switch (str [++i]) {
 	    case '.':	/* `%p.' current page number */
-	      sprintf ((char *)buf, "%d", job->pages);
+	      sprintf (buf, "%d", job->pages);
 	      APPEND_STR (buf);
 	      break;
 
@@ -399,12 +398,12 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'q':	/* `%q' localized `Page %d' */
-	    sprintf ((char *)buf, _("Page %d"), job->pages);
+	    sprintf (buf, _("Page %d"), job->pages);
 	    APPEND_STR (buf);
 	    break;
 
 	  case 'Q':	/* `%Q' localized `Page %d/%c' */
-	    sprintf ((char *)buf, _("Page %d/%c"),
+	    sprintf (buf, _("Page %d/%c"),
 		     job->pages, JOB_NB_PAGES);
 	    APPEND_STR (buf);
 	    break;
@@ -412,7 +411,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	  case 's':	/* `%s' related to the sheets of the job */
 	    switch (str [++i]) {
 	    case '.':	/* `%s.' current sheet number */
-	      sprintf ((char *)buf, "%d", job->sheets);
+	      sprintf (buf, "%d", job->sheets);
 	      APPEND_STR (buf);
 	      break;
 
@@ -428,7 +427,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 't':	/* `%t' runtime in 12-hour am/pm format */
-	    sprintf ((char *)buf, "%d:%02d%s",
+	    sprintf (buf, "%d:%02d%s",
 		     job->run_tm.tm_hour > 12
 		     ? job->run_tm.tm_hour - 12 : job->run_tm.tm_hour,
 		     job->run_tm.tm_min,
@@ -437,13 +436,13 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'T':	/* `%T' runtime in 24-hour format */
-	    sprintf ((char *)buf, "%d:%02d",
+	    sprintf (buf, "%d:%02d",
 		     job->run_tm.tm_hour, job->run_tm.tm_min);
 	    APPEND_STR (buf);
 	    break;
 
 	  case '*':	/* `%*' runtime in 24-hour format with secs */
-	    sprintf ((char *)buf, "%d:%02d:%02d",
+	    sprintf (buf, "%d:%02d:%02d",
 		     job->run_tm.tm_hour,
 		     job->run_tm.tm_min,
 		     job->run_tm.tm_sec);
@@ -451,12 +450,12 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'V':	/* `%V': name & version of this program */
-	    sprintf ((char *) buf, "%s %s", PACKAGE, VERSION);
+	    sprintf (buf, "%s %s", PACKAGE, VERSION);
 	    APPEND_STR (buf);
 	    break;
 
 	  case 'W':	/* `%W' run date in `mm/dd/yy' format */
-	    sprintf ((char *)buf, "%02d/%02d/%02d",
+	    sprintf (buf, "%02d/%02d/%02d",
 		     job->run_tm.tm_mon + 1,
 		     job->run_tm.tm_mday,
 		     job->run_tm.tm_year % 100);
@@ -490,7 +489,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case '*':	/* `$*' modif time in 24-hour format with secs */
-	    sprintf ((char *)buf, "%d:%02d:%02d",
+	    sprintf (buf, "%d:%02d:%02d",
 		     file->mod_tm.tm_hour,
 		     file->mod_tm.tm_min,
 		     file->mod_tm.tm_sec);
@@ -511,13 +510,13 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 		     context_name, "$()");
 	    buf[j] = '\0';
 
-	    cp = (unsigned char *) getenv ((char *)buf);
+	    cp = getenv (buf);
 	    if (cp)
 	      APPEND_STR (cp);
 	    break;
 
 	  case '{':	/* ${ENVVAR} or ${ENVVAR:-word} or  ${ENVVAR:+word} */
-	    cp2 = UNULL;
+	    cp2 = NULL;
 	    for (j = 0 , i++ ; str[i] != '}' && j < sizeof (buf) - 1 ; i++)
 	      switch (str [i]) {
 	      case '\0':
@@ -541,7 +540,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    buf[j] = '\0';
 
 	    /* Get the value of the env var */
-	    cp = (unsigned char *) getenv ((char *)buf);
+	    cp = getenv (buf);
 	    if (IS_EMPTY (cp2))
 	      {
 		/* No word specified */
@@ -593,12 +592,12 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case '#':	/* `$#': input file number */
-	    sprintf ((char *)buf, "%d", file->num);
+	    sprintf (buf, "%d", file->num);
 	    APPEND_STR (buf);
 	    break;
 
 	  case 'C':	/* `$C' modtime in `hh:mm:ss' format */
-	    sprintf ((char *)buf, "%d:%02d:%02d",
+	    sprintf (buf, "%d:%02d:%02d",
 		     file->mod_tm.tm_hour,
 		     file->mod_tm.tm_min,
 		     file->mod_tm.tm_sec);
@@ -629,13 +628,13 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 			 context_name, "$D{}");
 
 		buf2[j] = '\0';
-		strftime ((char *) buf, sizeof (buf),
-			  (char *) buf2, &(file->mod_tm));
+		strftime (buf, sizeof (buf),
+			  buf2, &(file->mod_tm));
 	      }
 	    else
 	      {
 		/* `$D' mod date in `yy-mm-dd' format */
-		sprintf ((char *)buf, "%02d-%02d-%02d",
+		sprintf (buf, "%02d-%02d-%02d",
 			 file->mod_tm.tm_year % 100,
 			 file->mod_tm.tm_mon + 1,
 			 file->mod_tm.tm_mday);
@@ -647,13 +646,13 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    /* Translators: please make a short date format
 	     * according to the std form in your language, using
 	     * GNU strftime(3) */
-	    strftime ((char *) buf, sizeof (buf),
+	    strftime (buf, sizeof (buf),
 		      (_("%b %d, %y")), &(file->mod_tm));
 	    APPEND_STR (buf);
 	    break;
 
 	  case 'E':	/* `$E' mod date in localized long format */
-	    strftime ((char *) buf, sizeof (buf),
+	    strftime (buf, sizeof (buf),
 		      /* Translators: please make a long date format
 		       * according to the std form in your language, using
 		       * GNU strftime(3) */
@@ -666,7 +665,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'F':	/* `$F' run date in `dd.mm.yyyy' format */
-	    sprintf ((char *)buf, "%d.%d.%d",
+	    sprintf (buf, "%d.%d.%d",
 		     file->mod_tm.tm_mday,
 		     file->mod_tm.tm_mon + 1,
 		     file->mod_tm.tm_year+1900);
@@ -676,19 +675,19 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	  case 'l':	/* `$l' related to the lines of the file */
 	    switch (str [++i]) {
 	    case '^':	/* $l^ top most line in the current page */
-	      sprintf ((char *)buf, "%d", file->top_line);
+	      sprintf (buf, "%d", file->top_line);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '.':	/* `$l.' current line */
-	      sprintf ((char *)buf, "%d", file->lines - 1);
+	      sprintf (buf, "%d", file->lines - 1);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '#':		/* `$l#' number of lines in this file */
 	      if (file != CURRENT_FILE (job)) {
 		/* This file is finised, we do know its real number of lines */
-		sprintf ((char *)buf, "%d", file->lines);
+		sprintf (buf, "%d", file->lines);
 		APPEND_STR (buf);
 	      } else {
 		/* It is not know: delay it to the end of the job */
@@ -735,33 +734,33 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    switch (str [++i]) {
 	    case '^':	/* `$p^' first page number of this file
 			 * appearing in the current sheet */
-	      sprintf ((char *)buf, "%d", file->top_page);
+	      sprintf (buf, "%d", file->top_page);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '-':	/* `$p-' interval of the pages of the current file
 			 * appearing in the current sheet */
 	      if (file->top_page == file->pages)
-		sprintf ((char *)buf, "%d", file->top_page);
+		sprintf (buf, "%d", file->top_page);
 	      else
-		sprintf ((char *)buf, "%d-%d", file->top_page, file->pages);
+		sprintf (buf, "%d-%d", file->top_page, file->pages);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '<':	/* `$p<' first page number for this file */
-	      sprintf ((char *)buf, "%d", file->first_page);
+	      sprintf (buf, "%d", file->first_page);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '.':	/* `$p.' current page number */
-	      sprintf ((char *)buf, "%d", file->pages);
+	      sprintf (buf, "%d", file->pages);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '>':	/* `$p>' last page number for this file */
 	      if (file != CURRENT_FILE (job)) {
 		/* This file is finised, we do know its last page */
-		sprintf ((char *)buf, "%d", file->last_page);
+		sprintf (buf, "%d", file->last_page);
 		APPEND_STR (buf);
 	      } else {
 		/* It is not know: delay it to the end of the job */
@@ -772,7 +771,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    case '#':	/* `$p#' total number of pages */
 	      if (file != CURRENT_FILE (job)) {
 		/* This file is finised, we do know its real number of pages */
-		sprintf ((char *)buf, "%d", file->pages);
+		sprintf (buf, "%d", file->pages);
 		APPEND_STR (buf);
 	      } else {
 		/* It is not know: delay it to the end of the job */
@@ -788,18 +787,18 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'q':	/* `$q' localized `Page $p' */
-	    sprintf ((char *)buf, _("Page %d"), file->pages);
+	    sprintf (buf, _("Page %d"), file->pages);
 	    APPEND_STR (buf);
 	    break;
 
 	  case 'Q':	/* `$Q' localized `Page $p/$P' */
 	    if (file != CURRENT_FILE (job))
 	      /* This file is finised, we do know its real number of pages */
-	      sprintf ((char *) buf, _("Page %d/%d"),
+	      sprintf (buf, _("Page %d/%d"),
 		       file->pages, file->pages);
 	    else
 	      /* It is not know: delay it to the end of the job */
-	      sprintf ((char *) buf, _("Page %d/%c"),
+	      sprintf (buf, _("Page %d/%c"),
 		       file->pages,
 		       FILE_NB_PAGES);
 	    APPEND_STR (buf);
@@ -808,19 +807,19 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	  case 's':	/* `$s' related to the sheets of the file */
 	    switch (str [++i]) {
 	    case '<':	/* `$s<' first sheet for this file */
-	      sprintf ((char *)buf, "%d", file->first_sheet);
+	      sprintf (buf, "%d", file->first_sheet);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '.':	/* `$s.' current sheet number */
-	      sprintf ((char *)buf, "%d", file->sheets);
+	      sprintf (buf, "%d", file->sheets);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '>':	/* `$s>' last sheet for this file */
 	      if (file != CURRENT_FILE (job)) {
 		/* This file is finised, we do know its last sheet */
-		sprintf ((char *)buf, "%d", file->last_sheet);
+		sprintf (buf, "%d", file->last_sheet);
 		APPEND_STR (buf);
 	      } else {
 		/* It is not know: delay it to the end of the job */
@@ -831,7 +830,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    case '#':	/* `$s#' total number of sheets */
 	      if (file != CURRENT_FILE (job)) {
 		/* This file is finised, we know its number of sheets */
-		sprintf ((char *)buf, "%d", file->sheets);
+		sprintf (buf, "%d", file->sheets);
 		APPEND_STR (buf);
 	      } else {
 		/* It is not know: delay it to the end of the job */
@@ -869,7 +868,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	      break;
 
 	    default:	/* `$t' runtime in 12-hour am/pm format */
-	      sprintf ((char *)buf, "%d:%02d%s",
+	      sprintf (buf, "%d:%02d%s",
 		       (file->mod_tm.tm_hour > 12
 			?file->mod_tm.tm_hour-12
 			:file->mod_tm.tm_hour),
@@ -880,14 +879,14 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'T':	/* `$T' runtime in 24-hour format */
-	    sprintf ((char *)buf, "%d:%02d",
+	    sprintf (buf, "%d:%02d",
 		     file->mod_tm.tm_hour,
 		     file->mod_tm.tm_min);
 	    APPEND_STR (buf);
 	    break;
 
 	  case 'W':	/* `$W' run date in `mm/dd/yy' format */
-	    sprintf ((char *)buf, "%02d/%02d/%02d",
+	    sprintf (buf, "%02d/%02d/%02d",
 		     file->mod_tm.tm_mon + 1,
 		     file->mod_tm.tm_mday,
 		     file->mod_tm.tm_year % 100);
@@ -931,8 +930,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 		     context_name, "#()");
 	    buf[j] = '\0';
 
-	    cp = (unsigned char *) macro_meta_sequence_get (job,
-						    (char *) buf);
+	    cp = (unsigned char *) macro_meta_sequence_get (job, buf);
 	    if (cp)
 	      grow_user_string_obstack (user_string_stack,
 					job, file,
@@ -941,7 +939,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 
 
 	  case '{':	/* #{macro} or #{macro:-word} or ${macro:+word} */
-	    cp2 = UNULL;
+	    cp2 = NULL;
 	    for (j = 0 , i++ ; str[i] != '}' && j < sizeof (buf) - 1 ; i++)
 	      switch (str [i]) {
 	      case '\0':
@@ -965,7 +963,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    buf[j] = '\0';
 
 	    /* Get the value of the macro */
-	    cp = (unsigned char *) macro_meta_sequence_get (job, (char *) buf);
+	    cp = (unsigned char *) macro_meta_sequence_get (job, buf);
 	    if (IS_EMPTY (cp2))
 	      {
 		/* No word specified */
@@ -1097,9 +1095,9 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 
 	  case '!':	/* `#!' a enumeration of a category		*/
 	    {
-	      unsigned char category, sep;
-	      unsigned char * in, * between;
-	      unsigned char * next;
+	      char category, sep;
+	      char * in, * between;
+	      char * next;
 
 	      category = str[++i];
 	      sep = str[++i];
@@ -1107,13 +1105,13 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 
 	      SPLIT (in, sep, "#!", category);
 	      SPLIT (between, sep, "#!", category);
-	      i += next - in - 1;
+	      i += (size_t) (next - in - 1);
 
 	      switch (category) {
 	      case '$':		/* `#!$': enumeration of the arguments */
 		{
 		  size_t fnum, fmax;
-		  fmax = limit_by_width (job->argc);
+		  fmax = limit_by_width ((size_t) job->argc);
 		  for (fnum = 0 ; fnum < fmax ; fnum++) {
 		    APPEND_STR (job->argv [fnum]);
 		    if (fnum < fmax - 1)
@@ -1223,7 +1221,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'h':	/* `#h' medium height in PS points		*/
-	    sprintf ((char *) buf, "%d", job->medium->h);
+	    sprintf (buf, "%d", job->medium->h);
 	    APPEND_STR (buf);
 	    break;
 
@@ -1235,8 +1233,8 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    if (a2ps_printers_flag_output_is_printer_get (job->printers))
 	      grow_user_string_obstack
 		(user_string_stack, job, file,
-		 (const unsigned char *) _("output command"),
-		 (const unsigned char *) a2ps_printers_flag_output_name_get(job->printers));
+		 _("output command"),
+		 a2ps_printers_flag_output_name_get(job->printers));
 	    else
 	      APPEND_STR (a2ps_printers_flag_output_name_get (job->printers));
 	    break;
@@ -1248,12 +1246,12 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'v':	/* `#v' number of virtual pages */
-	    sprintf ((char *) buf, "%d", job->rows * job->columns);
+	    sprintf (buf, "%d", job->rows * job->columns);
 	    APPEND_STR (buf);
 	    break;
 
 	  case 'w':	/* `#w' medium width in PS points		*/
-	    sprintf ((char *) buf, "%d", job->medium->w);
+	    sprintf (buf, "%d", job->medium->w);
 	    APPEND_STR (buf);
 	    break;
 
@@ -1277,16 +1275,16 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 /* The exported function.
    GIGO principle: if STR is NULL, output too.  */
 
-unsigned char *
+char *
 expand_user_string (struct a2ps_job * job,
 		    struct file_job * file,
-		    const unsigned char * context_name,
-		    const unsigned char * str)
+		    const char * context_name,
+		    const char * str)
 {
   static int first_time = 1;
   static struct obstack user_string_stack;
 
-  unsigned char * res;
+  char * res;
 
   if (first_time)
     {
@@ -1305,7 +1303,7 @@ expand_user_string (struct a2ps_job * job,
 			    job, file, context_name, str);
 
   obstack_1grow (&user_string_stack, '\0');
-  res = (unsigned char *) obstack_finish (&user_string_stack);
+  res = obstack_finish (&user_string_stack);
   obstack_free (&user_string_stack, res);
 
   message (msg_meta,

@@ -82,10 +82,10 @@ pair_key_len (struct pair * pair)
 }
 
 /* Fputs the key of PAIR to STREAM */
-static void
+static int
 pair_key_fputs (struct pair * pair, FILE * stream)
 {
-  fputs (pair->key, stream);
+  return fputs (pair->key, stream);
 }
 
 
@@ -322,7 +322,7 @@ pair_table_load (struct hash_table_s * table, const char *file)
   char *buf = NULL;
   size_t bufsiz = 0;
   char * token, * token2;
-  int firstline = 0, lastline = 0;
+  unsigned firstline = 0, lastline = 0;
 
   message (msg_file,
 	   (stderr, "Loading map file `%s'\n", quotearg (file)));

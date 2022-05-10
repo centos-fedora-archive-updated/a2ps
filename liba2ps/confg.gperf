@@ -193,7 +193,6 @@ a2_read_config (a2ps_job * job, const char *path, const char *file)
 		else
 		  included_file = strdup (argv[1]);
 
-
 		error_at_line (0, errno, fname, firstline,
 			       _("cannot open file `%s'"),
 			       quotearg (included_file));

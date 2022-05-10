@@ -327,11 +327,11 @@ a_rhs:
 	}
 	| tBACK_REF fface
 	{
-	  $$ = faced_string_new  (UNULL, $1, $2);
+	  $$ = faced_string_new  (NULL, $1, $2);
 	}
 	| tBACK_REF
 	{
-	  $$ = faced_string_new  (UNULL, $1, No_fface);
+	  $$ = faced_string_new  (NULL, $1, No_fface);
 	}
 	| tLATEXSYMBOL
 	{
@@ -417,7 +417,7 @@ rule:   tSTRING rhs
 	| tSTRING
 	{
 	  $$ = rule_new ($1, NULL,
-			 rhs_new_single (UNULL, 0, No_fface),
+			 rhs_new_single (NULL, 0, No_fface),
 			 sshfilename, sshlineno);
 	}
 	| '(' tSTRING rhs_list ')'
@@ -472,19 +472,19 @@ keywords_rule_list:
 keyword_regex:
 	  regex rhs
 	{
-	  $$ = keyword_rule_new (UNULL, $1, $2,
+	  $$ = keyword_rule_new (NULL, $1, $2,
 				 sshfilename, sshlineno);
 	}
 	| regex
 	{
-	  $$ = keyword_rule_new (UNULL, $1,
-				   rhs_new_single (UNULL, 0,
+	  $$ = keyword_rule_new (NULL, $1,
+				   rhs_new_single (NULL, 0,
 							    No_fface),
 				 sshfilename, sshlineno);
 	}
 	| '(' regex rhs_list ')'
 	{
-	  $$ = keyword_rule_new (UNULL, $2, $3,
+	  $$ = keyword_rule_new (NULL, $2, $3,
 				 sshfilename, sshlineno);
 	}
 	;
@@ -534,18 +534,18 @@ operators_rule_list:
 operator_regex:
 	  regex rhs
 	{
-	  $$ = rule_new (UNULL, $1, $2,
+	  $$ = rule_new (NULL, $1, $2,
 			 sshfilename, sshlineno);
 	}
 	| regex
 	{
-	  $$ = rule_new (UNULL, $1,
-			   rhs_new_single (UNULL, 0, No_fface),
+	  $$ = rule_new (NULL, $1,
+			   rhs_new_single (NULL, 0, No_fface),
 			 sshfilename, sshlineno);
 	}
 	| '(' regex rhs_list ')'
 	{
-	  $$ = rule_new (UNULL, $2, $3,
+	  $$ = rule_new (NULL, $2, $3,
 			 sshfilename, sshlineno);
 	}
 	;
@@ -605,7 +605,7 @@ sequence:
 	{
 	  struct rule * open_rule;
 	  open_rule = rule_new ($1, NULL,
-				rhs_new_single (UNULL, 0, $2),
+				rhs_new_single (NULL, 0, $2),
 				sshfilename, sshlineno);
 	  $$ = sequence_new (open_rule, $3, $4, $5);
 	}
@@ -621,14 +621,14 @@ sequence:
 	{
 	  struct rule * open_rule;
 	  open_rule = rule_new ($1, NULL,
-				rhs_new_single (UNULL, 0, $2),
+				rhs_new_single (NULL, 0, $2),
 				sshfilename, sshlineno);
 	  $$ = sequence_new (open_rule, $2, $3, $4);
 	}
 	| regex tSTRING fface fface closers_opt exception_def_opt
 	{
 	  struct rule * open_rule;
-	  open_rule = rule_new (UNULL, $1,
+	  open_rule = rule_new (NULL, $1,
 				rhs_new_single ($2, 0, $3),
 				sshfilename, sshlineno);
 	  $$ = sequence_new (open_rule, $4, $5, $6);
@@ -636,15 +636,15 @@ sequence:
 	| regex fface fface closers_opt exception_def_opt
 	{
 	  struct rule * open_rule;
-	  open_rule = rule_new (UNULL, $1,
-				rhs_new_single (UNULL, 0, $2),
+	  open_rule = rule_new (NULL, $1,
+				rhs_new_single (NULL, 0, $2),
 				sshfilename, sshlineno);
 	  $$ = sequence_new (open_rule, $3, $4, $5);
 	}
 	| regex tSTRING fface closers_opt exception_def_opt
 	{
 	  struct rule * open_rule;
-	  open_rule = rule_new (UNULL, $1,
+	  open_rule = rule_new (NULL, $1,
 				rhs_new_single ($2, 0, $3),
 				sshfilename, sshlineno);
 	  $$ = sequence_new (open_rule, $3, $4, $5);
@@ -652,8 +652,8 @@ sequence:
 	| regex fface closers_opt exception_def_opt
 	{
 	  struct rule * open_rule;
-	  open_rule = rule_new (UNULL, $1,
-				rhs_new_single (UNULL, 0, No_fface),
+	  open_rule = rule_new (NULL, $1,
+				rhs_new_single (NULL, 0, No_fface),
 				sshfilename, sshlineno);
 	  $$ = sequence_new (open_rule, $2, $3, $4);
 	}
@@ -667,7 +667,7 @@ sequence:
 	| '(' regex rhs_list ')' fface closers_opt exception_def_opt
 	{
 	  struct rule * open_rule;
-	  open_rule = rule_new (UNULL, $2, $3,
+	  open_rule = rule_new (NULL, $2, $3,
 				sshfilename, sshlineno);
 	  $$ = sequence_new (open_rule, $5, $6, $7);
 	}

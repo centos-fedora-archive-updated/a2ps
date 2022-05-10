@@ -83,8 +83,8 @@ hash_find_slot (struct hash_table_s* ht, void const *key)
 {
   void **slot;
   void **deleted_slot = 0;
-  unsigned int hash_2 = 0;
-  unsigned int hash_1 = (*ht->ht_hash_1) (key);
+  unsigned long hash_2 = 0;
+  unsigned long hash_1 = (*ht->ht_hash_1) (key);
 
   ht->ht_lookups++;
   for (;;)
@@ -216,10 +216,10 @@ hash_rehash (struct hash_table_s* ht)
 void
 hash_print_stats (struct hash_table_s *ht, FILE *out_FILE)
 {
-  fprintf (out_FILE, "Load=%ld/%ld=%.0f%%, ", ht->ht_fill, ht->ht_size,
+  fprintf (out_FILE, "Load=%lu/%lu=%.0f%%, ", ht->ht_fill, ht->ht_size,
 	   100.0 * (double) ht->ht_fill / (double) ht->ht_size);
-  fprintf (out_FILE, "Rehash=%d, ", ht->ht_rehashes);
-  fprintf (out_FILE, "Collisions=%ld/%ld=%.0f%%\n",
+  fprintf (out_FILE, "Rehash=%u, ", ht->ht_rehashes);
+  fprintf (out_FILE, "Collisions=%lu/%lu=%.0f%%\n",
 	   ht->ht_collisions, ht->ht_lookups,
 	   (ht->ht_lookups
 	    ? (100.0 * (double) ht->ht_collisions / (double) ht->ht_lookups)
@@ -305,7 +305,7 @@ hash_maparg (struct hash_table_s *ht, hash_maparg_func_t map,
 static unsigned long
 round_up_2 (unsigned long rough)
 {
-  int round;
+  unsigned long round;
 
   round = 1;
   while (rough)

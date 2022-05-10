@@ -50,7 +50,7 @@ a2ps_print_char (a2ps_job * job, int c, enum face_e new_face)
  * Print a string (\0 terminated)
  */
 void
-a2ps_print_string (a2ps_job * job, const unsigned char * string, enum face_e new_face)
+a2ps_print_string (a2ps_job * job, const char * string, enum face_e new_face)
 {
   switch (job->output_format)
     {
@@ -108,7 +108,7 @@ a2ps_open_output_session (a2ps_job * job)
  * Build the file struct for a new file
  */
 void
-a2ps_open_input_session (struct a2ps_job * job, unsigned char * name)
+a2ps_open_input_session (struct a2ps_job * job, const char * name)
 {
   struct file_job * file_job;
 

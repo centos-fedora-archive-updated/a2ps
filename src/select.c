@@ -128,8 +128,8 @@ sheets_map_load_main (void)
 }
 
 /* escapes the name of a file so that the shell groks it in 'single' q.marks. */
-char *
-shell_escape(const char *fn)
+static char *
+shell_escape (const char *fn)
 {
   size_t len = 0;
   const char *inp;
@@ -160,7 +160,7 @@ shell_escape(const char *fn)
   if could not be run.  */
 
 static char *
-file_verdict_on (const unsigned char *filename_)
+file_verdict_on (const char *filename_)
 {
   char *cp = NULL, * command;
   char buf [1024];
@@ -225,11 +225,10 @@ file_verdict_on (const unsigned char *filename_)
  */
 #define rule(_i_) ((struct pattern_rule *)sheets_map->content[_i_])
 const char *
-get_command (const unsigned char *name_to_match, const unsigned char *name_to_file)
+get_command (const char *name_to_match, const char *name_to_file)
 {
-  int i;
   char *file_verdict;
-  unsigned char *name_to_match_lc;
+  char *name_to_match_lc;
 
   /* We only want to read the sheets map if needed, hence,
    * from here (not needed if the sheet name is given by the
@@ -253,24 +252,26 @@ get_command (const unsigned char *name_to_match, const unsigned char *name_to_fi
    * Christian Mondrup <scancm@biobase.dk> and Jens Henrik Leonhard
    * Jensen recjhl@mediator.uni-c.dk) */
   /* The loop is split to speed up */
-  for (i = sheets_map->len - 1 ; i >= 0 ; i--)
-    if (rule(i)->on_file_verdict)
-      {
-	/* Testing upon file's result */
-	if (file_verdict
-	    && !fnmatch (rule(i)->pattern, file_verdict, 0))
-          return rule(i)->command;
-      }
-    else
-      {
-	/* Upon file name */
-	if (name_to_match
-	    && !fnmatch (rule(i)->pattern,
-			 (char *) (rule(i)->insensitive_p
-				   ? name_to_match_lc : name_to_match),
-			 0))
-          return rule(i)->command;
-      }
+  for (size_t i = sheets_map->len ; i-- > 0;)
+    {
+      if (rule(i)->on_file_verdict)
+        {
+          /* Testing upon file's result */
+          if (file_verdict
+              && !fnmatch (rule(i)->pattern, file_verdict, 0))
+            return rule(i)->command;
+        }
+      else
+        {
+          /* Upon file name */
+          if (name_to_match
+              && !fnmatch (rule(i)->pattern,
+                           (char *) (rule(i)->insensitive_p
+                                     ? name_to_match_lc : name_to_match),
+                           0))
+            return rule(i)->command;
+        }
+    }
 
   return "plain";
 }

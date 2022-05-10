@@ -53,8 +53,7 @@
 /* dupargv -- duplicate an argument vector */
 
 char **
-dupargv (argv)
-     char **argv;
+dupargv (char **argv)
 {
   int argc;
   char **copy;
@@ -64,14 +63,14 @@ dupargv (argv)
   
   /* the vector */
   for (argc = 0; argv[argc] != NULL; argc++);
-  copy = (char **) malloc ((argc + 1) * sizeof (char *));
+  copy = (char **) malloc (((size_t) argc + 1) * sizeof (char *));
   if (copy == NULL)
     return NULL;
   
   /* the strings */
   for (argc = 0; argv[argc] != NULL; argc++)
     {
-      int len = strlen (argv[argc]);
+      size_t len = strlen (argv[argc]);
       copy[argc] = malloc (sizeof (char *) * (len + 1));
       if (copy[argc] == NULL)
         return NULL;
@@ -83,9 +82,7 @@ dupargv (argv)
 
 /* buildargv -- build an argument vector from a string */
 
-char **buildargv_argc (input, argc)
-  const char *input;
-  int * argc;
+char **buildargv_argc (const char *input, int *argc)
 {
   char *arg;
   char *copybuf;
@@ -112,12 +109,12 @@ char **buildargv_argc (input, argc)
 	      if (argv == NULL)
 		{
 		  maxargc = *argc > INITIAL_MAXARGC ? *argc : INITIAL_MAXARGC;
-		  nargv = (char **) malloc (maxargc * sizeof (char *));
+		  nargv = (char **) malloc ((size_t) maxargc * sizeof (char *));
 		}
 	      else
 		{
 		  maxargc *= 2;
-		  nargv = (char **) realloc (argv, maxargc * sizeof (char *));
+		  nargv = (char **) realloc (argv, (size_t) maxargc * sizeof (char *));
 		}
 	      if (nargv == NULL)
 		{

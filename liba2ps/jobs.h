@@ -41,7 +41,7 @@ struct stream;
 typedef struct a2ps_job
 {
   char ** argv;			/* The command line			*/
-  size_t argc;
+  int argc;
 
   struct a2ps_common_s common;	/* Common data to several modules */
 
@@ -74,7 +74,7 @@ typedef struct a2ps_job
   /* How to get the physical font (eg Courier), from the logical
    * (eg, Keyword) */
   char * face_eo_font [NB_FACES];
-  unsigned char * stdin_filename;	/* Filename given to stdin		*/
+  char * stdin_filename;	/* Filename given to stdin		*/
 
   /*
    * Output related

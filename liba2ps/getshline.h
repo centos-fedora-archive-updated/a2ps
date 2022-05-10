@@ -1,4 +1,4 @@
-/* getshline.h - read a meaningfull line from a file
+/* getshline.h - read a meaningful line from a file
    Copyright 1995-2017 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
@@ -19,16 +19,16 @@
 #ifndef _GETSHLINE_H_
 # define _GETSHLINE_H_ 1
 
-/* These routines are devoted to reading meaning full lines.  By
- * meaningful is ment, not empty, and not behind a COMMENTOR symbol.
+/* These routines are devoted to reading meaningful lines.  By
+ * meaningful is meant, not empty, and not behind a COMMENTOR symbol.
  * These lines are ended by a DELIMITER, but may be continued if
  * DELIMITER is preceded by a DELIMITER_QUOTE.
  */
 
-int
+ptrdiff_t
 getshline (char **_lineptr, size_t *_n, FILE *_stream);
 
-int
+ptrdiff_t
 getshdelim (char **_lineptr, size_t *_n,
 		    int _delimiter, int _delimiter_quote, int _commentor,
 		    FILE *_stream);
@@ -43,15 +43,15 @@ getshdelim (char **_lineptr, size_t *_n,
  */
 
 /* A basic example is available at the bottom of getshline.c */
-int
-getshline_numbered (int *_firstline, int *_lastline,
-			    char **_lineptr, size_t *_n,
-			    FILE *_stream);
+ptrdiff_t
+getshline_numbered (unsigned *_firstline, unsigned *_lastline,
+                    char **_lineptr, size_t *_n,
+                    FILE *_stream);
 
-int
-getshdelim_numbered (int *_firstline, int *_lastline,
-			     char **_lineptr, size_t *_n,
-			     int _delimiter, int _delimiter_quote,
-			     int _commentor, FILE *_stream);
+ptrdiff_t
+getshdelim_numbered (unsigned *_firstline, unsigned *_lastline,
+                     char **_lineptr, size_t *_n,
+                     int _delimiter, int _delimiter_quote,
+                     int _commentor, FILE *_stream);
 
 #endif /* not defined(_GETSHLINE_H_) */

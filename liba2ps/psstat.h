@@ -72,8 +72,8 @@ struct ps_status
   enum face_e face;			/* Current face				*/
   int face_declared;	/* Does the ps knows the current font?	*/
   int nonprinting_chars;
-  int chars;			/* Number of nonprinting and total chars */
-  int line;			/* Line number (in current page) 	*/
+  unsigned chars;		/* Number of nonprinting and total chars */
+  unsigned line;		/* Line number (in current page) 	*/
   unsigned int column;		/* Column number in chars 		*/
   unsigned long wx;		/* Column number in pts (in current line) */
 };

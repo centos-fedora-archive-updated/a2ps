@@ -38,16 +38,15 @@
    as necessary.  Return the number of characters read (not including the
    null terminator), or -1 on error or EOF.  */
 
-static int
-getshstr (int * firstline, int * lastline,
+static ptrdiff_t
+getshstr (unsigned * firstline, unsigned * lastline,
 	  char ** lineptr, size_t * n,
 	  FILE * stream,
 	  char terminator, int terminator_quote, int commentor,
 	  size_t offset)
 {
-  int nchars_avail;		/* Allocated but unused chars in *LINEPTR.  */
+  size_t nchars_avail;		/* Allocated but unused chars in *LINEPTR.  */
   char *read_pos;		/* Where we're reading into *LINEPTR. */
-  int ret;
 
   if (!lineptr || !n || !stream)
     return -1;
@@ -67,7 +66,7 @@ getshstr (int * firstline, int * lastline,
 
   for (;;)
     {
-      register int c = getc (stream);
+      int c = getc (stream);
 
       /* We always want at least one char left in the buffer, since we
 	 always (unless we get an error while reading the first char)
@@ -80,7 +79,7 @@ getshstr (int * firstline, int * lastline,
 	  else
 	    *n += MIN_CHUNK;
 
-	  nchars_avail = *n + *lineptr - read_pos;
+	  nchars_avail = (size_t) (*n + *lineptr - read_pos);
 	  *lineptr = xnrealloc (*lineptr, *n, sizeof(char));
 	  if (!*lineptr)
 	    return -1;
@@ -97,7 +96,7 @@ getshstr (int * firstline, int * lastline,
 	    break;
 	}
 
-      *read_pos++ = c;
+      *read_pos++ = (char) c;
       nchars_avail--;
 
       if (c == terminator)
@@ -128,45 +127,44 @@ getshstr (int * firstline, int * lastline,
   /* Done - NUL terminate and return the number of chars read.  */
   *read_pos = '\0';
 
-  ret = read_pos - (*lineptr + offset);
-  return ret;
+  return read_pos - (*lineptr + offset);
 }
 
-int
-getshline_numbered (int * firstline, int * lastline,
+ptrdiff_t
+getshline_numbered (unsigned * firstline, unsigned * lastline,
 		    char ** lineptr, size_t * n, FILE * stream)
 {
   return getshstr (firstline, lastline, lineptr, n, stream,
 		   '\n', '\\', '#', 0);
 }
 
-int
+ptrdiff_t
 getshline (char ** lineptr, size_t * n, FILE * stream)
 {
-  int firstline, lastline;
+  unsigned firstline, lastline;
   return getshstr (&firstline, &lastline, lineptr, n, stream,
 		   '\n', '\\', '#', 0);
 }
 
 
-int
-getshdelim_numbered (int * firstline, int * lastline,
+ptrdiff_t
+getshdelim_numbered (unsigned * firstline, unsigned * lastline,
 		     char ** lineptr, size_t * n,
 		     int delimiter, int delimiter_quote, int commentor,
 		     FILE * stream)
 {
   return getshstr (firstline, lastline, lineptr, n, stream,
-		   delimiter, delimiter_quote, commentor, 0);
+		   (char) delimiter, delimiter_quote, commentor, 0);
 }
 
-int
+ptrdiff_t
 getshdelim (char ** lineptr, size_t * n,
 	    int delimiter, int delimiter_quote, int commentor,
 	    FILE * stream)
 {
-  int firstline, lastline;
+  unsigned firstline, lastline;
   return getshstr (&firstline, &lastline, lineptr, n, stream,
-		   delimiter, delimiter_quote, commentor, 0);
+		   (char) delimiter, delimiter_quote, commentor, 0);
 }
 
 #ifdef TEST

@@ -19,6 +19,7 @@
 /* Author: Akim Demaille <demaille@inf.enst.fr> */
 
 #include <config.h>
+#include <stddef.h>
 
 #include "system.h"
 #include "dstring.h"
@@ -69,7 +70,7 @@ ds_print_stats (struct dstring * str, FILE * stream)
 
   fprintf (stream, _("Dynamic string:\n"));
   fprintf (stream, _("\tload: %zu/%zu (%2.1f%%)\n"),
-	   str->len, str->size, 100.0 * str->len / str->size);
+	   str->len, str->size, 100.0 * (double) str->len / (double) str->size);
   switch (str->growth) {
   case ds_steady:
     cp = "[const]";
@@ -152,7 +153,7 @@ ds_strcat (struct dstring *s, char *t)
 }
 
 void
-ds_strncat (struct dstring *s, char *t, int n)
+ds_strncat (struct dstring *s, char *t, size_t n)
 {
   size_t len = s->len;
 
@@ -186,9 +187,7 @@ ds_strccat (struct dstring *s, char c)
 void
 ds_vsprintf (struct dstring * ds, const char *format, va_list args)
 {
-  int len;
-
-  len = vprintflen (format, args);
+  size_t len = (size_t) vprintflen (format, args);
   ds_resize (ds, len);
 
   vsprintf (ds->content, format, args);
@@ -200,26 +199,14 @@ ds_vsprintf (struct dstring * ds, const char *format, va_list args)
  * (sprinting far too big string may SEGV)
  */
 void
-#if defined(VA_START) && __STDC__
 ds_sprintf (struct dstring * ds, const char *format, ...)
-#else
-ds_sprintf (ds, format, va_alist)
-  struct dstring * ds;
-  char * format;
-  va_dcl
-#endif
 {
-#ifdef VA_START
   va_list args;
 
   VA_START (args, format);
   ds_vsprintf (ds,
 	       format, args);
   va_end (args);
-#else
-  ds_vsprintf (ds,
-	       format, a1, a2, a3, a4, a5, a6, a7, a8);
-#endif
 }
 
 /*
@@ -229,8 +216,7 @@ ds_sprintf (ds, format, va_alist)
 void
 ds_cat_vsprintf (struct dstring * ds, const char *format, va_list args)
 {
-  int len;
-  len = ds->len + vprintflen (format, args);
+  size_t len = ds->len + (size_t) vprintflen (format, args);
 
   ds_resize (ds, len);
 
@@ -243,16 +229,8 @@ ds_cat_vsprintf (struct dstring * ds, const char *format, va_list args)
  * (sprinting far too big string may SEGV)
  */
 void
-#if defined(VA_START) && __STDC__
 ds_cat_sprintf (struct dstring * ds, const char *format, ...)
-#else
-ds_cat_sprintf (ds, format, va_alist)
-  struct dstring * ds;
-  char * format;
-  va_dcl
-#endif
 {
-#ifdef VA_START
   va_list args;
 
   VA_START (args, format);
@@ -260,10 +238,6 @@ ds_cat_sprintf (ds, format, va_alist)
   ds_cat_vsprintf (ds,
 		   format, args);
   va_end (args);
-#else
-  ds_cat_vsprintf (ds,
-		   format, a1, a2, a3, a4, a5, a6, a7, a8);
-#endif
 }
 
 /****************************************************************/
@@ -285,26 +259,14 @@ ds_unsafe_vsprintf (struct dstring * ds, const char *format, va_list args)
  * (sprinting far too big string may SEGV)
  */
 void
-#if defined(VA_START) && __STDC__
 ds_unsafe_sprintf (struct dstring * ds, const char *format, ...)
-#else
-ds_unsafe_sprintf (ds, format, va_alist)
-  struct dstring * ds;
-  char * format;
-  va_dcl
-#endif
 {
-#ifdef VA_START
   va_list args;
 
   VA_START (args, format);
   ds_unsafe_vsprintf (ds,
 		      format, args);
   va_end (args);
-#else
-  ds_unsafe_vsprintf (ds,
-		      format, a1, a2, a3, a4, a5, a6, a7, a8);
-#endif
 }
 
 /*
@@ -326,26 +288,14 @@ ds_unsafe_cat_vsprintf (struct dstring * ds, const char *format, va_list args)
  * (sprinting far too big string may SEGV)
  */
 void
-#if defined(VA_START) && __STDC__
 ds_unsafe_cat_sprintf (struct dstring * ds, const char *format, ...)
-#else
-ds_unsafe_cat_sprintf (ds, format, va_alist)
-  struct dstring * ds;
-  char * format;
-  va_dcl
-#endif
 {
-#ifdef VA_START
   va_list args;
 
   VA_START (args, format);
   ds_unsafe_cat_vsprintf (ds,
 			  format, args);
   va_end (args);
-#else
-  ds_unsafe_cat_vsprintf (ds,
-			  format, a1, a2, a3, a4, a5, a6, a7, a8);
-#endif
 }
 
 /****************************************************************/
@@ -361,8 +311,8 @@ ds_unsafe_cat_sprintf (ds, format, va_alist)
 char *
 ds_getdelim (struct dstring *s, char eos, FILE *f)
 {
-  int insize;			/* Amount needed for line.  */
-  int strsize;			/* Amount allocated for S.  */
+  size_t insize;		/* Amount needed for line.  */
+  size_t strsize;		/* Amount allocated for S.  */
   int next_ch;
 
   /* Initialize.  */
@@ -378,7 +328,7 @@ ds_getdelim (struct dstring *s, char eos, FILE *f)
 	  ds_grow (s);
 	  strsize = s->len;
 	}
-      s->content[insize++] = next_ch;
+      s->content[insize++] = (char) next_ch;
       next_ch = getc (f);
     }
   s->content[insize++] = '\0';

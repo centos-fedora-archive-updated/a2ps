@@ -115,9 +115,7 @@ tterm_initialize (struct tterm *tterm, FILE *stream)
     {
       if (xstrtol (cp, NULL, 0, &tmp_long, NULL) == LONGINT_OK
 	  && 0 < tmp_long && tmp_long <= INT_MAX)
-	{
-	  t->width = (int) tmp_long;
-	}
+        t->width = (size_t) tmp_long;
       else
 	{
 	  error (0, 0,
@@ -142,9 +140,7 @@ tterm_initialize (struct tterm *tterm, FILE *stream)
     {
       if (xstrtol (cp, NULL, 0, &tmp_long, NULL) == LONGINT_OK
 	  && 0 <= tmp_long && tmp_long <= INT_MAX)
-	{
-	  t->tabsize = (int) tmp_long;
-	}
+        t->tabsize = (size_t) tmp_long;
       else
 	{
 	  error (0, 0,

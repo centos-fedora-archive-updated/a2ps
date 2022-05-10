@@ -37,9 +37,9 @@ extern struct a2ps_job *job;
 /*
  * Shortcut to call regex upon a buffer, and store in a token
  */
-#define buffer_match(buffer,regex,token)			\
-   re_match (regex,						\
-	     (char *) buffer->value, buffer->len, buffer->curr,	\
+#define buffer_match(buffer,regex,token)                                \
+  re_match (regex,                                                      \
+            (char *) buffer->value, (regoff_t) buffer->len, (regoff_t) buffer->curr, \
 	     token->registers)
 
 /*
@@ -81,10 +81,10 @@ rhs_plain_new (void)
 
 /* Where the token and its attributes are stored */
 static struct token *token = NULL;
-#define token_set_registers(_start_, _len_)		\
- do {							\
-  token->registers->start [0] = _start_;		\
-  token->registers->end [0] = _start_ + _len_;		\
+#define token_set_registers(_start_, _len_)                     \
+  do {                                                          \
+   token->registers->start [0] = (regoff_t) _start_;            \
+   token->registers->end [0] = (regoff_t) (_start_ + _len_);    \
  } while (0)
 
 #define token_start(_i_)		\
@@ -105,7 +105,7 @@ static struct darray *plain_rhs = NULL;
 static inline void
 match_word (buffer_t * buffer, struct style_sheet *sheet)
 {
-  int start = buffer->curr;
+  size_t start = buffer->curr;
 
   do
     buffer->curr++;
@@ -114,8 +114,8 @@ match_word (buffer_t * buffer, struct style_sheet *sheet)
 
   token->rhs = plain_rhs;
   token_dest (0)->face = Plain_fface;
-  token->registers->start[0] = start;
-  token->registers->end[0] = buffer->curr;
+  token->registers->start[0] = (regoff_t) start;
+  token->registers->end[0] = (regoff_t) buffer->curr;
 }
 
 /****************************************************************/
@@ -167,7 +167,7 @@ match_keyword (buffer_t * buffer,
 	  continue;
 	default:
 	  token->rhs = word_regexp (i)->rhs;
-	  buffer->curr += res;
+	  buffer->curr += (size_t) res;
 	  return 1;
 	}
     }
@@ -218,7 +218,7 @@ match_operator (buffer_t * buffer,
 	  continue;
 	default:
 	  token->rhs = word_regexp (i)->rhs;
-	  buffer->curr += res;
+	  buffer->curr += (size_t) res;
 	  return 1;
 	}
     }
@@ -259,7 +259,7 @@ match_sequence (buffer_t * buffer, struct style_sheet *sheet)
 	      continue;
 	    default:
 	      token->rhs = SEQ (i)->open->rhs;
-	      buffer->curr += res;
+	      buffer->curr += (size_t) res;
 	      return SEQ (i);
 	    }
 	}
@@ -295,7 +295,7 @@ ssh_get_token (buffer_t * buffer, struct style_sheet *sheet)
 
       /* We don't trust liba2ps for the line numbers, because
        * if a2ps skips some lines (e.g., --strip-level, or INVISIBLE),
-       * liba2ps will number upon output lines, not imput lines,
+       * liba2ps will number upon output lines, not input lines,
        * which is what is expected */
       (CURRENT_FILE (job))->lines = buffer->line;
 
@@ -333,8 +333,8 @@ ssh_get_token (buffer_t * buffer, struct style_sheet *sheet)
        * Advance of 1 char */
       token->rhs = plain_rhs;
       token_dest (0)->face = sequence->face;
-      token->registers->start[0] = buffer->curr++;
-      token->registers->end[0] = buffer->curr;
+      token->registers->start[0] = (regoff_t) buffer->curr++;
+      token->registers->end[0] = (regoff_t) buffer->curr;
       return 1;
     }
   else
@@ -371,16 +371,16 @@ ssh_get_token (buffer_t * buffer, struct style_sheet *sheet)
 
   /* We did not recognize something special */
   token->rhs = plain_rhs;
-  token->registers->start[0] = buffer->curr++;
-  token->registers->end[0] = buffer->curr;
+  token->registers->start[0] = (regoff_t) buffer->curr++;
+  token->registers->end[0] = (regoff_t) buffer->curr;
   return 1;
 }
 
-#define GRAB_TAG(_tag_)					\
-  do {							\
-    ustrncat (_tag_,					\
-	      buffer->content + token_start (i),	\
-	      token_end (i) - token_start (i));		\
+#define GRAB_TAG(_tag_)                                          \
+  do {                                                           \
+    ustrncat (_tag_,                                             \
+	      buffer->content + token_start (i),                 \
+	      (unsigned) (token_end (i) - token_start (i)));     \
   } while (0)
 
 /*
@@ -488,7 +488,7 @@ ssh_print_postscript (struct a2ps_job *Job,
 			       fface.face);
 	    else
 	      ps_print_buffer (Job, buffer->content,
-			       token_start (i), token_end (i),
+			       (unsigned) token_start (i), (unsigned) token_end (i),
 			       fface.face);
 	  }
       }

@@ -74,10 +74,10 @@ delegate_name_len (struct delegation *delegation)
   return strlen (delegation->name);
 }
 
-static void
+static int
 delegate_name_fputs (struct delegation *delegation, FILE * stream)
 {
-  fputs (delegation->name, stream);
+  return fputs (delegation->name, stream);
 }
 
 /*
@@ -110,7 +110,7 @@ delegation_table_new (void)
 		   _("missing argument for `%s'"), quotearg (contract_line));
 
 void
-add_delegation (const char *filename, int line,
+add_delegation (const char *filename, unsigned line,
 		char *contract_line)
 {
   char *cp, *cp2;
@@ -167,8 +167,8 @@ get_delegate_command (struct delegation *contract,
 {
   if (evaluate)
     return (char *) expand_user_string (job, file,
-					(const unsigned char *) "delegating command",
-					(const unsigned char *) contract->command);
+					"delegating command",
+					contract->command);
   else
     return contract->command;
 }
@@ -210,7 +210,7 @@ subcontract (struct file_job *fjob, buffer_t * buffer,
       /* We change the name of the file so that the correct file name
 	 is used in the command (that of the temporary file containing
 	 stdin). */
-      fjob->name = (unsigned char *) stdin_content_filename;
+      fjob->name = stdin_content_filename;
       command = get_delegate_command (contractor, fjob, 1);
       fjob->name = job->stdin_filename;
     }

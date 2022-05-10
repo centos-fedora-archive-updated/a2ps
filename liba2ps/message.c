@@ -61,12 +61,10 @@ unsigned int msg_verbosity = 0;
 
 #include "msg.c"
 
-int
+unsigned int
 msg_verbosity_argmatch (const char *option, char *arg)
 {
-  int res = 0;
-
-  //ARGMATCH_VERIFY (_msg_verbosity_args, _msg_verbosity_types);
+  unsigned int res = 0;
 
   if (ISDIGIT (*arg))
     {

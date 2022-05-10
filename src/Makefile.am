@@ -19,18 +19,16 @@
 # I don't really understand why I have to put srcdir here, but
 # it is needed for yacc and lex files (seems related to #line, but
 # I really don't understand why)...
-AM_CPPFLAGS = -I.. -I$(srcdir) -I$(top_srcdir)/liba2ps -I$(top_builddir)/intl \
+AM_CPPFLAGS = -I.. -I$(srcdir) -I$(top_srcdir)/liba2ps \
 	-I$(top_srcdir)/lib -DLOCALEDIR=\"$(localedir)\"
-AM_CFLAGS = $(LIBGC_FLAGS)
+AM_CFLAGS = $(WARN_CFLAGS) $(LIBGC_FLAGS)
 
 bin_SCRIPTS = a2ps-lpr-wrapper
 bin_PROGRAMS = a2ps
 
 a2ps_SOURCES = main.c \
 read.c sshread.c ssheet.c select.c generate.c 			\
-delegate.c buffer.c versions.c ffaces.c			\
-					\
-parsessh.y lexssh.l lexps.l sheets-map.l
+delegate.c buffer.c versions.c ffaces.c
 
 noinst_HEADERS = main.h \
 read.h sshread.h ssheet.h select.h generate.h			\
@@ -38,12 +36,16 @@ delegate.h buffer.h versions.h ffaces.h			\
 					\
 yy2ssh.h lexps.h
 
+noinst_LIBRARIES = libparse.a
+libparse_a_SOURCES = parsessh.y lexssh.l lexps.l sheets-map.l
+libparse_a_CFLAGS = $(LIBGC_FLAGS)
+
 BUILT_SOURCES = parsessh.c parsessh.h
 
 AM_YFLAGS = -dtv
 LEX = @LEX@
 
-a2ps_LDADD = $(top_builddir)/liba2ps/liba2ps.la $(LIBINTL) ../lib/libgnu.la -lm -L/opt/local/lib $(LIBGC_LIBS) -lpaper # FIXME: hard coded.
+a2ps_LDADD = $(top_builddir)/liba2ps/liba2ps.la libparse.a $(LIBINTL) ../lib/libgnu.la -lm -L/opt/local/lib $(LIBGC_LIBS) -lpaper # FIXME: hard coded.
 
 EXTRA_DIST = $(BUILT_SOURCES) $(bin_SCRIPTS)
 

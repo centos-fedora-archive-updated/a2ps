@@ -44,7 +44,7 @@ string_to_array (unsigned char arr[256], const unsigned char * string)
 void
 ustrccat (unsigned char * string, unsigned char c)
 {
-  int len = strlen((char *)string);
+  size_t len = strlen((char *)string);
   *(string+len) = c;
   *(string+len+1) = '\0';
 }
@@ -64,30 +64,29 @@ is_strlower (const unsigned char * string)
 /* Copy the LEN first characters of SRC into DST in lower case.
    DST[LEN] is set to \0.  */
 
-static inline unsigned char *
-_strncpylc (unsigned char *dst, const unsigned char *src, size_t len)
+static inline char *
+_strncpylc (char *dst, const char *src, size_t len)
 {
-  size_t i;
-  for (i = 0 ; i < len ; i++)
-    dst[i] = tolower (src[i]);
+  for (size_t i = 0 ; i < len ; i++)
+    dst[i] = (char) tolower (src[i]);
   dst[len] = '\0';
   return dst;
 }
 
-unsigned char *
-strnlower (unsigned char *string, size_t len)
+char *
+strnlower (char *string, size_t len)
 {
   return _strncpylc (string, string, len);
 }
 
-unsigned char *
-strlower (unsigned char *string)
+char *
+strlower (char *string)
 {
   return _strncpylc (string, string, strlen (string));
 }
 
-unsigned char *
-strcpylc (unsigned char *dst, const unsigned char *src)
+char *
+strcpylc (char *dst, const char *src)
 {
   return _strncpylc (dst, src, strlen (src));
 }
@@ -110,7 +109,7 @@ strcnt (unsigned char *s, unsigned char c)
  * set the trailing '\0' (return pos of \0)
  */
 char *
-strsub (char * dest, const char * string, int start, int length)
+strsub (char * dest, const char * string, size_t start, size_t length)
 {
   char * end = stpncpy (dest, string + start, length);
   *end = '\0';
@@ -120,90 +119,78 @@ strsub (char * dest, const char * string, int start, int length)
 /*
  * fopen, but exits on failure
  */
-static inline FILE *
-_xfopen (const char * filename, const char * rights, const char * format)
+FILE *
+xfopen (const char * filename, const char * rights, const char * format)
 {
   FILE * res;
 
   message (msg_file,
 	   (stderr, "%s-fopen (%s)\n", rights, quotearg (filename)));
   res = fopen (filename, rights);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
   if (!res)
     error (1, errno, format, quotearg (filename));
+#pragma GCC diagnostic pop
   return res;
-}
-
-FILE *
-xfopen (const char * filename, const char * rights, const char * format)
-{
-  return _xfopen (filename, rights, format);
 }
 
 FILE *
 xrfopen (const char * filename)
 {
-  return _xfopen (filename, "r", _("cannot open file `%s'"));
+  return xfopen (filename, "r", _("cannot open file `%s'"));
 }
 
 FILE *
 xwfopen (const char * filename)
 {
-  return _xfopen (filename, "w", _("cannot create file `%s'"));
+  return xfopen (filename, "w", _("cannot create file `%s'"));
 }
 
 
 
 /*
- * Like popen, but exist upon failure
+ * Like popen, but exit upon failure
  */
-static inline FILE *
-_xpopen (const char * filename, const char * rights, const char * format)
+FILE *
+xpopen (const char * filename, const char * rights, const char * format)
 {
   FILE * res;
 
   message (msg_file,
 	   (stderr, "%s-popen (%s)\n", rights, filename));
   res = popen (filename, rights);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
   if (!res)
     error (1, errno, format, quotearg (filename));
+#pragma GCC diagnostic pop
   return res;
-}
-
-FILE *
-xpopen (const char * filename, const char * rights, const char * format)
-{
-  return _xpopen (filename, rights, format);
 }
 
 FILE *
 xrpopen (const char * filename)
 {
-  return _xpopen (filename, "r", _("cannot open a pipe on `%s'"));
+  return xpopen (filename, "r", _("cannot open a pipe on `%s'"));
 }
 
 FILE *
 xwpopen (const char * filename)
 {
-  return _xpopen (filename, "w", _("cannot open a pipe on `%s'"));
+  return xpopen (filename, "w", _("cannot open a pipe on `%s'"));
 }
 
 /*
  * Copy the content of IN into OUT
  */
-static inline void
-_streams_copy (FILE * in, FILE * out)
+void
+streams_copy (FILE * in, FILE * out)
 {
   size_t read_length;
   char buf [BUFSIZ];
 
   while ((read_length = fread (buf, sizeof (char), sizeof (buf), in)))
     fwrite (buf, sizeof (char), read_length, out);
-}
-
-void
-streams_copy (FILE * in, FILE * out)
-{
-  _streams_copy (in, out);
 }
 
 /*
@@ -218,7 +205,7 @@ stream_dump (FILE * stream, const char * filename)
   message (msg_tool | msg_file, (stderr, "Dumping file `%s'\n", filename));
 
   fp = xrfopen (filename);
-  _streams_copy (fp, stream);
+  streams_copy (fp, stream);
   fclose (fp);
 }
 
@@ -242,7 +229,7 @@ static char **	tempfiles;
 static unsigned	ntempfiles;
 
 static void
-cleanup_tempfiles()
+cleanup_tempfiles(void)
 {
 	while (ntempfiles--)
 		unlink(tempfiles[ntempfiles]);
@@ -251,7 +238,8 @@ cleanup_tempfiles()
 char *
 safe_tempnam(const char *pfx)
 {
-	char	*dirname, *filename;
+	char	*filename;
+        const char *dirname;
 	int	fd;
 
 	if (!(dirname = getenv("TMPDIR")))

@@ -50,7 +50,7 @@ static file_align_t const file_align_types[] =
 file_align_t
 file_align_argmatch (const char * option, const char * arg)
 {
-  int i;
+  ptrdiff_t i;
 
   ARGMATCH_VERIFY (file_align_args, file_align_types);
 
@@ -58,8 +58,7 @@ file_align_argmatch (const char * option, const char * arg)
   if (i >= 0)
     return file_align_types[i];
 
-  i = get_integer_in_range (option, arg, 1, 0, range_min);
-  return i;
+  return get_integer_in_range (option, arg, 1, 0, range_min);
 }
 
 /* Return a human readable string describing the FILE_ALIGN mode. */

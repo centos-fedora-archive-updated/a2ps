@@ -80,17 +80,17 @@ version_self_print (version_t version, FILE * stream)
 /*
  * Return the length occupied by this version number once printed
  */
-int
+size_t
 version_length (version_t version)
 {
 #define short_int_len(_i_) ((_i_) < 10 ? 1 : 2)
   if (version[2])
-    return 2
+    return 2U
       + short_int_len(version[0])
       + short_int_len(version[1])
-      + 1;
+      + 1U;
   else
-    return 1
+    return 1U
       + short_int_len(version[0])
       + short_int_len(version[1]);
 }

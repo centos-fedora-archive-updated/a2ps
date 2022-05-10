@@ -31,7 +31,7 @@ typedef struct file_job fjob_t;
  *
  */
 fjob_t *
-_a2ps_file_job_new (unsigned char *name, int num, struct tm *run_tm)
+_a2ps_file_job_new (char *name, int num, struct tm *run_tm)
 {
   fjob_t * res = XMALLOC (fjob_t);
 

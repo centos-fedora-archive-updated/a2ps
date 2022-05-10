@@ -402,14 +402,14 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
 	break;
 
       case 'B':				/* No headers at all */
-	job->header = UNULL;
-	job->left_footer = UNULL;
-	job->footer = UNULL;
-	job->right_footer = UNULL;
-	job->left_title = UNULL;
-	job->center_title = UNULL;
-	job->right_title = UNULL;
-	job->water = UNULL;
+	job->header = NULL;
+	job->left_footer = NULL;
+	job->footer = NULL;
+	job->right_footer = NULL;
+	job->left_title = NULL;
+	job->center_title = NULL;
+	job->right_title = NULL;
+	job->water = NULL;
 	break;
 
       case 'c':				/* cut lines too large */
@@ -736,7 +736,7 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
 	break;
 
       case 166:			/* Set the name of file give by stdin */
-	xustrcpy (job->stdin_filename, optarg);
+	xstrcpy (job->stdin_filename, optarg);
 	break;
 
       case '?':				/* Unknown option */

@@ -83,7 +83,6 @@ static void
 multivalued_entry_add (struct hash_table_s * table,
 		       struct multivalued_entry * item)
 {
-  struct multivalued_entry * old_item = multivalued_entry_get (table, item->key);
   hash_insert (table, item);
 }
 
@@ -200,13 +199,13 @@ multivalued_entry_dump (FILE * stream, int first,
    * 1. it looks better,
    * 2. fewer sources of differences in regression tests */
   values = (char **) string_htable_dump_sorted (entry->entries);
-  for (i = 0 ; values[i] ; i++)
-    if (first) {
-      fprintf (stream, fmt_first, entry->key, values[i]);
-      first = false;
-    } else {
-      fprintf (stream, fmt_others, entry->key, values[i]);
-    }
+  for (i = 0 ; values[i] ; i++) {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+    fprintf (stream, first ? fmt_first : fmt_others, entry->key, values[i]);
+#pragma GCC diagnostic pop
+    first = false;
+  }
 }
 
 /*

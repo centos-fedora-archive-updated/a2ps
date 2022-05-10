@@ -27,39 +27,29 @@
 #include "printlen.h"
 
 
-unsigned long strtoul ();
-
 static int
 int_printflen (const char *format, va_list ap)
 {
   const char *cp;
-  int total_width = 0;
-  int width = 0;
+  size_t total_width = 0;
 
   for (cp = format ; *cp ; cp++)
     {
       if (*cp != '%')
-	total_width ++;
+	total_width++;
       else
 	{
 	  /* A `% ' is occuring */
 	  cp++;
-	  width = 0;
 	  while (strchr ("-+ #0", *cp))
 	    ++cp;
 	  if (*cp == '*')
-	    {
-	      ++cp;
-	      width = abs (va_arg (ap, int));
-	    }
+	    ++cp;
 	  if (*cp == '.')
 	    {
 	      ++cp;
 	      if (*cp == '*')
-		{
-		  ++cp;
-		  width = abs (va_arg (ap, int));
-		}
+		++cp;
 	    }
 	  while (strchr ("hlL", *cp))
 	    ++cp;
@@ -92,7 +82,7 @@ int_printflen (const char *format, va_list ap)
 	    }
 	}
     }
-  return total_width;
+  return (int) total_width;
 }
 
 int

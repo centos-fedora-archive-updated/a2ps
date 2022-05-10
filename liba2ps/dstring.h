@@ -19,19 +19,6 @@
 #ifndef DSTRING_H_
 # define DSTRING_H_
 
-# ifndef __attribute__
-/* This feature is available in gcc versions 2.5 and later.  */
-#  if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5) || __STRICT_ANSI__
-#   define __attribute__(Spec) /* empty */
-#  endif
-/* The __-protected variants of `format' and `printf' attributes
-   are accepted by gcc versions 2.6.4 (effectively 2.7) and later.  */
-#  if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 7)
-#   define __format__ format
-#   define __printf__ printf
-#  endif
-# endif
-
 extern int ds_exit_error;	/* exit value when encounters an error	*
 				 * default is EXIT_FAILURE		*/
 
@@ -92,43 +79,40 @@ int ds_is_full (struct dstring *string);
  * Usual string manipulations
  */
 void ds_strcat (struct dstring *s, char *t);
-void ds_strncat (struct dstring *s, char *t, int n);
+void ds_strncat (struct dstring *s, char *t, size_t n);
 void ds_strccat (struct dstring *s, char c);
 
 /*
  * Sprintf variations
  */
 /* Sprintf in the dstring, resizing if necessary */
+_GL_ATTRIBUTE_FORMAT_PRINTF(2, 0)
 void ds_vsprintf (struct dstring *s, const char *format,
-			  va_list args);
+                  va_list args);
 /* sprintf at the end of the dstring, resize if necessary */
+_GL_ATTRIBUTE_FORMAT_PRINTF(2, 0)
 void ds_cat_vsprintf (struct dstring *s, const char *format,
-			      va_list args);
+                      va_list args);
 /* Same as the two previous, but much less care is taken to
  * make sure the dstring is big enough */
+_GL_ATTRIBUTE_FORMAT_PRINTF(2, 0)
 void ds_unsafe_vsprintf (struct dstring *s, const char *format,
-				 va_list args);
+                         va_list args);
+_GL_ATTRIBUTE_FORMAT_PRINTF(2, 0)
 void ds_unsafe_cat_vsprintf (struct dstring *s, const char *format,
-				     va_list args);
+                             va_list args);
 
 /* Same as the previous, but with variable num of args */
-# if defined (__STDC__) && __STDC__
-extern void ds_sprintf (struct dstring *s, const char *format, ...)
-     __attribute__ ((__format__ (__printf__, 2, 3)));
+_GL_ATTRIBUTE_FORMAT_PRINTF(2, 3)
+void ds_sprintf (struct dstring *s, const char *format, ...);
 /* Like sprintf, but not too much carre is taken for length */
-extern void ds_unsafe_sprintf (struct dstring *s, const char *format, ...)
-     __attribute__ ((__format__ (__printf__, 2, 3)));
-extern void ds_cat_sprintf (struct dstring *s, const char *format, ...)
-     __attribute__ ((__format__ (__printf__, 2, 3)));
-/* Like sprintf, but not too much carre is taken for length */
-extern void ds_unsafe_cat_sprintf (struct dstring *s, const char *format, ...)
-     __attribute__ ((__format__ (__printf__, 2, 3)));
-# else
-void ds_sprintf ();
-void ds_unsafe_sprintf ();
-void ds_cat_sprintf ();
-void ds_unsafe_cat_sprintf ();
-# endif
+_GL_ATTRIBUTE_FORMAT_PRINTF(2, 3)
+void ds_unsafe_sprintf (struct dstring *s, const char *format, ...);
+_GL_ATTRIBUTE_FORMAT_PRINTF(2, 3)
+void ds_cat_sprintf (struct dstring *s, const char *format, ...);
+/* Like sprintf, but not too much care is taken for length */
+_GL_ATTRIBUTE_FORMAT_PRINTF(2, 3)
+void ds_unsafe_cat_sprintf (struct dstring *s, const char *format, ...);
 
 /*
  * Dealing with files

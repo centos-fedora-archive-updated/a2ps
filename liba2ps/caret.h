@@ -31,7 +31,7 @@ const char * unprintable_format_to_string
 
 /* Escape C, put result in RES, and return strlen RES */
 int escape_unprintable (struct a2ps_job * job, 
-				int c,
-				unsigned char * res);
+                        int c,
+                        char * res);
 
 #endif

@@ -34,7 +34,7 @@ struct a2ps_job;	/* Declared in jobs.h which includes this file */
  */
 unsigned int char_WX (struct a2ps_job * job, unsigned char c);
 unsigned int string_WX (struct a2ps_job * job, unsigned char * string);
-unsigned int char_composite_WX (struct a2ps_job * job, unsigned char c);
+unsigned int char_composite_WX (struct a2ps_job * job);
 
 
 /************************************************************************/
@@ -66,8 +66,7 @@ const char * encoding_resolve_font_substitute
 
 
 const char * encoding_resolve_composite_font
-	(struct a2ps_job * job,
-		 struct encoding * encoding,
+	(struct encoding * encoding,
 		 const char * font_name);
  
 /*

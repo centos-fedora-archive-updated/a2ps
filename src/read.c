@@ -31,7 +31,7 @@
 static int
 plain_getc (buffer_t * buffer, enum face_e *face)
 {
-  unsigned char c;
+  char c;
 
   if (buffer_is_empty (buffer))
     {
@@ -48,17 +48,17 @@ plain_getc (buffer_t * buffer, enum face_e *face)
     }
 
   *face = Plain;
-  c = buffer->content[(buffer->curr)++];
+  c = (char) buffer->content[(buffer->curr)++];
 
   /* Check if it is a special nroff'ed sequence */
   if (buffer->content[buffer->curr] == '\b')
     {
-      /* We might be dealing with misceleanous nroff'ed pages. */
-      const unsigned char *input = buffer->content + buffer->curr + 1;
+      /* We might be dealing with miscellaneous nroff'ed pages. */
+      const char *input = (char *) buffer->content + buffer->curr + 1;
 
       /* This might be a bolding sequence.  The bad news is that some
 	 strange systems build the bold sequences with only one
-	 rewriting, not the 3 usuals.
+	 rewriting, not the usual 3.
 
 	 Super strong `_', seen in Sun's mpeg_rc doc.  */
       if (c	== input[0] &&
@@ -127,7 +127,7 @@ plain_getc (buffer_t * buffer, enum face_e *face)
 	{
 	  *face = Symbol;
 	  buffer->curr += 2;
-	  c = 0305; /* \oplus in LaTeX */
+	  c = '\305'; /* \oplus in LaTeX */
 	}
       /* Seen in groff.1 : c;\b;O, for copyright */
       else if ('c' == c &&
@@ -135,7 +135,7 @@ plain_getc (buffer_t * buffer, enum face_e *face)
 	{
 	  *face = Symbol;
 	  buffer->curr += 2;
-	  c = 0343; /* \copyright. */
+	  c = '\343'; /* \copyright. */
 	}
       /* Seen in gtroff.1 : +;\b;_, for plus or minus */
       else if ('+' == c &&
@@ -143,7 +143,7 @@ plain_getc (buffer_t * buffer, enum face_e *face)
 	{
 	  *face = Symbol;
 	  buffer->curr += 2;
-	  c = 0261;
+	  c = '\261';
 	}
       /* Seen in geqn.1 : ~;\b>;\b;_ for greater or equal */
       else if ('~'  == c &&
@@ -153,7 +153,7 @@ plain_getc (buffer_t * buffer, enum face_e *face)
 	{
 	  *face = Symbol;
 	  buffer->curr += 4;
-	  c = 0263;
+	  c = '\263';
 	}
       /* Less than or equal to. */
       else if ('~'  == c &&
@@ -163,7 +163,7 @@ plain_getc (buffer_t * buffer, enum face_e *face)
 	{
 	  *face = Symbol;
 	  buffer->curr += 4;
-	  c = 0243;
+	  c = '\243';
 	}
       /* Underlined: x;\b;_ . Note that we have a conflict here in the
 	 case x == '+' (see above).  This choice seems the best.  */
@@ -182,7 +182,7 @@ plain_getc (buffer_t * buffer, enum face_e *face)
 	}
       /* else: treate the backslash as a special characters */
     }
-  return c;
+  return (unsigned char)c;
 }
 
 /*

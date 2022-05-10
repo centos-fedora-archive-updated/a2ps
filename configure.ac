@@ -44,6 +44,46 @@ AS_IF([test "x$ac_cv_prog_cc_c99" = "xno"], [
   AC_MSG_ERROR([GNU a2ps requires a C99 capable compiler!])
 ])
 
+dnl Extra warnings with GCC
+AC_ARG_ENABLE([gcc-warnings],
+  [AS_HELP_STRING([--enable-gcc-warnings],
+		  [turn on lots of GCC warnings (for developers)])],
+  [case $enableval in
+     yes|no) ;;
+     *)      AC_MSG_ERROR([bad value $enableval for gcc-warnings option]) ;;
+   esac
+   gl_gcc_warnings=$enableval],
+  [gl_gcc_warnings=no]
+)
+if test "$gl_gcc_warnings" = yes; then
+  dnl Set up the list of undesired warnings.
+  nw=
+  nw="$nw -Wsystem-headers"   # Don’t let system headers trigger warnings
+  nw="$nw -Wvla -Wstack-protector" # We use variable-length arrays
+  # FIXME: warnings we get too many of for now.
+  nw="$nw -Wunused-macros"
+  nw="$nw -Wsuggest-attribute=pure"
+  nw="$nw -Wsuggest-attribute=const"
+
+  gl_MANYWARN_ALL_GCC([warnings])
+
+  dnl Enable all GCC warnings not in this list.
+  gl_MANYWARN_COMPLEMENT([warnings], [$warnings], [$nw])
+  for w in $warnings; do
+    gl_WARN_ADD([$w])
+  done
+
+  dnl Add an extra warning
+  gl_WARN_ADD([-Wconversion])
+
+  # When compiling with GCC, prefer -isystem to -I when including system
+  # include files, to avoid generating useless diagnostics for the files.
+  ISYSTEM='-isystem '
+else
+  ISYSTEM='-I'
+fi
+AC_SUBST([ISYSTEM])
+
 AC_USE_SYSTEM_EXTENSIONS
 
 AC_PROG_YACC

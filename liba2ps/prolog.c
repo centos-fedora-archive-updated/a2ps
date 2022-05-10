@@ -92,7 +92,7 @@ prologues_list_short (a2ps_job * job, FILE * stream)
 /*
  * Print a prologue signature
  */
-static inline void
+static void
 prologue_print_signature (struct a2ps_job * job,
 			  const char * prologue_name, FILE * stream,
 			  const char * name_format,
@@ -144,7 +144,7 @@ prologue_print_signature (struct a2ps_job * job,
 /*
  * List the prologues together with there description
  */
-static inline void
+static void
 prologues_list_long_internal (a2ps_job * job, FILE * stream,
 			      const char * name_format,
 			      documentation_fn_t documentation_fn)
@@ -561,7 +561,7 @@ ps_begin (a2ps_job * job)
     job->status->linesperpage = job->lines_requested;
 
   if (job->status->linesperpage <= 0 || job->status->columnsperline <= 0)
-    error (1, 0, _("font %f too big"), job->fontsize);
+    error (1, 0, _("font %f too big"), (double) job->fontsize);
 
   job->status->wxperline =
     (job->status->columnsperline - prefix_size) * COURIER_WX;

@@ -16,8 +16,8 @@ typedef enum {false = 0, true = 1} bool;
 #include "liba2ps.h"
 
 #define _(V) sprintf(buf, "%.4d",V),a2ps_print_string(job,buf, String)
-int a=10000, b, c=8400, d, e, f[8401], g; char buf[10];
-void
+int a=10000, b, c=8400, d, e, f[8401], g; char buf[12];
+static void
 foo (struct a2ps_job * job)
 { for (;b-c;) f[b++]=a/5; for (;d=0,g=c*2;c-=14,_(e+d/a), e=d%a) for
 (b=c;d+=f[b]*a,f[b]=d%--g, d/=g--,--b;d*=b); }
@@ -25,8 +25,8 @@ foo (struct a2ps_job * job)
 
 /* It is mandatory to declare and set the value of this variable.
  * It is used when printing error messages. */
-char *program_name = "Sample";
-char *program_invocation_name = "Sample";
+const char *program_name = "Sample";
+const char *program_invocation_name = "Sample";
 
 int
 main (void)

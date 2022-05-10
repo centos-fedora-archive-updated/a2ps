@@ -18,6 +18,7 @@
 
 #include <config.h>
 
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>   /* abort() is wanted */
 
@@ -115,7 +116,7 @@ get_float_in_range (const char * option, const char * arg,
 		    const char * unit, enum range_type_e range_type)
 {
   float res;
-  char buf[256];
+  char buf[512];
 
   switch (sscanf (arg, "%f%255s", &res, buf))
     {
@@ -147,42 +148,42 @@ get_float_in_range (const char * option, const char * arg,
     {
     case range_min:
       if (res < min)
-	sprintf (buf, "%.1f%s <= f", min, unit);
+	sprintf (buf, "%.1f%16s <= f", (double) min, unit);
       break;
 
     case range_min_strict:
       if (res <= min)
-	sprintf (buf, "%.1f%s < f", min, unit);
+	sprintf (buf, "%.1f%s < f", (double) min, unit);
       break;
 
     case range_max:
       if (res > max)
-	sprintf (buf, "f <= %.1f%s", max, unit);
+	sprintf (buf, "f <= %.1f%s", (double) max, unit);
       break;
 
     case range_max_strict:
       if (res >= max)
-	sprintf (buf, "f <= %.1f%s", max, unit);
+	sprintf (buf, "f <= %.1f%s", (double) max, unit);
       break;
 
     case range_min_max:
       if ((res < min) || (res > max))
-	sprintf (buf, "%.1f%s <= f <= %.1f%s", min, unit, max, unit);
+	sprintf (buf, "%.1f%s <= f <= %.1f%s", (double) min, unit, (double) max, unit);
       break;
 
     case range_min_strict_max:
       if ((res <= min) || (res > max))
-	sprintf (buf, "%.1f%s < f <= %.1f%s", min, unit, max, unit);
+	sprintf (buf, "%.1f%s < f <= %.1f%s", (double) min, unit, (double) max, unit);
       break;
 
     case range_min_max_strict:
       if ((res < min) || (res >= max))
-	sprintf (buf, "%.1f%s <= f < %.1f%s", min, unit, max, unit);
+	sprintf (buf, "%.1f%s <= f < %.1f%s", (double) min, unit, (double) max, unit);
       break;
 
     case range_min_strict_max_strict:
       if ((res <= min) || (res >= max))
-	sprintf (buf, "%.1f%s < f < %.1f%s", min, unit, max, unit);
+	sprintf (buf, "%.1f%s < f < %.1f%s", (double) min, unit, (double) max, unit);
       break;
 
     case range_no_limit:
@@ -220,7 +221,7 @@ static float length_types[] =
 {
   1.0, 1.0,
   72.0,
-  (72 / 2.54), (72 / 2.54)
+  (72 / 2.54f), (72 / 2.54f)
 };
 
 /*

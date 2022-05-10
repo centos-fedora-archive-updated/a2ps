@@ -75,7 +75,7 @@ void buffer_pipe_set (buffer_t * buffer,
 			      FILE * stream, enum eol_e eol);
 
 void buffer_string_set (buffer_t * buffer,
-				const unsigned char * string, enum eol_e eol);
+				const char * string, enum eol_e eol);
 
 void buffer_buffer_set (buffer_t * buffer,
 				const unsigned char * buf, size_t bufsize,

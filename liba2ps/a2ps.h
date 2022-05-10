@@ -22,6 +22,4 @@
 # include "system.h"
 # include <gc/gc.h>
 
-# define UNULL 		(unsigned char *) NULL
-
 #endif

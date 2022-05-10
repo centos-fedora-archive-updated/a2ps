@@ -47,10 +47,10 @@ void macro_meta_sequences_list_long (struct a2ps_job * job,
  * The result must either be used before the following
  * call to expand_user_string, or strdup'ed
  */
-unsigned char * expand_user_string (struct a2ps_job * job,
-				    struct file_job * file,
-				    const unsigned char * context_name,
-				    const unsigned char * str);
+char * expand_user_string (struct a2ps_job * job,
+                           struct file_job * file,
+                           const char * context_name,
+                           const char * str);
 
 /* Definition of the integer divertions */
 #define JOB_NB_PAGES		1

@@ -49,31 +49,30 @@ unprintable_format_to_string (enum unprintable_format format)
 
 /*
  * Escape a char, considering it is unprintable
- * (Note: it is an error if the char is printable.
+ * (Note: it is an error if the char is printable;
  *        result is unpredictable)
  * Return the num of chars used
  */
 int
-escape_unprintable (a2ps_job * job, int c,
-		    unsigned char * res)
+escape_unprintable (a2ps_job * job, int c, char * res)
 {
   int len = 0;
 
   switch (job->unprintable_format) {
   case octal:
-    sprintf ((char *) res, "\\\\%03o", c);
+    sprintf ((char *) res, "\\\\%03o", (unsigned) c);
     return 4;
 
   case hexa:
-    sprintf ((char *) res, "\\\\x%02x", c);
+    sprintf ((char *) res, "\\\\x%02x", (unsigned) c);
     return 4;
 
   case question_mark:
-    USTRCCAT (res, '?');
+    STRCCAT (res, '?');
     return 1;
 
   case space:
-    USTRCCAT (res, ' ');
+    STRCCAT (res, ' ');
     return 1;
     
   case caret:
@@ -84,14 +83,14 @@ escape_unprintable (a2ps_job * job, int c,
     }
     
     if (c < ' ') {
-      USTRCCAT(res, '^');
-      USTRCCAT(res, c);
+      STRCCAT(res, '^');
+      STRCCAT(res, c);
       len += 2; 
     } else if (c == 0177) {
       ustrcat(res, "^?");
       len += 2;
     } else {
-      USTRCCAT(res, c);
+      STRCCAT(res, c);
       len++;
     }
     return len;
@@ -105,13 +104,13 @@ escape_unprintable (a2ps_job * job, int c,
     
     if (c < ' ') {
       ustrcat (res, "C-");
-      USTRCCAT(res, c);
+      STRCCAT(res, c);
       len += 3; 
     } else if (c == 0177) {
       ustrcat(res, "C-?");
       len += 3;
     } else {
-      USTRCCAT(res, c);
+      STRCCAT(res, c);
       len++;
     }
     return len;

@@ -22,6 +22,7 @@
 
 #include <config.h>
 
+#include <stdio.h>
 #include <string.h>
 
 int strverscmp (const char *s1, const char *s2);
@@ -54,13 +55,13 @@ int strverscmp (const char *s1, const char *s2);
 /*	Handling the path: an array, NULL terminated of char *		*/
 /************************************************************************/
 static char **
-pw_internal_string_to_path (const char * path, char sep, int * length)
+pw_internal_string_to_path (const char * path, char sep, size_t * length)
 {
   char **res = NULL;
-  int allocated = 5;	/* num of entries yet allocated in res	*/
-  int entries = 0;
+  size_t allocated = 5;	/* num of entries yet allocated in res	*/
+  size_t entries = 0;
   const char *cp, *cp2;
-  int len;
+  size_t len;
 
   res = XCALLOC (allocated, char *);
   for (cp = path; cp; cp = strchr (cp, sep))
@@ -70,7 +71,7 @@ pw_internal_string_to_path (const char * path, char sep, int * length)
 
       cp2 = strchr (cp, sep);
       if (cp2)
-        len = cp2 - cp;
+        len = (size_t) (cp2 - cp);
       else
         len = strlen (cp);
 
@@ -109,10 +110,10 @@ pw_internal_string_to_path (const char * path, char sep, int * length)
 /*
  * Length of a path
  */
-static inline int
+static inline size_t
 pw_path_length (char ** path)
 {
-  int res;
+  size_t res;
 
   if (!path)
     return 0;
@@ -130,7 +131,7 @@ pw_path_length (char ** path)
 char **
 pw_string_to_path (const char * path)
 {
-  int dummy;
+  size_t dummy;
   return pw_internal_string_to_path (path, PATH_SEPARATOR, &dummy);
 }
 
@@ -139,9 +140,9 @@ pw_string_to_path (const char * path)
  */
 
 static inline char **
-pw_path_concat (char ** path1, int len1, char ** path2, int len2)
+pw_path_concat (char ** path1, size_t len1, char ** path2, size_t len2)
 {
-  int i;
+  size_t i;
 
   if (path2)
     {
@@ -160,7 +161,7 @@ pw_path_concat (char ** path1, int len1, char ** path2, int len2)
 char **
 pw_append_string_to_path (char ** path1, const char * dir2)
 {
-  int len1, len2;
+  size_t len1, len2;
   char ** path2;
 
   len1 = pw_path_length (path1);
@@ -175,7 +176,7 @@ pw_append_string_to_path (char ** path1, const char * dir2)
 char **
 pw_prepend_string_to_path (char ** path1, const char * dir2)
 {
-  int len1, len2;
+  size_t len1, len2;
   char ** path2;
 
   len1 = pw_path_length (path1);
@@ -184,12 +185,15 @@ pw_prepend_string_to_path (char ** path1, const char * dir2)
   return pw_path_concat (path2, len2, path1, len1);
 }
 
-void
+_GL_ATTRIBUTE_FORMAT_PRINTF(2, 0) void
 pw_fprintf_path (FILE * stream, const char * format, char * const * path)
 {
   if (path)
     while (*path) {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
       fprintf (stream, format, *path);
+#pragma GCC diagnostic pop
       path++;
     }
 }
@@ -354,7 +358,7 @@ pw_paste_file (char * const * path,
   char buf[512];
   char * fullpath;
   FILE * fp;
-  int line = 0;
+  unsigned line = 0;
 
   message (msg_pw,
 	   (stderr, "pw: pasting `%s%s'\n", name, suffix ? suffix : ""));
@@ -389,7 +393,7 @@ pw_paste_file (char * const * path,
 	  file = strtok (file, " \n\t");
 	  message (msg_pw,
 		   (stderr,
-		    "pw: including file '%s' upon request given in '%s':%d\n",
+		    "pw: including file '%s' upon request given in '%s':%u\n",
 		    file, fullpath, line));
 	  if (!pw_paste_file (path, file, NULL))
 	    error_at_line (1, errno, fullpath, line,

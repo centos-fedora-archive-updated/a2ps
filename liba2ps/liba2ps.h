@@ -85,7 +85,7 @@ void a2ps_print_char (struct a2ps_job * job,
 			    enum face_e face);
 /* Print a C string (nul terminated) in FACE */
 void a2ps_print_string (struct a2ps_job * job, 
-			      const unsigned char * string, 
+			      const char * string, 
 			      enum face_e face); 
 /* Print the N chars contained in BUFFER, in FACE */
 void a2ps_print_buffer (struct a2ps_job * job, 
@@ -97,7 +97,7 @@ void a2ps_open_output_session (struct a2ps_job * job);
 void a2ps_close_output_session (struct a2ps_job * job);
 
 /* Open/Close the section structure */
-void a2ps_open_input_session (struct a2ps_job * job, unsigned char * name);
+void a2ps_open_input_session (struct a2ps_job * job, const char * name);
 void a2ps_close_input_session (struct a2ps_job * job);
 
 

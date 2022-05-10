@@ -82,7 +82,7 @@ da_print_stats (struct darray * arr, FILE * stream)
 
   fprintf (stream, _("Dynamic array `%s':\n"), arr->name);
   fprintf (stream, _("\tload: %zu/%zu (%2.1f%%)\n"),
-	   arr->len, arr->size, 100.0 * arr->len / arr->size);
+	   arr->len, arr->size, 100.0 * (double) arr->len / (double) arr->size);
   switch (arr->growth) {
   case da_steady:
     /* growth is steady, i.e., it cannot grow, it is constant */
@@ -303,7 +303,7 @@ da_concat (struct darray * arr, struct darray * arr2)
 void
 da_prefix (struct darray * arr, struct darray * arr2)
 {
-  int i;
+  size_t i;
   size_t len = arr->len + arr2->len;
 
   if (len > arr->size) {
@@ -312,11 +312,11 @@ da_prefix (struct darray * arr, struct darray * arr2)
   }
 
   /* Move the content of ARR */
-  for (i = (int) arr->len - 1 ; i >= 0 ; i--)
+  for (i = arr->len ; i-- > 0 ;)
     arr->content [ i + arr2->len ] = arr->content [ i ];
 
   /* Copy the content of ARR2 */
-  for (i = 0 ; i < (int) arr2->len ; i++)
+  for (i = 0 ; i < arr2->len ; i++)
     arr->content [ i ] = arr2->content[ i ];
 
   arr->len += arr2->len;
@@ -328,15 +328,15 @@ da_prefix (struct darray * arr, struct darray * arr2)
 void
 da_qsort (struct darray * arr)
 {
-  int ir, j, k, l, i;
-  int jstack, *istack;
+  size_t ir, j, k, l, i;
+  size_t jstack, *istack;
   void * a, * tmp;
 
   /* Do not sort an empty array */
   if (arr->len <= 1)
     return;
 
-  istack = XNMALLOC (QSORT_STACK, int);
+  istack = XNMALLOC (QSORT_STACK, size_t);
   ir = arr->len - 1;
   l = 0;
   jstack = 0;
@@ -346,7 +346,7 @@ da_qsort (struct darray * arr)
 	{	/* Insertion sort is then prefered */
 	  for (j = l + 1 ; j <= ir ; j++) {
 	    a = arr->content [j];
-	    for (i = j - 1 ; i >= l ; i--) {
+	    for (i = j ; i-- > l ;) {
 	      if (arr->cmp (arr->content [i], a) <= 0)
 		break;
 	      arr->content [i + 1] = arr->content [i];
@@ -406,15 +406,15 @@ void
 da_qsort_with_arg (struct darray * arr, da_cmp_arg_func_t cmp,
 		   const void * arg)
 {
-  int ir, j, k, l, i;
-  int jstack, *istack;
+  size_t ir, j, k, l, i;
+  size_t jstack, *istack;
   void * a, * tmp;
 
   /* Do not sort an empty array */
   if (arr->len <= 1)
     return;
 
-  istack = XNMALLOC (QSORT_STACK, int);
+  istack = XNMALLOC (QSORT_STACK, size_t);
   ir = arr->len - 1;
   l = 0;
   jstack = 0;
@@ -424,7 +424,7 @@ da_qsort_with_arg (struct darray * arr, da_cmp_arg_func_t cmp,
 	{	/* Insertion sort is then prefered */
 	  for (j = l + 1 ; j <= ir ; j++) {
 	    a = arr->content [j];
-	    for (i = j - 1 ; i >= l ; i--) {
+	    for (i = j ; i-- > l ;) {
 	      if (cmp (arr->content [i], a, arg) <= 0)
 		break;
 	      arr->content [i + 1] = arr->content [i];

@@ -29,7 +29,7 @@ enum lister_justification
 struct lister;
 
 typedef size_t (*lister_width_t) (void const *item);
-typedef void (*lister_print_t) (void const *item, FILE *stream);
+typedef int (*lister_print_t) (void const *item, FILE *stream);
 
 /* Initialize the values taking the environment into account (for line
    width, and tabsize). */

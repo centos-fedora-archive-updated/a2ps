@@ -110,7 +110,7 @@ stream_perl_open_backup (const char * perl_command,
 			 const char **name)
 {
   char * cp;
-  int len;
+  size_t len;
 
   assert (perl_command);
   message (msg_file,

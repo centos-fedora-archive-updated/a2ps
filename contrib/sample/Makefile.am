@@ -16,8 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-AM_CPPFLAGS = -I. -I.. -I$(top_builddir) -I$(top_srcdir)/intl -I$(top_srcdir)/liba2ps \
+AM_CPPFLAGS = -I. -I.. -I$(top_builddir) -I$(top_srcdir)/liba2ps \
 	-DLOCALEDIR=\"$(localedir)\"
+AM_CFLAGS = $(WARN_CFLAGS) $(LIBGC_FLAGS)
 
 noinst_PROGRAMS = sample
 

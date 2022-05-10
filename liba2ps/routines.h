@@ -112,7 +112,7 @@
 #define xustrcpy(s1, s2)				\
  do {				       			\
    const unsigned char *my_s2 = (unsigned char *) (s2);			\
-   s1 = !IS_EMPTY (my_s2) ? xustrdup (my_s2) : UNULL;	\
+   s1 = !IS_EMPTY (my_s2) ? xustrdup (my_s2) : NULL;	\
  } while (0)
 
 /*
@@ -163,13 +163,6 @@
 	strcpy (_d_, _tmp_);				\
    } while (0)
 
-#define austrcpy(_d_,_s_)				\
-   do {							\
-	const unsigned char * _tmp_ = (const unsigned char *) (_s_);	\
-	_d_ = ALLOCA (unsigned char, ustrlen (_tmp_) + 1);	\
-	ustrcpy (_d_, _tmp_);				\
-   } while (0)
-
 #define strcat2(_d_,_s1_,_s2_)		\
  do {					\
    stpcpy (stpcpy (_d_, _s1_), _s2_);	\
@@ -187,10 +180,11 @@
 /*
  * Concatenation of a char. No malloc is done.
  */
-#define USTRCCAT(s, c)					\
-  do { int __len = strlen((const char *)s);		\
-       *(s+__len) = c;					\
-       *(s+__len+1) = '\0'; 				\
+#define STRCCAT(s, c)                                 \
+  do {                                                \
+    size_t __len = strlen(s);                         \
+    *(s+__len) = (char) c;                            \
+    *(s+__len+1) = '\0'; 			      \
   } while (false)
 
 
@@ -206,14 +200,14 @@
 /* Functions on strings */
 void string_to_array (unsigned char arr[256], const unsigned char * string);
 int is_strlower (const unsigned char * string);
-unsigned char *strnlower (unsigned char * string, size_t len);
-unsigned char *strlower (unsigned char * string);
-unsigned char *strcpylc (unsigned char *dst, const unsigned char *src);
+char *strnlower (char * string, size_t len);
+char *strlower (char * string);
+char *strcpylc (char *dst, const char *src);
 
 void ustrccat (unsigned char * string, unsigned char c);
 int strcnt (unsigned char * s, unsigned char c);
 char * strsub (char * dest,
-		       const char * string, int start, int length);
+               const char * string, size_t start, size_t length);
 
 /* Copy the content of IN into OUT */
 void streams_copy (FILE * in, FILE * out);

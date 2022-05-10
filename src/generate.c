@@ -49,7 +49,7 @@ string_to_style_kind (const char * string)
 /*			The inputs					*/
 /************************************************************************/
 static buffer_t *
-input_new (unsigned char * name)
+input_new (char * name)
 {
   buffer_t * res = XMALLOC (buffer_t);
   struct file_job * file_job;
@@ -83,17 +83,17 @@ input_new (unsigned char * name)
 	  file_job->printable = false;
 	}
 
-      file_job->name = (unsigned char *) name;
-      if ((input_stream = fopen ((char *) name, "r")) == NULL)
+      file_job->name = name;
+      if ((input_stream = fopen (name, "r")) == NULL)
 	{
 	  error (0, errno,
-		 _("cannot open file `%s'"), quotearg ((char *) name));
+		 _("cannot open file `%s'"), quotearg (name));
 	  file_job->printable = false;
 	}
-      else if (stat ((char *) name, &statbuf) == -1)
+      else if (stat (name, &statbuf) == -1)
 	{
 	  error (0, errno, _("cannot get informations on file `%s'"),
-		 quotearg ((char *) name));
+		 quotearg (name));
 	  file_job->printable = false;
 	}
       else
@@ -121,7 +121,7 @@ input_new (unsigned char * name)
   else
     file_job->type = get_command (file_job->name,
 				  (sample_tmpname
-				   ? (unsigned char *) sample_tmpname
+				   ? sample_tmpname
 				   : file_job->name));
 
   /* Remove the sample file */
@@ -233,20 +233,20 @@ msg_nothing_printed (void)
 }
 
 void
-print_toc (const unsigned char * name, const unsigned char * value, int * native_jobs)
+print_toc (const char * name, const char * value, int * native_jobs)
 {
   buffer_t toc_buffer;
-  unsigned char * toc_content;
+  char * toc_content;
 
   /* Create a entry for the toc, as if it were a regular file */
-  a2ps_open_input_session (job, xustrdup (name));
+  a2ps_open_input_session (job, xstrdup (name));
   /* But it is not a regular file: we need to be able to know
    * that it is indeed a toc, so that --pages=toc can be honored */
   CURRENT_FILE (job)->is_toc = true;
 
-  austrcpy (toc_content,
-	    expand_user_string (job, CURRENT_FILE (job),
-				name, value));
+  astrcpy (toc_content,
+           expand_user_string (job, CURRENT_FILE (job),
+                               name, value));
   buffer_string_set (&toc_buffer, toc_content, end_of_line);
 
   /* We typeset it with PreScript */
@@ -262,7 +262,7 @@ print_toc (const unsigned char * name, const unsigned char * value, int * native
  * Return true if was a success, false otherwise
  */
 void
-print (unsigned char * filename, int * native_jobs, int * delegated_jobs)
+print (char * filename, int * native_jobs, int * delegated_jobs)
 {
   char buf[512];
   struct delegation * contract = NULL;
@@ -361,7 +361,7 @@ print (unsigned char * filename, int * native_jobs, int * delegated_jobs)
  * This is a dirty hack of sth OK in 4.11
  */
 void
-guess (unsigned char * filename)
+guess (char * filename)
 {
   buffer_t * buffer;
   struct file_job * file_job;

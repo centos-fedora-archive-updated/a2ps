@@ -91,17 +91,17 @@ struct style_sheet
   const char * key;
 
   /* Nice looking name of the style */
-  const unsigned char * name;
+  const char * name;
 
   /* Who wrote it, and when */
-  const unsigned char * author;
+  const char * author;
   int version[4];
 
   /* What version of a2ps is required? */
   int requirement[4];
 
   /* Note describing the mode or the language */
-  const unsigned char * documentation;
+  const char * documentation;
 
   /* Does it have ancestors (i.e., this one is an extension of
    * its ancestors).  It is a list of keys, of course */
@@ -204,7 +204,7 @@ void words_merge_rules_unique (struct words * words,
 /*
  * Dealing with the style sheets
  */
-struct style_sheet * new_style_sheet (const unsigned char * name);
+struct style_sheet * new_style_sheet (const char * name);
 void style_sheet_finalize (struct style_sheet * sheet);
 void style_sheet_self_print (struct style_sheet * sheet,
 				     FILE * stream);

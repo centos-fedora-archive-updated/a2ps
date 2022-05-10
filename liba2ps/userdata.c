@@ -77,7 +77,7 @@ userdata_get (struct userdata *udata)
 	  for (cp = passwd->pw_gecos; *cp; cp++)
 	    if (*cp == '&')
 	      {
-		*cp2++ = toupper (*login);
+		*cp2++ = (char) toupper (*login);
 		cp2 = stpcpy (cp2, login + 1);
 	      }
 	    else

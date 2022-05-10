@@ -186,7 +186,7 @@ a2ps_job_new (void)
   init_face_eo_font (res);
 
   /* virtual file name given to stdin */
-  res->stdin_filename = (unsigned char *) xstrdup ("stdin");
+  res->stdin_filename = xstrdup ("stdin");
 
   /*
    * Related to the output
@@ -227,14 +227,14 @@ a2ps_job_new (void)
   res->title = xustrdup ("a2ps output");	/* Default title */
 
   /* Headers and footers */
-  res->header = UNULL;
-  res->center_title = UNULL;
-  res->left_title = UNULL;
-  res->right_title = UNULL;
-  res->left_footer = UNULL;
-  res->footer = UNULL;
-  res->right_footer = UNULL;
-  res->water = UNULL;
+  res->header = NULL;
+  res->center_title = NULL;
+  res->left_title = NULL;
+  res->right_title = NULL;
+  res->left_footer = NULL;
+  res->footer = NULL;
+  res->right_footer = NULL;
+  res->water = NULL;
   * res->tag1 = '\0';
   * res->tag2 = '\0';
   * res->tag3 = '\0';

@@ -16,9 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-AM_CPPFLAGS = -I$(top_builddir) -I$(top_builddir)/intl -I$(srcdir) -I$(top_srcdir)/lib \
+AM_CPPFLAGS = -I$(top_builddir) -I$(srcdir) -I$(top_srcdir)/lib \
 	-DLOCALEDIR=\"$(localedir)\" -DSYSCONFFILE=\"$(sysconfdir)/a2ps.cfg\" -DHAVE_CONFIG_H
-AM_CFLAGS = $(LIBGC_FLAGS)
+AM_CFLAGS = $(WARN_CFLAGS) $(LIBGC_FLAGS)
 
 #
 # Definition of the local target
@@ -61,6 +61,11 @@ libitsources = argv.c hashtab.c
 
 noinst_HEADERS = $(liba2psheaders) $(libitheaders) $(mylibitheaders)
 
+libnowarnings_a_CFLAGS = $(LIBGC_FLAGS)
+libnowarnings_a_LDFLAGS = $(LIBGC_LIBS)
+libnowarnings_a_SOURCES = fonts.l lexppd.l parseppd.y regex.c regex.h
+
+liba2ps_la_LDFLAGS = $(LIBGC_LIBS)
 liba2ps_la_SOURCES = $(liba2pssources) $(libitsources) $(mylibitsources)
 
 liba2ps_la_LIBADD = ../lib/libgnu.la $(LIBGC_LIBS) $(LTLIBINTL) $(LIBSOCKET) $(GETHOSTNAME_LIB)

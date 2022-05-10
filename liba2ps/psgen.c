@@ -77,8 +77,8 @@ ps_escape_char (a2ps_job * job, unsigned char c, unsigned char * res)
   /* Printable and 7bit clean caracters */
   if (' ' <= c && c < 0177) {
     if (c == '(' || c == ')' || c == '\\')
-      USTRCCAT(res, '\\');
-    USTRCCAT(res, c);
+      STRCCAT(res, '\\');
+    STRCCAT(res, c);
     return 1;
   }
 
@@ -104,11 +104,11 @@ ps_escape_char (a2ps_job * job, unsigned char c, unsigned char * res)
     return 4;
 
   case question_mark:
-    USTRCCAT (res, '?');
+    STRCCAT (res, '?');
     return 1;
 
   case space:
-    USTRCCAT (res, ' ');
+    STRCCAT (res, ' ');
     return 1;
 
   case caret:
@@ -119,19 +119,19 @@ ps_escape_char (a2ps_job * job, unsigned char c, unsigned char * res)
     }
 
     if (c < ' ') {
-      USTRCCAT(res, '^');
+      STRCCAT(res, '^');
       len += 2;
       c += '@';
       if (c == '(' || c == ')' || c == '\\')
-	USTRCCAT(res, '\\');
-      USTRCCAT(res, c);
+	STRCCAT(res, '\\');
+      STRCCAT(res, c);
     } else if (c == 0177) {
       ustrcat(res, "^?");
       len += 2;
     } else {
       if (c == '(' || c == ')' || c == '\\')
-	USTRCCAT(res, '\\');
-      USTRCCAT(res, c);
+	STRCCAT(res, '\\');
+      STRCCAT(res, c);
       len++;
     }
     return len;
@@ -148,36 +148,21 @@ ps_escape_char (a2ps_job * job, unsigned char c, unsigned char * res)
       len += 3;
       c += '@';
       if (c == '(' || c == ')' || c == '\\')
-	USTRCCAT(res, '\\');
-      USTRCCAT(res, c);
+	STRCCAT(res, '\\');
+      STRCCAT(res, c);
     } else if (c == 0177) {
       ustrcat(res, "C-?");
       len += 3;
     } else {
       if (c == '(' || c == ')' || c == '\\')
-	USTRCCAT(res, '\\');
-      USTRCCAT(res, c);
+	STRCCAT(res, '\\');
+      STRCCAT(res, c);
       len++;
     }
     return len;
 
   }
   return 0;
-}
-
-/*
- * Print a string in a form accepted by postscript printers.
- */
-static int
-ps_escape_string (a2ps_job * job, unsigned char * string, unsigned char * res)
-{
-  size_t i;
-  int delta_column=0;
-
-  for (i = 0 ; i < ustrlen (string) ; i++)
-    delta_column += ps_escape_char (job, string[i], res);
-
-  return delta_column;
 }
 
 /*
@@ -866,7 +851,7 @@ ps_print_char (a2ps_job * job, int c, enum face_e new_face)
     {
       static int mb_flag = 0;
       unsigned char buf[256];
-      int nchars;
+      unsigned nchars;
       *buf = '\0';
 
       /* Is this a new font? */
@@ -884,13 +869,13 @@ ps_print_char (a2ps_job * job, int c, enum face_e new_face)
         if (mb_flag) {
           nchars = ps_escape_char (job, mb_flag, buf) + 
             ps_escape_char (job, c, buf);
-          job->status->wx += char_composite_WX(job, c);
+          job->status->wx += char_composite_WX(job);
           job->status->column += nchars;
           if (line_full) {
 	    if (job->folding) {
               fold_line (job, new_face);
               job->status->column = nchars*2;
-              job->status->wx = char_composite_WX(job, c);
+              job->status->wx = char_composite_WX(job);
 	    } else {
 	      job->status->is_in_cut = true;
 	      return;
@@ -909,7 +894,7 @@ ps_print_char (a2ps_job * job, int c, enum face_e new_face)
           if (job->folding) {
             fold_line (job, new_face);
             job->status->column = nchars;
-            job->status->wx = char_WX (job, c);
+            job->status->wx = char_WX (job, (unsigned char)c);
           } else {
             job->status->is_in_cut = true;
             return;
@@ -917,7 +902,7 @@ ps_print_char (a2ps_job * job, int c, enum face_e new_face)
         }
       }
       output (jdiv, "%s", buf);
-      job->status->chars+=nchars;
+      job->status->chars += nchars;
     }
     break;
   }
