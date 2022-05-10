@@ -15,9 +15,7 @@ AM_INIT_AUTOMAKE([1.15 foreign subdir-objects silent-rules -Wall])
 
 AC_CONFIG_HEADERS([config.h])
 
-# Specify the liba2ps version number
-LIBVERSION=1:0:0
-AC_SUBST(LIBVERSION)
+# Define the package name
 GNU_PACKAGE="GNU $PACKAGE"
 AC_DEFINE_UNQUOTED(GNU_PACKAGE, "$GNU_PACKAGE",
 		   [The concatenation of the strings `GNU ', and PACKAGE.])
@@ -277,7 +275,6 @@ AC_CONFIG_FILES([
   ps/Makefile
   afm/Makefile
   contrib/Makefile
-  contrib/sample/Makefile
   contrib/emacs/Makefile
   fonts/Makefile
   ppd/Makefile

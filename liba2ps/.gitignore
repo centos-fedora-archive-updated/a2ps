@@ -1,3 +1,4 @@
+*.a
 *.la
 /confg.c
 /fonts.c

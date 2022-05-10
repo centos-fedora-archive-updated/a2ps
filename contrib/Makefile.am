@@ -18,7 +18,7 @@
 
 AM_CFLAGS = $(WARN_CFLAGS)
 
-SUBDIRS = sample emacs
+SUBDIRS = emacs
 
 bin_SCRIPTS = card fixps pdiff psmandup psset texi2dvi4a2ps
 bin_PROGRAMS = fixnt

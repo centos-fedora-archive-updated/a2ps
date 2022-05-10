@@ -23,15 +23,14 @@ AM_CFLAGS = $(WARN_CFLAGS) $(LIBGC_FLAGS)
 #
 # Definition of the local target
 #
-lib_LTLIBRARIES = liba2ps.la
+noinst_LTLIBRARIES = liba2ps.la
+noinst_LIBRARIES = libnowarnings.a
 
 # --debug, --defines, --verbose
 AM_YFLAGS = -dtv
 # Use a struct, handle duplicates, produce ANSI-C
 GPERFFLAGS = -t -D -L ANSI-C
 BUILT_SOURCES = lexppd.h parseppd.h liba2ps.h confg.c
-
-liba2ps_la_LDFLAGS = -version-info @LIBVERSION@
 
 liba2psheaders = encoding.h media.h jobs.h output.h		\
 routines.h psgen.h prolog.h faces.h useropt.h			\
@@ -43,16 +42,15 @@ system.h a2ps.h liba2ps.h yy2ppd.h
 liba2pssources = encoding.c media.c jobs.c output.c		\
 routines.c psgen.c prolog.c faces.c useropt.c			\
 gen.c printers.c psstat.c caret.c metaseq.c options.c		\
-dsc.c fonts.l ppd.c prange.c stream.c document.c		\
-fjobs.c common.c madir.c filalign.c lexppd.l			\
-parseppd.y
+dsc.c ppd.c prange.c stream.c document.c		\
+fjobs.c common.c madir.c filalign.c
 
 mylibitheaders = msg.h msg.c message.h xstrrpl.h getshline.h pathwalk.h	\
-darray.h dstring.h printlen.h pair_ht.h filtdir.h regex.h str_ht.h	\
+darray.h dstring.h printlen.h pair_ht.h filtdir.h str_ht.h		\
 title.h xbackupfile.h getnum.h tterm.h lister.h userdata.h xobstack.h
 
 mylibitsources = message.c xstrrpl.c gc_calloc.c getshline.c pathwalk.c	\
-darray.c dstring.c printlen.c pair_ht.c filtdir.c regex.c str_ht.c	\
+darray.c dstring.c printlen.c pair_ht.c filtdir.c str_ht.c		\
 title.c xbackupfile.c getnum.c tterm.c lister.c userdata.c
 
 libitheaders = argv.h hashtab.h
@@ -67,8 +65,7 @@ libnowarnings_a_SOURCES = fonts.l lexppd.l parseppd.y regex.c regex.h confg.c co
 
 liba2ps_la_LDFLAGS = $(LIBGC_LIBS)
 liba2ps_la_SOURCES = $(liba2pssources) $(libitsources) $(mylibitsources)
-
-liba2ps_la_LIBADD = ../lib/libgnu.la $(LIBGC_LIBS) $(LTLIBINTL) $(LIBSOCKET) $(GETHOSTNAME_LIB)
+liba2ps_la_LIBADD = ../lib/libgnu.la $(LIBINTL) $(LIBSOCKET) $(GETHOSTNAME_LIB)
 
 #
 # Handling the Gperf code

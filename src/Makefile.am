@@ -45,7 +45,7 @@ BUILT_SOURCES = parsessh.h lexssh.c lexps.c sheets-map.c
 AM_YFLAGS = -dtv
 LEX = @LEX@
 
-a2ps_LDADD = $(top_builddir)/liba2ps/liba2ps.la libparse.a $(LIBINTL) ../lib/libgnu.la -lm -L/opt/local/lib $(LIBGC_LIBS) -lpaper # FIXME: hard coded.
+a2ps_LDADD = $(top_builddir)/liba2ps/liba2ps.la $(top_builddir)/liba2ps/libnowarnings.a libparse.a $(LIBINTL) ../lib/libgnu.la -lm $(LIBGC_LIBS) -lpaper # FIXME: hard coded.
 
 EXTRA_DIST = $(BUILT_SOURCES) $(bin_SCRIPTS)
 
