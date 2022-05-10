@@ -34,7 +34,7 @@ AC_PROG_AWK
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-jm_PATH_PERL
+AC_PATH_PROG(PERL, perl)
 
 # Check for the C compiler and the various oddities that may exist
 AC_PROG_CC_C99
