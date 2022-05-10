@@ -37,7 +37,6 @@ AC_PROG_MAKE_SET
 jm_PATH_PERL
 
 # Check for the C compiler and the various oddities that may exist
-AC_PROG_CC
 AC_PROG_CC_C99
 gl_EARLY
 
