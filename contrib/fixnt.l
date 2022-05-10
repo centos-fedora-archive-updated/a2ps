@@ -1,10 +1,9 @@
 %p 3000
 %{ /* -*- c -*- */ /* <--- EMACS knows now about what mode to use ... */
-  /* Time-stamp: "99/06/29 14:48:25 bauer" */
+  /* Time-stamp: "2022-05-10 12:03:21 rrt" */
 
   /* Filter for Windows NT 4.0 postscript printer driver. Enables
-   * the use of psnup from Angus Duggan's psutils package
-   * ( http://www.dcs.ed.ac.uk/home/ajcd/psutils/ )
+   * the use of psnup from the psutils package
    * Copyright: GNU General Public License (GPL)
    * Authors:
    *         Holger Bauer 1998, 1999    bauer@itsm.uni-stuttgart.de
@@ -12,11 +11,6 @@
    *         Akim Demaille      1999    demaille@inf.enst.fr
    * Version: 0.1c
    * Release Date: 1999/02/04
-   *
-   * Compilation:
-   *
-   * flex fixnt.l
-   * cc -O -o fixnt lex.yy.c
    *
    * Usage:
    * csh-prompt> cat BAD_NT_Postscript_FILE.ps | fixnt | psnup -4 | gs -
@@ -37,44 +31,18 @@
    */
 
 
-#ifdef HAVE_CONFIG_H
-# include "config.h"
-# include <stdio.h>
-# if defined STDC_HEADERS || defined _LIBC || defined HAVE_STDLIB_H
-#  include <stdlib.h>
-# endif
-# if HAVE_SYS_TYPES_H
-#  include <sys/types.h>
-# endif
-# if HAVE_UNISTD_H
-#  include <unistd.h>
-# endif
-#else /* !HAVE_CONFIG_H */
-# include <stdio.h>
-# ifdef _WIN32
-#  include <stdlib.h>
-#  include <process.h>
-#  include <wtypes.h>
-#  include <winbase.h>
-# else /* !_WIN32 */
-#  include <unistd.h>
-# endif
-# include <sys/types.h>
-char *getenv ();
-#endif /* !HAVE_CONFIG_H */
-
-/* Support of prototyping when possible */
-#ifndef PARAMS
-#  if PROTOTYPES
-#    define PARAMS(protos) protos
-#  else /* no PROTOTYPES */
-#    define PARAMS(protos) ()
-#  endif /* no PROTOTYPES */
+#include "config.h"
+#include <gc/gc.h>
+#include <stdio.h>
+#if defined STDC_HEADERS || defined _LIBC || defined HAVE_STDLIB_H
+# include <stdlib.h>
 #endif
-
-/* Do not allow redefinition of malloc and realloc. */
-#undef malloc
-#undef realloc
+#if HAVE_SYS_TYPES_H
+# include <sys/types.h>
+#endif
+#if HAVE_UNISTD_H
+# include <unistd.h>
+#endif
 
 #if defined (YYLMAX)
 # undef YYLMAX
