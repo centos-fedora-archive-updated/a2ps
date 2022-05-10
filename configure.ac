@@ -148,9 +148,6 @@ AC_MSG_RESULT([$ac_psfont_path])
 ad_PROG_FILE_LINK
 AC_SUBST(FILE_LINK)
 
-# How to send things in the printer queue
-ad_PROG_LPR
-
 #
 # default encoding to use (defaulted to latin1)
 #
@@ -257,8 +254,6 @@ AC_MSG_RESULT([
 *****************************************************************
 * a2ps thinks it should be configured the following way:
 * - your charset is `$ENCODING'
-* - to send a JOB to the default printer, run `$LPR job'
-* - to send a JOB to the printer PRINTER, run `$LPR $LPR_QUEUE_OPTION PRINTER job'
 * - to ask `file(1)' to follow the links, run `$FILE_LINK'
 *   (`file(1)' is used to guess the type of the files to print.)
 *
