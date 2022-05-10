@@ -103,6 +103,7 @@ authors_print (const unsigned char * authors, FILE * stream,
 	       const char *after)
 {
   char *cp, *author, *email;
+  const char *authors_end;
   bool first = true;
 
   if (!authors)
@@ -110,6 +111,7 @@ authors_print (const unsigned char * authors, FILE * stream,
 
   /* Work on a copy */
   astrcpy (cp, authors);
+  authors_end = cp + strlen (authors);
   cp = strtok (cp, ",");
 
   while (cp)
@@ -118,19 +120,18 @@ authors_print (const unsigned char * authors, FILE * stream,
       email = author + strcspn (author, "<");
       *(email - 1) = '\0';
       email++;
+      if (email > authors_end)
+        return;
       *(email + strcspn (email, ">")) = '\0';
       *(email - 1) = '\0';
-      if (!strequ (author, "Akim Demaille"))
-	{
-	  if (first)
-	    {
-	      fputs (before, stream);
-	      first = false;
-	    }
-	  else
-	    fputs (between, stream);
-	  fprintf (stream, author_fmt, author, email);
-	}
+      if (first)
+        {
+          fputs (before, stream);
+          first = false;
+        }
+      else
+        fputs (between, stream);
+      fprintf (stream, author_fmt, author, email);
       cp = strtok (NULL, ",");
     }
   if (!first)
