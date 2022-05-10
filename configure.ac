@@ -80,9 +80,6 @@ AS_IF([test "$ac_cv_lib_paper_systempapername" = ""],
 AM_GNU_GETTEXT_VERSION([0.19.8])
 AM_GNU_GETTEXT([external], [need-ngettext])
 
-# Save the cache
-AC_CACHE_SAVE
-
 # In path separator character.
 AC_DEFINE_UNQUOTED(DIRECTORY_SEPARATOR, '/',
 		   [The char used to separate component of a path])
