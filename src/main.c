@@ -333,14 +333,12 @@ list_options (struct a2ps_job *a_job, FILE *stream)
 
   title (stream, '-', false, _("Sheets:\n"));
   fprintf (stream, _("\
-  medium          = %s%s, %s\n\
+  medium          = %s, %s\n\
   page layout     = %d x %d, %s\n\
   borders         = %s\n\
   file alignment  = %s\n\
   interior margin = %d\n"),
 	   a_job->medium->name,
-	   (a2ps_medium_libpaper_p (job, job->medium_request)
-	    ? " (libpaper)" : ""),
 	   (a_job->orientation == portrait) ? _("portrait") : _("landscape"),
 	   a_job->columns, a_job->rows,
 	   madir_to_string (a_job->madir),

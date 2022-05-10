@@ -173,13 +173,6 @@ a2ps_get_medium_name (a2ps_job * job, const char * name)
   return medium->name;
 }
 
-/* Is libpaper used? */
-bool
-a2ps_medium_libpaper_p (PARAM_UNUSED a2ps_job * job, const char * name)
-{
-  return strequ (name, LIBPAPER_MEDIUM) ? true : false;
-}
-
 /*
  * List the media defined, with their dimensions.
  */

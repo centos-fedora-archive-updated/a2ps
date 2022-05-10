@@ -13,9 +13,6 @@
 # Default encoding
 Options: --encoding=@ENCODING@
 
-# Default medium
-Options: --medium=@MEDIUM@
-
 #################################################################
 # 2)	Your printers						#
 #################################################################

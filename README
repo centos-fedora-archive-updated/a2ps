@@ -49,12 +49,6 @@ Some choices are to make, and to give to ./configure
 The following choices *are not irreversible*.  They just correspond to
 settings in the file etc/a2ps-site.cfg:
 
-    --with-medium=MEDIUM
-    	define the default medium used by a2ps (A4, Letter etc.)
-    	There is a special medium name: `libpaper', which means
-    	that you have libpaper installed, and that a2ps should
-    	use the medium specified by it.  If you don't know,
-    	just let configure decide for you.  You can change it later.
     --with-encoding=ENCODING
     	define the default encoding (ascii, latin1..., latin6,
     	hp, mac, ibmpc, pcg, cp1250).

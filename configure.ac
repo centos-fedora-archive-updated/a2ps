@@ -73,6 +73,8 @@ gl_INIT
 ## ------------------------------ ##
 
 ad_FUNC_SYSTEMPAPERNAME
+AS_IF([test "$ac_cv_lib_paper_systempapername" = ""],
+  AC_MSG_ERROR[a2ps needs libpaper to work])
 
 # Internationalization.
 AM_GNU_GETTEXT_VERSION([0.19.8])
@@ -161,20 +163,6 @@ AC_SUBST(FILE_LINK)
 
 # How to send things in the printer queue
 ad_PROG_LPR
-
-#
-# default medium to use (defaulted to A4)
-#
-AC_ARG_WITH(medium,
-AS_HELP_STRING([--with-medium=medium],
-               [specify the default medium (A4, Letter, Legal, etc.) [default=A4]]),
-MEDIUM=$with_medium,
-if test x"$ac_cv_lib_paper_systempapername" = xyes; then
-  MEDIUM=libpaper
-else
-  MEDIUM=A4
-fi)
-AC_SUBST(MEDIUM)
 
 #
 # default encoding to use (defaulted to latin1)
@@ -278,15 +266,9 @@ fi
 
 AC_OUTPUT
 
-if test $MEDIUM = libpaper; then
-  libpaper_msg="
-*   (\`libpaper' means a2ps asks libpaper for the medium.  See man paper.)"
-fi
-
 AC_MSG_RESULT([
 *****************************************************************
 * a2ps thinks it should be configured the following way:
-* - you print on `$MEDIUM' paper$libpaper_msg
 * - your charset is `$ENCODING'
 * - to send a JOB to the default printer, run `$LPR job'
 * - to send a JOB to the printer PRINTER, run `$LPR $LPR_QUEUE_OPTION PRINTER job'
