@@ -87,10 +87,6 @@
 /*      The authors list handling                                       */
 /************************************************************************/
 /*
- * In the following, we do not want to see Akim Demaille's name
- * in the style sheet context, since there would be too many.
- */
-/*
  * Split the authors and print them on STREAM using AUTHOR_FMT
  * (which %1s is clean name, and %2s is the email), separated
  *  with BETWEEN).  They must be separated with ',', and
