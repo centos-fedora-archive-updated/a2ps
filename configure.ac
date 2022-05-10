@@ -221,8 +221,8 @@ ad_CHECK_PROGS([pdf2ps])
 ad_CHECK_PROGS([ps2pdf])
 AC_SUBST(COM_PS2PDF)
 
-# PostScript delegation.  Check for psutils 1.17
-a2_PSUTILS(1, 17)
+# PostScript delegation.  Check for psutils >= 1.17
+a2_PSUTILS
 
 # ROFF delegation
 ad_CHECK_PROG(grog,

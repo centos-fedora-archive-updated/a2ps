@@ -17,18 +17,18 @@ ad_CHECK_PROG(psnup)
 if test "$COM_psselect" = "#"; then
   COM_PSUTILS="#"
 else
-  # There is one.  Check version > MAJOR.MINOR
+  # We found psselect.  Check we either have 1.17 or 2.x
   ac_prog_psselect_banner=`psselect -v 2>&1 | sed 1q`
-  ac_prog_psselect_release=`set -- $ac_prog_psselect_banner && echo $[3]`
-  ac_prog_psselect_patch=`set -- $ac_prog_psselect_banner && echo $[5]`
-  test ${ac_prog_psselect_release}0 -lt $1[0] && COM_PSUTILS="#"
-  test ${ac_prog_psselect_patch}0 -lt $2[0] && COM_PSUTILS="#"
+  if test ${ac_prog_psselect_banner} != 'psselect release 1 patchlevel 17' &&
+     test $(echo ${ac_prog_psselect_banner} | cut -d " " -f 2 | cut -d . -f 1) -lt 2; then
+    COM_PSUTILS="#"
+  fi
 fi
 if test "$COM_PSUTILS" = "#"; then
   AC_MSG_WARN([===========================================================])
-  AC_MSG_WARN([a2ps works much better with the psutils.  Available at])
-  AC_MSG_WARN([  http://www.dcs.ed.ac.uk/home/ajcd/psutils/])
-  AC_MSG_WARN([You *really* should install them *before* installing a2ps.])
+  AC_MSG_WARN([a2ps works much better with psutils.  Available at:])
+  AC_MSG_WARN([  https://github.com/rrthomas/psutils/])
+  AC_MSG_WARN([You *really* should install it *before* installing a2ps.])
   AC_MSG_WARN([===========================================================])
 fi
 AC_SUBST(COM_PSUTILS)])
