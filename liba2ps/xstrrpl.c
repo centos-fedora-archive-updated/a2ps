@@ -68,80 +68,23 @@ xstrrpl (const char * string, const char * subst[][2])
   return res;
 }
 
-/* Destructive version */
-void
-strrpl (char ** string, const char * subst[][2])
-{
-  char * res;
-  res = xstrrpl (*string, subst);
-  free (*string);
-  *string = res;
-}
-
 /* Perform subsitution in string.  String is untouched, result is malloc'd
    E.g., result = xstrrrpl ("1234", "1", "11", "3", "333", "4", "", NULL)
    gives result = "112333"
    */
-#if __STDC__
 char *
 xvstrrpl (const char * string, ...)
-#else
-char *
-xvstrrpl (va_alist)
-    va_dcl
-#endif
 {
-#if ! __STDC__
-  const char *string;
-#endif
   va_list ap;
   const char * subst[100][2];	/* Hope this is enough :) */
   int i = 0;
 
   /* Copy arguments into `args'. */
-#if __STDC__
   va_start (ap, string);
-#else
-  va_start (ap);
-  string = va_arg (ap, char *);
-#endif
   for (i = 0 ; (subst[i / 2][i % 2] = va_arg (ap, char *)) ; i++)
     ;
   va_end (ap);
   if (i % 2)
     return NULL;
   return xstrrpl (string, subst);
-}
-
-/* Destructive version */
-#if __STDC__
-void
-vstrrpl (char **string, ...)
-#else
-void
-vstrrpl (va_alist)
-  va_dcl
-#endif
-{
-#if ! __STDC__
-  char **string;
-#endif
-  va_list ap;
-  const char * subst[100][2];	/* Hope this is enough :) */
-  int i = 0;
-
-  /* Copy arguments into `args'. */
-#if __STDC__
-  va_start (ap, string);
-#else
-  va_start (ap);
-  string = va_arg (ap, char **);
-#endif
-  for (i = 0 ; (subst[i / 2][i % 2] = va_arg (ap, char *)) ; i++)
-    ;
-  va_end (ap);
-  if (i % 2)
-    free (*string);
-  else
-    strrpl (string, subst);
 }

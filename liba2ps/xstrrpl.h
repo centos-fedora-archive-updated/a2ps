@@ -22,14 +22,7 @@
 # define XSTRRPL_H_ 1
 
 char * xstrrpl (const char * string, const char * subst[][2]);
-void strrpl (char ** string, const char * subst[][2]);
 
-# if defined (__STDC__) && __STDC__
 extern char * xvstrrpl (const char * string, ...);
-extern void vstrrpl (char ** string, ...);
-# else
-char * xvstrrpl ();
-void vstrrpl ();
-# endif
 
 #endif /* !XSTRRPL_H_ */
