@@ -6,6 +6,7 @@ Version 4.15        May 10, 2022
  * Build:
    - Updated and fixed the build system, using gnulib and modern Autotools.
    - Remove OS/2 support.
+   - Require libpaper.
  * Predefined delegations:
    - Remove support for defunct Netscape and proprietary Acrobat Reader.
    - Add lpr wrapper for automatic detection of different printing systems,
