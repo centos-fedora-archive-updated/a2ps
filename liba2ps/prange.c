@@ -148,22 +148,11 @@ page_range_new (void)
 }
 
 /*
- * Free the structure
- */
-void
-page_range_free (struct page_range * page_range)
-{
-  da_free (page_range->intervals, (da_map_func_t) free);
-  free (page_range);
-}
-
-/*
  * Reset to a default value
  */
 static void
 page_range_reset (struct page_range * page_range)
 {
-  da_free_content (page_range->intervals, (da_map_func_t) free);
   page_range->toc = false;
 }
 

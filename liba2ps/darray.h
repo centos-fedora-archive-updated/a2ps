@@ -60,9 +60,6 @@ da_new (const char * name, size_t size,
 		enum da_growth growth, size_t increment,
 		da_print_func_t self_print,
 		da_cmp_func_t cmp);
-void da_free_content (struct darray * arr, da_map_func_t free_func);
-void da_free (struct darray * arr, da_map_func_t free_func);
-void da_erase (struct darray * arr);
 void da_print_stats (struct darray * arr, FILE * stream);
 void da_resize (struct darray * arr, size_t size);
 void da_grow (struct darray * arr);
@@ -92,8 +89,7 @@ int da_includes (struct darray * arr, const void * stuff);
  */
 void da_append (struct darray * arr, void * elem);
 void da_insert_at (struct darray * arr, void * elem, size_t where);
-void da_remove_at (struct darray * arr,
-			   size_t where, da_map_func_t free_func);
+void da_remove_at (struct darray * arr, size_t where);
 void da_concat (struct darray * arr, struct darray * arr2);
 void da_prefix (struct darray * arr, struct darray * arr2);
 
@@ -105,7 +101,7 @@ void da_qsort_with_arg (struct darray * arr,
 				da_cmp_arg_func_t cmp,
 				const void * arg);
 void da_self_print (struct darray * arr, FILE * stream);
-void da_unique (struct darray * arr, da_map_func_t free_func);
+void da_unique (struct darray * arr);
 
 /* In case of equality, keep the first, or the second? */
 enum da_include_policy {
@@ -115,7 +111,6 @@ enum da_include_policy {
 /* Merge A2 in A1, according to the POLICY, and free not retained
  * items by FREE_FUNC if not NULL */
 void da_merge (struct darray * a1, struct darray * a2,
-		       da_map_func_t free_func,
 		       enum da_include_policy policy);
 
 

@@ -477,7 +477,7 @@ pw_glob (char * const * path, const char * pattern)
 		(filterdir_fun_t) pw_filter_da_append, res);
 
   da_qsort (res);
-  da_unique (res, (da_map_func_t) free);
+  da_unique (res);
 
   return res;
 }
@@ -534,5 +534,4 @@ pw_lister_on_suffix (FILE * stream, char * const * path, const char * suffix)
 			  (void *) entries->content, entries->len,
 			  (lister_width_t) strlen,
 			  (lister_print_t) fputs);
-  da_free (entries, (da_map_func_t) free);
 }

@@ -62,13 +62,11 @@ a2ps_job_register_user (a2ps_job *job)
       macro_meta_sequence_add (job, VAR_USER_COMMENTS, u.comments);
     if (u.home)
       macro_meta_sequence_add (job, VAR_USER_HOME, u.home);
-    userdata_free (&u);
   }
 
   {
     char *host = xgethostname ();
     macro_meta_sequence_add (job, VAR_USER_HOST, host);
-    free (host);
   }
 }
 
@@ -82,18 +80,6 @@ tmpfiles_reset (struct a2ps_job * job)
 
   for (i = 0 ; i < cardinalityof (job->tmp_filenames) ; i ++)
     job->tmp_filenames [i] = NULL;
-}
-
-/*
- * release both name and file of the array of temporary file names
- */
-static void
-tmpfiles_free (struct a2ps_job * job)
-{
-  size_t i;
-
-  for (i = 0 ; i < cardinalityof (job->tmp_filenames) ; i ++)
-    free (job->tmp_filenames[i]);
 }
 
 /*
@@ -312,7 +298,7 @@ a2ps_job_finalize (struct a2ps_job * job)
 }
 
 /*
- * Free the a2ps_job struture and its descendants
+ * Print diagnostics and delete temp files
  */
 void
 a2ps_job_free (struct a2ps_job * job)
@@ -320,61 +306,9 @@ a2ps_job_free (struct a2ps_job * job)
   if (msg_test (msg_file))
     da_self_print (job->jobs, stderr);
 
-  free_medium_table (job->media);
-
-  /* Free the common mem.  Only a2ps_job is responsible for this, the
-     other only had pointers to this master.  They should *not* free
-     it.  */
-  a2ps_common_free (&job->common);
-
-  encodings_map_free (job->encodings_map);
-  face_eo_font_free (job->face_eo_font);
-
-  output_free (job->ps_encodings);
-
-  a2ps_printers_free (job->printers);
-
-  free (job->stdin_filename);
-
-  /* Encoding handling */
-  encodings_table_free (job->encodings);
-
-  /* Fonts handling	*/
-  fonts_map_free (job->fonts_map);
-  font_info_table_free (job->font_infos);
-
-  /* Headers */
-  free (job->title);
-  free (job->header);
-  free (job->center_title);
-  free (job->left_title);
-  free (job->right_title);
-  free (job->left_footer);
-  free (job->footer);
-  free (job->right_footer);
-  free (job->water);
-
-  free (job->prolog);
-  free (job->medium_request);
-
-  /* Definition of the macro meta sequences	*/
-  macro_meta_sequence_table_free (job->macro_meta_sequences);
-
-  ps_status_free (job->status);
-
   if (msg_test (msg_file))
     output_self_print (job->divertion, stderr);
-  output_free (job->divertion);
 
   /* Unlink and free the temporary files */
   a2ps_job_unlink_tmpfiles (job);
-  tmpfiles_free (job);
-
-  page_range_free (job->page_range);
-
-  /* Free the file jobs.  Note: their temp files have been freed
-   * in a2ps_job_unlink_tmpfiles (job) */
-  da_free (job->jobs, (da_map_func_t) file_job_free);
-
-  free (job);
 }

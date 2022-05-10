@@ -88,12 +88,6 @@ fonts_map_new (void)
   return pair_table_new ();
 }
 
-void
-fonts_map_free (struct pair_htable * table)
-{
-  pair_table_free (table);
-}
-
 static inline void
 fonts_map_add (struct pair_htable * fonts_map,
 	       const char * alias,
@@ -139,7 +133,6 @@ load_main_fonts_map (struct a2ps_job * job)
   /* System's */
   file = xpw_find_file (job->common.path, "fonts.map", NULL);
   load_fonts_map (job, file);
-  free (file);
   return 1;
 }
 
@@ -309,26 +302,6 @@ wx_entry_table_new (void)
 }
 
 /*
- * Free a wx_entry entry
- */
-static void
-hash_free_wx_entry (struct wx_entry * wx_entry)
-{
-  free (wx_entry->glyph);
-  free (wx_entry);
-}
-
-/*
- * Free the whole structure
- */
-static void
-wx_entry_table_free (struct hash_table_s * table)
-{
-  hash_free (table, (hash_map_func_t) hash_free_wx_entry);
-  free (table);
-}
-
-/*
  *  Add a wx_entry, with your own allocation for them.
  * It GLYPH is yet used, override its wx with WX
  */
@@ -374,51 +347,6 @@ wx_entry_get_wx (struct hash_table_s * table,
 
   return 0;
 }
-
-#if 0
-/*
- * Typically for --list-features
- */
-static void
-wx_entry_list_short (struct hash_table_s * table, FILE * stream)
-{
-  int i, tab;
-  struct wx_entry ** entries;
-  entries = (struct wx_entry **)
-    hash_dump (table, NULL,
-	       (hash_cmp_func_t) wx_entry_hash_qcmp);
-
-  tab = 0;
-  for (i = 0 ; entries[i] ; i++) {
-    if (!(tab % 7))
-      fputs ("\n  ", stream);
-    fprintf (stream, "%-10s", entries[i]->glyph);
-    tab++;
-  }
-  putc ('\n', stream);
-  free (entries);
-}
-
-/*
- * Typically for --list-<something>
- */
-static void
-wx_entry_list_long (struct hash_table_s * table, FILE * stream)
-{
-  int i;
-  struct wx_entry ** entries;
-  entries = (struct wx_entry **)
-    hash_dump (table, NULL,
-	       (hash_cmp_func_t) wx_entry_hash_qcmp);
-
-  for (i = 0 ; entries[i] ; i++)
-    fprintf (stream, "  %-10s (%d) = %d\n",
-	     entries[i]->glyph, entries[i]->index, entries[i]->wx);
-
-  putc ('\n', stream);
-  free (entries);
-}
-#endif
 
 /*
  * Getting the glyphs in the order of the index
@@ -482,27 +410,6 @@ font_info_table_new (void)
 }
 
 /*
- * Free a font_info entry
- */
-static void
-hash_free_font_info (struct font_info * font_info)
-{
-  free (font_info->key);
-  wx_entry_table_free (font_info->wx);
-  free (font_info);
-}
-
-/*
- * Free the whole structure
- */
-void
-font_info_table_free (struct hash_table_s * table)
-{
-  hash_free (table, (hash_map_func_t) hash_free_font_info);
-  free (table);
-}
-
-/*
  * Create and return a new font_info cell, with key = KEY
  */
 static inline struct font_info *
@@ -544,7 +451,6 @@ font_info_finalize (struct a2ps_job * job, struct font_info * font)
   yylex ();
 
   fclose (stream);
-  free (file);
 }
 
 /*
@@ -855,7 +761,5 @@ dump_fonts (FILE * stream, struct a2ps_job * job)
 
       /* release */
       fclose (fp);
-      free (filename);
     }
-  free (fonts);
 }

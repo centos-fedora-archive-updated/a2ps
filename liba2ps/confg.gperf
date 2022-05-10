@@ -132,10 +132,7 @@ a2_read_config (a2ps_job * job, const char *path, const char *file)
 
   fp = fopen (fname, "r");
   if (fp == NULL)
-    {
-      free (fname);
-      return 0;
-    }
+    return 0;
 
   message (msg_opt | msg_file,
 	   (stderr, "Reading configuration file `%s'\n", fname));
@@ -200,9 +197,7 @@ a2_read_config (a2ps_job * job, const char *path, const char *file)
 		error_at_line (0, errno, fname, firstline,
 			       _("cannot open file `%s'"),
 			       quotearg (included_file));
-		free (included_file);
 	      }
-	    free (dir);
 	  }
 	  break;
 
@@ -304,7 +299,6 @@ a2_read_config (a2ps_job * job, const char *path, const char *file)
 
 	  /* Handling of the library path */
 	case LibraryPath:
-	  free (job->common.path);
 	  job->common.path = pw_string_to_path (argv[1]);
 	  break;
 
@@ -331,10 +325,7 @@ a2_read_config (a2ps_job * job, const char *path, const char *file)
 	  break;
 	}
     }
-  free (fname);
   fclose (fp);
-  /* BUF was allocated by getshlinenumbered. */
-  free (buf);
   return 1;
 }
 

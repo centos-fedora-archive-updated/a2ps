@@ -343,23 +343,6 @@ keyword_rule_new (unsigned char * word, struct pattern * pattern,
 }
 
 
-/*--------------.
-| Free a rule.  |
-`--------------*/
-
-static void
-free_rule (struct rule * rule)
-{
-  free (rule->word);
-  if (rule->regex)
-    {
-      regfree (rule->regex);
-      free (rule->regex);
-    }
-  da_free (rule->rhs, (da_map_func_t) faced_string_free);
-  free (rule);
-}
-
 /*
  * Compare two rules.
  * Note: they should be string-rules, not regex-rule
@@ -434,24 +417,6 @@ words_new (/* Regular darray parameters */
   return res;
 }
 
-static inline void
-words_erase (struct words * words)
-{
-  /* Do not free the items, there may be pointers onto them */
-  da_erase (words->strings);
-  da_erase (words->regexps);
-
-  free (words);
-}
-
-void
-words_free (struct words * words)
-{
-  da_free (words->strings, (da_map_func_t) free_rule);
-  da_free (words->regexps, (da_map_func_t) free_rule);
-  free (words);
-}
-
 static void
 words_self_print (struct words * words, FILE * stream)
 {
@@ -495,12 +460,7 @@ words_merge_rules_unique (struct words * words, struct words * new)
 
   /* Include the strings */
   da_qsort (new->strings);
-  da_merge (words->strings, new->strings,
-	    (da_map_func_t) free_rule, da_2_wins);
-
-  /* Empty the structure, but don't free, since words->regexps
-   * keeps a reference to them */
-  words_erase (new);
+  da_merge (words->strings, new->strings, da_2_wins);
 }
 
 /*
@@ -559,10 +519,10 @@ ancestors_finalize (struct style_sheet * sheet)
 	 da_1_wins.  Do not free the item, coz' your being killing
 	 another style sheet! */
       da_merge (sheet->keywords->strings, ancestor->keywords->strings,
-		NULL, da_1_wins);
+		da_1_wins);
       /* Inherit from their string operators */
       da_merge (sheet->operators->strings, ancestor->operators->strings,
-		NULL, da_1_wins);
+		da_1_wins);
     }
 
   /* We want to inherit from the _last_ alphabets if it has not been
@@ -631,18 +591,6 @@ sequence_new (struct rule * Open,
   words_finalize (Close);
   res->close = Close;
   return res;
-}
-
-/*
- * Release a sequence.
- */
-void
-free_sequence (struct sequence * sequence)
-{
-  free_rule (sequence->open);
-  words_free (sequence->close);
-  words_free (sequence->exceptions);
-  free (sequence);
 }
 
 /*
@@ -774,7 +722,6 @@ style_sheet_mixed_new (const unsigned char * ancestors)
   sheet = new_style_sheet ((unsigned char *) key);
   sheet->key = strdup (key);
   da_concat (sheet->ancestors, ancestors_array);
-  da_erase (ancestors_array);
   style_sheet_finalize (sheet);
 
   return key;
@@ -993,7 +940,6 @@ list_style_sheets_long (FILE * stream)
       sheet = get_style_sheet ((char *) entries->content[i]);
       style_sheet_print_signature (stream, sheet);
     }
-  da_free (entries, (da_map_func_t) free);
 }
 
 /************************************************************************/
@@ -1153,8 +1099,6 @@ them all.  Its index (sum of the style sheets version number) is \
 #{html.end.hook}\n\
 </body>\n\
 </html>\n"), stream);
-
-  da_free (entries, (da_map_func_t) free);
 }
 
 /************************************************************************/
@@ -1242,8 +1186,6 @@ The current index (sum of all the style sheets version number) is ", stream);
     sheet = get_style_sheet ((char *) entries->content[i]);
     style_sheet_texinfo_print_signature (stream, sheet);
   }
-
-  da_free (entries, (da_map_func_t) free);
 }
 
 /************************************************************************/

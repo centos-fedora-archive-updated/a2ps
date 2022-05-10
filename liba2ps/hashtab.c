@@ -196,7 +196,6 @@ hash_free (struct hash_table_s* ht, hash_map_func_t free_fn)
 {
   if (free_fn)
     hash_free_items (ht, free_fn);
-  free (ht->ht_vec);
   ht->ht_vec = 0;
   ht->ht_fill = 0;
   ht->ht_capacity = 0;
@@ -237,7 +236,6 @@ hash_rehash (struct hash_table_s* ht)
       slot = hash_find_slot (ht, *ovp);
       *slot = *ovp;
     }
-  free (old_vec);
 }
 
 void
@@ -325,8 +323,6 @@ hash_maparg (struct hash_table_s *ht, hash_maparg_func_t map,
 
   for (vector = vector_0 ; *vector ; vector++)
     (*map) (*vector, arg);
-
-  free (vector_0);
 }
 
 /* Round a given number up to the nearest power of 2. */

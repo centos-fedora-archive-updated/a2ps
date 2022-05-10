@@ -134,12 +134,6 @@ encodings_map_new (void)
   return pair_table_new ();
 }
 
-void
-encodings_map_free (struct pair_htable * table)
-{
-  pair_table_free (table);
-}
-
 /*
  * What is the KEY corresponding to ALIAS?
  */
@@ -175,7 +169,6 @@ load_main_encodings_map (struct a2ps_job * job)
       fprintf (stderr, "Read encoding.map:\n");
       pair_table_list_long (job->encodings_map, stderr);
     }
-  free (file);
   return 1;
 }
 
@@ -275,16 +268,6 @@ font_entry_new (const char * name, unsigned int * wx)
   return res;
 }
 
-/*
- * Free the memory used
- */
-static inline void
-font_entry_free (struct font_entry * item)
-{
-  free (item->key);
-  free (item);
-}
-
 static void
 font_entry_self_print (struct font_entry * entry, FILE * stream)
 {
@@ -312,13 +295,6 @@ font_table_new (void)
 }
 
 static void
-font_table_free (struct hash_table_s * table)
-{
-  hash_free (table, (hash_map_func_t) font_entry_free);
-  free (table);
-}
-
-static void
 font_table_self_print (struct hash_table_s * table, FILE * stream)
 {
   int i;
@@ -330,7 +306,6 @@ font_table_self_print (struct hash_table_s * table, FILE * stream)
   for (i = 0 ; entries[i] ; i++)
     font_entry_self_print (entries [i], stream);
   putc ('\n', stream);
-  free (entries);
 }
 
 /*
@@ -448,28 +423,6 @@ encoding_new (const char * key)
   for (i = 0 ; base_faces [i] != -1 ; i++)
     res->faces_wx [base_faces [i]] = wx_new ();
   return res;
-}
-
-static void
-encoding_free (struct encoding * encoding)
-{
-  int i;
-
-  free (encoding->key);
-  free (encoding->name);
-  free (encoding->default_font);
-  free (encoding->documentation);
-
-  for (i = 0 ; i < 256 ; i++)
-    free (encoding->vector [i]);
-
-  pair_table_free (encoding->substitutes);
-  da_free (encoding->font_names_used, (da_map_func_t) free);
-  font_table_free (encoding->fonts);
-
-  for (i = 0 ; base_faces [i] != -1 ; i++)
-    free (encoding->faces_wx [base_faces [i]]);
-  free (encoding);
 }
 
 /*
@@ -814,8 +767,6 @@ load_encoding_description_file (a2ps_job * job,
 
     }
   fclose (stream);
-  free (buf);
-  free (fname);
 }
 
 /*
@@ -957,7 +908,7 @@ dump_encoding_setup (FILE * stream,
 
   /* How many fonts are there? */
   da_qsort (encoding->font_names_used);
-  da_unique (encoding->font_names_used, (da_map_func_t) free);
+  da_unique (encoding->font_names_used);
 
   /* We do not want to reencode the fonts that should not be
    * reencoded */
@@ -966,7 +917,7 @@ dump_encoding_setup (FILE * stream,
       real_font_name = encoding_resolve_font_substitute (job, encoding,
 							 font_names [i]);
       if (!font_is_to_reencode (job, real_font_name))
-	da_remove_at (encoding->font_names_used, i, (da_map_func_t) free);
+	da_remove_at (encoding->font_names_used, i);
     }
 
   /* The number of fonts that, finally, have to be encoded
@@ -1061,16 +1012,6 @@ encodings_table_new (void)
 	     (hash_func_t) encoding_hash_2,
 	     (hash_cmp_func_t) encoding_hash_cmp);
   return res;
-}
-
-/*
- * Free the table and content
- */
-void
-encodings_table_free (struct hash_table_s * table)
-{
-  hash_free (table, (hash_map_func_t) encoding_free);
-  free (table);
 }
 
 /*
@@ -1228,8 +1169,6 @@ dump_encodings_setup (FILE * stream,
 
   for (i = 0 ; encodings [i] ; i++)
     dump_encoding_setup (stream, job, encodings [i]);
-
-  free (encodings);
 }
 
 /************************************************************************/
@@ -1382,7 +1321,6 @@ list_encodings_long (a2ps_job * job, FILE * stream)
       encoding_print_signature (encoding, stream);
       putc ('\n', stream);
     }
-  da_free (entries, (da_map_func_t) free);
 }
 /************************************************************************/
 /*		Report in Texinfo format				*/
@@ -1426,5 +1364,4 @@ list_texinfo_encodings_long (a2ps_job * job, FILE * stream)
       encoding = encoding_get (job, entries->content[i]);
       encoding_texinfo_print_signature (encoding, stream);
     }
-  da_free (entries, (da_map_func_t) free);
 }

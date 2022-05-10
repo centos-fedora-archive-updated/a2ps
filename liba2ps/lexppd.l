@@ -242,7 +242,6 @@ symbol	[^/#, \t\r\f\n\":()+]*
     {
       fclose (yyin);
       yy_delete_buffer (YY_CURRENT_BUFFER);
-      free (ppdfilename);
       ppdfilename = filename_stack[include_stack_ptr];
       yy_switch_to_buffer (include_stack[include_stack_ptr]);
       message (msg_file, (stderr, "Back to file `%s'.\n", ppdfilename));

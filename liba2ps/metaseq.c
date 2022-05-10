@@ -1177,7 +1177,6 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 						fjob (ordered, fnum),
 						context_name, between);
 		  }
-		  da_erase (ordered);
 		}
 		break;
 
@@ -1196,7 +1195,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 		  fnum = 0 ;
 		  while (fnum < selected->len) {
 		    if (fjob (selected, fnum)->last_sheet < job->sheets)
-		      da_remove_at (selected, fnum, NULL);
+		      da_remove_at (selected, fnum);
 		    else
 		      fnum++;
 		  }
@@ -1213,7 +1212,6 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 						fjob (selected, fnum),
 						context_name, between);
 		  }
-		  da_erase (selected);
 		}
 		break;
 
@@ -1222,7 +1220,6 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 		       context_name, "#!", category, category);
 		break;
 	      }
-	      free (in);
 	    }
 	    break;
 

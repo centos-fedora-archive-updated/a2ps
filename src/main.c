@@ -1207,7 +1207,6 @@ main (int argc, char *argv[])
       abort ();
     }
 
-  a2ps_job_free (job);
   job = NULL;
 
   return (EXIT_SUCCESS);

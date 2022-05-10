@@ -108,8 +108,6 @@ struct a2ps_job * a2ps_job_new (void);
 /* Finalize it */
 void a2ps_job_finalize (struct a2ps_job * job);
 
-/* Free the memory used by JOB */
-void a2ps_job_free (struct a2ps_job * job);
 
 /* From confg.h */
 /*

@@ -158,6 +158,4 @@ _a2ps_ppd_list_long (char * const * path, FILE * stream)
       ppd_self_print (_a2ps_ppd_get (path, entries->content[i]), stream);
       putc ('\n', stream);
     }
-
-  da_free (entries, (da_map_func_t) free);
 }

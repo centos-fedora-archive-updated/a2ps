@@ -40,7 +40,6 @@ typedef void (*delayed_routine_t) (FILE * stream, void * arg);
  * Maintenance
  */
 struct output * output_new (const char * name);
-void output_free (struct output * out);
 void output_report  (struct output * out, FILE * stream);
 
 # if defined (__STDC__) && __STDC__

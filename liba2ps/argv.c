@@ -74,48 +74,11 @@ dupargv (argv)
       int len = strlen (argv[argc]);
       copy[argc] = malloc (sizeof (char *) * (len + 1));
       if (copy[argc] == NULL)
-	{
-	  freeargv (copy);
-	  return NULL;
-	}
+        return NULL;
       strcpy (copy[argc], argv[argc]);
     }
   copy[argc] = NULL;
   return copy;
-}
-
-/* freeargv -- free an argument vector */
-
-void freeargv (vector)
-char **vector;
-{
-  register char **scan;
-
-  if (vector != NULL)
-    {
-      for (scan = vector; *scan != NULL; scan++)
-	{
-	  free (*scan);
-	}
-      free (vector);
-    }
-}
-
-void freeargv_from (vector, from)
-char **vector;
-int from;
-{
-  register char **scan;
-
-  if (vector != NULL)
-    {
-      for (scan = vector ; (from > 0) && (*scan != NULL) ; from--)
- 	scan ++;
-      
-      for (/* nothing */ ; *scan != NULL; scan++)
-	free (*scan);
-      free (vector);
-    }
 }
 
 /* buildargv -- build an argument vector from a string */
@@ -158,11 +121,7 @@ char **buildargv_argc (input, argc)
 		}
 	      if (nargv == NULL)
 		{
-		  if (argv != NULL)
-		    {
-		      freeargv (argv);
-		      argv = NULL;
-		    }
+                  argv = NULL;
 		  break;
 		}
 	      argv = nargv;
@@ -221,7 +180,6 @@ char **buildargv_argc (input, argc)
 	  argv[*argc] = strdup (copybuf);
 	  if (argv[*argc] == NULL)
 	    {
-	      freeargv (argv);
 	      argv = NULL;
 	      break;
 	    }

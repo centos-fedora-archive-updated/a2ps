@@ -138,9 +138,7 @@ prologue_print_signature (struct a2ps_job * job,
     }
   putc ('\n', stream);
 
-  free (buf);
   fclose (fp);
-  free (filename);
 }
 
 /*
@@ -160,8 +158,6 @@ prologues_list_long_internal (a2ps_job * job, FILE * stream,
     prologue_print_signature (job, entries->content[i], stream,
 			      name_format,
 			      documentation_fn);
-
-  da_free (entries, (da_map_func_t) free);
 }
 
 void

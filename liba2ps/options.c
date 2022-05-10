@@ -796,8 +796,5 @@ a2ps_handle_string_options (a2ps_job * job, const char * string)
   /* Process options. */
   res = a2ps_handle_options (job, argc, argv);
 
-  /* Cleanup. */
-  freeargv_from (argv, 1);
-
   return res;
 }

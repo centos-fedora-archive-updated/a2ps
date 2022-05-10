@@ -72,53 +72,6 @@ da_new (const char * name, size_t size,
   return res;
 }
 
-static inline void
-_da_erase (struct darray * arr)
-{
-  if (arr) {
-    free (arr->content);
-    free (arr);
-  }
-}
-
-void
-da_erase (struct darray * arr)
-{
-  _da_erase (arr);
-}
-
-/*
- * Set length of ARR to 0, and free with FREE_FUNC if non NULL
- */
-static inline void
-_da_free_content (struct darray * arr, da_map_func_t free_func)
-{
-  size_t i;
-
-  if (free_func)
-    for (i = 0 ; i < arr->len ; i++)
-      (*free_func) (arr->content [i]);
-
-  arr->len = 0;
-}
-
-void
-da_free_content (struct darray * arr, da_map_func_t free_func)
-{
-  _da_free_content (arr, free_func);
-}
-
-/*
- * Set length of ARR to 0, and free with FREE_FUNC if non NULL
- * and free the structure
- */
-void
-da_free (struct darray * arr, da_map_func_t free_func)
-{
-  _da_free_content (arr, free_func);
-  _da_erase (arr);
-}
-
 /*
  * Report the status of the array
  */
@@ -312,16 +265,13 @@ da_insert_at (struct darray * arr, void * elem, size_t where)
  * Remove an element at a given place.
  */
 void
-da_remove_at (struct darray * arr, size_t where, da_map_func_t free_func)
+da_remove_at (struct darray * arr, size_t where)
 {
   size_t i;
 
   if (where >= arr->len)
     error (da_exit_error, 0, "can't remove at %zu in darray %s [0,%zu]\n",
 	   where, arr->name, arr->len - 1);
-
-  if (free_func)
-    (*free_func) (arr->content [where]);
 
   for (i = where + 1 ; i < arr->len ; i++)
     arr->content [i - 1] = arr->content [i];
@@ -447,7 +397,6 @@ da_qsort (struct darray * arr)
 	  }
 	}
   }
-  free (istack);
 }
 
 /*
@@ -526,21 +475,20 @@ da_qsort_with_arg (struct darray * arr, da_cmp_arg_func_t cmp,
 	  }
 	}
   }
-  free (istack);
 }
 
 /*
  * Leave the first of each doubles
  */
 void
-da_unique (struct darray * arr, da_map_func_t free_func)
+da_unique (struct darray * arr)
 {
   size_t c;
 
   c = 1;
   while (c < arr->len) {
     if (arr->cmp (arr->content [c - 1], arr->content[c]) == 0)
-      da_remove_at (arr, c, free_func);
+      da_remove_at (arr, c);
     else
       c++;
   }
@@ -561,7 +509,7 @@ da_unique (struct darray * arr, da_map_func_t free_func)
  */
 void
 da_merge (struct darray * a1, struct darray * a2,
-	  da_map_func_t free_func, enum da_include_policy policy)
+	  enum da_include_policy policy)
 {
   size_t c1, c2;		/* Counters on a1, and a2	*/
 
@@ -580,19 +528,9 @@ da_merge (struct darray * a1, struct darray * a2,
       while ((c1 < a1->len) && (c2 < a2->len)
 	     && (a1->cmp (a1->content [c1], a2->content [c2]) == 0))
 	if (policy == da_1_wins)
-	  {
-	    if (free_func)
-	      da_remove_at (a2, c2, free_func);
-	    else
-	      c2++;
-	  }
+          c2++;
 	else
-	  {
-	    if (free_func)
-	      da_remove_at (a1, c1, free_func);
-	    else
-	      c1++;
-	  }
+          c1++;
 
       /* Take what is is a2 as long as it is smaller or equal to
        * what appeared last in a1 */

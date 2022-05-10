@@ -152,8 +152,7 @@ definition_list :
 	  if (highlight_level == 2) {
 	    words_set_no_face ($4, Plain_fface);
 	    words_merge_rules_unique ($1->keywords, $4);
-	  } else
-	    words_free ($4);
+	  }
 	  $$ = $1;
 	}
 	| definition_list tKEYWORDS keywords_def tKEYWORDS
@@ -167,8 +166,7 @@ definition_list :
 	  if (highlight_level == 2) {
 	    words_set_no_face ($4, Plain_fface);
 	    words_merge_rules_unique ($1->operators, $4);
-	  } else
-	    words_free ($4);
+	  }
 	  $$ = $1;
 	}
 	| definition_list tOPERATORS operators_def tOPERATORS
@@ -178,42 +176,31 @@ definition_list :
 	  $$ = $1;
 	}
 	| definition_list tOPTIONAL sequence_def {
-	  if (highlight_level == 2) {
+	  if (highlight_level == 2)
 	    da_concat ($1->sequences, $3);
-	    da_erase ($3);
-	  } else
-	    da_free ($3, (da_map_func_t) free_sequence);
 	  $$ = $1;
 	}
 	| definition_list sequence_def {
 	  da_concat ($1->sequences, $2);
-	  da_erase ($2);
 	  $$ = $1;
 	}
 	| definition_list ancestors_def {
 	  da_concat ($1->ancestors, $2);
-	  da_erase ($2);
 	  $$ = $1;
 	}
 	| definition_list tALPHABETS tARE tSTRING {
 	  string_to_array ($1->alpha1, $4);
 	  string_to_array ($1->alpha2, $4);
-	  /* This is the syntax table used by regex */
-	  free ($4);
 	  $4 = NULL;
 	  $$ = $1;
 	}
 	| definition_list tFIRST tALPHABET tIS tSTRING {
 	  string_to_array ($1->alpha1, $5);
-	  /* This is the syntax table used by regex */
-	  free ($5);
 	  $5 = NULL;
 	  $$ = $1;
 	}
 	| definition_list tSECOND tALPHABET tIS tSTRING {
 	  string_to_array ($1->alpha2, $5);
-	  /* This is the syntax table used by regex */
-	  free ($5);
 	  $5 = NULL;
 	  $$ = $1;
 	}
@@ -261,8 +248,6 @@ long_string: tSTRING { $$ = $1; }
 	  len2 = ustrlen ($2);
 	  $$ = XNMALLOC (len1 + len2 + 2, unsigned char);
 	  ustpcpy (ustpncpy ($$, $1, len1 + 1), $2);
-	  free ($1);
-	  free ($2);
 	}
 	;
 
@@ -316,7 +301,6 @@ regex:
 	  $$->pattern = xnrealloc ($$->pattern, $1->len + $2->len + 1, sizeof(char));
 	  strncpy ($$->pattern + $$->len, $2->pattern, $2->len);
 	  $$->len += $2->len;
-	  free ($2->pattern);
 	}
 	;
 

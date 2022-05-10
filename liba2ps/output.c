@@ -129,17 +129,6 @@ output_new (const char * name)
   return res;
 }
 
-/*
- * Release the chunk
- */
-void
-output_free (struct output * out)
-{
-  ds_erase (out->chunk);
-  da_free (out->derivations, (da_map_func_t) free);
-  free (out);
-}
-
 void
 output_report (struct output * out, FILE * stream)
 {

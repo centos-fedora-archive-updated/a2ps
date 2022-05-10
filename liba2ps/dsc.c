@@ -63,17 +63,6 @@ multivalued_entry_new (const char * type)
 }
 
 /*
- * Completely free ENTRY and content.
- */
-static void
-multivalued_entry_free (struct multivalued_entry * entry)
-{
-  free (entry->key);
-  string_htable_free (entry->entries);
-  free (entry);
-}
-
-/*
  * Return the multivalued_entry related to TYPE in TABLE
  * if there is, NULL otherwise.
  */
@@ -94,12 +83,7 @@ static void
 multivalued_entry_add (struct hash_table_s * table,
 		       struct multivalued_entry * item)
 {
-  struct multivalued_entry * old_item;
-
-  old_item = multivalued_entry_get (table, item->key);
-  if (old_item)
-    multivalued_entry_free (old_item);
-
+  struct multivalued_entry * old_item = multivalued_entry_get (table, item->key);
   hash_insert (table, item);
 }
 
@@ -167,13 +151,6 @@ multivalued_table_new (void)
   return res;
 }
 
-void
-multivalued_table_free (struct hash_table_s * table)
-{
-  hash_free (table, (hash_map_func_t) multivalued_entry_free);
-  free (table);
-}
-
 /************************************************************************
  * Multivalued hash tables						*
  ************************************************************************/
@@ -230,9 +207,6 @@ multivalued_entry_dump (FILE * stream, int first,
     } else {
       fprintf (stream, fmt_others, entry->key, values[i]);
     }
-
-  /* Release mem */
-  free (values);
 }
 
 /*
@@ -253,7 +227,6 @@ dump_supplied_resources (FILE * stream, a2ps_job * job)
 			    "%%%%DocumentSuppliedResources: %s %s\n",
 			    "%%%%+ %s %s\n",
 			    list [i]);
-  free (list);
 }
 
 /*
@@ -303,8 +276,6 @@ dump_needed_resources (FILE * stream, a2ps_job * job)
 			      list [i]);
       first = false;
     }
-
-  free (list);
 }
 
 /*
@@ -339,7 +310,6 @@ dump_process_color (FILE * stream, a2ps_job * job)
 	  fprintf (stream, "%s ", colors [i]);
 	putc ('\n', stream);
       }
-      free (colors);
     }
 }
 

@@ -102,16 +102,6 @@ add_medium (struct a2ps_job * job,
 }
 
 /*
- * Free a medium
- */
-static void
-hash_free_medium (struct medium * medium)
-{
-  free (medium->name);
-  free (medium);
-}
-
-/*
  * Create the structure
  */
 struct hash_table_s *
@@ -124,16 +114,6 @@ new_medium_table (void)
 	     medium_hash_1, medium_hash_2, medium_hash_cmp);
 
   return res;
-}
-
-/*
- * Free the media table
- */
-void
-free_medium_table (struct hash_table_s * table)
-{
-  hash_free (table, (hash_map_func_t) hash_free_medium);
-  free (table);
 }
 
 /*
@@ -198,8 +178,6 @@ list_media_long (a2ps_job * job, FILE * stream)
 	     media[i]->llx, media[i]->lly,
 	     media[i]->urx, media[i]->ury);
   putc ('\n', stream);
-
-  free (media);
 }
 
 /*
@@ -218,6 +196,4 @@ list_media_short (a2ps_job * job, FILE * stream)
 			  (void **) media, (size_t) -1,
 			  (lister_width_t) medium_name_len,
 			  (lister_print_t) medium_name_fputs);
-
-  free (media);
 }

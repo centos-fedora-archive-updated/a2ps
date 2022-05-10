@@ -88,29 +88,12 @@ dict_entry_get (struct hash_table_s * table, const char * key)
 }
 
 static void
-free_dict_entry (struct dict_entry * entry)
-{
-  free (entry->key);
-  free (entry->value);
-  free (entry);
-}
-
-static void
 dict_entry_remove (struct hash_table_s * table, const char * key)
 {
   struct dict_entry * item;
   item = dict_entry_get (table, key);
-  if (item) {
+  if (item)
     hash_delete (table, item);
-    free_dict_entry (item);
-  }
-}
-
-static void
-free_dict_entry_table (struct hash_table_s * table)
-{
-  hash_free (table, (hash_map_func_t) free_dict_entry);
-  free (table);
 }
 
 
@@ -154,21 +137,6 @@ new_ps_status (void)
   res->setup = output_new ("setup");
 
   return res;
-}
-
-void
-ps_status_free (struct ps_status * status)
-{
-  free (status->magic_number);
-  free (status->page_label_format);
-
-  multivalued_table_free (status->needed_resources);
-  multivalued_table_free (status->supplied_resources);
-  free_dict_entry_table (status->pagedevice);
-  free_dict_entry_table (status->statusdict);
-  output_free (status->setup);
-
-  free (status);
 }
 
 /*
@@ -229,8 +197,6 @@ dict_entry_table_dump (struct hash_table_s * table, FILE * stream)
   for (i = 0 ; items [i] ; i++)
     dict_entry_print (items [i], stream);
   putc ('\n', stream);
-
-  free (items);
 }
 
 /* Page device definitions */
@@ -275,16 +241,14 @@ countdictstack exch sub dup 0 gt\n\
 }{\n\
   pop\n\
 } ifelse\n");
-  
-  free (entries);
 }
 
 /* FIXME: Find some better scheme.  But I don't want to do that before
    4.11.  This is the same routine as above, but which fputs instead of
    output. 
 
-   This routine will only be call when only a single delegated job
-   is output, therefore a2ps' prologue will not be output, therefore
+   This routine will only be called when only a single delegated job
+   is output, therefore a2ps's prologue will not be output, therefore
    there is a very high chance (contrary to the previous item) that
    the psutils have neutralized the setpagedevice operator.  Here
    we really want to use it, hence the `systemdict /setpagedevice get exec'
@@ -333,8 +297,6 @@ countdictstack exch sub dup 0 gt\n\
 }{\n\
   pop\n\
 } ifelse\n", stream);
-  
-  free (entries);
 }
 
 void
@@ -354,7 +316,6 @@ dump_requirements (FILE * stream, struct a2ps_job * job)
   /* We don't want this one which breaks some collating systems
      output (job->divertion, "numcopies(%d)", job->copies);
      */
-  free (entries);
 }
 
 void
@@ -412,7 +373,6 @@ output_statusdict (a2ps_job * job)
 		(*entry)->value, (*entry)->key);
     output (job->divertion, "end\n");
   }
-  free (entries);
 }
 
 /*
