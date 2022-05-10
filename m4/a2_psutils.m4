@@ -1,15 +1,13 @@
-dnl                                                        -*- Autoconf -*-
 dnl Testing delegations for a2ps: a recent version of psutils
 dnl
-dnl Usage: a2_PSUTILS(major, minor)
+dnl Usage: a2_PSUTILS
 dnl
-dnl If psutils version MAJOR, patch level MINOR is available
+dnl If psutils version 1 patchlevel 17, or psutils version >= 2 is available
 dnl     SUBST(PSUTILS) to <nothing>
 dnl else
 dnl     SUBST(PSUTILS) to `#'
-dnl Akim.Demaille@inf.enst.fr
 
-# serial 2
+# serial 3
 
 AC_DEFUN([a2_PSUTILS],
 [ad_CHECK_PROG(psselect)
