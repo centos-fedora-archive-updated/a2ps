@@ -382,7 +382,6 @@ output_file (struct output * out, a2ps_job * job,
 	    while ((value = GET_TOKEN (NULL)))
 	      add_needed_resource (job, res, value);
 	  }
-	free (buf2);
 	continue;
       }
 #define COLOR_TAG 	"%%DocumentProcessColors:"
@@ -521,7 +520,6 @@ output_file (struct output * out, a2ps_job * job,
 		   SETUP_TAG, END_SETUP_TAG);
 
   fclose (stream);
-  free (filename);
 }
 
 /*

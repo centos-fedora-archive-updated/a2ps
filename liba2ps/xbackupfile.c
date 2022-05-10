@@ -107,7 +107,6 @@ create_file_for_backup (char const *file, int oflag, mode_t mode,
 	  char *backup = find_backup_file_name (AT_FDCWD, file, backup_type);
 	  if (rename (file, backup) != 0)
 	    return -1;
-	  free (backup);
 	}
 
       fd = open (file, oflag, mode);
@@ -182,9 +181,6 @@ fopen_backup (const char * filename, enum backup_type backup_type)
 	}
       exit (EXIT_FAILURE);
     }
-
-  if (backup_name)
-    free (backup_name);
 
   return res;
 }

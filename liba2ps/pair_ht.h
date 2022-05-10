@@ -35,7 +35,6 @@ typedef int (* pair_ht_select_fn_t) (const char * key,
  * String_Entrys
  */
 struct pair_htable * pair_table_new (void);
-void pair_table_free (struct pair_htable * table);
 
 /*
  * KEY and VALUE will be strdup'd

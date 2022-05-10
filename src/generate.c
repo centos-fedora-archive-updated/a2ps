@@ -135,8 +135,6 @@ input_end (buffer_t * buffer)
 {
   if (buffer->stream && buffer->stream!= stdin)
     fclose (buffer->stream);
-  buffer_release (buffer);
-  free (buffer);
 
   a2ps_close_input_session (job);
 }
@@ -223,8 +221,6 @@ msg_job_pages_printed (a2ps_job * Job)
 		 (stderr, _("[%d lines wrapped]\n"),
 		  Job->lines_folded));
     }
-
-  free (ucp);
 }
 /*
  * Total printed
@@ -374,7 +370,7 @@ guess (unsigned char * filename)
   file_job = CURRENT_FILE (job);
   printf ("[%s (%s)]\n", file_job->name, file_job->type);
 
-  /* Close the files, free, and close the input session */
+  /* Close the files. */
   if (buffer->stream && buffer->stream != stdin)
     fclose (buffer->stream);
 }

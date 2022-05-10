@@ -42,7 +42,6 @@ int ppd_font_known_p (struct ppd * pdd, const char * fontname);
  * The whole struct
  */
 struct ppd * ppd_new (void);
-void ppd_free (struct ppd * pdd);
 struct ppd * _a2ps_ppd_get (char * const * path, const char * key);
 
 /*

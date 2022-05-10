@@ -25,7 +25,6 @@ struct a2ps_job;
  * Handling the multivalued_entry hash tables
  */
 struct hash_table_s * multivalued_table_new (void);
-void multivalued_table_free (struct hash_table_s * table);
 
 /*
  * needed ps resources (such as fonts)

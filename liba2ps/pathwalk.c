@@ -135,7 +135,7 @@ pw_string_to_path (const char * path)
 }
 
 /*
- * Concat PATH2 to PATH1, and return the result.  Free PATH2
+ * Concat PATH2 to PATH1, and return the result.
  */
 
 static inline char **
@@ -148,7 +148,6 @@ pw_path_concat (char ** path1, int len1, char ** path2, int len2)
       path1 = xnrealloc (path1, len1 + len2 + 1, sizeof(char *));
       for (i = 0 ; i <= len2 ; i++)
 	path1 [len1 + i] = path2 [i];
-      free (path2);
     }
 
   return path1;
@@ -183,19 +182,6 @@ pw_prepend_string_to_path (char ** path1, const char * dir2)
   path2 = pw_internal_string_to_path (dir2, PATH_SEPARATOR, &len2);
 
   return pw_path_concat (path2, len2, path1, len1);
-}
-
-/*
- * Free a path array, and its content
- */
-void
-pw_free_path (char ** path)
-{
-  int i;
-  if (path)
-    for (i = 0 ; path[i] ; i++)
-      free (path[i]);
-  free (path);
 }
 
 void
@@ -351,7 +337,6 @@ xpw_find_included_file (char * const *path,
 		       + 2));
   sprintf (res, "%s%c%s%s", dir, DIRECTORY_SEPARATOR,
 	   name, suffix ? suffix : "");
-  free (dir);
   if (stat (res, &statbuf) == 0)
     return xstrdup (res);
 
@@ -415,7 +400,6 @@ pw_paste_file (char * const * path,
     }
 
   fclose (fp);
-  free (fullpath);
   return 1;
 }
 

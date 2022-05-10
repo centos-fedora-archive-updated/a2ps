@@ -82,7 +82,6 @@ struct ps_status
  * Dealing with the structure
  */
 struct ps_status * new_ps_status (void);
-void ps_status_free (struct ps_status * status);
 void initialize_ps_status (struct ps_status * status);
 
 /*

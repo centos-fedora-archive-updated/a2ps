@@ -154,5 +154,4 @@ stream_close (struct stream * stream)
     fclose (stream->fp);
   else
     pclose (stream->fp);
-  free (stream);
 }

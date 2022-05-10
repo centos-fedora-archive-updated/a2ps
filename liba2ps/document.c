@@ -173,7 +173,6 @@ authors_print_texinfo (const unsigned char * authors, FILE * stream,
   /* Don't print the email, that makes too wide output. */
   authors_print (cp, stream,
 		 before, "%s", ", ", ".\n");
-  free (cp);
 }
 /************************************************************************/
 /*      The documentation handling                                      */
@@ -190,7 +189,6 @@ documentation_print_plain (const unsigned char * documentation,
 
   cp = xvstrrpl ((const char *) documentation, DOC_TO_PLAIN);
   fprintf (stream, format, cp);
-  free (cp);
 }
 
 /* 2. Towards HTML */
@@ -205,7 +203,6 @@ documentation_print_html (const unsigned char * documentation,
 
   cp = xvstrrpl ((const char *) documentation, DOC_TO_HTML);
   fprintf (stream, format, cp);
-  free (cp);
 }
 
 /* 3. Towards Texinfo */
@@ -220,5 +217,4 @@ documentation_print_texinfo (const unsigned char * documentation,
 
   cp = xvstrrpl ((const char *) documentation, DOC_TO_TEXINFO);
   fprintf (stream, format, cp);
-  free (cp);
 }

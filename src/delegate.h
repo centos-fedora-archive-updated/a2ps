@@ -33,7 +33,6 @@ struct delegation
   };
 
 struct hash_table_s *delegation_table_new (void);
-void delegation_table_free (struct hash_table_s * table);
 
 void add_delegation (const char *filename, int line,
 			     char *contract_line);

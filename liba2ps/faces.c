@@ -174,18 +174,7 @@ init_face_eo_font (struct a2ps_job * job)
 }
 
 void
-face_eo_font_free (char * face_eo_font [NB_FACES])
-{
-  enum face_e f;
-  for (f = First_face ; f <= Last_face ; f++)
-    /* Xfree because it may not have been initialized if no printing
-     * was done (e.g. --help) */
-    free (face_eo_font [f]);
-}
-
-void
 face_set_font (struct a2ps_job * job, enum face_e face, const char * font_name)
 {
-  free (job->face_eo_font [face]);
   job->face_eo_font [face] = xstrdup (font_name);
 }

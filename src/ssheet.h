@@ -185,7 +185,6 @@ struct sequence * sequence_new
 		 struct fface_s in_face,
 		 struct words * Close,
 		 struct words * exceptions);
-void free_sequence (struct sequence * sequence);
 struct sequence * new_C_string_sequence (const char * delimitor);
 void sequence_self_print (struct sequence * v, FILE * stream);
 
@@ -196,7 +195,6 @@ void sequence_self_print (struct sequence * v, FILE * stream);
 struct words *
 words_new (const char * name_strings, const char * name_regexps,
 		   size_t size, size_t increment);
-void words_free (struct words * words);
 void words_add_string (struct words * words, struct rule * rule);
 void words_add_regex (struct words * words, struct rule * rule);
 void words_set_no_face (struct words * words, struct fface_s face);

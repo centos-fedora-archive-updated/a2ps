@@ -127,13 +127,6 @@ faced_string_self_print (struct faced_string * faced_string, FILE * stream)
   fface_self_print (faced_string->face, stream);
 }
 
-inline static void
-faced_string_free (struct faced_string * faced_string)
-{
-  free (faced_string->string);
-  free (faced_string);
-}
-
 /*
  * Replace all the No_fface's by FACE
  */
@@ -287,7 +280,6 @@ rule_new_internal_regexp (struct pattern *pattern,
     error_at_line (1, 0, filename, line,
 		   _("cannot compile regular expression `%s': %s"),
 		   regexp, error_msg);
-  free (pattern);
   res->rhs = rhs;
   return res;
 }
@@ -516,8 +508,7 @@ ancestors_finalize (struct style_sheet * sheet)
 
       /* Inherit from their string keywords.  The keywords we already
 	 have are the oldest, hence the one to keep.  This is why
-	 da_1_wins.  Do not free the item, coz' your being killing
-	 another style sheet! */
+	 da_1_wins. */
       da_merge (sheet->keywords->strings, ancestor->keywords->strings,
 		da_1_wins);
       /* Inherit from their string operators */
@@ -807,7 +798,6 @@ load_style_sheet (const char * pseudo_key)
 	  return NULL;
 	}
       res = parse_style_sheet (path);
-      free (path);
     }
 
   /* Now, finalize it, and store it in the hash tab */

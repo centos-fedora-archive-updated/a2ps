@@ -28,5 +28,4 @@ struct userdata
 };
 
 void userdata_get (struct userdata *udata);
-void userdata_free (struct userdata *udata);
 #endif /* !USERDATA_H_ */

@@ -57,9 +57,6 @@ unsigned char *a2ps_destination_to_string
 struct a2ps_printers_s *a2ps_printers_new
    (struct a2ps_common_s * common);
 
-/* Release the mem used by a PRINTERS module The module is freed */
-void a2ps_printers_free (struct a2ps_printers_s * printers);
-
 /* Finalize the printers module */
 void a2ps_printers_finalize (struct a2ps_printers_s * printers);
 

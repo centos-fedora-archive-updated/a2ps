@@ -73,17 +73,6 @@ pair_hash_qcmp (struct pair **x, struct pair **y)
   return_STRING_COMPARE ((*x)->key, (*y)->key);
 }
 
-/*
- * Free a pair, and its content
- */
-static void
-pair_free (struct pair * pair)
-{
-  free (pair->key);
-  free (pair->value);
-  free (pair);
-}
-
 /* Return the length of the key of PAIR */
 
 static size_t
@@ -118,16 +107,6 @@ pair_table_new (void)
 }
 
 /*
- * Free the whole structure
- */
-void
-pair_table_free (struct hash_table_s * table)
-{
-  hash_free (table, (hash_map_func_t) pair_free);
-  free (table);
-}
-
-/*
  *  Add a pair, with your own allocation for them.
  * It KEY is yet used, override its value with VALUE
  */
@@ -140,10 +119,7 @@ pair_add (struct hash_table_s * table,
   token.key = (char *) key;
   item = (struct pair *) hash_find_item (table, &token);
 
-  if (item) {
-    if (item->value)
-      free (item->value);
-  } else {
+  if (!item) {
     item = XMALLOC (struct pair);
     item->key = xstrdup(key);
   }
@@ -169,10 +145,7 @@ pair_add2 (struct hash_table_s * table,
   token.key = (char *) key;
   item = (struct pair *) hash_find_item (table, &token);
 
-  if (item) {
-    if (item->value)
-      free (item->value);
-  } else {
+  if (!item) {
     item = XMALLOC (struct pair);
     item->key = xstrdup(key);
     item->wx    = wx;
@@ -188,7 +161,7 @@ pair_add2 (struct hash_table_s * table,
 }
 
 /*
- * Remove a pair and free it.
+ * Remove a pair.
  * It KEY is yet used, override its value with VALUE
  */
 void
@@ -199,10 +172,8 @@ pair_delete (struct hash_table_s * table, const char * key)
   token.key = (char *) key;
   item = (struct pair *) hash_find_item (table, &token);
 
-  if (item) {
+  if (item)
     hash_delete (table, item);
-    pair_free (item);
-  }
 }
 
 /*
@@ -275,8 +246,6 @@ pair_table_map (struct hash_table_s * table,
 	num++;
       }
   }
-
-  free (entries);
 }
 
 /*
@@ -294,7 +263,6 @@ pair_table_list_short (struct hash_table_s * table, FILE * stream)
 			  (void **) entries, (size_t) -1,
 			  (lister_width_t) pair_key_len,
 			  (lister_print_t) pair_key_fputs);
-  free (entries);
 }
 
 /*
@@ -315,7 +283,6 @@ pair_table_list_long (struct hash_table_s * table, FILE * stream)
 	     entries[i]->value ? entries[i]->value : "<NULL>");
 
   putc ('\n', stream);
-  free (entries);
 }
 
 /*
@@ -336,7 +303,6 @@ pair_table_self_print (struct hash_table_s * table, FILE * stream)
 	     entries[i]->value ? entries[i]->value : "<NULL>");
 
   putc ('\n', stream);
-  free (entries);
 }
 
 #define GET_TOKEN(from) (strtok ((from), " \t\n"))
@@ -385,7 +351,6 @@ pair_table_load (struct hash_table_s * table, const char *file)
 	}
     }
 
-  free (buf);
   fclose (fp);
   return 1;
 }

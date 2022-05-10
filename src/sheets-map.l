@@ -260,7 +260,6 @@ static inline void
 yy_close (void)
 {
   fclose (yyin);
-  free (yyfilename);
 }
 
 int

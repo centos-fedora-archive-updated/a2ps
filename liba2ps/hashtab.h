@@ -19,11 +19,6 @@
 /*
  * This version has been modified by Akim Demaille <demaille@inf.enst.fr>
  * so that
- * - hash_free_item takes as argument the free function to be applied
- *   to the items.
- * - hash_free takes a function pointer supposed to be the free
- *   function to be used, instead of an integer which was saying if
- *   free should have been called or not.
  * - hash_out made to print a hash_table.
  */
 
@@ -63,8 +58,6 @@ void *hash_insert_at (struct hash_table_s *ht, void *item, void const *slot);
 void *hash_delete (struct hash_table_s *ht, void const *item);
 void *hash_delete_at (struct hash_table_s *ht, void const *slot);
 void hash_delete_items (struct hash_table_s *ht);
-void hash_free_items (struct hash_table_s *ht, hash_map_func_t free_fn);
-void hash_free (struct hash_table_s *ht, hash_map_func_t free_fn);
 void hash_map (struct hash_table_s *ht, hash_map_func_t map);
 void hash_maparg (struct hash_table_s *ht, hash_maparg_func_t map,
 		      void const *arg, qsort_cmp_t compare);

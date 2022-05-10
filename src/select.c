@@ -124,12 +124,10 @@ sheets_map_load_main (void)
 
   sheets_map_load (file);
 
-  free (file);
   return 1;
 }
 
-/* escapes the name of a file so that the shell groks it in 'single' q.marks.
-   The resulting pointer has to be free()ed when not longer used. */
+/* escapes the name of a file so that the shell groks it in 'single' q.marks. */
 char *
 shell_escape(const char *fn)
 {
@@ -261,10 +259,7 @@ get_command (const unsigned char *name_to_match, const unsigned char *name_to_fi
 	/* Testing upon file's result */
 	if (file_verdict
 	    && !fnmatch (rule(i)->pattern, file_verdict, 0))
-	  {
-	    free (file_verdict);
-	    return rule(i)->command;
-	  }
+          return rule(i)->command;
       }
     else
       {
@@ -274,12 +269,8 @@ get_command (const unsigned char *name_to_match, const unsigned char *name_to_fi
 			 (char *) (rule(i)->insensitive_p
 				   ? name_to_match_lc : name_to_match),
 			 0))
-	  {
-	    free (file_verdict);
-	    return rule(i)->command;
-	  }
+          return rule(i)->command;
       }
-  free (file_verdict);
 
   return "plain";
 }

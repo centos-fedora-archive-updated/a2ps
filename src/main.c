@@ -477,7 +477,6 @@ list_options (struct a2ps_job *a_job, FILE *stream)
   backup suffix   = %s\n"),
 	   ucp, cp, simple_backup_suffix);
   putc ('\n', stream);
-  free (ucp);
 
   /*
    * PostScript report.

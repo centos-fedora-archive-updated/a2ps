@@ -164,21 +164,6 @@ hash_delete_at (struct hash_table_s* ht, void const *slot)
 }
 
 void
-hash_free_items (struct hash_table_s* ht, hash_map_func_t free_fn)
-{
-  void **vec = ht->ht_vec;
-  void **end = &vec[ht->ht_size];
-  for (; vec < end; vec++)
-    {
-      void *item = *vec;
-      if (!HASH_VACANT (item))
-	(*free_fn) (item);
-      *vec = 0;
-    }
-  ht->ht_fill = 0;
-}
-
-void
 hash_delete_items (struct hash_table_s* ht)
 {
   void **vec = ht->ht_vec;
@@ -189,16 +174,6 @@ hash_delete_items (struct hash_table_s* ht)
   ht->ht_collisions = 0;
   ht->ht_lookups = 0;
   ht->ht_rehashes = 0;
-}
-
-void
-hash_free (struct hash_table_s* ht, hash_map_func_t free_fn)
-{
-  if (free_fn)
-    hash_free_items (ht, free_fn);
-  ht->ht_vec = 0;
-  ht->ht_fill = 0;
-  ht->ht_capacity = 0;
 }
 
 void

@@ -44,15 +44,6 @@ macro_meta_sequence_table_new (void)
 }
 
 /*
- * Destruction
- */
-void
-macro_meta_sequence_table_free (struct pair_htable * table)
-{
-  pair_table_free (table);
-}
-
-/*
  * Check if is a valid name, and add.
  * (Note, strdup is done so that no memory is shared with key and value)
  *
@@ -299,7 +290,6 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    else
 	      cp2 = cp;
 	    APPEND_STR (cp2);
-	    free (cp);
 	    break;
 	  case 'C':	/* `%C' runtime in `hh:mm:ss' format */
 	    sprintf ((char *)buf, "%d:%02d:%02d", job->run_tm.tm_hour,
@@ -313,7 +303,6 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	      error (1, errno,
 		     _("cannot get current working directory"));
 	    APPEND_STR (cp);
-	    free (cp);
 	    break;
 
 	  case 'D':
@@ -1103,7 +1092,6 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 		grow_user_string_obstack (user_string_stack,
 					  job, file,
 					  context_name, if_false);
-	      free (if_true);
 	    }
 	    break;
 

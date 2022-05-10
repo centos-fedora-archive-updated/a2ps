@@ -27,7 +27,6 @@ struct job;
 struct page_range;
 
 struct page_range * page_range_new (void);
-void page_range_free (struct page_range * array);
 
 void a2ps_page_range_set_string (struct a2ps_job * job,
 					 const char * string);

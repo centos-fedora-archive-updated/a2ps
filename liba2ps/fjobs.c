@@ -74,17 +74,6 @@ _a2ps_file_job_new (unsigned char *name, int num, struct tm *run_tm)
   return res;
 }
 
-/*
- * Release a file_job
- */
-void
-file_job_free (fjob_t *file_job)
-{
-  free (file_job->delegation_tmpname);
-  free (file_job->stdin_tmpname);
-  free (file_job);
-}
-
 void
 file_job_self_print (fjob_t *file, FILE *stream)
 {

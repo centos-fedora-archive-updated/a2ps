@@ -26,7 +26,6 @@ struct pair_htable;
 /* Macro meta sequences hash table */
 
 struct pair_htable * macro_meta_sequence_table_new (void);
-void macro_meta_sequence_table_free (struct pair_htable * table);
 
 /* Return true if valid definition, false otherwise */
 bool macro_meta_sequence_add (struct a2ps_job * job,

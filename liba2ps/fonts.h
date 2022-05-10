@@ -25,12 +25,10 @@ struct a2ps_job;
  * Handling of fonts.map files
  */
 struct pair_htable * fonts_map_new (void);
-void fonts_map_free (struct pair_htable * table);
 int load_main_fonts_map (struct a2ps_job * job);
 
 
 struct hash_table_s * font_info_table_new (void);
-void font_info_table_free (struct hash_table_s * table);
 void font_info_add (struct a2ps_job * job, const char * key);
 
 int font_exists (struct a2ps_job * job, const char * key);

@@ -176,19 +176,6 @@ buffer_self_print (buffer_t * buffer, FILE * stream)
     fprintf (stream, "Content = `%s'\n", buffer->content);
 }
 
-/*
- * It frees the content, not the pointer
- */
-void
-buffer_release (buffer_t * buffer)
-{
-  /* VALUE is malloc'd only if BUFFER->LOWER_CASE */
-  if (buffer->lower_case)
-    free (buffer->value);
-  /* I don't know how this one should be used */
-  /*  obstack_free (&buffer->obstack, NULL); */
-}
-
 void
 buffer_set_lower_case (buffer_t * buffer, bool sensitive)
 {

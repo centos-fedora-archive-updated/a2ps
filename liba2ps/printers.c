@@ -134,17 +134,6 @@ printer_new (const char *key)
 }
 
 
-/* Free the content, but not the pointer. */
-
-static void
-printer_free (struct printer * printer)
-{
-  /* Default and Unknown printers have NULL key. */
-  free (printer->key);
-  free (printer->ppdkey);
-  free (printer->command);
-}
-
 /*
  * Format the presentation of a printer and its command for
  * --list-printers.
@@ -180,16 +169,6 @@ printer_table_new (void)
 	     (hash_cmp_func_t) printer_hash_cmp);
 
   return (struct printer_table *) res;
-}
-
-/*
- * Free the whole structure
- */
-static inline void
-printer_table_free (struct printer_table * table)
-{
-  hash_free (table, (hash_map_func_t) printer_free);
-  free (table);
 }
 
 /* Return the printer corresponding to KEY in TABLE if exist,
@@ -244,8 +223,6 @@ printer_table_short_self_print (struct printer_table * table, FILE * stream)
 			  (void *) entries, size,
 			  (lister_width_t) printer_key_len,
 			  (lister_print_t) printer_key_fputs);
-
-  free (entries);
 }
 
 /*
@@ -318,32 +295,6 @@ a2ps_printers_new (struct a2ps_common_s * common)
 
   return res;
 }
-
-/*
- * Release the mem used by a PRINTERS module
- * The module is freed
- */
-void
-a2ps_printers_free (struct a2ps_printers_s * printers)
-{
-  /* Don't free common, a2ps_job is in charge */
-
-  printer_table_free (printers->printers);
-  printer_free (&printers->default_printer);
-  printer_free (&printers->unknown_printer);
-
-  /* PPD */
-  free (printers->request_ppdkey);
-  free (printers->default_ppdkey);
-  ppd_free (printers->ppd);
-
-  /* Output */
-  free (printers->flag_output_name);
-  free (printers->output_name);
-
-  free (printers);
-}
-
 
 /* Find the PPD key associated with the printer KEY.  If undefined,
    resolve to the unknown and default printers. */
@@ -568,11 +519,8 @@ a2ps_printers_flag_output_set (struct a2ps_printers_s * printers,
   printers->flag_output_is_printer = is_printer;
 
   if (!is_printer && flag_output_name && strequ (flag_output_name, "-"))
-    {
-      /* Request for stdin */
-      free (printers->flag_output_name);
-      printers->flag_output_name = NULL;
-    }
+    /* Request for stdin */
+    printers->flag_output_name = NULL;
   else
     xstrcpy (printers->flag_output_name, flag_output_name);
 }

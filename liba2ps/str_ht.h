@@ -25,7 +25,6 @@ struct string_htable;
  * Create / Kill
  */
 struct string_htable * string_htable_new (void);
-void string_htable_free (struct string_htable * table);
 
 /*
  *  Add, get

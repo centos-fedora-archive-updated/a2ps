@@ -402,16 +402,6 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
 	break;
 
       case 'B':				/* No headers at all */
-	/* Free them if they were allocated */
-	free (job->header);
-	free (job->left_footer);
-	free (job->footer);
-	free (job->right_footer);
-	free (job->left_title);
-	free (job->center_title);
-	free (job->right_title);
-	free (job->water);
-
 	job->header = UNULL;
 	job->left_footer = UNULL;
 	job->footer = UNULL;
@@ -640,7 +630,6 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
 	 * Nevertheless, if encoding.map has been read. which means
 	 * that this is actually a real command line option,
 	 * do store the correct encoding */
-	free (job->requested_encoding_name);
 	job->requested_encoding_name = xstrdup (optarg);
 	break;
 

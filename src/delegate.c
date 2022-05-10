@@ -80,15 +80,6 @@ delegate_name_fputs (struct delegation *delegation, FILE * stream)
   fputs (delegation->name, stream);
 }
 
-static void
-delegate_free (struct delegation *delegation)
-{
-  free (delegation->name);
-  free (delegation->contract);
-  free (delegation->command);
-  free (delegation);
-}
-
 /*
  * Create the table handling the subcontracts
  */
@@ -99,16 +90,6 @@ delegation_table_new (void)
   hash_init (res, 8,
 	     delegate_hash_1, delegate_hash_2, delegate_hash_cmp);
   return res;
-}
-
-/*
- * Free the whole table
- */
-void
-delegation_table_free (struct hash_table_s *table)
-{
-  hash_free (table, (hash_map_func_t) delegate_free);
-  free (table);
 }
 
 /************************************************************************/
@@ -381,7 +362,6 @@ dump_contract (FILE * stream, struct delegation *contract)
   fprintf (stream, _("Delegation `%s', from %s to %s\n"),
 	   contract->name, cp, cp2);
   fprintf (stream, "\t%s\n", contract->command);
-  free (cp);
 }
 
 /*
@@ -403,8 +383,6 @@ delegations_list_long (struct hash_table_s *contracts,
   for (i = 0; ordered_contracts[i]; i++)
     dump_contract (stream, ordered_contracts[i]);
   putc ('\n', stream);
-
-  free (ordered_contracts);
 }
 
 /*
@@ -426,5 +404,4 @@ delegations_list_short (struct hash_table_s *contracts,
                           (void *) ordered_contracts, (size_t) -1,
                           (lister_width_t) delegate_name_len,
                           (lister_print_t) delegate_name_fputs);
-  free (ordered_contracts);
 }

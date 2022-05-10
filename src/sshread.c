@@ -79,12 +79,6 @@ rhs_plain_new (void)
   return rhs_new_single (NULL, 0, Plain_fface);
 }
 
-static inline void
-token_free (struct token *token)
-{
-  free (token);
-}
-
 /* Where the token and its attributes are stored */
 static struct token *token = NULL;
 #define token_set_registers(_start_, _len_)		\
@@ -498,8 +492,4 @@ ssh_print_postscript (struct a2ps_job *Job,
 			       fface.face);
 	  }
       }
-
-  /* FIXME: Find a way to remove the token some day
-     token_free (token);
-   */
 }

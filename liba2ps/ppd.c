@@ -60,18 +60,6 @@ ppd_new (void)
   return res;
 }
 
-void
-ppd_free (struct ppd * ppd)
-{
-  if (ppd) {
-    string_htable_free (ppd->fonts);
-    free (ppd->key);
-    free (ppd->modelname);
-    free (ppd->nickname);
-    free (ppd);
-  }
-}
-
 /*
  * Produce a nice report of PPD
  */
@@ -105,7 +93,6 @@ ppd_self_print (struct ppd * ppd, FILE * stream)
 			       (lister_width_t) strlen,
 			       (lister_print_t) fputs);
     }
-  free (fonts);
 }
 
 /*
@@ -121,7 +108,6 @@ _a2ps_ppd_get (char * const * path, const char * key)
   ppd_filepath = xpw_find_file (path, key, ".ppd");
   res = a2ps_ppd_parse (ppd_filepath, path);
   res->key = xstrdup (key);
-  free (ppd_filepath);
   return res;
 }
 

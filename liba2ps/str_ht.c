@@ -75,16 +75,6 @@ string_htable_new (void)
 }
 
 /*
- * Free the whole structure
- */
-void
-string_htable_free (struct string_htable * table)
-{
-  hash_free (table, (hash_map_func_t) free);
-  free (table);
-}
-
-/*
  *  Add a string, with your own allocation for them.
  */
 void
@@ -121,7 +111,6 @@ string_htable_self_print (struct string_htable * table, FILE * stream)
     fprintf (stream, "%s\n", entries[i]);
 
   putc ('\n', stream);
-  free (entries);
 }
 
 /*

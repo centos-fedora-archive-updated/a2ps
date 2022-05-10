@@ -30,7 +30,6 @@ void dict_entry_print (void const * item);
  * User options
  */
 struct pair_htable * user_options_table_new (void);
-void user_options_table_free (struct pair_htable * table);
 
 void user_option_add (struct a2ps_job * job, 
 			      const char * key, const char * value);

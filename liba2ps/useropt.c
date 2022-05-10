@@ -35,15 +35,6 @@ user_options_table_new (void)
 }
 
 /*
- * Free a user option table
- */
-void
-user_options_table_free (struct pair_htable * table)
-{
-  pair_table_free (table);
-}
-
-/*
  * Add a custom option, making its own copy of the parameters
  */
 void

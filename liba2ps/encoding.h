@@ -93,10 +93,8 @@ void list_texinfo_encodings_long (struct a2ps_job * job,
 /* Road map to the files defining the encodings				*/
 /************************************************************************/
 struct pair_htable * encodings_map_new (void);
-void encodings_map_free (struct pair_htable * table);
 
 struct hash_table_s * encodings_table_new (void);
-void encodings_table_free (struct hash_table_s * table);
 
 int load_main_encodings_map (struct a2ps_job * job);
 #endif

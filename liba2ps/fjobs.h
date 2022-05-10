@@ -66,6 +66,5 @@ void file_job_synchronize_sheets (struct a2ps_job * job);
 void file_job_synchronize_pages (struct a2ps_job * job);
 void file_job_self_print (struct file_job * file, FILE * stream);
 void file_job_unlink_tmpfile (struct file_job * file);
-void file_job_free (struct file_job * file_job);
 
 #endif /* !defined (_FJOBS_H) */

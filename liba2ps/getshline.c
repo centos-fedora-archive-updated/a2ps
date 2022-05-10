@@ -192,8 +192,6 @@ main(int argc, char *argv[])
 				    &line_content, &line_size, file)) != -1)
       printf ("%3d-%3d:%s", firstline, lastline, line_content);
 
-
-  free (line_content);
   return 0;
 }
 #endif

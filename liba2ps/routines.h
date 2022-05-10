@@ -99,7 +99,6 @@
 #define xstrcpy(s1, s2)					\
  do {				       			\
    const char *my_s2 = (s2);	       			\
-   free (s1);					       	\
    s1 = !IS_EMPTY (my_s2) ? xstrdup (my_s2) : NULL;	\
  } while (0)
 
@@ -113,7 +112,6 @@
 #define xustrcpy(s1, s2)				\
  do {				       			\
    const unsigned char *my_s2 = (unsigned char *) (s2);			\
-   free (s1);					       	\
    s1 = !IS_EMPTY (my_s2) ? xustrdup (my_s2) : UNULL;	\
  } while (0)
 

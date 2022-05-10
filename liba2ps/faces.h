@@ -92,7 +92,6 @@ const char * face_to_string (enum face_e face);
 void face_self_print (enum face_e face, FILE * stream);
 
 void init_face_eo_font (struct a2ps_job * job);
-void face_eo_font_free (char * face_eo_font [NB_FACES]);
 void check_face_eo_font (struct a2ps_job * job);
 int face_eo_font_is_set (struct a2ps_job * job);
 void face_set_font (struct a2ps_job * job,

@@ -26,16 +26,6 @@
 #include "userdata.h"
 #include "routines.h"
 
-/* Free the memory hold by UDATA, but not UDATA itself. */
-void
-userdata_free (struct userdata *udata)
-{
-  free (udata->login);
-  free (udata->name);
-  free (udata->comments);
-  free (udata->home);
-}
-
 void
 userdata_get (struct userdata *udata)
 {

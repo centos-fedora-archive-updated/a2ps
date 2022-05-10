@@ -59,15 +59,6 @@ ds_new (size_t size,
   return res;
 }
 
-/* Delete dynamic string.  */
-
-void
-ds_erase (struct dstring *string)
-{
-  free (string->content);
-  free (string);
-}
-
 /*
  * Report the load of the string
  */

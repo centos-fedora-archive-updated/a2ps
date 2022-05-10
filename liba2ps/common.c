@@ -42,15 +42,6 @@ a2ps_common_new (void)
 }
 
 /*
- * Free the common mem
- */
-void
-a2ps_common_free (struct a2ps_common_s * common)
-{
-  pw_free_path (common->path);
-}
-
-/*
  * Finalize the common mem to the regular values
  * HOME is the user's home dir.
  */
