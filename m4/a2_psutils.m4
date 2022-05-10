@@ -17,8 +17,8 @@ if test "$COM_psselect" = "#"; then
 else
   # We found psselect.  Check we either have 1.17 or 2.x
   ac_prog_psselect_banner=`psselect -v 2>&1 | sed 1q`
-  if test ${ac_prog_psselect_banner} != 'psselect release 1 patchlevel 17' &&
-     test $(echo ${ac_prog_psselect_banner} | cut -d " " -f 2 | cut -d . -f 1) -lt 2; then
+  if test "${ac_prog_psselect_banner}" != "psselect release 1 patchlevel 17" &&
+     test `echo "${ac_prog_psselect_banner}" | cut -d " " -f 2 | cut -d . -f 1` -lt 2; then
     COM_PSUTILS="#"
   fi
 fi
