@@ -44,12 +44,6 @@ Use liberally.
 Try to run the test suite with more severe conditions before a
 release:
 
-- Change tests/atlocal/CFLAGS to add your preferred options.  For
-  instance, `-traditional' to check that the parsers are K&R.  Note
-  that it does not make sense for glr.c, which should be ANSI,
-  but currently is actually GNU C, nor for lalr1.cc, which anyway is
-  not exercised yet in the test suite.
-
 
 * Release Procedure
 
@@ -63,7 +57,7 @@ contain serious problems and are rejected by recent Gettext releases:
 fix them all, and complain to the Translation Project!
 
 Note that there might be *new* PO files.  Don't forget to update the
-whole machinery, which not only includes LINGUAS, but `cvs add'ing the
+whole machinery, which not only includes LINGUAS, but `git add'ing the
 PO files too.
 
 ** Update NEWS
