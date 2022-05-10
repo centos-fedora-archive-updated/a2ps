@@ -21,6 +21,7 @@
 # I really don't understand why)...
 AM_CPPFLAGS = -I.. -I$(srcdir) -I$(top_srcdir)/liba2ps -I$(top_builddir)/intl \
 	-I$(top_srcdir)/lib -DLOCALEDIR=\"$(localedir)\"
+AM_CFLAGS = $(LIBGC_FLAGS)
 
 bin_SCRIPTS = a2ps-lpr-wrapper
 bin_PROGRAMS = a2ps
@@ -42,7 +43,7 @@ BUILT_SOURCES = parsessh.c parsessh.h
 AM_YFLAGS = -dtv
 LEX = @LEX@
 
-a2ps_LDADD = $(top_builddir)/liba2ps/liba2ps.la $(LIBINTL) ../lib/libgnu.la -lm -L/opt/local/lib -lpaper # FIXME: hard coded.
+a2ps_LDADD = $(top_builddir)/liba2ps/liba2ps.la $(LIBINTL) ../lib/libgnu.la -lm -L/opt/local/lib $(LIBGC_LIBS) -lpaper # FIXME: hard coded.
 
 EXTRA_DIST = $(BUILT_SOURCES) $(bin_SCRIPTS)
 

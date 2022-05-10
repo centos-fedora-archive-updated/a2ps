@@ -72,6 +72,17 @@ gl_INIT
 ## checks for library functions.  ##
 ## ------------------------------ ##
 
+# libgc (BDW garbage collector)
+PKG_CHECK_MODULES([LIBGC], [bdw-gc >= 7.2])
+AH_BOTTOM([
+#define malloc GC_malloc
+#define calloc GC_calloc
+#define realloc GC_realloc
+#define free GC_free
+#define strdup GC_strdup
+#define strndup GC_strndup
+])
+
 ad_FUNC_SYSTEMPAPERNAME
 AS_IF([test "$ac_cv_lib_paper_systempapername" = ""],
   AC_MSG_ERROR[a2ps needs libpaper to work])

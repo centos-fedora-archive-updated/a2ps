@@ -20,6 +20,7 @@
 # define _A2PS_H_
 
 # include "system.h"
+# include <gc/gc.h>
 
 # define UNULL 		(unsigned char *) NULL
 

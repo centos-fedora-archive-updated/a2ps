@@ -100,7 +100,7 @@ pw_internal_string_to_path (const char * path, char sep, int * length)
     }
   *length = entries;
 
-  /* Make it null-terminated, and exactely that size */
+  /* Make it null-terminated, and exactly that size */
   res [*length] = NULL;
   res = xnrealloc (res, *length + 1, sizeof(char *));
   return res;

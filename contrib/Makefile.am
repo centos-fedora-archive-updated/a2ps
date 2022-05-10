@@ -22,6 +22,7 @@ bin_SCRIPTS = card fixps pdiff psmandup psset texi2dvi4a2ps
 bin_PROGRAMS = fixnt
 
 fixnt_SOURCES = fixnt.l
+fixnt_LDADD = $(LIBGC_LIBS)
 
 EXTRA_DIST = \
 	card.in fixps.in pdiff.in psmandup.in psset.in texi2dvi4a2ps

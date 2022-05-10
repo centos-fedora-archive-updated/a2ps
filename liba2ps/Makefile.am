@@ -18,6 +18,7 @@
 
 AM_CPPFLAGS = -I$(top_builddir) -I$(top_builddir)/intl -I$(srcdir) -I$(top_srcdir)/lib \
 	-DLOCALEDIR=\"$(localedir)\" -DSYSCONFFILE=\"$(sysconfdir)/a2ps.cfg\" -DHAVE_CONFIG_H
+AM_CFLAGS = $(LIBGC_FLAGS)
 
 #
 # Definition of the local target
@@ -30,7 +31,7 @@ AM_YFLAGS = -dtv
 GPERFFLAGS = -t -D -L ANSI-C
 BUILT_SOURCES = parseppd.c parseppd.h liba2ps.h confg.c
 
-liba2ps_la_LDFLAGS = -version-info @LIBVERSION@ $(LTLIBINTL) $(LIBSOCKET) $(GETHOSTNAME_LIB)
+liba2ps_la_LDFLAGS = -version-info @LIBVERSION@
 
 liba2psheaders = encoding.h media.h jobs.h output.h		\
 routines.h psgen.h prolog.h faces.h confg.h useropt.h		\
@@ -50,7 +51,7 @@ mylibitheaders = msg.h msg.c message.h xstrrpl.h getshline.h pathwalk.h	\
 darray.h dstring.h printlen.h pair_ht.h filtdir.h regex.h str_ht.h	\
 title.h xbackupfile.h getnum.h tterm.h lister.h userdata.h xobstack.h
 
-mylibitsources = message.c xstrrpl.c getshline.c pathwalk.c		\
+mylibitsources = message.c xstrrpl.c gc_calloc.c getshline.c pathwalk.c	\
 darray.c dstring.c printlen.c pair_ht.c filtdir.c regex.c str_ht.c	\
 title.c xbackupfile.c getnum.c tterm.c lister.c userdata.c
 
@@ -62,7 +63,7 @@ noinst_HEADERS = $(liba2psheaders) $(libitheaders) $(mylibitheaders)
 
 liba2ps_la_SOURCES = $(liba2pssources) $(libitsources) $(mylibitsources)
 
-liba2ps_la_LIBADD = ../lib/libgnu.la
+liba2ps_la_LIBADD = ../lib/libgnu.la $(LIBGC_LIBS) $(LTLIBINTL) $(LIBSOCKET) $(GETHOSTNAME_LIB)
 
 #
 # Handling the Gperf code
