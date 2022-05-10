@@ -29,7 +29,7 @@ lib_LTLIBRARIES = liba2ps.la
 AM_YFLAGS = -dtv
 # Use a struct, handle duplicates, produce ANSI-C
 GPERFFLAGS = -t -D -L ANSI-C
-BUILT_SOURCES = parseppd.c parseppd.h liba2ps.h confg.c
+BUILT_SOURCES = lexppd.h parseppd.h liba2ps.h confg.c
 
 liba2ps_la_LDFLAGS = -version-info @LIBVERSION@
 

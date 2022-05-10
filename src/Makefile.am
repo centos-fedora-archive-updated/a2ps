@@ -40,7 +40,7 @@ noinst_LIBRARIES = libparse.a
 libparse_a_SOURCES = parsessh.y lexssh.l lexps.l sheets-map.l
 libparse_a_CFLAGS = $(LIBGC_FLAGS)
 
-BUILT_SOURCES = parsessh.c parsessh.h
+BUILT_SOURCES = parsessh.h lexssh.c lexps.c sheets-map.c
 
 AM_YFLAGS = -dtv
 LEX = @LEX@
