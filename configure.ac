@@ -120,27 +120,6 @@ do
     ac_psfont_path="$ac_psfont_path:$ac_dir";
   fi
 done
-dnl Currently, we don't try TeX fonts, because sed expressions
-dnl explode.  Anyway, we really need to support kpathsea to get there.
-dnl # Try to find where are the TeX fonts.
-dnl for ac_dir in /usr/local/TeX /usr/local/tex /usr/local/teTeX;
-dnl do
-dnl   if test -d "$ac_dir/texmf/fonts/type1"; then
-dnl 	# There are fonts here.  Let's fetch all the directories.
-dnl 	for ac_dir2 in $ac_dir/texmf/fonts/type1/* \
-dnl 		       $ac_dir/texmf/fonts/type1/*/* \
-dnl 		       $ac_dir/texmf/fonts/type1/*/*/* \
-dnl 		       $ac_dir/texmf/fonts/afm/* \
-dnl 		       $ac_dir/texmf/fonts/afm/*/* \
-dnl 		       $ac_dir/texmf/fonts/afm/*/*/* ;
-dnl 	do
-dnl 	  if test -d "$ac_dir2" \
-dnl 	     && test -n `echo $ac_dir2/*.afm $ac_dir2/*.gsf $ac_dir2/*.pf?`; then
-dnl 	    ac_psfont_path="$ac_psfont_path:$ac_dir2";
-dnl 	  fi
-dnl 	done
-dnl   fi
-dnl done
 dnl # Remove the leading `:'
 if test -n "$ac_psfont_path"; then
   PSFONT_PATH=`echo "$ac_psfont_path" | sed -e 's/^://'`
