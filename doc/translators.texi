@@ -61,3 +61,9 @@ Tomek Burdziak (Polish)
 @item
 @email{dima@@Chg.RU, Dmitry S. Sivachenko} (Maintains Russian) 
 
+@item
+@email{furukawa@@vinelinux.org, Yasuyuki Furukawa} (Japanese) 
+
+@item
+@email{mhatta@@gnu.org, Masayuki Hatta} (Maintains Japanese) 
+
