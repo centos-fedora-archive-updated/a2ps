@@ -132,7 +132,7 @@ AC_MSG_RESULT([$ac_psfont_path])
 ## ---------------------------------------------------------- ##
 
 #
-# Check for the file program with follows the links
+# Check for a file program that follows symlinks
 #
 ad_PROG_FILE_LINK
 AC_SUBST(FILE_LINK)
