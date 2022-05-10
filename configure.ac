@@ -254,7 +254,7 @@ AC_MSG_RESULT([
 *****************************************************************
 * a2ps thinks it should be configured the following way:
 * - your charset is `$ENCODING'
-* - to ask `file(1)' to follow the links, run `$FILE_LINK'
+* - to ask `file(1)' to follow symlinks, run `$FILE_LINK'
 *   (`file(1)' is used to guess the type of the files to print.)
 *
 * If a2ps is wrong somewhere, fix the `System Dependent parameters'
