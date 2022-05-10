@@ -1,6 +1,6 @@
 %p 3000
 %{ /* -*- c -*- */ /* <--- EMACS knows now about what mode to use ... */
-  /* Time-stamp: "2022-05-10 12:03:21 rrt" */
+  /* Time-stamp: "2022-05-10 12:05:06 rrt" */
 
   /* Filter for Windows NT 4.0 postscript printer driver. Enables
    * the use of psnup from the psutils package
@@ -34,9 +34,7 @@
 #include "config.h"
 #include <gc/gc.h>
 #include <stdio.h>
-#if defined STDC_HEADERS || defined _LIBC || defined HAVE_STDLIB_H
-# include <stdlib.h>
-#endif
+#include <stdlib.h>
 #if HAVE_SYS_TYPES_H
 # include <sys/types.h>
 #endif
