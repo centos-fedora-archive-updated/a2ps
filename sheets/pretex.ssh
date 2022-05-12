@@ -73,7 +73,7 @@ end operators
 
 sequences are
     "\\encoding{" Invisible (Invisible + Encoding) } Invisible,
-    # Here we hard code `$' as `\n', because the caracter
+    # Here we hard code `$' as `\n', because the character
     # `\n' will receive a special treatment (Invisible).
     # Remember that `$' matches the null string anchored at the
     # end-of-line: it does not match the end-of-line character.
