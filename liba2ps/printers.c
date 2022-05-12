@@ -98,10 +98,10 @@ printer_key_len (struct printer *printer)
 
 /* Fputs on STREAM the key of the PRINTER. */
 
-static void
+static int
 printer_key_fputs (struct printer * printer, FILE * stream)
 {
-  fputs (printer->key, stream);
+  return fputs (printer->key, stream);
 }
 
 /* Give void values. */
@@ -364,24 +364,27 @@ a2ps_printers_command_get (struct a2ps_printers_s *printers,
 
 /* Make a standard message upon the destination.  Mallocs the
    result.  If FILE_P, NAME is a file name, else a printer name. */
-static unsigned char*
+static char *
 destination_to_string (const char *name, bool file_p)
 {
-  unsigned char *res;
+  char *res;
 
   if (IS_EMPTY (name))
     {
       res = (file_p
-	     ? xustrdup (_("sent to the standard output"))
-	     : xustrdup (_("sent to the default printer")));
+	     ? xstrdup (_("sent to the standard output"))
+	     : xstrdup (_("sent to the default printer")));
     }
   else
     {
       char *format = (file_p
 		      ? _("saved into the file `%s'")
 		      : _("sent to the printer `%s'"));
-      res = XNMALLOC (strlen (format) + strlen (name), unsigned char);
-      sprintf ((char *) res, format, name);
+      res = XNMALLOC (strlen (format) + strlen (name), char);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+      sprintf (res, format, name);
+#pragma GCC diagnostic pop
     }
   return res;
 }
@@ -391,7 +394,7 @@ destination_to_string (const char *name, bool file_p)
 
    Result is malloced. */
 
-unsigned char *
+char *
 a2ps_flag_destination_to_string (a2ps_job * job)
 {
   /* Make a nice message to tell where the output is sent */
@@ -403,7 +406,7 @@ a2ps_flag_destination_to_string (a2ps_job * job)
 /* Report where the output was really sent, i.e., evaluate the command
    and in the case of a file, report the file name. */
 
-unsigned char *
+char *
 a2ps_destination_to_string (a2ps_job * job)
 {
   /* The main difference is when sending to a file, in which

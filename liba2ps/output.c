@@ -40,7 +40,7 @@
 enum derivation_type
 {
   nothing,
-  delayed_int,
+  delayed_size_t,
   delayed_string,
   delayed_routine,
   delayed_chunk
@@ -52,7 +52,7 @@ struct derivation
   void * arg;
   delayed_routine_t delayed_routine;
   void * delayed_routine_arg;
-  int * delayed_int;
+  size_t * delayed_size_t;
   unsigned char ** delayed_string;
   struct output * delayed_chunk;
 };
@@ -84,8 +84,8 @@ derivation_self_print (struct derivation * derivation, FILE * stream)
       fprintf (stream, "nothing ");
       break;
 
-    case delayed_int:
-      fprintf (stream, "delayed_int (%d)", *derivation->delayed_int);
+    case delayed_size_t:
+      fprintf (stream, "delayed_size_t (%zu)", *derivation->delayed_size_t);
       break;
 
     case delayed_string:
@@ -194,7 +194,7 @@ output (out, format, va_alist)
  * Add C to the end of output
  */
 void
-output_char (struct output * out, unsigned char c)
+output_char (struct output * out, char c)
 {
   if (out->to_void)
     return;
@@ -242,15 +242,15 @@ output_delayed_chunk (struct output * out, struct output * out2)
  * The value pointed will be read only when undiverting
  */
 void
-output_delayed_int (struct output * out, int * ptr)
+output_delayed_size_t (struct output * out, size_t * ptr)
 {
   struct derivation *tmp;
 
   if (out->to_void)
     return;
 
-  tmp = new_derivation (delayed_int);
-  tmp->delayed_int = ptr;
+  tmp = new_derivation (delayed_size_t);
+  tmp->delayed_size_t = ptr;
 
   output_char (out, '\0');
   da_append (out->derivations, tmp);
@@ -293,7 +293,7 @@ output_file (struct output * out, a2ps_job * job,
   FILE * stream;
   char * filename;
   char * token = NULL, * token2 = NULL;
-  int line = 0;
+  unsigned line = 0;
   int dont_output = false;
   struct output * dest = out;
 
@@ -370,7 +370,7 @@ output_file (struct output * out, a2ps_job * job,
 		add_needed_resource (job, res, value);
 		message (msg_file,
 			 (stderr,
-			  "Including file '%s' upon request given in '%s':%d\n",
+			  "Including file '%s' upon request given in '%s':%u\n",
 			  value, filename, line));
 		output_file (dest, job, value, NULL);
 	      }
@@ -502,10 +502,9 @@ output_file (struct output * out, a2ps_job * job,
 	char * expansion;
 
 	token = GET_LINE_TOKEN (buf + strlen (EXPAND_TAG));
-	expansion = ((char *)
-		     expand_user_string (job, FIRST_FILE (job),
-					 (const unsigned char *) "Expand: requirement",
-					 (const unsigned char *) token));
+	expansion = expand_user_string (job, FIRST_FILE (job),
+                                        "Expand: requirement",
+                                        token);
 	output (dest, "%s", expansion);
 	continue;
       }
@@ -535,8 +534,8 @@ underivation (FILE * stream, const struct derivation * derivation)
 				   derivation->delayed_routine_arg);
       break;
 
-    case delayed_int:
-      fprintf (stream, "%d", *derivation->delayed_int);
+    case delayed_size_t:
+      fprintf (stream, "%zu", *derivation->delayed_size_t);
       break;
 
     case delayed_string:

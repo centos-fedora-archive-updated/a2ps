@@ -67,14 +67,14 @@
  * Returns number of columns used (on the output) to print the char.
  */
 static int
-ps_escape_char (a2ps_job * job, unsigned char c, unsigned char * res)
+ps_escape_char (a2ps_job * job, unsigned char c, char * res)
 {
-  int len=0;
+  int len = 0;
 
   /* The number of columns used must be calculated here because of the
    * \ before non-ascii chars, and (, ), and \ itself */
 
-  /* Printable and 7bit clean caracters */
+  /* Printable and 7bit clean characters */
   if (' ' <= c && c < 0177) {
     if (c == '(' || c == ')' || c == '\\')
       STRCCAT(res, '\\');
@@ -82,10 +82,13 @@ ps_escape_char (a2ps_job * job, unsigned char c, unsigned char * res)
     return 1;
   }
 
-  /* Printable, but not 7bit clean caracters */
+  /* Printable, but not 7-bit clean characters */
   if (encoding_char_exists (job->encoding, job->status->face, c)
       && ((0177 < c) || (c < 040))) {
-    sprintf ((char *)res, "%s\\%o", res, c);
+    char oct[5];
+    int chars = sprintf (oct, "\\%o", c);
+    for (int i = 0; i < chars; i++)
+      STRCCAT(res, oct[i]);
     return 1;
   }
 
@@ -121,7 +124,7 @@ ps_escape_char (a2ps_job * job, unsigned char c, unsigned char * res)
     if (c < ' ') {
       STRCCAT(res, '^');
       len += 2;
-      c += '@';
+      c = (unsigned char) ((char)c + '@');
       if (c == '(' || c == ')' || c == '\\')
 	STRCCAT(res, '\\');
       STRCCAT(res, c);
@@ -146,7 +149,7 @@ ps_escape_char (a2ps_job * job, unsigned char c, unsigned char * res)
     if (c < ' ') {
       ustrcat (res, "C-");
       len += 3;
-      c += '@';
+      c = (unsigned char) ((char)c + '@');
       if (c == '(' || c == ')' || c == '\\')
 	STRCCAT(res, '\\');
       STRCCAT(res, c);
@@ -169,39 +172,38 @@ ps_escape_char (a2ps_job * job, unsigned char c, unsigned char * res)
  * Output the formated marker.
  */
 static void
-output_marker (a2ps_job * job, const char * kind, unsigned char * marker)
+output_marker (a2ps_job * job, const char * kind, char * marker)
 {
-  unsigned char *cp, buf[256];
+  char *cp, buf[256];
   int i;
 
-  cp = expand_user_string (job, CURRENT_FILE (job),
-			   (const unsigned char *) kind, marker);
+  cp = expand_user_string (job, CURRENT_FILE (job), kind, marker);
 
   for (i = 0 ; cp[i] ; i++) {
     switch (cp[i]) {
     case FILE_LAST_PAGE:
-      output_delayed_int (jdiv, &(CURRENT_FILE (job)->last_page));
+      output_delayed_size_t (jdiv, &(CURRENT_FILE (job)->last_page));
       break;
     case FILE_LAST_SHEET:
-      output_delayed_int (jdiv, &(CURRENT_FILE (job)->last_sheet));
+      output_delayed_size_t (jdiv, &(CURRENT_FILE (job)->last_sheet));
       break;
     case FILE_NB_PAGES:
-      output_delayed_int (jdiv, &(CURRENT_FILE (job)->pages));
+      output_delayed_size_t (jdiv, &(CURRENT_FILE (job)->pages));
       break;
     case FILE_NB_SHEETS:
-      output_delayed_int (jdiv, &(CURRENT_FILE (job)->sheets));
+      output_delayed_size_t (jdiv, &(CURRENT_FILE (job)->sheets));
       break;
     case FILE_NB_LINES:
-      output_delayed_int (jdiv, &(CURRENT_FILE (job)->lines));
+      output_delayed_size_t (jdiv, &(CURRENT_FILE (job)->lines));
       break;
     case JOB_NB_PAGES:
-      output_delayed_int (jdiv, &job->pages);
+      output_delayed_size_t (jdiv, &job->pages);
       break;
     case JOB_NB_SHEETS:
-      output_delayed_int (jdiv, &job->sheets);
+      output_delayed_size_t (jdiv, &job->sheets);
       break;
     case JOB_NB_FILES:
-      output_delayed_int (jdiv, &job->total_files);
+      output_delayed_size_t (jdiv, &job->total_files);
       break;
     default:
       *buf = '\0';

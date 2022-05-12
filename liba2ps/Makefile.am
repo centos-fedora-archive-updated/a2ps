@@ -34,14 +34,14 @@ BUILT_SOURCES = lexppd.h parseppd.h liba2ps.h confg.c
 liba2ps_la_LDFLAGS = -version-info @LIBVERSION@
 
 liba2psheaders = encoding.h media.h jobs.h output.h		\
-routines.h psgen.h prolog.h faces.h confg.h useropt.h		\
+routines.h psgen.h prolog.h faces.h useropt.h			\
 gen.h printers.h psstat.h caret.h metaseq.h options.h		\
 dsc.h fonts.h ppd.h prange.h stream.h document.h		\
 fjobs.h	common.h madir.h filalign.h lexppd.h			\
 system.h a2ps.h liba2ps.h yy2ppd.h
 
 liba2pssources = encoding.c media.c jobs.c output.c		\
-routines.c psgen.c prolog.c faces.c confg.c useropt.c		\
+routines.c psgen.c prolog.c faces.c useropt.c			\
 gen.c printers.c psstat.c caret.c metaseq.c options.c		\
 dsc.c fonts.l ppd.c prange.c stream.c document.c		\
 fjobs.c common.c madir.c filalign.c lexppd.l			\
@@ -63,7 +63,7 @@ noinst_HEADERS = $(liba2psheaders) $(libitheaders) $(mylibitheaders)
 
 libnowarnings_a_CFLAGS = $(LIBGC_FLAGS)
 libnowarnings_a_LDFLAGS = $(LIBGC_LIBS)
-libnowarnings_a_SOURCES = fonts.l lexppd.l parseppd.y regex.c regex.h
+libnowarnings_a_SOURCES = fonts.l lexppd.l parseppd.y regex.c regex.h confg.c confg.h
 
 liba2ps_la_LDFLAGS = $(LIBGC_LIBS)
 liba2ps_la_SOURCES = $(liba2pssources) $(libitsources) $(mylibitsources)

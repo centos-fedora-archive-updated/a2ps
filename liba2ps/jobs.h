@@ -112,15 +112,15 @@ typedef struct a2ps_job
   struct hash_table_s * font_infos;	/* The HT of the afm for each file */
 
   /* Headers and footers */
-  unsigned char * title;		/* Job's title (eg. in %%Title: )	*/
-  unsigned char * header;		/* Allow different header text	 	*/
-  unsigned char * center_title;		/* Allow different header text	 	*/
-  unsigned char * left_title;		/* Allow different header text	 	*/
-  unsigned char * right_title;		/* Allow different header text	 	*/
-  unsigned char * left_footer;		/* Allow different header text	 	*/
-  unsigned char * footer;		/* Allow different header text	 	*/
-  unsigned char * right_footer;		/* Allow different footer text	 	*/
-  unsigned char * water;		/* Water marks text			*/
+  char * title;				/* Job's title (eg. in %%Title: )	*/
+  char * header;			/* Allow different header text	 	*/
+  char * center_title;			/* Allow different header text	 	*/
+  char * left_title;			/* Allow different header text	 	*/
+  char * right_title;			/* Allow different header text	 	*/
+  char * left_footer;			/* Allow different header text	 	*/
+  char * footer;			/* Allow different header text	 	*/
+  char * right_footer;			/* Allow different footer text	 	*/
+  char * water;				/* Water marks text			*/
 
   /* Used to grab headers etc. from the file */
   unsigned char tag1[256], tag2[256], tag3[256], tag4[256];

@@ -48,10 +48,8 @@ void a2ps_ppd_list_long (struct a2ps_job * job, FILE * stream);
 void a2ps_open_output_stream (struct a2ps_job * job);
 void a2ps_close_output_stream (struct a2ps_job * job);
 
-unsigned char *a2ps_flag_destination_to_string
-    (struct a2ps_job * job);
-unsigned char *a2ps_destination_to_string
-    (struct a2ps_job * job);
+char *a2ps_flag_destination_to_string (struct a2ps_job * job);
+char *a2ps_destination_to_string (struct a2ps_job * job);
 
 /* Create the mem of the printers module */
 struct a2ps_printers_s *a2ps_printers_new

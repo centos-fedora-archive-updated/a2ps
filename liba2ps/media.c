@@ -72,10 +72,10 @@ medium_name_len (struct medium * medium)
 
 /* Fputs the name of the MEDIUM on STREAM */
 
-static void
+static int
 medium_name_fputs (struct medium * medium, FILE * stream)
 {
-  fputs (medium->name, stream);
+  return fputs (medium->name, stream);
 }
 
 

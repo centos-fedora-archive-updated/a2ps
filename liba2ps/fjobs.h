@@ -26,7 +26,7 @@ struct a2ps_job;
  */
 struct file_job
 {
-  char * name;			/* Guess what it is :)			*/
+  const char * name;		/* Guess what it is :)			*/
 
   /* A tmp file associated with this file.  It is used only privately
      by a2ps-prog.  If the file is delegated, the output of the
@@ -58,7 +58,7 @@ struct file_job
 
 /* in the output session JOB, create a new input session NAME */
 struct file_job *
-_a2ps_file_job_new (char * name, int num, struct tm * run_tm);
+_a2ps_file_job_new (const char * name, int num, struct tm * run_tm);
 
 int file_name_cmp (struct file_job * f1, struct file_job * f2);
 

@@ -102,11 +102,14 @@ prologue_print_signature (struct a2ps_job * job,
   char * filename;
   char * buf = NULL;
   int done = false;
-  int firstline = 0, lastline = 0;
+  unsigned firstline = 0, lastline = 0;
   size_t bufsiz = 0;
   char buf2[BUFSIZ];
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
   fprintf (stream, name_format, prologue_name);
+#pragma GCC diagnostic pop
 
   filename = xpw_find_file (job->common.path, prologue_name, PS_PROLOGUE_SUFFIX);
   fp = xrfopen (filename);
@@ -128,11 +131,14 @@ prologue_print_signature (struct a2ps_job * job,
 	    {
 	      if (strlen (buf2) < sizeof (buf2))
 		lastline++;
-	      (*documentation_fn) ((unsigned char *) buf2, "%s", stream);
+	      (*documentation_fn) (buf2, "%s", stream);
 	    }
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
 	  if (!strprefix (END_DOC_TAG, buf2))
 	    error (1, 0, filename, firstline,
 		   _("missing argument for `%s'"), "`Documentation'");
+#pragma GCC diagnostic pop
 	  done = true;
 	}
     }
@@ -204,19 +210,18 @@ dump_encodings (FILE * stream, a2ps_job * job)
 static void
 dump_prolog_comments (FILE * stream, struct a2ps_job * job)
 {
-  unsigned char * cp;
+  char * cp;
   /*
-   * Fixme: Put all this is output_first_line?
+   * Fixme: Put all this in output_first_line?
    */
   fputs ((char *) job->status->magic_number, stream);
   putc ('\n', stream);
 
   cp = expand_user_string (job, FIRST_FILE (job),
-			   (unsigned char *) "Document title", job->title);
+			   "Document title", job->title);
   fprintf (stream, "%%%%Title: %s\n", cp);
 
-  cp = expand_user_string (job, FIRST_FILE (job),
-			  (unsigned char *) "User Name", (const unsigned char *) "%N");
+  cp = expand_user_string (job, FIRST_FILE (job), "User Name", "%N");
   fprintf (stream, "%%%%For: %s\n", cp);
   fprintf (stream, "%%%%Creator: %s version %s\n", PACKAGE, VERSION);
   fprintf (stream, "%%%%CreationDate: %s", asctime(&job->run_tm));
@@ -342,13 +347,13 @@ output_document_setup (a2ps_job * job)
   output_pagedevice (job);
 
   /* Header size */
-  output (jdiv, "/th %f def\n", job->status->title_bar_height);
+  output (jdiv, "/th %f def\n", (double) job->status->title_bar_height);
 
   /* General format */
   /* Font sizes */
   output (jdiv, "/fnfs %d def\n", job->status->title_font_size);
-  output (jdiv, "/bfs %f def\n", job->fontsize);
-  output (jdiv, "/cw %f def\n", job->fontsize * 0.6);  /* char width */
+  output (jdiv, "/bfs %f def\n", (double) job->fontsize);
+  output (jdiv, "/cw %f def\n", (double) job->fontsize * 0.6);  /* char width */
   output (jdiv, "\n");
 
   /* Are diverted:
@@ -373,11 +378,11 @@ output_document_setup (a2ps_job * job)
   /* Page attributes */
   output (jdiv, "/pw\n");
   output (jdiv, "   cw %f mul\n",
-	  (float) job->status->columnsperline + 2 * SIDE_MARGIN_RATIO);
+	  (double) job->status->columnsperline + 2 * SIDE_MARGIN_RATIO);
   output (jdiv, "def\n");
   output (jdiv, "/ph\n");
   output (jdiv, "   %f th add\n",
-	  (job->status->linesperpage + BOTTOM_MARGIN_RATIO) * job->fontsize);
+	  (job->status->linesperpage + BOTTOM_MARGIN_RATIO) * (double) job->fontsize);
   output (jdiv, "def\n");
   if (job->columns > 1)
     output (jdiv, "/pmw urx llx sub pw %d mul sub %d div def\n",
@@ -490,18 +495,17 @@ ps_begin (a2ps_job * job)
 
   switch (job->orientation) {
   case portrait:
-    area_h = (medium->ury - medium->lly
-	      /* Room for header and footer */
-	      - (PRINT_HEADER + PRINT_FOOTER) * HEADERS_H);
-    area_w = (medium->urx - medium->llx
-	      - job->margin);
+    area_h = (float) (medium->ury - medium->lly
+                      /* Room for header and footer */
+                      - (PRINT_HEADER + PRINT_FOOTER) * HEADERS_H);
+    area_w = (float) (medium->urx - medium->llx - job->margin);
     break;
   case landscape:
-    area_w = (medium->ury - medium->lly);
-    area_h = (medium->urx - medium->llx
-	      /* Room for header and footer */
-	      - (PRINT_HEADER + PRINT_FOOTER) * HEADERS_H
-	      - job->margin);
+    area_w = (float) (medium->ury - medium->lly);
+    area_h = (float) (medium->urx - medium->llx
+                      /* Room for header and footer */
+                      - (PRINT_HEADER + PRINT_FOOTER) * HEADERS_H
+                      - job->margin);
     break;
   }
 
@@ -520,14 +524,14 @@ ps_begin (a2ps_job * job)
   /* Area inside the frame of a virtual page */
   printing_h = ((area_h
 		 /* room for title */
-		 - job->rows * job->status->title_bar_height
+		 - (float) job->rows * job->status->title_bar_height
 		 /* Space between the virtual pages */
-		 - ((job->rows > 1) ? PAGE_MARGIN : 0))
-		/ job->rows);
+		 - (float) ((job->rows > 1) ? PAGE_MARGIN : 0))
+		/ (float) job->rows);
   printing_w = ((area_w
 		 /* Space between the virtual pages */
-		 - ((job->columns > 1) ? PAGE_MARGIN : 0))
-		/ job->columns);
+		 - (float) ((job->columns > 1) ? PAGE_MARGIN : 0))
+		/ (float) job->columns);
 
   /*
    * Determine the font size according to (decreasing priority):
@@ -538,16 +542,16 @@ ps_begin (a2ps_job * job)
    */
   /* width = 0.6 font size */
   if (job->columns_requested != 0) {
-    job->fontsize = ((printing_w /
-		      (job->columns_requested + prefix_size +
-		       2 * SIDE_MARGIN_RATIO))
-		     / 0.6);
+    job->fontsize = (float) (((double) printing_w /
+                              (job->columns_requested + prefix_size +
+                               2 * SIDE_MARGIN_RATIO))
+                             / 0.6);
   } else if (job->lines_requested != 0) {
-    job->fontsize = (printing_h /
-		     (job->lines_requested + BOTTOM_MARGIN_RATIO));
-  } else if (job->fontsize == 0.0)
-    job->fontsize = ((job->orientation == landscape) ? 6.8
-		     : (job->columns * job->rows > 1) ? 6.4 : 9.0);
+    job->fontsize = (float) ((double) printing_h /
+                             (job->lines_requested + BOTTOM_MARGIN_RATIO));
+  } else if (job->fontsize == 0.0f)
+    job->fontsize = (float) ((job->orientation == landscape) ? 6.8
+                             : (job->columns * job->rows > 1) ? 6.4 : 9.0);
 
   /* fontsize is OK.  Calculate the other variables */
   job->status->linesperpage =

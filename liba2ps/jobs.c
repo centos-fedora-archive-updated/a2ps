@@ -224,7 +224,7 @@ a2ps_job_new (void)
   res->font_infos = font_info_table_new ();
 
   /* Title of the job */
-  res->title = xustrdup ("a2ps output");	/* Default title */
+  res->title = xstrdup ("a2ps output");	/* Default title */
 
   /* Headers and footers */
   res->header = NULL;

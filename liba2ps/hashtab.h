@@ -116,7 +116,7 @@ extern void *hash_deleted_item;
 # define STRING_CASE_HASH_1(_key_, _result_) do { \
   unsigned char const *kk = (unsigned char const *) (_key_) - 1; \
   while (*++kk) \
-    (_result_) += (tolower (*kk) << (tolower (kk[1]) & 0xf)); \
+    (_result_) += (unsigned long)(tolower (*kk) << (tolower (kk[1]) & 0xf));  \
 } while (0)
 # define return_STRING_CASE_HASH_1(_key_) do { \
   unsigned long result = 0; \
