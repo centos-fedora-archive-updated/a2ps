@@ -330,24 +330,7 @@ output_file (struct output * out, a2ps_job * job,
     /* After this tag, forget unless the font is used.
      * This is for small memory printers */
     else if (strprefix (FONTUSED_TAG, buf))
-      {
-#if 0
-	char * fontname;
-	font_t font;
-
-	fontname =  buf + strlen (FONTUSED_TAG);
-	/* What is the face declared? */
-	fontname = strtok (fontname, " \t\n");
-	font = string_to_font (fontname);
-
-	if (font == unknown_font)
-	  error_at_line (1, 0, filename, line,
-			 "unknown font `%s'", quotearg (fontname));
-	if (!(job->status->font_used [font]))
-	  dont_output = true;
-#endif
-	continue;
-      }
+      continue;
 
 #define INCL_RES_TAG 	"%%IncludeResource:"
     if (strprefix (INCL_RES_TAG, buf))

@@ -173,19 +173,6 @@ add_supplied_resource (a2ps_job * job, const char * key, const char * value)
   multivalued_entry_add_couple (job->status->supplied_resources, key, value);
 }
 
-#if 0
-/*
- * Returned the needed resource if it is known,
- * NULL otherwise
- */
-static const char *
-supplied_resource_get (a2ps_job * job, const char * key, const char * value)
-{
-  return multivalued_entry_get_sub_item (job->status->supplied_resources,
-					 key, value);
-}
-#endif
-
 static void
 multivalued_entry_dump (FILE * stream, int first,
 			const char * fmt_first, const char * fmt_others,

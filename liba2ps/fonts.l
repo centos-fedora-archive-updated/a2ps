@@ -264,17 +264,6 @@ wx_entry_hash_cmp (struct wx_entry *x, struct wx_entry *y)
   return_STRING_COMPARE (x->glyph, y->glyph);
 }
 
-#if 0
-/*
- * For sorting them in alpha order
- */
-static int
-wx_entry_hash_qcmp (struct wx_entry **x, struct wx_entry **y)
-{
-  return_STRING_COMPARE ((*x)->glyph, (*y)->glyph);
-}
-#endif
-
 /*
  * For sorting them in the order of their index
  * (or `code', i.e. 32 for space)
@@ -382,17 +371,6 @@ font_info_hash_cmp (struct font_info *x, struct font_info *y)
 {
   return_STRING_COMPARE (x->key, y->key);
 }
-
-#if 0
-/*
- * For sorting them in alpha order
- */
-static int
-font_info_hash_qcmp (struct font_info **x, struct font_info **y)
-{
-  return_STRING_COMPARE ((*x)->key, (*y)->key);
-}
-#endif
 
 /*
  * Create the structure that stores the list of font_infos

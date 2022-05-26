@@ -629,34 +629,6 @@ main (int argc, char **argv)
     "1", "22", "333", "4444", "55555", "666666", "7777777",
     "88888888", "999999999"
   };
-#if 0
-  {
-    "68000.ssh", "a2ps.ssh", "a2psrc.ssh", "ada.ssh", "c.ssh",
-    "caml.ssh", "card.ssh", "chlog.ssh", "claire.ssh", "clisp.ssh",
-    "coqv.ssh", "cpp.ssh", "csh.ssh", "eiffel.ssh", "elisp.ssh",
-    "eps.ssh", "fortran.ssh", "gnuc.ssh", "html.ssh", "idl.ssh",
-    "initora.ssh", "is5rul.ssh", "java.ssh", "lace.ssh", "lex.ssh",
-    "mail.ssh", "make.ssh", "matlab4.ssh", "mib.ssh", "modula2.ssh",
-    "modula3.ssh", "o2c.ssh", "oberon.ssh", "objc.ssh", "octave.ssh",
-    "oldperl.ssh", "oracle.ssh", "pascal.ssh", "perl.ssh", "plsql.ssh",
-    "ppd.ssh", "pre.ssh", "pretex.ssh", "prolog.ssh", "promela.ssh",
-    "ps.ssh", "python.ssh", "sather.ssh", "scheme.ssh", "sdl88.ssh",
-    "sh.ssh", "sql.ssh", "sql92.ssh", "ssh.ssh", "symbols.ssh",
-    "tcl.ssh", "tcsh.ssh", "tex.ssh", "texinfo.ssh", "texscript.ssh",
-    "tk.ssh", "udiff.ssh", "unity.ssh", "verilog.ssh", "vhdl.ssh",
-    "vrml.ssh", "wdiff.ssh", "yacc.ssh", "zsh.ssh",
-    "1111111111", "22",
-    "1111111111", "22",
-    "1111111111", "22",
-    "1111111111", "22",
-    "1111111111", "22",
-    "1111111111", "22",
-    "1111111111", "22",
-    "1111111111", "22",
-    "1111111111", "22"
-  } ;
-#endif
-/*  lister_default.line_width = 67;*/
   lister_init (stdout);
 
   lister_fprint_separated (NULL,

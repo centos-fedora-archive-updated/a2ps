@@ -4784,17 +4784,10 @@ re_match_2_internal (bufp, string1, size1, string2, size2, pos, regs, stop)
                   = *p2 == (unsigned char) endline ? '\n' : p2[2];
 #endif
 
-#if 0
-                if ((re_opcode_t) p1[3] == exactn
-		    && ! ((int) p2[1] * BYTEWIDTH > (int) p1[5]
-			  && (p2[2 + p1[5] / BYTEWIDTH]
-			      & (1 << (p1[5] % BYTEWIDTH)))))
-#else
                 if ((re_opcode_t) p1[3] == exactn
 		    && ! ((int) p2[1] * BYTEWIDTH > (int) p1[4]
 			  && (p2[2 + p1[4] / BYTEWIDTH]
 			      & (1 << (p1[4] % BYTEWIDTH)))))
-#endif
                   {
   		    p[-3] = (unsigned char) pop_failure_jump;
                     DEBUG_PRINT3 ("  %c != %c => pop_failure_jump.\n",

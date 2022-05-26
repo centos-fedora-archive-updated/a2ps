@@ -783,14 +783,9 @@ ps_print_char (a2ps_job * job, char c, enum face_e new_face)
     break;
 
   case '\n':
-#if 0
   /* Now the primary eol is \n.  It is up to a2ps-prog to change the
    * \r or \n\r to \n
    * The program  */
-  case '\r':		/* One of these is just a plain character */
-    if (c != encodings[job->encoding].new_line)
-      goto print;
-#endif
     (CURRENT_FILE (job))->lines++;
     job->status->start_line = true;
     end_of_line (job);
