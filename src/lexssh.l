@@ -292,7 +292,7 @@ naked_string	[^/#, \t\r\f\n\"()+]*
 "Encoding" 	RETURN_FFLAGS (ff_Encoding)
 "Invisible"	RETURN_FFLAGS (ff_Invisible)
 
-{naked_string}	{  yylval.string = xustrdup (yytext);
+{naked_string}	{  yylval.string = xstrdup (yytext);
 		   return tSTRING;
 		}
 
@@ -308,7 +308,7 @@ naked_string	[^/#, \t\r\f\n\"()+]*
     obstack_free (&string_stack, string);
 
     BEGIN INITIAL;	/* Return to the regular scanning */
-    yylval.string = xustrdup (string);
+    yylval.string = xstrdup (string);
     return tSTRING;
   }
 

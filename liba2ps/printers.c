@@ -615,8 +615,8 @@ a2ps_open_output_stream (struct a2ps_job * job)
 
       /* Expand the metaseq before */
       command = (char *) expand_user_string (job, FIRST_FILE (job),
-					     (unsigned char *) "output command",
-					     (unsigned char *) printer_cmd);
+					     "output command",
+					     printer_cmd);
       job->output_stream = stream_perl_open_backup (command,
 						    job->backup_type,
 						    &name);

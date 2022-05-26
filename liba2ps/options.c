@@ -398,7 +398,7 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
 	break;
 
       case 'b':				/* sheet header value */
-	xustrcpy (job->header, optarg);
+	xstrcpy (job->header, optarg);
 	break;
 
       case 'B':				/* No headers at all */
@@ -428,8 +428,8 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
       case 152:				/* --line-number[=INTERVAL] */
 	/* Alex would like a default of 1. */
 	job->numbering = (optarg
-			  ? get_integer_in_range ("--line-numbers", optarg,
-						  0, 0, range_min)
+			  ? (unsigned) get_integer_in_range ("--line-numbers", optarg,
+                                                             0, 0, range_min)
 			  : 1);
 	break;
 
@@ -499,7 +499,7 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
       case 'l':
 	/* set columns per line, useful for most cases */
 	job->columns_requested =
-	  get_integer_in_range ("--chars-per-line", optarg, 1, 0, range_min);
+	  (unsigned) get_integer_in_range ("--chars-per-line", optarg, 1, 0, range_min);
 	job->lines_requested = 0;
 	break;
 
@@ -507,7 +507,7 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
 	/* set lines per page.  Useful with preformatted files. Scaling is
 	 * automatically done when necessary.  */
 	job->lines_requested =
-	  get_integer_in_range ("--lines-per-page", optarg, 1, 0, range_min);
+	  (unsigned) get_integer_in_range ("--lines-per-page", optarg, 1, 0, range_min);
 	/* Unset value given to columns-per-page, so that this one
 	 * is not hidden */
 	job->columns_requested = 0;
@@ -524,7 +524,7 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
 
       case 'n':				/* n copies */
 	job->copies =
-	  get_integer_in_range ("--copies", optarg, 1, 0, range_min);
+	  (unsigned) get_integer_in_range ("--copies", optarg, 1, 0, range_min);
 	break;
 
       case 'o':			/* output goes into a file */
@@ -593,16 +593,16 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
 	break;
 
       case 't':				/* Job title		*/
-	xustrcpy (job->title, optarg);
+	xstrcpy (job->title, optarg);
 	break;
 
       case 'T':
 	job->tabsize =
-	  get_integer_in_range ("--tabsize", optarg, 1, 0, range_min);
+	  (unsigned) get_integer_in_range ("--tabsize", optarg, 1, 0, range_min);
 	break;
 
       case 'u':				/* water mark (under lay) */
-	xustrcpy (job->water, optarg);
+	xstrcpy (job->water, optarg);
 	break;
 
       case 'v':					    /* verbosity */
@@ -635,12 +635,12 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
 
       case 132:				/* Number of columns */
 	job->columns =
-	  get_integer_in_range ("--columns", optarg, 1, 0, range_min);
+	  (size_t) get_integer_in_range ("--columns", optarg, 1, 0, range_min);
 	break;
 
       case 133:				/* Number of rows */
 	job->rows =
-	  get_integer_in_range ("--rows", optarg, 1, 0, range_min);
+	  (size_t) get_integer_in_range ("--rows", optarg, 1, 0, range_min);
 	break;
 
       case 134:				/* --include ps prologue */
@@ -684,27 +684,27 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
 	break;
 
       case 140:
-	xustrcpy (job->left_title, optarg);
+	xstrcpy (job->left_title, optarg);
 	break;
 
       case 141:
-	xustrcpy (job->right_title, optarg);
+	xstrcpy (job->right_title, optarg);
 	break;
 
       case 149:
-	xustrcpy (job->center_title, optarg);
+	xstrcpy (job->center_title, optarg);
 	break;
 
       case 142:
-	xustrcpy (job->left_footer, optarg);
+	xstrcpy (job->left_footer, optarg);
 	break;
 
       case 143:
-	xustrcpy (job->footer, optarg);
+	xstrcpy (job->footer, optarg);
 	break;
 
       case 144:
-	xustrcpy (job->right_footer, optarg);
+	xstrcpy (job->right_footer, optarg);
 	break;
 
       case 146:				/* --debug */
@@ -714,7 +714,7 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
       case 147:				/* --margin */
 	if (optarg)
 	  job->margin =
-	    get_integer_in_range ("--margin", optarg, 0, 0, range_min);
+	    (unsigned) get_integer_in_range ("--margin", optarg, 0, 0, range_min);
 	else
 	  job->margin = 12;
 	break;

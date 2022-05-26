@@ -35,11 +35,11 @@ void report_pages_to_print (struct a2ps_job * job,
                             FILE * stream);
 
 int print_page (struct a2ps_job * job,
-			int page_num);
+			size_t page_num);
 
 void page_range_to_buffer (struct page_range * page_range,
-                           char * buf, int offset);
+                           char * buf, size_t offset);
 int page_range_applies_above (struct page_range * page_range,
-                              int offset);
+                              size_t offset);
 
 #endif

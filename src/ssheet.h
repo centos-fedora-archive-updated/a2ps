@@ -49,7 +49,7 @@ struct pattern
  */
 struct faced_string
 {
-  unsigned char * string;		/* the destination string	*/
+  char * string;		/* the destination string	*/
   int reg_ref;			/* there is no destination string,
 				 * but the model is the REG_REF expression
 				 * caught by the regexp (e.g. 1 for \1 */
@@ -63,7 +63,7 @@ struct faced_string
 
 struct rule
 {
-  unsigned char *word;
+  char *word;
   struct re_pattern_buffer *regex;
   struct darray * rhs;
 };
@@ -143,7 +143,7 @@ struct style_sheet
  * The faced_string
  */
 struct faced_string *
-faced_string_new (unsigned char * string, int reg_ref, struct fface_s fface);
+faced_string_new (char * string, int reg_ref, struct fface_s fface);
 
 /*
  * The version numbers
@@ -158,18 +158,18 @@ int style_sheet_set_requirement (struct style_sheet * sheet,
  */
 struct darray * rhs_new (void);
 struct darray *
-rhs_new_single (unsigned char * string, int reg_ref, struct fface_s fface);
+rhs_new_single (char * string, int reg_ref, struct fface_s fface);
 void rhs_add (struct darray * dest, struct faced_string * str);
 void rhs_self_print (struct darray * rhs, FILE * stream);
 
 /*
  * Dealing with the keywords, rules and operators
  */
-struct rule * rule_new (unsigned char * word,
+struct rule * rule_new (char * word,
 				struct pattern * pattern,
 				struct darray * destination,
 				const char *filename, size_t line);
-struct rule * keyword_rule_new (unsigned char * word,
+struct rule * keyword_rule_new (char * word,
 					struct pattern * pattern,
 					struct darray * destination,
 					const char *filename, size_t line);

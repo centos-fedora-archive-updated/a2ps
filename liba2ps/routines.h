@@ -26,56 +26,10 @@
 #define N_(String) String
 
 /*
- * unsigned char variation of usual functions on strings
- */
-#define ustrcat(x,y) 					\
-	(strcat((char *)(x), (const char *)(y)))
-
-#define ustrncat(x,y,n)	\
-	(strncat(((char *)x), (const char *) y, n))
-
-#define ustrcpy(x,y) 					\
-	(strcpy((char *)(x), (const char *)(y)))
-#define ustrncpy(x,y,z) 				\
-	(strncpy((char *)(x), (const char *)(y), (z)))
-
-#define ustpcpy(x,y)					\
-	(stpcpy((char *)(x), (const char *)(y)))
-#define ustpncpy(x,y,z)					\
-	(stpncpy((char *)(x), (const char *)(y), (z)))
-
-#define ustrcmp(x,y)					\
-	(strcmp((const char *)(x), (const char *)(y)))
-#define ustrncmp(x,y,z)					\
-	(strncmp((const char *)(x), (const char *)(y), (z)))
-
-#define ustrlen(x)					\
-	(strlen((const char *)(x)))
-
-#define ustrchr(x,y) 					\
-	((unsigned char *) strchr((char *)(x), (int)(y)))
-#define ustrrchr(x,y) 					\
-	((unsigned char *) strrchr((char *)(x), (int)(y)))
-
-#define xustrdup(x) 					\
-	((unsigned char *) xstrdup((const char *)(x)))
-
-#define ustrtok(x,y)					\
-	((unsigned char *) strtok ((char *)(x), (const char *)(y)))
-
-/*
- * Put in X a copy of chars in Y from Z to T
- */
-#define ustrsub(x,y,z,t)				\
-        ((unsigned char *) strsub ((char *)(x), (const char *)(y), (z), (t)));
-
-/*
  * A string prefixes another
  */
 #define strprefix(s1, s2)				\
 	(!strncmp(s1, s2, strlen(s1)))
-#define ustrprefix(s1, s2)				\
-	(!ustrncmp(s1, s2, ustrlen(s1)))
 
 /*
  * A string is the end of another
@@ -88,11 +42,6 @@
      ? 0						\
      : !strcmp (s1 + strlen (s1) - strlen (s2), s2))
 
-#define ustrsuffix(s1, s2)				\
-    ((ustrlen (s1) < ustrlen (s2))			\
-     ? 0						\
-     : !ustrcmp (s1 + ustrlen (s1) - ustrlen (s2), s2))
-
 /*
  * Replace a malloc'd string with another
  */
@@ -100,19 +49,6 @@
  do {				       			\
    const char *my_s2 = (s2);	       			\
    s1 = !IS_EMPTY (my_s2) ? xstrdup (my_s2) : NULL;	\
- } while (0)
-
-/* We cannot just define this one like
-    xstrcpy ((char *) s1, (const char *) s2);
-   because it will expand into a line like
-    (char *) s1 = ...
-   and AIX 3.2's cc choke on this!!!  It says
-    (S) Operand must be a modifiable lvalue. */
-
-#define xustrcpy(s1, s2)				\
- do {				       			\
-   const unsigned char *my_s2 = (unsigned char *) (s2);			\
-   s1 = !IS_EMPTY (my_s2) ? xustrdup (my_s2) : NULL;	\
  } while (0)
 
 /*
@@ -126,9 +62,6 @@
       *__strcut_cp = '\0';			\
   } while (0)
 
-#define ustrcut(_ustring_, _unsigned_char_)	\
-  strcut ((char *) (_ustring_), (char) _unsigned_char_)
-
 /*
  * Cut the _STRING_ a the last occurence of the _CHAR_ if there is
  */
@@ -139,9 +72,6 @@
     if (__strrcut_cp)				\
       *__strrcut_cp = '\0';			\
   } while (0)
-
-#define ustrrcut(_ustring_, _unsigned_char_)	\
-  strrcut ((char *) (_ustring_), (char) _unsigned_char_)
 
 /*
  * alloca version of some str routines
@@ -194,17 +124,15 @@
 	(((const char *) (s1) == NULL) || (*(s1) == '\0'))
 #define UNNULL(s1)	\
  ((((void const *) s1) == NULL) ? (const char *) "" : (const char *) (s1))
-#define ustrequ(s1, s2) (!ustrcmp(s1, s2))
 #define strcaseequ(s1, s2) (!strcasecmp(s1, s2))
 
 /* Functions on strings */
 void string_to_array (unsigned char arr[256], const unsigned char * string);
-int is_strlower (const unsigned char * string);
+int is_strlower (const char * string);
 char *strnlower (char * string, size_t len);
 char *strlower (char * string);
 char *strcpylc (char *dst, const char *src);
 
-void ustrccat (unsigned char * string, unsigned char c);
 int strcnt (unsigned char * s, unsigned char c);
 char * strsub (char * dest,
                const char * string, size_t start, size_t length);

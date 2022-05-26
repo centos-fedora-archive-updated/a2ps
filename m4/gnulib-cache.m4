@@ -49,6 +49,7 @@
 #  obstack \
 #  sig2str \
 #  stpncpy \
+#  strchrnul \
 #  strverscmp \
 #  version-etc \
 #  xalloc \
@@ -71,6 +72,7 @@ gl_MODULES([
   obstack
   sig2str
   stpncpy
+  strchrnul
   strverscmp
   version-etc
   xalloc

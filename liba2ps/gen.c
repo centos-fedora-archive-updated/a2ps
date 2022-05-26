@@ -33,7 +33,7 @@
  * Print just a char (may be nul)
  */
 void
-a2ps_print_char (a2ps_job * job, int c, enum face_e new_face)
+a2ps_print_char (a2ps_job * job, char c, enum face_e new_face)
 {
   switch (job->output_format)
     {
@@ -69,7 +69,7 @@ a2ps_print_string (a2ps_job * job, const char * string, enum face_e new_face)
  */
 void
 a2ps_print_buffer (a2ps_job * job,
-		   const unsigned char * buffer,
+		   const char * buffer,
 		   size_t start, size_t end,
 		   enum face_e new_face)
 {

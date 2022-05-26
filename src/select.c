@@ -175,7 +175,7 @@ file_verdict_on (const char *filename_)
   /* Call file(1) with the correct option */
   command = ALLOCA (char, (4
 			   + strlen (job->file_command)
-			   + ustrlen (filename)));
+			   + strlen (filename)));
   sprintf (command, "%s '%s'", job->file_command, (const char *) filename);
   free(filename);
   message (msg_tool, (stderr, "Reading pipe: `%s'\n", command));

@@ -195,5 +195,5 @@ plain_print_postscript (a2ps_job * Job, buffer_t * buffer)
   int c;
 
   while ((c = plain_getc (buffer, &face)) != EOF)
-    ps_print_char (Job, c, face);
+    ps_print_char (Job, (char) c, face);
 }

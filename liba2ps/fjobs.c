@@ -31,7 +31,7 @@ typedef struct file_job fjob_t;
  *
  */
 fjob_t *
-_a2ps_file_job_new (const char *name, int num, struct tm *run_tm)
+_a2ps_file_job_new (const char *name, size_t num, struct tm *run_tm)
 {
   fjob_t * res = XMALLOC (fjob_t);
 
@@ -78,7 +78,7 @@ void
 file_job_self_print (fjob_t *file, FILE *stream)
 {
   fprintf (stream,
-	   "File `%s': Pages %d-%d (%d), Sheets %d-%d (%d)\n",
+	   "File `%s': Pages %zu-%zu (%zu), Sheets %zu-%zu (%zu)\n",
 	   file->name,
 	   file->first_page, file->last_page, file->pages,
 	   file->first_sheet, file->last_sheet, file->sheets);
@@ -140,10 +140,10 @@ file_job_unlink_tmpfile (fjob_t * file)
 }
 
 /*
- * Compare two files upon the name
+ * Compare two files by name
  */
 int
 file_name_cmp (fjob_t *f1, fjob_t *f2)
 {
-  return ustrcmp (f1->name, f2->name);
+  return strcmp (f1->name, f2->name);
 }

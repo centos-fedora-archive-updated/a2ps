@@ -82,7 +82,7 @@ static struct style_sheet * parsed_style_sheet = NULL;
 %union
 {
   int integer;
-  unsigned char * string;
+  char * string;
   struct pattern * pattern;
   struct style_sheet * sheet;
   struct rule * rule;
@@ -243,11 +243,11 @@ long_string: tSTRING { $$ = $1; }
 	  size_t len1;
 	  size_t len2;
 
-	  len1 = ustrlen ($1);
+	  len1 = strlen ($1);
 	  $1[len1] = '\n';
-	  len2 = ustrlen ($2);
+	  len2 = strlen ($2);
 	  $$ = XNMALLOC (len1 + len2 + 2, unsigned char);
-	  ustpcpy (ustpncpy ($$, $1, len1 + 1), $2);
+	  stpcpy (stpncpy ($$, $1, len1 + 1), $2);
 	}
 	;
 
@@ -687,7 +687,7 @@ closers_opt:
 	{
 	  /* This is a shortcut which means "up to the end of the line". */
 	  $$ = words_new ("Closing: Strings", "Closing: Regexps", 2, 2);
-	  words_add_string ($$, rule_new (xustrdup ("\n"), NULL,
+	  words_add_string ($$, rule_new (xstrdup ("\n"), NULL,
 					  rhs_new_single (NULL, 0,
 							  No_fface),
 					  sshfilename, sshlineno));

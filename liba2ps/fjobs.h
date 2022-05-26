@@ -43,22 +43,22 @@ struct file_job
   struct tm mod_tm;		/* Modif. info for the file 		*/
   bool printable;		/* Can this file be printed?		*/
   bool is_stdin;		/* Is this file named or given by stdin?*/
-  int first_sheet;		/* num of the first sheet for this file	*/
-  int last_sheet;
-  int first_page;		/* Id. but pages			*/
-  int last_page;
-  int pages;			/* These are defined because it eases	*/
-  int sheets;			/* delayed integers (cf. output_marker)	*/
-  int num;			/* No of the file in the args		*/
+  size_t first_sheet;		/* num of the first sheet for this file	*/
+  size_t last_sheet;
+  size_t first_page;		/* Id. but pages			*/
+  size_t last_page;
+  size_t pages;			/* These are defined because it eases	*/
+  size_t sheets;		/* delayed integers (cf. output_marker)	*/
+  size_t num;			/* No of the file in the args		*/
   size_t top_line;		/* The top most line of the current page */
-  int top_page;			/* The first page appearing in curr sheet */
+  size_t top_page;		/* The first page appearing in curr sheet */
   size_t lines;			/* Current line number			*/
 };
 
 
 /* in the output session JOB, create a new input session NAME */
 struct file_job *
-_a2ps_file_job_new (const char * name, int num, struct tm * run_tm);
+_a2ps_file_job_new (const char * name, size_t num, struct tm * run_tm);
 
 int file_name_cmp (struct file_job * f1, struct file_job * f2);
 

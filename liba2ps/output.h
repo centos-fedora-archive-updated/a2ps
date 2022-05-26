@@ -51,7 +51,7 @@ void output ();
 
 void output_char (struct output * out, char c);
 void output_delayed_size_t (struct output * out, size_t * ptr);
-void output_delayed_string (struct output * out, unsigned char ** ptr);
+void output_delayed_string (struct output * out, char ** ptr);
 void output_delayed_chunk (struct output * out, 
 				   struct output * sub_out);
 

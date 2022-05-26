@@ -87,7 +87,6 @@ liba2ps.h.extract: $(liba2ps_h_extract_sources) Makefile.am
 	@for f in $(liba2ps_h_extract_sources);			\
 	do							\
 	  $(AWK) '/liba2ps.h:begin/, /liba2ps.h:end/' $(srcdir)/$$f	\
-	     | sed -e 's/uchar/unsigned char/g'			\
 	     | sed -e "s|/\* liba2ps.h:begin.*$$|/* From $$f */|g"	\
 	     | sed -e "s|/\* liba2ps.h:end.*$$||g"		\
 	     >> liba2ps.h.extract;				\

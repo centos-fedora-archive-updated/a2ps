@@ -60,7 +60,7 @@ input_new (char * name)
   file_job = CURRENT_FILE (job);
 
   /* Retrieve file modification date and hour */
-  if (IS_EMPTY(name) || ustrequ (name, "-"))
+  if (IS_EMPTY(name) || strequ (name, "-"))
     {
       file_job->is_stdin = true;
       file_job->name = job->stdin_filename;
@@ -148,7 +148,7 @@ input_end (buffer_t * buffer)
 static void
 msg_file_pages_printed (a2ps_job * Job, const char * stylename)
 {
-  int sheets;
+  size_t sheets;
 
   sheets = CURRENT_FILE (Job)->sheets;
   if (Job->duplex)
@@ -163,14 +163,14 @@ msg_file_pages_printed (a2ps_job * Job, const char * stylename)
   else if (sheets == 1)
     /* several pages on 1 sheet */
     message (msg_report2,
-	     (stderr, _("[%s (%s): %d pages on 1 sheet]\n"),
+	     (stderr, _("[%s (%s): %zu pages on 1 sheet]\n"),
 	      CURRENT_FILE (Job)->name,
 	      stylename,
 	      CURRENT_FILE (Job)->pages));
   else
     /* several sheets */
     message (msg_report2,
-	     (stderr, _("[%s (%s): %d pages on %d sheets]\n"),
+	     (stderr, _("[%s (%s): %zu pages on %zu sheets]\n"),
 	      CURRENT_FILE (Job)->name,
 	      stylename,
 	      CURRENT_FILE (Job)-> pages,
@@ -183,31 +183,31 @@ msg_file_pages_printed (a2ps_job * Job, const char * stylename)
 void
 msg_job_pages_printed (a2ps_job * Job)
 {
-  int sheets;
-  unsigned char *ucp;
+  size_t sheets;
+  char *cp;
 
   sheets = Job->sheets;
   if (Job->duplex)
     sheets = (sheets + 1) / 2;
 
   /* Make a nice message to tell where the output is sent */
-  ucp = a2ps_destination_to_string (Job);
+  cp = a2ps_destination_to_string (Job);
 
   /* Report the pages */
   if (Job->pages == 1)
     /* 1 page on 1 sheet "sent to the default printer" etc. */
     message (msg_report1,
-	     (stderr, _("[Total: 1 page on 1 sheet] %s\n"), ucp));
+	     (stderr, _("[Total: 1 page on 1 sheet] %s\n"), cp));
   else if (sheets == 1)
     /* several pages on 1 sheet */
     message (msg_report1,
-	     (stderr, _("[Total: %d pages on 1 sheet] %s\n"),
-	      Job->pages, ucp));
+	     (stderr, _("[Total: %zu pages on 1 sheet] %s\n"),
+	      Job->pages, cp));
   else
     /* several sheets */
     message (msg_report1,
-	     (stderr, _("[Total: %d pages on %d sheets] %s\n"),
-	      Job-> pages, sheets, ucp));
+	     (stderr, _("[Total: %zu pages on %zu sheets] %s\n"),
+	      Job->pages, sheets, cp));
 
   /* Report the number of lines that were too long. */
   if (macro_meta_sequence_get (Job, "cfg.wrapped")
@@ -218,7 +218,7 @@ msg_job_pages_printed (a2ps_job * Job)
 		 (stderr, _("[1 line wrapped]\n")));
       else
 	message (msg_report1,
-		 (stderr, _("[%d lines wrapped]\n"),
+		 (stderr, _("[%zu lines wrapped]\n"),
 		  Job->lines_folded));
     }
 }

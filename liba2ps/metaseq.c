@@ -113,7 +113,7 @@ macro_meta_sequences_list_long (struct a2ps_job * job,
 
 #define APPEND_STR(str)						\
   do {								\
-    size_t len = ustrlen (str);					\
+    size_t len = strlen (str);					\
     size_t nspace;						\
 								\
     nspace = (len > width) ? 0 : (width - len);			\
@@ -135,7 +135,7 @@ macro_meta_sequences_list_long (struct a2ps_job * job,
 #define SPLIT(to,sep,esc,cat)						\
    do {									\
      to = next ;							\
-     next = ustrchr (next, sep);					\
+     next = strchr (next, sep);						\
      if (!next)								\
        error (1, 0, _("%s: missing `%c' for %s%c escape"),		\
 	      context_name, sep, esc, cat);				\
@@ -175,9 +175,9 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 			  const char * context_name,
 			  const char * str)
 {
-  char * cp, * cp2;
+  const char * cp, * cp2;
   size_t i = 0, j;
-  char padding = ' ' ;	/* Char used to complete %20 (usually ` ' or `.' */
+  char padding = ' ';	/* Char used to complete %20 (usually ` ' or `.' */
   char buf[512], buf2[512], buf3[256];
   size_t width = 0;
   int justification = 1;
@@ -208,7 +208,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    padding = str[i++];
 	}
 	while (ISDIGIT ((int) str[i]))
-	  width = width * 10 + str[i++] - '0';
+	  width = width * 10 + (size_t) (str[i++] - '0');
 
 	/* Handle escapes. */
 	switch (type) {
@@ -284,7 +284,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    if (!cp)
 	      error (1, errno,
 		     _("cannot get current working directory"));
-	    cp2 = ustrrchr (cp, DIRECTORY_SEPARATOR);
+	    cp2 = strrchr (cp, DIRECTORY_SEPARATOR);
 	    if (cp2)
 	      cp2++;
 	    else
@@ -318,7 +318,10 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 			 context_name, "%D{}");
 
 		buf2[j] = '\0';
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
 		strftime (buf, sizeof (buf), buf2, &job->run_tm);
+#pragma GCC diagnostic pop
 	      }
 	    else
 	      {
@@ -336,7 +339,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 		      /* Translators: please make a short date format
 		       * according to the std form in your language, using
 		       * the standard strftime(3) */
-		      (_("%b %d, %y")), &job->run_tm);
+		      (_("%b %d, %Y")), &job->run_tm);
 	    APPEND_STR (buf);
 	    break;
 
@@ -359,12 +362,12 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 
 	  case 'm':	/* `%m' the hostname up to the first `.' */
 	    cp = macro_meta_sequence_get (job, VAR_USER_HOST);
-	    cp2 = ALLOCA (unsigned char, strlen (cp) + 1);
-	    strcpy (cp2, cp);
-	    cp = ustrchr (cp2, '.');
-	    if (cp)
-	      *cp = '\0';
-	    APPEND_STR (cp2);
+	    {
+	      char *cp3 = ALLOCA (char, strlen (cp) + 1);
+	      strcpy (cp3, cp);
+	      *strchrnul (cp3, '.') = '\0';
+	      APPEND_STR (cp3);
+	    }
 	    break;
 
 	  case 'M':	/* `%M' the full hostname */
@@ -382,7 +385,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	  case 'p':	/* `%p' related to the pages of the job */
 	    switch (str [++i]) {
 	    case '.':	/* `%p.' current page number */
-	      sprintf (buf, "%d", job->pages);
+	      sprintf (buf, "%zu", job->pages);
 	      APPEND_STR (buf);
 	      break;
 
@@ -397,13 +400,13 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    }
 	    break;
 
-	  case 'q':	/* `%q' localized `Page %d' */
-	    sprintf (buf, _("Page %d"), job->pages);
+	  case 'q':	/* `%q' localized `Page %zu' */
+	    sprintf (buf, _("Page %zu"), job->pages);
 	    APPEND_STR (buf);
 	    break;
 
 	  case 'Q':	/* `%Q' localized `Page %d/%c' */
-	    sprintf (buf, _("Page %d/%c"),
+	    sprintf (buf, _("Page %zu/%c"),
 		     job->pages, JOB_NB_PAGES);
 	    APPEND_STR (buf);
 	    break;
@@ -411,7 +414,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	  case 's':	/* `%s' related to the sheets of the job */
 	    switch (str [++i]) {
 	    case '.':	/* `%s.' current sheet number */
-	      sprintf (buf, "%d", job->sheets);
+	      sprintf (buf, "%zu", job->sheets);
 	      APPEND_STR (buf);
 	      break;
 
@@ -578,7 +581,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    {
 	      size_t value = 0;
 	      while (ISDIGIT ((int) str[i]))
-		value = value * 10 + str[i++] - '0';
+		value = value * 10 + (size_t) (str[i++] - '0');
 	      if (str[i] == '\0')
 		error (1, 0,  _("%s: missing `%c' for %s%c escape"),
 		       context_name, ']', "$[", ']');
@@ -586,13 +589,13 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 		error (1, 0,  _("%s: invalid argument for %s%c escape"),
 		       context_name, "$[", ']');
 
-	      if (value < job->argc)
+	      if (value < (size_t) job->argc)
 		APPEND_STR (job->argv [value]);
 	    }
 	    break;
 
 	  case '#':	/* `$#': input file number */
-	    sprintf (buf, "%d", file->num);
+	    sprintf (buf, "%zu", file->num);
 	    APPEND_STR (buf);
 	    break;
 
@@ -605,9 +608,9 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'd':	/* `$d' directory part of the current file */
-	    cp = ustrrchr (file->name, DIRECTORY_SEPARATOR);
+	    cp = strrchr (file->name, DIRECTORY_SEPARATOR);
 	    if (cp) {
-	      ustrncpy (buf, file->name, cp - file->name);
+	      strncpy (buf, file->name, (size_t) (cp - file->name));
 	      buf [cp - file->name] = '\0';
 	      APPEND_STR (buf);
 	    } else {
@@ -628,8 +631,10 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 			 context_name, "$D{}");
 
 		buf2[j] = '\0';
-		strftime (buf, sizeof (buf),
-			  buf2, &(file->mod_tm));
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+		strftime (buf, sizeof (buf), buf2, &(file->mod_tm));
+#pragma GCC diagnostic pop
 	      }
 	    else
 	      {
@@ -647,7 +652,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	     * according to the std form in your language, using
 	     * GNU strftime(3) */
 	    strftime (buf, sizeof (buf),
-		      (_("%b %d, %y")), &(file->mod_tm));
+		      (_("%b %d, %Y")), &(file->mod_tm));
 	    APPEND_STR (buf);
 	    break;
 
@@ -675,19 +680,19 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	  case 'l':	/* `$l' related to the lines of the file */
 	    switch (str [++i]) {
 	    case '^':	/* $l^ top most line in the current page */
-	      sprintf (buf, "%d", file->top_line);
+	      sprintf (buf, "%zu", file->top_line);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '.':	/* `$l.' current line */
-	      sprintf (buf, "%d", file->lines - 1);
+	      sprintf (buf, "%zu", file->lines - 1);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '#':		/* `$l#' number of lines in this file */
 	      if (file != CURRENT_FILE (job)) {
 		/* This file is finised, we do know its real number of lines */
-		sprintf (buf, "%d", file->lines);
+		sprintf (buf, "%zu", file->lines);
 		APPEND_STR (buf);
 	      } else {
 		/* It is not know: delay it to the end of the job */
@@ -705,16 +710,16 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	  case 'N': /* `$N' input file name without suffix nor
 		       directory. */
 	    /* First, skip dirname */
-	    cp = ustrrchr (file->name, DIRECTORY_SEPARATOR);
+	    cp = strrchr (file->name, DIRECTORY_SEPARATOR);
 	    if (cp == NULL)
-	      cp =file->name;
+	      cp = file->name;
 	    else
 	      cp ++;
 
 	    /* Then, until the last dot */
-	    cp2 = ustrrchr (cp, '.');
+	    cp2 = strrchr (cp, '.');
 	    if (cp2) {
-	      ustrncpy (buf, cp, cp2 - cp);
+	      strncpy (buf, cp, (size_t) (cp2 - cp));
 	      buf [cp2 - cp] = '\0';
 	      APPEND_STR (buf);
 	    } else
@@ -722,7 +727,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'n':	/* `$n' input file name without directory */
-	    cp = ustrrchr (file->name, DIRECTORY_SEPARATOR);
+	    cp = strrchr (file->name, DIRECTORY_SEPARATOR);
 	    if (cp == NULL)
 	      cp = file->name;
 	    else
@@ -734,33 +739,33 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    switch (str [++i]) {
 	    case '^':	/* `$p^' first page number of this file
 			 * appearing in the current sheet */
-	      sprintf (buf, "%d", file->top_page);
+	      sprintf (buf, "%zu", file->top_page);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '-':	/* `$p-' interval of the pages of the current file
 			 * appearing in the current sheet */
 	      if (file->top_page == file->pages)
-		sprintf (buf, "%d", file->top_page);
+		sprintf (buf, "%zu", file->top_page);
 	      else
-		sprintf (buf, "%d-%d", file->top_page, file->pages);
+		sprintf (buf, "%zu-%zu", file->top_page, file->pages);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '<':	/* `$p<' first page number for this file */
-	      sprintf (buf, "%d", file->first_page);
+	      sprintf (buf, "%zu", file->first_page);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '.':	/* `$p.' current page number */
-	      sprintf (buf, "%d", file->pages);
+	      sprintf (buf, "%zu", file->pages);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '>':	/* `$p>' last page number for this file */
 	      if (file != CURRENT_FILE (job)) {
 		/* This file is finised, we do know its last page */
-		sprintf (buf, "%d", file->last_page);
+		sprintf (buf, "%zu", file->last_page);
 		APPEND_STR (buf);
 	      } else {
 		/* It is not know: delay it to the end of the job */
@@ -771,7 +776,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    case '#':	/* `$p#' total number of pages */
 	      if (file != CURRENT_FILE (job)) {
 		/* This file is finised, we do know its real number of pages */
-		sprintf (buf, "%d", file->pages);
+		sprintf (buf, "%zu", file->pages);
 		APPEND_STR (buf);
 	      } else {
 		/* It is not know: delay it to the end of the job */
@@ -787,18 +792,18 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'q':	/* `$q' localized `Page $p' */
-	    sprintf (buf, _("Page %d"), file->pages);
+	    sprintf (buf, _("Page %zu"), file->pages);
 	    APPEND_STR (buf);
 	    break;
 
 	  case 'Q':	/* `$Q' localized `Page $p/$P' */
 	    if (file != CURRENT_FILE (job))
 	      /* This file is finised, we do know its real number of pages */
-	      sprintf (buf, _("Page %d/%d"),
+	      sprintf (buf, _("Page %zu/%zu"),
 		       file->pages, file->pages);
 	    else
 	      /* It is not know: delay it to the end of the job */
-	      sprintf (buf, _("Page %d/%c"),
+	      sprintf (buf, _("Page %zu/%c"),
 		       file->pages,
 		       FILE_NB_PAGES);
 	    APPEND_STR (buf);
@@ -807,19 +812,19 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	  case 's':	/* `$s' related to the sheets of the file */
 	    switch (str [++i]) {
 	    case '<':	/* `$s<' first sheet for this file */
-	      sprintf (buf, "%d", file->first_sheet);
+	      sprintf (buf, "%zu", file->first_sheet);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '.':	/* `$s.' current sheet number */
-	      sprintf (buf, "%d", file->sheets);
+	      sprintf (buf, "%zu", file->sheets);
 	      APPEND_STR (buf);
 	      break;
 
 	    case '>':	/* `$s>' last sheet for this file */
 	      if (file != CURRENT_FILE (job)) {
 		/* This file is finised, we do know its last sheet */
-		sprintf (buf, "%d", file->last_sheet);
+		sprintf (buf, "%zu", file->last_sheet);
 		APPEND_STR (buf);
 	      } else {
 		/* It is not know: delay it to the end of the job */
@@ -830,7 +835,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    case '#':	/* `$s#' total number of sheets */
 	      if (file != CURRENT_FILE (job)) {
 		/* This file is finised, we know its number of sheets */
-		sprintf (buf, "%d", file->sheets);
+		sprintf (buf, "%zu", file->sheets);
 		APPEND_STR (buf);
 	      } else {
 		/* It is not know: delay it to the end of the job */
@@ -930,7 +935,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 		     context_name, "#()");
 	    buf[j] = '\0';
 
-	    cp = (unsigned char *) macro_meta_sequence_get (job, buf);
+	    cp = macro_meta_sequence_get (job, buf);
 	    if (cp)
 	      grow_user_string_obstack (user_string_stack,
 					job, file,
@@ -963,7 +968,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    buf[j] = '\0';
 
 	    /* Get the value of the macro */
-	    cp = (unsigned char *) macro_meta_sequence_get (job, buf);
+	    cp = macro_meta_sequence_get (job, buf);
 	    if (IS_EMPTY (cp2))
 	      {
 		/* No word specified */
@@ -1006,17 +1011,17 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	  case '?':	/* `#?' if-then meta sequence */
 	    {
 	      int test = 0;
-	      unsigned char cond, sep;
-	      unsigned char * if_true, * if_false;
-	      unsigned char * next;
+	      char cond, sep;
+	      char * if_true, * if_false;
+	      char * next;
 
 	      cond = str[++i];
 	      sep = str[++i];
-	      next = xustrdup(str + ++i);
+	      next = xstrdup(str + ++i);
 
 	      SPLIT (if_true, sep, "#?", cond);
 	      SPLIT (if_false, sep, "#?", cond);
-	      i += next - if_true - 1;
+	      i += (size_t) (next - if_true - 1);
 
 	      switch (cond) {
 	      case '1':	/* `#?1' Is the tag1 not empty? */
@@ -1076,11 +1081,9 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	      }
 	      /*
 	       * One might think there are problem in recursing
-	       * grow_user_string_obstack, because of the static
-	       * obstack.  It is true in general, but not
-	       * for this precise case, where the obstack
-	       * while keep on growing in the same
-	       * direction
+	       * grow_user_string_obstack, because of the static obstack. It
+	       * is true in general, but not for this precise case, where
+	       * the obstack will keep on growing in the same direction.
 	       */
 	      if (test)
 		grow_user_string_obstack (user_string_stack,
@@ -1101,7 +1104,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 
 	      category = str[++i];
 	      sep = str[++i];
-	      next = xustrdup(str + ++i);
+	      next = xstrdup(str + ++i);
 
 	      SPLIT (in, sep, "#!", category);
 	      SPLIT (between, sep, "#!", category);
@@ -1221,7 +1224,7 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'h':	/* `#h' medium height in PS points		*/
-	    sprintf (buf, "%d", job->medium->h);
+	    sprintf (buf, "%u", job->medium->h);
 	    APPEND_STR (buf);
 	    break;
 
@@ -1246,12 +1249,12 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case 'v':	/* `#v' number of virtual pages */
-	    sprintf (buf, "%d", job->rows * job->columns);
+	    sprintf (buf, "%zu", job->rows * job->columns);
 	    APPEND_STR (buf);
 	    break;
 
 	  case 'w':	/* `#w' medium width in PS points		*/
-	    sprintf (buf, "%d", job->medium->w);
+	    sprintf (buf, "%u", job->medium->w);
 	    APPEND_STR (buf);
 	    break;
 
@@ -1303,7 +1306,10 @@ expand_user_string (struct a2ps_job * job,
 			    job, file, context_name, str);
 
   obstack_1grow (&user_string_stack, '\0');
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-conversion"
   res = obstack_finish (&user_string_stack);
+#pragma GCC diagnostic pop
   obstack_free (&user_string_stack, res);
 
   message (msg_meta,

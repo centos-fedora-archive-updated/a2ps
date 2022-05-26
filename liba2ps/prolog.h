@@ -21,8 +21,8 @@
 
 #define PORTRAIT_HEADER		20
 #define LANDSCAPE_HEADER	15
-#define PAGE_MARGIN 12		/* space between virtual pages		*/
-#define HEADERS_H   12		/* Space for header/footer		*/
+#define PAGE_MARGIN 12U		/* space between virtual pages		*/
+#define HEADERS_H   12U		/* Space for header/footer		*/
 
 /* Space between lowest line in the text, and bottom of the frame */
 #define SIDE_MARGIN_RATIO	0.7

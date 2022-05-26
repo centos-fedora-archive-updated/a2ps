@@ -31,12 +31,12 @@ struct a2ps_job;
 struct medium
 {
   char * name;
-  int w;
-  int h;
-  int llx;
-  int lly;
-  int urx;
-  int ury;
+  unsigned w;
+  unsigned h;
+  unsigned llx;
+  unsigned lly;
+  unsigned urx;
+  unsigned ury;
 };
 
 /* Possible orientations */
@@ -60,8 +60,8 @@ bool a2ps_medium_libpaper_p (struct a2ps_job * job,
 
 void add_medium (struct a2ps_job * job,
 			const char * name,
-			int w, int h,
-			int llx, int lly, int urx, int ury);
+			unsigned w, unsigned h,
+			unsigned llx, unsigned lly, unsigned urx, unsigned ury);
 
 void list_media_long (struct a2ps_job * job, FILE * stream);
 void list_media_short (struct a2ps_job * job, FILE * stream);

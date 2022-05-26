@@ -852,9 +852,9 @@ encoding_get_key (struct encoding * enc)
 
 int
 encoding_char_exists (struct encoding * enc,
-			    enum face_e face, unsigned char c)
+			    enum face_e face, char c)
 {
-  return enc->faces_wx[face][c] != 0;
+  return enc->faces_wx[face][(unsigned char)c] != 0;
 }
 
 /*
@@ -1234,12 +1234,12 @@ char_composite_WX (a2ps_job * job)
  *	Returns the WX of a string (including M- and ^)
  */
 unsigned int
-string_WX (a2ps_job * job, unsigned char * string)
+string_WX (a2ps_job * job, char * string)
 {
   unsigned int result=0;
 
   for (/* skip */; *string ; string ++)
-    result += char_WX(job, *string);
+    result += char_WX(job, (unsigned char) *string);
 
   return result;
 }

@@ -66,10 +66,10 @@
  * Print a char in a form accepted by postscript printers.
  * Returns number of columns used (on the output) to print the char.
  */
-static int
+static unsigned
 ps_escape_char (a2ps_job * job, unsigned char c, char * res)
 {
-  int len = 0;
+  unsigned len = 0;
 
   /* The number of columns used must be calculated here because of the
    * \ before non-ascii chars, and (, ), and \ itself */
@@ -83,7 +83,7 @@ ps_escape_char (a2ps_job * job, unsigned char c, char * res)
   }
 
   /* Printable, but not 7-bit clean characters */
-  if (encoding_char_exists (job->encoding, job->status->face, c)
+  if (encoding_char_exists (job->encoding, job->status->face, (char) c)
       && ((0177 < c) || (c < 040))) {
     char oct[5];
     int chars = sprintf (oct, "\\%o", c);
@@ -99,11 +99,11 @@ ps_escape_char (a2ps_job * job, unsigned char c, char * res)
     consider the new string as the string to ps-escape. */
   switch (job->unprintable_format) {
   case octal:
-    sprintf ((char *) res, "\\\\%03o", c);
+    sprintf (res, "\\\\%03o", c);
     return 4;
 
   case hexa:
-    sprintf ((char *) res, "\\\\x%02x", c);
+    sprintf (res, "\\\\x%02x", c);
     return 4;
 
   case question_mark:
@@ -116,7 +116,7 @@ ps_escape_char (a2ps_job * job, unsigned char c, char * res)
 
   case caret:
     if (0177 < c) {
-      ustrcat(res, "M-");
+      strcat(res, "M-");
       len += 2;
       c &= 0177;
     }
@@ -129,7 +129,7 @@ ps_escape_char (a2ps_job * job, unsigned char c, char * res)
 	STRCCAT(res, '\\');
       STRCCAT(res, c);
     } else if (c == 0177) {
-      ustrcat(res, "^?");
+      strcat(res, "^?");
       len += 2;
     } else {
       if (c == '(' || c == ')' || c == '\\')
@@ -141,20 +141,20 @@ ps_escape_char (a2ps_job * job, unsigned char c, char * res)
 
   case Emacs:
     if (0177 < c) {
-      ustrcat(res, "M-");
+      strcat(res, "M-");
       len += 2;
       c &= 0177;
     }
 
     if (c < ' ') {
-      ustrcat (res, "C-");
+      strcat (res, "C-");
       len += 3;
       c = (unsigned char) ((char)c + '@');
       if (c == '(' || c == ')' || c == '\\')
 	STRCCAT(res, '\\');
       STRCCAT(res, c);
     } else if (c == 0177) {
-      ustrcat(res, "C-?");
+      strcat(res, "C-?");
       len += 3;
     } else {
       if (c == '(' || c == ')' || c == '\\')
@@ -207,8 +207,8 @@ output_marker (a2ps_job * job, const char * kind, char * marker)
       break;
     default:
       *buf = '\0';
-      ps_escape_char (job, cp[i], buf);
-      output (jdiv, "%s", (char *) buf);
+      ps_escape_char (job, (unsigned char) cp[i], buf);
+      output (jdiv, "%s", buf);
       break;
     }
   }
@@ -334,9 +334,9 @@ page_begin (a2ps_job * job)
   if (!output_is_to_void (jdiv))
     {
       output (jdiv, "%%%%Page: (");
-      job->status->page_label = XMALLOC (unsigned char *);
+      job->status->page_label = XMALLOC (char *);
       output_delayed_string (jdiv, job->status->page_label);
-      output (jdiv, ") %d\n", job->sheets);
+      output (jdiv, ") %zu\n", job->sheets);
     }
 
   /* Reinitialize state variables for each new sheet */
@@ -346,7 +346,7 @@ page_begin (a2ps_job * job)
   /* Shift front side sheets */
   if (job->margin
       && (job->duplex == simplex || (job->sheets % 2)))
-    output (jdiv, "%d 0 translate\n", job->margin);
+    output (jdiv, "%u 0 translate\n", job->margin);
 
   if (job->orientation == landscape)
     output (jdiv, "sh 0 translate 90 rotate\n");
@@ -376,14 +376,14 @@ page_begin (a2ps_job * job)
       output_marker (job, "water mark", job->water);
       output (jdiv,
 	      ") %4.2f water\n",
-	      ((float) atan2 ((double) job->medium->w - job->margin,
-			      (double) job->medium->h)
+	      (atan2 ((double) job->medium->w - job->margin,
+                      (double) job->medium->h)
 	       / 3.14159265 * 180));
     }
 
   /* Move to the lower left point of the drawable area */
   output (jdiv, "gsave\n");
-  output (jdiv, "llx lly %d add translate\n",
+  output (jdiv, "llx lly %u add translate\n",
 	  PRINT_FOOTER * HEADERS_H);
   /* Set the encoding */
   ps_internal_switch_encoding (job, job->saved_encoding);
@@ -399,8 +399,8 @@ page_end (a2ps_job * job)
    * Fill that handler with the correct page label value
    */
   *(job->status->page_label) =
-    xustrdup (expand_user_string (job, CURRENT_FILE (job),
-				  (const unsigned char *) "Page label",
+    xstrdup (expand_user_string (job, CURRENT_FILE (job),
+				  "Page label",
 				  job->status->page_label_format));
 
   output (jdiv, "grestore\n");
@@ -483,9 +483,9 @@ virtual_begin (a2ps_job * job)
   file_job_synchronize_pages (job);
   file_job_synchronize_sheets (job);
 
-  output (jdiv, "/v %d store\n", job->virtual - 1);
+  output (jdiv, "/v %u store\n", job->virtual - 1);
   output (jdiv, "/x0 x v get %f add sx cw mul add store\n",
-	  SIDE_MARGIN_RATIO * job->fontsize * 0.6);
+	  SIDE_MARGIN_RATIO * (double) job->fontsize * 0.6);
   output (jdiv, "/y0 y v get bfs %s sub store\n",
 	  PRINT_TITLE ? "th add" : "");
   output (jdiv, "x0 y0 moveto\n");
@@ -587,7 +587,7 @@ page_empty_output (a2ps_job *job)
 {
   job->sheets++;
   file_job_synchronize_sheets (job);
-  output (jdiv, "%%%%Page: (*) %d\n", job->sheets);
+  output (jdiv, "%%%%Page: (*) %zu\n", job->sheets);
   output (jdiv, "%% Empty Page\n");
   output (jdiv, "showpage\n");
 }
@@ -634,7 +634,7 @@ check_binary_file (a2ps_job * job)
   if (job->status->chars > 120)
     {
       if (!job->print_binaries
-	  && (job->status->nonprinting_chars*100 / job->status->chars) >= 40)
+	  && (job->status->nonprinting_chars * 100 / job->status->chars) >= 40)
 	error (1, 0, _("`%s' is a binary file, printing aborted"),
 	       CURRENT_FILE (job)->name);
     }
@@ -692,7 +692,7 @@ fold_line (struct a2ps_job * job, enum face_e new_face)
  * Print a char
  */
 void
-ps_print_char (a2ps_job * job, int c, enum face_e new_face)
+ps_print_char (a2ps_job * job, char c, enum face_e new_face)
 {
   /*
    * Preprocessing (before printing):
@@ -708,9 +708,6 @@ ps_print_char (a2ps_job * job, int c, enum face_e new_face)
    */
   if (job->status->is_in_cut
       && (c != '\f' )
-      /* FIXME: May be some day, using a more flexible scheme
-       * would be good
-      && (c != encodings[job->encoding].new_line))*/
       && (c != '\n'))
     return;
   job->status->is_in_cut = false;
@@ -731,7 +728,7 @@ ps_print_char (a2ps_job * job, int c, enum face_e new_face)
 	  if (job->numbering)
 	    {
 	      if (CURRENT_FILE (job)->lines % job->numbering == 0)
-		output (jdiv, "(%d) # (", CURRENT_FILE (job)->lines);
+		output (jdiv, "(%zu) # (", CURRENT_FILE (job)->lines);
 	      else
 		output (jdiv, "0 T (");
 	    }
@@ -744,7 +741,7 @@ ps_print_char (a2ps_job * job, int c, enum face_e new_face)
 	  if (job->numbering)
 	    {
 	      if (CURRENT_FILE (job)->lines % job->numbering == 0)
-		output (jdiv, "(%d) # (", CURRENT_FILE (job)->lines);
+		output (jdiv, "(%zu) # (", CURRENT_FILE (job)->lines);
 	      else
 		output (jdiv, "0 T (");
 	    }
@@ -846,13 +843,13 @@ ps_print_char (a2ps_job * job, int c, enum face_e new_face)
       job->status->face_declared = true;
     } else
       output (jdiv, ") S");
-    output (jdiv, " %d T (", job->status->column);
+    output (jdiv, " %zu T (", job->status->column);
     break;
   print:
   default:
     {
-      static int mb_flag = 0;
-      unsigned char buf[256];
+      static unsigned char mb_flag = 0;
+      char buf[256];
       unsigned nchars;
       *buf = '\0';
 
@@ -866,11 +863,11 @@ ps_print_char (a2ps_job * job, int c, enum face_e new_face)
         job->status->face_declared = false;
       }
 
-      if (c > 127 && encoding_get_composite_flag (job->encoding) &&
+      if ((unsigned char) c > 127 && encoding_get_composite_flag (job->encoding) &&
           job->status->face != Symbol) {
         if (mb_flag) {
           nchars = ps_escape_char (job, mb_flag, buf) + 
-            ps_escape_char (job, c, buf);
+            ps_escape_char (job, (unsigned char) c, buf);
           job->status->wx += char_composite_WX(job);
           job->status->column += nchars;
           if (line_full) {
@@ -885,12 +882,12 @@ ps_print_char (a2ps_job * job, int c, enum face_e new_face)
           }
           mb_flag = 0;
         } else {
-          mb_flag = c;
+          mb_flag = (unsigned char) c;
           return;
         }
       } else {
-        nchars = ps_escape_char (job, c, buf);
-        job->status->wx += char_WX (job, c);
+        nchars = ps_escape_char (job, (unsigned char) c, buf);
+        job->status->wx += char_WX (job, (unsigned char) c);
         job->status->column += nchars;
         if (line_full) {
           if (job->folding) {
@@ -914,10 +911,10 @@ ps_print_char (a2ps_job * job, int c, enum face_e new_face)
  * Print the content of a C string \0 terminated
  */
 void
-ps_print_string (a2ps_job * job, unsigned char * string, enum face_e face)
+ps_print_string (a2ps_job * job, char * string, enum face_e face)
 {
   while (*string)
-    ps_print_char (job, *(string++), face);
+    ps_print_char (job, *string++, face);
 }
 
 /*
@@ -925,7 +922,7 @@ ps_print_string (a2ps_job * job, unsigned char * string, enum face_e face)
  */
 void
 ps_print_buffer (a2ps_job * job,
-		 const unsigned char * buffer,
+		 const char * buffer,
 		 size_t start, size_t end,
 		 enum face_e face)
 {
@@ -958,7 +955,7 @@ ps_begin_file (a2ps_job *job)
     case file_align_rank:
       /* Issue virtual until we are in a new rank. */
       {
-	int alignment = job->madir == madir_rows ? job->columns : job->rows;
+	size_t alignment = job->madir == madir_rows ? job->columns : job->rows;
 	while (job->pages % alignment != 0)
 	  virtual_empty_output (job);
       }
@@ -979,7 +976,7 @@ ps_begin_file (a2ps_job *job)
          needed to have a page number which is a multiple of
          FILE_ALIGN plus one. */
       page_flush (job);
-      while ((job->sheets) % job->file_align != 0)
+      while ((job->sheets) % (size_t) job->file_align != 0)
 	page_empty_output (job);
       break;
     }

@@ -110,10 +110,10 @@ new_ps_status (void)
   struct ps_status * res = XMALLOC (struct ps_status);
 
   /* The very first line of a PS file */
-  res->magic_number = xustrdup ("%!PS-Adobe-3.0");
+  res->magic_number = xstrdup ("%!PS-Adobe-3.0");
 
   /* By default, the list of page number intervals */
-  res->page_label_format = xustrdup ("#!s|$p-|, |");
+  res->page_label_format = xstrdup ("#!s|$p-|, |");
 
   /* At the beginning, no encoding dict is opened */
   res->opened_encoding = NULL;

@@ -53,7 +53,7 @@ struct derivation
   delayed_routine_t delayed_routine;
   void * delayed_routine_arg;
   size_t * delayed_size_t;
-  unsigned char ** delayed_string;
+  char ** delayed_string;
   struct output * delayed_chunk;
 };
 
@@ -260,7 +260,7 @@ output_delayed_size_t (struct output * out, size_t * ptr)
  * The value pointed will be read only when undiverting
  */
 void
-output_delayed_string (struct output * out, unsigned char ** ptr)
+output_delayed_string (struct output * out, char ** ptr)
 {
   struct derivation *tmp;
 
@@ -579,13 +579,13 @@ output_dump (struct output * out, FILE * stream)
     output_report (out, stderr);
 
   fputs ((char *) piece, stream);
-  piece += ustrlen (piece);
+  piece += strlen (piece);
   for (i = 0 ; i < out->derivations->len ; i++)
     {
       underivation (stream, derivations [i]);
       piece ++;
       fputs ((char *) piece, stream);
-      piece += ustrlen (piece);
+      piece += strlen (piece);
     }
 }
 

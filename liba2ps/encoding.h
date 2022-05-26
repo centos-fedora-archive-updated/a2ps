@@ -33,7 +33,7 @@ struct a2ps_job;	/* Declared in jobs.h which includes this file */
  * Computation of the width of the chars in the current encoding
  */
 unsigned int char_WX (struct a2ps_job * job, unsigned char c);
-unsigned int string_WX (struct a2ps_job * job, unsigned char * string);
+unsigned int string_WX (struct a2ps_job * job, char * string);
 unsigned int char_composite_WX (struct a2ps_job * job);
 
 
@@ -47,7 +47,7 @@ const char * encoding_get_key (struct encoding * enc);
 void encoding_self_print (struct encoding * item,
 					FILE * stream);
 int encoding_char_exists (struct encoding * enc,
-					enum face_e face, unsigned char c);
+					enum face_e face, char c);
 int encoding_get_composite_flag (struct encoding * enc);
 struct encoding *
 get_encoding_by_alias (struct a2ps_job * job, 

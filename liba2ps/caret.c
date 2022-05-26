@@ -77,7 +77,7 @@ escape_unprintable (a2ps_job * job, int c, char * res)
     
   case caret:
     if (0177 < c) {
-      ustrcat (res, "M-");
+      strcat (res, "M-");
       len += 2; 
       c &= 0177;
     }
@@ -87,7 +87,7 @@ escape_unprintable (a2ps_job * job, int c, char * res)
       STRCCAT(res, c);
       len += 2; 
     } else if (c == 0177) {
-      ustrcat(res, "^?");
+      strcat(res, "^?");
       len += 2;
     } else {
       STRCCAT(res, c);
@@ -97,17 +97,17 @@ escape_unprintable (a2ps_job * job, int c, char * res)
 
   case Emacs:
     if (0177 < c) {
-      ustrcat(res, "M-");
+      strcat(res, "M-");
       len += 2; 
       c &= 0177;
     }
     
     if (c < ' ') {
-      ustrcat (res, "C-");
+      strcat (res, "C-");
       STRCCAT(res, c);
       len += 3; 
     } else if (c == 0177) {
-      ustrcat(res, "C-?");
+      strcat(res, "C-?");
       len += 3;
     } else {
       STRCCAT(res, c);

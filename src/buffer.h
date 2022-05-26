@@ -51,16 +51,16 @@ enum eol_e option_string_to_eol (const char * option,
  */
 typedef struct buffer_s
 {
-  const unsigned char * buf;	/* != 0 -> buffer on a string		*/
+  const char * buf;	/* != 0 -> buffer on a string		*/
   size_t bufsize;	/* size of buf				*/
   size_t bufoffset;	/* Used when a buffer string		*/
   FILE * stream;	/* != 0 -> a buffer on a stream		*/
-  bool pipe_p;	/* true -> stream has been popened	*/
+  bool pipe_p;		/* true -> stream has been popened	*/
 
-  unsigned char *content;	/* Exactly what is read			*/
+  char *content;	/* Exactly what is read			*/
   enum eol_e eol;	/* What is an end of line?		*/
   bool lower_case;
-  unsigned char * value;	/* if LOWER_CASE, then lower case of content */
+  char * value;		/* if LOWER_CASE, then lower case of content */
   size_t line;		/* Num of the current line 		*/
   size_t allocsize;	/* Used to know how big lower_case is 	*/
   size_t len;
@@ -78,7 +78,7 @@ void buffer_string_set (buffer_t * buffer,
 				const char * string, enum eol_e eol);
 
 void buffer_buffer_set (buffer_t * buffer,
-				const unsigned char * buf, size_t bufsize,
+				const char * buf, size_t bufsize,
 				enum eol_e eol);
 
 void buffer_set_lower_case (buffer_t * buffer, bool lower_case);

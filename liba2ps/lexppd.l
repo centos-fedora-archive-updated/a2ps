@@ -161,7 +161,7 @@ symbol	[^/#, \t\r\f\n\":()+]*
     obstack_free (&string_stack, string);
 
     BEGIN INITIAL;	/* Return to the regular scanning */
-    yylval.ustring = xustrdup (string);
+    yylval.string = xstrdup (string);
 
     return USTRING;
   }

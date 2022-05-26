@@ -64,12 +64,12 @@ unsigned int msg_verbosity = 0;
 unsigned int
 msg_verbosity_argmatch (const char *option, char *arg)
 {
-  unsigned int res = 0;
+  unsigned res = 0;
 
   if (ISDIGIT (*arg))
     {
       /* The verbosity is set through an integer value */
-      res = get_integer_in_range (option, arg, 0, 0, range_min);
+      res = (unsigned) get_integer_in_range (option, arg, 0, 0, range_min);
     }
   else
     {
@@ -77,8 +77,8 @@ msg_verbosity_argmatch (const char *option, char *arg)
       char *token = strtok (arg, verbosity_sep);
       do
 	{
-	  res |= XARGMATCH (option, token,
-				_msg_verbosity_args, _msg_verbosity_types);
+	  res |= (unsigned) XARGMATCH (option, token,
+                                       _msg_verbosity_args, _msg_verbosity_types);
 	}
       while ((token = strtok (NULL, verbosity_sep)));
     }

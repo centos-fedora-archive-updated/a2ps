@@ -321,9 +321,8 @@ list_options (struct a2ps_job *a_job, FILE *stream)
 #endif
 
 #define bool_to_string(bool) ((bool) ? _("yes") : _("no"))
-  unsigned char buf[256], buf2[256];
-  const char *cp = NULL;
-  unsigned char *ucp = NULL;
+  char buf[256], buf2[256];
+  const char *cp = NULL, *cp2 = NULL;
 
   /* Title of --list-options (%s%s is `a2ps' `version' */
   title (stream, '=', true,
@@ -334,10 +333,10 @@ list_options (struct a2ps_job *a_job, FILE *stream)
   title (stream, '-', false, _("Sheets:\n"));
   fprintf (stream, _("\
   medium          = %s, %s\n\
-  page layout     = %d x %d, %s\n\
+  page layout     = %zu x %zu, %s\n\
   borders         = %s\n\
   file alignment  = %s\n\
-  interior margin = %d\n"),
+  interior margin = %u\n"),
 	   a_job->medium->name,
 	   (a_job->orientation == portrait) ? _("portrait") : _("landscape"),
 	   a_job->columns, a_job->rows,
@@ -348,10 +347,10 @@ list_options (struct a2ps_job *a_job, FILE *stream)
   putc ('\n', stream);
 
   if (a_job->columns_requested > 0)
-    sprintf ((char *) buf, _("%d characters per line"),
+    sprintf ((char *) buf, _("%u characters per line"),
 	     a_job->columns_requested);
   else if (a_job->lines_requested > 0)
-    sprintf ((char *) buf, _("%d lines per page"),
+    sprintf ((char *) buf, _("%u lines per page"),
 	     a_job->lines_requested);
   else
     sprintf ((char *) buf, _("font size is %gpt"), (double) a_job->fontsize);
@@ -359,22 +358,22 @@ list_options (struct a2ps_job *a_job, FILE *stream)
   switch (a_job->numbering)
     {
     case 0:
-      ustrcpy (buf2, _("no"));
+      strcpy (buf2, _("no"));
       break;
     case 1:
       /* number line: each line */
-      ustrcpy (buf2, _("each line"));
+      strcpy (buf2, _("each line"));
       break;
     default:
       /* number line: each %d line */
-      sprintf ((char *) buf2, _("each %d lines"), a_job->numbering);
+      sprintf ((char *) buf2, _("each %u lines"), a_job->numbering);
     }
 
   title (stream, '-', false, _("Virtual pages:\n"));
   fprintf (stream, _("\
   number lines         = %s\n\
   format               = %s\n\
-  tabulation size      = %d\n\
+  tabulation size      = %u\n\
   non printable format = %s\n"),
 	   buf2,
 	   buf,
@@ -428,9 +427,9 @@ list_options (struct a2ps_job *a_job, FILE *stream)
   if (IS_EMPTY (style_request))
     /* TRANS: a2ps -E --list=options.  Warning, this answer is also
        used for the PPD file.  Make it compatible with both.  */
-    ustrcpy (buf, _("selected automatically"));
+    strcpy (buf, _("selected automatically"));
   else
-    ustrcpy (buf, style_request);
+    strcpy (buf, style_request);
   title (stream, '-', false, _("Pretty-printing:\n"));
   fprintf (stream, _("\
   style sheet     = %s\n\
@@ -446,7 +445,7 @@ list_options (struct a2ps_job *a_job, FILE *stream)
    */
 
   /* Make a nice message to tell where the output is sent */
-  ucp = a2ps_flag_destination_to_string (a_job);
+  cp2 = a2ps_flag_destination_to_string (a_job);
 
   /* Make a nice message to tell what version control is used */
   switch (a_job->backup_type)
@@ -475,7 +474,7 @@ list_options (struct a2ps_job *a_job, FILE *stream)
   destination     = %s\n\
   version control = %s\n\
   backup suffix   = %s\n"),
-	   ucp, cp, simple_backup_suffix);
+	   cp2, cp, simple_backup_suffix);
   putc ('\n', stream);
 
   /*
@@ -489,7 +488,7 @@ list_options (struct a2ps_job *a_job, FILE *stream)
   Printer Description (PPD) = %s\n\
   default PPD               = %s\n\
   page label format         = %s\n\
-  number of copies          = %d\n\
+  number of copies          = %u\n\
   sides per sheet           = %s\n\
   page device definitions   = "),
 	   a_job->status->magic_number,

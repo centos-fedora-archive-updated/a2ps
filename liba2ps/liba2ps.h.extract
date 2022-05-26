@@ -20,16 +20,16 @@ enum face_e {
 
 /* From gen.h */
 /* Print a single char C in FACE */
-void a2ps_print_char (struct a2ps_job * job, 
-			    int c, 
+void a2ps_print_char (struct a2ps_job * job,
+			    char c,
 			    enum face_e face);
 /* Print a C string (nul terminated) in FACE */
-void a2ps_print_string (struct a2ps_job * job, 
-			      const char * string, 
+void a2ps_print_string (struct a2ps_job * job,
+			      const char * string,
 			      enum face_e face); 
 /* Print the N chars contained in BUFFER, in FACE */
-void a2ps_print_buffer (struct a2ps_job * job, 
-			      const unsigned char * buffer, 
+void a2ps_print_buffer (struct a2ps_job * job,
+			      const char * buffer,
 			      size_t start, size_t end,
 			      enum face_e face);
 /* Open/close the outer structure */

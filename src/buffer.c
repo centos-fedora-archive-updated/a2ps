@@ -100,7 +100,7 @@ option_string_to_eol (const char *option,
 static inline void
 buffer_internal_set (buffer_t * buffer,
 		     FILE * stream,
-		     const unsigned char * buf, size_t bufsize,
+		     const char * buf, size_t bufsize,
 		     bool pipe_p, enum eol_e eol)
 {
   buffer->buf = buf;
@@ -135,11 +135,11 @@ buffer_pipe_set (buffer_t * buffer, FILE * stream, enum eol_e eol)
 void
 buffer_string_set (buffer_t * buffer, const char * string, enum eol_e eol)
 {
-  buffer_internal_set (buffer, NULL, (unsigned char *) string, strlen (string), false, eol);
+  buffer_internal_set (buffer, NULL, string, strlen (string), false, eol);
 }
 
 void
-buffer_buffer_set (buffer_t * buffer, const unsigned char * buf, size_t bufsize,
+buffer_buffer_set (buffer_t * buffer, const char * buf, size_t bufsize,
 		   enum eol_e eol)
 {
   buffer_internal_set (buffer, NULL, buf, bufsize, false, eol);
@@ -399,7 +399,7 @@ buffer_get (buffer_t * buffer)
   obstack_1grow (&buffer->obstack, '\0');
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wsign-conversion"
-  buffer->content = (unsigned char *) obstack_finish (&buffer->obstack);
+  buffer->content = obstack_finish (&buffer->obstack);
 #pragma GCC diagnostic pop
 
   /* One more line read */
@@ -423,7 +423,7 @@ buffer_get (buffer_t * buffer)
 	xnrealloc (buffer->value, buffer->allocsize, sizeof(unsigned char));
 
       for (i = 0; i <= buffer->len; i++)
-	buffer->value[i] = (unsigned char) tolower (buffer->content[i]);
+	buffer->value[i] = (char) tolower (buffer->content[i]);
     }
   else
     {
@@ -447,11 +447,11 @@ buffer_sample_get (buffer_t * buffer, const char *filename)
   FILE *out = xwfopen (filename);
   size_t cur = 0;
   int c;
-  unsigned char *sample_buffer = XNMALLOC (SAMPLE_SIZE, unsigned char);
+  char *sample_buffer = XNMALLOC (SAMPLE_SIZE, char);
 
   for (; (cur < SAMPLE_SIZE) && ((c = sgetc (buffer)) != EOF); cur++)
     {
-      sample_buffer[cur] = (unsigned char) c;
+      sample_buffer[cur] = (char) c;
       putc (c, out);
     }
 

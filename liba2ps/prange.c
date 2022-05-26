@@ -75,34 +75,34 @@ interval_is_in (struct interval * interval, int num)
  * E.g. 3-5 with offset 4 is 1-2.
  */
 static char *
-interval_to_buffer (struct interval * interval, char * buf, int offset)
+interval_to_buffer (struct interval * interval, char * buf, size_t offset)
 {
-  int min = 0;
+  size_t min = 0;
 
   /* This interval is passed */
   if (interval->max
-      && interval->max < offset)
+      && (size_t) interval->max < offset)
     return buf;
 
   /* The first pages are printed yet */
   if (interval->min
-      && (interval->min <= offset))
+      && ((size_t) interval->min <= offset))
     min = 1;
   else
-    min = interval->min - offset;
+    min = (size_t) interval->min - offset;
 
-  if (min == interval->max)
-    sprintf ((char *) buf, "%d", min);
+  if (min == (size_t) interval->max)
+    sprintf ((char *) buf, "%zu", min);
   else if (min && interval->max)
-    sprintf ((char *) buf, "%d-%d", min, interval->max - offset);
+    sprintf ((char *) buf, "%zu-%zu", min, (size_t) interval->max - offset);
   else if (min)
-    sprintf ((char *) buf, "%d-", min);
+    sprintf ((char *) buf, "%zu-", min);
   else
     /* It is better to specify the `1'.  For instance dvips
      * breaks on -pp-10 */
-    sprintf ((char *) buf, "1-%d", interval->max - offset);
+    sprintf ((char *) buf, "1-%zu", (size_t) interval->max - offset);
 
-  return buf + ustrlen (buf);
+  return buf + strlen (buf);
 }
 
 /*
@@ -191,7 +191,7 @@ add_pages_interval (struct a2ps_job * job, int min, int max)
  * E.g. 3-5 with offset 4 is 1-2.
  */
 void
-page_range_to_buffer (struct page_range * page_range, char * buf, int offset)
+page_range_to_buffer (struct page_range * page_range, char * buf, size_t offset)
 {
   size_t i;
   int put_a_comma = false;
@@ -199,7 +199,7 @@ page_range_to_buffer (struct page_range * page_range, char * buf, int offset)
     (struct interval **) page_range->intervals->content;
 
   for (i = 0 ; i < page_range->intervals->len ; i++)
-    if (interval_applies_above (intervals [i], offset))
+    if (interval_applies_above (intervals [i], (int) offset))
       {
 	if (put_a_comma)
 	  *buf++ = ',';
@@ -214,7 +214,7 @@ page_range_to_buffer (struct page_range * page_range, char * buf, int offset)
  * (that it must not be printed) and for any OFFSET less than 20.
  */
 int
-page_range_applies_above (struct page_range * page_range, int offset)
+page_range_applies_above (struct page_range * page_range, size_t offset)
 {
   size_t i;
   struct interval ** intervals =
@@ -224,7 +224,7 @@ page_range_applies_above (struct page_range * page_range, int offset)
     return false;
 
   for (i = 0 ; i < page_range->intervals->len ; i++)
-    if (intervals [i]->min < offset
+    if ((size_t) intervals [i]->min < offset
 	&& intervals [i]->max == 0)
       /* offset \in [min,-]: all should be printed */
       return false;
@@ -316,7 +316,7 @@ report_pages_to_print (struct a2ps_job * job, FILE * stream)
  * Return true if the page PAGE_NUM is to be printed
  */
 int
-print_page (struct a2ps_job * job, int page_num)
+print_page (struct a2ps_job * job, size_t page_num)
 {
   size_t i;
   struct interval ** intervals =
@@ -333,8 +333,8 @@ print_page (struct a2ps_job * job, int page_num)
   if (job->page_range->intervals->len == 0 && !job->page_range->toc)
     return true;
 
-  for (i = 0 ; i < job->page_range->intervals->len  ; i++)
-    if (interval_is_in (intervals [i], page_num))
+  for (i = 0 ; i < job->page_range->intervals->len ; i++)
+    if (interval_is_in (intervals [i], (int) page_num))
       return true;
 
   return false;

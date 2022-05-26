@@ -226,18 +226,18 @@ dump_prolog_comments (FILE * stream, struct a2ps_job * job)
   fprintf (stream, "%%%%Creator: %s version %s\n", PACKAGE, VERSION);
   fprintf (stream, "%%%%CreationDate: %s", asctime(&job->run_tm));
 
-  fprintf (stream, "%%%%BoundingBox: %d %d %d %d\n",
+  fprintf (stream, "%%%%BoundingBox: %u %u %u %u\n",
 	   job->medium->llx, job->medium->lly,
 	   job->medium->urx, job->medium->ury);
   fprintf (stream, "%%%%DocumentData: Clean7Bit\n");
   fprintf (stream, "%%%%Orientation: %s\n",
 	   (job->orientation == landscape) ? "Landscape" : "Portrait");
-  fprintf (stream, "%%%%Pages: %d\n", job->sheets);
+  fprintf (stream, "%%%%Pages: %zu\n", job->sheets);
   if (job->status->page_are_ordered)
     fprintf (stream, "%%%%PageOrder: Ascend\n");
   else
     fprintf (stream, "%%%%PageOrder: Special\n");
-  fprintf (stream, "%%%%DocumentMedia: %s %d %d 0 () ()\n",
+  fprintf (stream, "%%%%DocumentMedia: %s %u %u 0 () ()\n",
 	   job->medium->name,
 	   job->medium->w, job->medium->h);
 
@@ -285,7 +285,7 @@ output_prolog (a2ps_job * job)
 static void
 output_document_setup (a2ps_job * job)
 {
-  int i, j;
+  size_t i, j;
 
   /* Set up */
   output (jdiv, "%%%%BeginSetup\n");
@@ -313,28 +313,28 @@ output_document_setup (a2ps_job * job)
     {
     case portrait:
       /* FIXME: prendre en compte les marges */
-      output (jdiv, "/sh %d def\n", job->medium->h);
-      output (jdiv, "/sw %d def\n", job->medium->w);
-      output (jdiv, "/llx %d def\n", job->medium->llx);
-      output (jdiv, "/urx %d def\n", job->medium->urx - job->margin);
-      output (jdiv, "/ury %d def\n", job->medium->ury);
-      output (jdiv, "/lly %d def\n", job->medium->lly);
+      output (jdiv, "/sh %u def\n", job->medium->h);
+      output (jdiv, "/sw %u def\n", job->medium->w);
+      output (jdiv, "/llx %u def\n", job->medium->llx);
+      output (jdiv, "/urx %u def\n", job->medium->urx - job->margin);
+      output (jdiv, "/ury %u def\n", job->medium->ury);
+      output (jdiv, "/lly %u def\n", job->medium->lly);
       break;
 
     case landscape:
-      output (jdiv, "/sh %d def\n", job->medium->w);
-      output (jdiv, "/sw %d def\n", job->medium->h);
-      output (jdiv, "/llx %d def\n", job->medium->lly);
-      output (jdiv, "/urx %d def\n", job->medium->ury);
-      output (jdiv, "/ury %d def\n",
+      output (jdiv, "/sh %u def\n", job->medium->w);
+      output (jdiv, "/sw %u def\n", job->medium->h);
+      output (jdiv, "/llx %u def\n", job->medium->lly);
+      output (jdiv, "/urx %u def\n", job->medium->ury);
+      output (jdiv, "/ury %u def\n",
 	      job->medium->w - job->medium->llx);
-      output (jdiv, "/lly %d def\n",
+      output (jdiv, "/lly %u def\n",
 	      job->medium->w - job->medium->urx + job->margin);
       break;
     }
 
   /* Misceleanous PostScript variables */
-  output (jdiv, "/#copies %d def\n", job->copies);
+  output (jdiv, "/#copies %u def\n", job->copies);
 
   /* Page prefeed */
   if (job->page_prefeed)
@@ -385,14 +385,14 @@ output_document_setup (a2ps_job * job)
 	  (job->status->linesperpage + BOTTOM_MARGIN_RATIO) * (double) job->fontsize);
   output (jdiv, "def\n");
   if (job->columns > 1)
-    output (jdiv, "/pmw urx llx sub pw %d mul sub %d div def\n",
+    output (jdiv, "/pmw urx llx sub pw %zu mul sub %zu div def\n",
 	    job->columns, job->columns - 1);
   else
     output (jdiv, "/pmw 0 def\n");
   if (job->rows > 1)
-    output (jdiv, "/pmh ury lly sub ph %d mul sub %d sub %d div def\n",
+    output (jdiv, "/pmh ury lly sub ph %zu mul sub %u sub %zu div def\n",
 	    job->rows,
-	    (PRINT_HEADER + PRINT_FOOTER) * HEADERS_H,
+	    (unsigned) (PRINT_HEADER + PRINT_FOOTER) * HEADERS_H,
 	    job->rows - 1);
   else
     output (jdiv, "/pmh 0 def\n");
@@ -410,7 +410,7 @@ output_document_setup (a2ps_job * job)
 
     output (jdiv, "/y [\n");
     for (j = job->rows ; 1 <= j ; j--) {
-      output (jdiv, "  pmh ph add %d mul ph add\n", j - 1);
+      output (jdiv, "  pmh ph add %zu mul ph add\n", j - 1);
       for (i = 2 ; i <= job->columns ; i++)
 	output (jdiv, "  dup\n");
     }
@@ -420,7 +420,7 @@ output_document_setup (a2ps_job * job)
   case madir_columns:
     output (jdiv, "/x [\n");
     for (i = 1 ; i <= job->columns ; i++) {
-      output (jdiv, "  pmw pw add %d mul\n", i - 1);
+      output (jdiv, "  pmw pw add %zu mul\n", i - 1);
       for (j = 2 ; j <= job->rows ; j++) {
 	output (jdiv, "  dup\n");
       }
@@ -430,7 +430,7 @@ output_document_setup (a2ps_job * job)
     output (jdiv, "/y [\n");
     for (i = 1 ; i <= job->columns ; i++)
       for (j = job->rows ; j >= 1 ; j--) {
-	output (jdiv, "  pmh ph add %d mul ph add\n", j - 1);
+	output (jdiv, "  pmh ph add %zu mul ph add\n", j - 1);
       }
     output (jdiv, "] def\n");
     break;
@@ -451,7 +451,7 @@ output_document_setup (a2ps_job * job)
   output (jdiv, "/lx snx def\n");
   output (jdiv, "/ly ury fnfs 0.8 mul sub def\n");
   output (jdiv, "/sx %d def\n", prefix_size);
-  output (jdiv, "/tab %d def\n", job->tabsize);
+  output (jdiv, "/tab %u def\n", job->tabsize);
   output (jdiv, "/x0 0 def\n");
   output (jdiv, "/y0 0 def\n");
 
@@ -497,14 +497,14 @@ ps_begin (a2ps_job * job)
   case portrait:
     area_h = (float) (medium->ury - medium->lly
                       /* Room for header and footer */
-                      - (PRINT_HEADER + PRINT_FOOTER) * HEADERS_H);
+                      - (unsigned) (PRINT_HEADER + PRINT_FOOTER) * HEADERS_H);
     area_w = (float) (medium->urx - medium->llx - job->margin);
     break;
   case landscape:
     area_w = (float) (medium->ury - medium->lly);
     area_h = (float) (medium->urx - medium->llx
                       /* Room for header and footer */
-                      - (PRINT_HEADER + PRINT_FOOTER) * HEADERS_H
+                      - (unsigned) (PRINT_HEADER + PRINT_FOOTER) * HEADERS_H
                       - job->margin);
     break;
   }
@@ -555,9 +555,9 @@ ps_begin (a2ps_job * job)
 
   /* fontsize is OK.  Calculate the other variables */
   job->status->linesperpage =
-    (int) ((printing_h / job->fontsize) - BOTTOM_MARGIN_RATIO);
+    (unsigned) ((double) (printing_h / job->fontsize) - BOTTOM_MARGIN_RATIO);
   job->status->columnsperline =
-    (int) ((printing_w / (job->fontsize * 0.6)) - 2 * SIDE_MARGIN_RATIO);
+    (unsigned) ((double) (printing_w / (job->fontsize * 0.6f)) - 2 * SIDE_MARGIN_RATIO);
 
   if (job->columns_requested > 0)
     job->status->columnsperline = job->columns_requested + prefix_size;

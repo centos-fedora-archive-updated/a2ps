@@ -44,11 +44,11 @@ struct ps_status
   /* Set once at the beginning */
   unsigned int columnsperline;	/* Characters per output line 		*/
   unsigned long wxperline;	/* Points per output line		*/
-  int linesperpage;		/* Lines per page 			*/
+  unsigned linesperpage;	/* Lines per page 			*/
   float title_bar_height;	/* Height of the bar for v. pages title */
   int title_font_size;		/* Font size for the main title		*/
-  unsigned char * magic_number;		/* The very first line of a PS file	*/
-  unsigned char * page_label_format;	/* User string for %%Page: (here)	*/
+  char * magic_number;		/* The very first line of a PS file	*/
+  char * page_label_format;	/* User string for %%Page: (here)	*/
 
   struct encoding * opened_encoding;/* Current encoding dict opened */
 
@@ -64,17 +64,17 @@ struct ps_status
 				 * set up part of the ps file		*/
 
   /* Changes all the time and need to be reset between files */
-  unsigned char ** page_label;		/* %%Page (this part) 1			*/
+  char ** page_label;		/* %%Page (this part) 1			*/
   int start_page;
   int start_line;
   int line_continued;
   int is_in_cut;		/* Do we have to skip the incoming text	*/
-  enum face_e face;			/* Current face				*/
-  int face_declared;	/* Does the ps knows the current font?	*/
-  int nonprinting_chars;
+  enum face_e face;		/* Current face				*/
+  int face_declared;		/* Does the ps knows the current font?	*/
+  unsigned nonprinting_chars;
   unsigned chars;		/* Number of nonprinting and total chars */
   unsigned line;		/* Line number (in current page) 	*/
-  unsigned int column;		/* Column number in chars 		*/
+  size_t column;		/* Column number in chars 		*/
   unsigned long wx;		/* Column number in pts (in current line) */
 };
 

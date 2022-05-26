@@ -25,11 +25,11 @@ struct encoding;
 #include "faces.h"
 
 void ps_print_char (struct a2ps_job * job,
-			    int c, enum face_e face);
+			    char c, enum face_e face);
 void ps_print_string (struct a2ps_job * job,
-			      unsigned char * string, enum face_e face);
+			      char * string, enum face_e face);
 void ps_print_buffer (struct a2ps_job * job,
-			      const unsigned char * buffer,
+			      const char * buffer,
 			      size_t start, size_t end,
 			      enum face_e face);
 

@@ -84,9 +84,9 @@ medium_name_fputs (struct medium * medium, FILE * stream)
  */
 void
 add_medium (struct a2ps_job * job,
-	   const char * name,
-	   int w, int h,
-	   int llx, int lly, int urx, int ury)
+            const char * name,
+            unsigned w, unsigned h,
+            unsigned llx, unsigned lly, unsigned urx, unsigned ury)
 {
   struct medium * a_medium = XMALLOC (struct medium);
 
@@ -172,7 +172,7 @@ list_media_long (a2ps_job * job, FILE * stream)
 	   "urx", "ury");
 
   for (i = 0 ; media[i] ; i++)
-    fprintf (stream, "  %-10s\t%4d x %4d (%4d, %4d, %4d, %4d)\n",
+    fprintf (stream, "  %-10s\t%4u x %4u (%4u, %4u, %4u, %4u)\n",
 	     media[i]->name,
 	     media[i]->w,   media[i]->h,
 	     media[i]->llx, media[i]->lly,

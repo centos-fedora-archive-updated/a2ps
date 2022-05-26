@@ -128,7 +128,7 @@ include       include\([^)]+\)
     obstack_1grow (&string_stack, '\0');
     string = (unsigned char *) obstack_finish (&string_stack);
     obstack_free (&string_stack, string);
-    token_val = xustrdup (string);
+    token_val = xstrdup (string);
 
     /* Decode the additional flags. */
     insensitive_p = yytext[1] == 'i';
@@ -168,7 +168,7 @@ include       include\([^)]+\)
     obstack_1grow (&string_stack, '\0');
     string = (unsigned char *) obstack_finish (&string_stack);
     obstack_free (&string_stack, string);
-    token_val = xustrdup (string);
+    token_val = xstrdup (string);
 
     /* Decode the additional flags. */
     insensitive_p = yytext[1] == 'i';

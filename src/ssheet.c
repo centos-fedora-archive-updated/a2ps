@@ -104,7 +104,7 @@ new_pattern (char * pattern, size_t len)
  * The faced_string
  */
 struct faced_string *
-faced_string_new (unsigned char * string, int reg_ref, struct fface_s face)
+faced_string_new (char * string, int reg_ref, struct fface_s face)
 {
   struct faced_string * res = XMALLOC (struct faced_string);
   res->string = string;
@@ -185,7 +185,7 @@ rhs_new (void)
  * New rhs array with a single argument
  */
 struct darray *
-rhs_new_single (unsigned char * string, int reg_ref, struct fface_s face)
+rhs_new_single (char * string, int reg_ref, struct fface_s face)
 {
   struct darray * res;
   res = da_new ("Rhs", 2, da_geometrical, 2,
@@ -240,7 +240,7 @@ rhs_self_print (struct darray * rhs, FILE * stream)
  * Dealing with the rules and operators
  */
 inline static struct rule *
-rule_new_internal_word (unsigned char * word,
+rule_new_internal_word (char * word,
 			struct darray * rhs)
 {
   struct rule * res = XMALLOC (struct rule);
@@ -265,7 +265,7 @@ rule_new_internal_regexp (struct pattern *pattern,
 
   /* This is a regular expression.  We want to keep the original
    * pattern to ease the debugging of a style sheet */
-  res->word = (unsigned char *) pattern->pattern;
+  res->word = pattern->pattern;
 
   /* Build the regex structure, and compile the pattern */
   res->regex = XMALLOC (struct re_pattern_buffer);
@@ -288,7 +288,7 @@ rule_new_internal_regexp (struct pattern *pattern,
  * Dealing with the rules and operators
  */
 struct rule *
-rule_new (unsigned char * word, struct pattern * pattern,
+rule_new (char * word, struct pattern * pattern,
 	  struct darray * rhs,
 	  const char *filename, size_t line)
 {
@@ -312,7 +312,7 @@ rule_new (unsigned char * word, struct pattern * pattern,
 `-------------------------------------------------------------------*/
 
 struct rule *
-keyword_rule_new (unsigned char * word, struct pattern * pattern,
+keyword_rule_new (char * word, struct pattern * pattern,
 		  struct darray * rhs,
 		  const char *filename, size_t line)
 {
@@ -342,7 +342,7 @@ keyword_rule_new (unsigned char * word, struct pattern * pattern,
 static int
 rule_cmp (struct rule * k1, struct rule * k2)
 {
-  return ustrcmp (k1->word, k2->word);
+  return strcmp (k1->word, k2->word);
 }
 
 static void
@@ -471,9 +471,9 @@ words_finalize (struct words * list)
    * and last occurence index in (*DEST) array */
   content = (struct rule **) list->strings->content;
   for (i = 0 ; i < list->strings->len ; i++) {
-    if (list->min [content[i]->word[0]] == NULL)
-      list->min [content[i]->word[0]] = content + i;
-    list->max [content[i]->word[0]] = content + i;
+    if (list->min [(unsigned char) content[i]->word[0]] == NULL)
+      list->min [(unsigned char) content[i]->word[0]] = content + i;
+    list->max [(unsigned char) content[i]->word[0]] = content + i;
   }
 }
 
@@ -589,8 +589,8 @@ sequence_new (struct rule * Open,
  */
 #define C_add_exception(_excep_)					\
   words_add_string (res,						\
-	     rule_new (xustrdup (_excep_), NULL,			\
-		       rhs_new_single (xustrdup (_excep_), 0, String_fface),\
+	     rule_new (xstrdup (_excep_), NULL,			\
+		       rhs_new_single (xstrdup (_excep_), 0, String_fface),\
                        __FILE__, __LINE__));
 
 static struct words *
@@ -613,14 +613,14 @@ struct sequence *
 new_C_string_sequence (const char * delimitor)
 {
   struct sequence * res = XMALLOC (struct sequence);
-  res->open = rule_new (xustrdup (delimitor), NULL,
+  res->open = rule_new (xstrdup (delimitor), NULL,
 			rhs_new_single (NULL, 0, Plain_fface),
 			__FILE__, __LINE__);
   res->face = String_fface;
   res->exceptions = new_C_exceptions ();
   res->close = words_new ("C Close: strings", "C Close: regex", 5, 5);
   words_add_string (res->close,
-		    rule_new (xustrdup (delimitor), NULL,
+		    rule_new (xstrdup (delimitor), NULL,
 			      rhs_new_single (NULL, 0, Plain_fface),
 			      __FILE__, __LINE__));
   words_finalize (res->close);
@@ -686,7 +686,7 @@ style_sheet_mixed_new (const char * ancestors)
   struct darray *ancestors_array;
 
   /* It cannot be longer than ancestors_keys. */
-  key = ALLOCA (char, ustrlen (ancestors) + 1);
+  key = ALLOCA (char, strlen (ancestors) + 1);
   astrcpy (ancestors_keys, ancestors);
 
   /* Create the darray of ancestors keys, and build the final key. */
@@ -869,7 +869,7 @@ style_sheet_print_signature (FILE * stream, struct style_sheet * sheet)
   if (!version_null_p (sheet->version))
     {
       title_bar_len = (strlen (" (.ssh version )")
-		       + ustrlen (sheet->name)
+		       + strlen (sheet->name)
 		       + strlen (sheet->key)
 		       + version_length (sheet->version));
       fprintf (stream, "%s (%s.ssh version ",
@@ -880,7 +880,7 @@ style_sheet_print_signature (FILE * stream, struct style_sheet * sheet)
   else
     {
       title_bar_len = (strlen (" (.ssh)")
-		       + ustrlen (sheet->name)
+		       + strlen (sheet->name)
 		       + strlen (sheet->key));
       fprintf (stream, "%s (%s.ssh)\n",
 	       sheet->name, sheet->key);
@@ -1276,7 +1276,7 @@ check_rules_doubles (const char * name, struct darray * rules)
   bool res = true;
 
   for (i = 1 ; i < rules->len ; i++)
-    if (!ustrcmp (((struct rule *) rules->content [i - 1])->word,
+    if (!strcmp (((struct rule *) rules->content [i - 1])->word,
 		  ((struct rule *) rules->content [i])->word))
       {
 	res = false;

@@ -109,7 +109,7 @@ match_word (buffer_t * buffer, struct style_sheet *sheet)
 
   do
     buffer->curr++;
-  while (sheet->alpha2[*(buffer->content + buffer->curr)]
+  while (sheet->alpha2[(unsigned char) *(buffer->content + buffer->curr)]
 	 && !buffer_is_empty (buffer));
 
   token->rhs = plain_rhs;
@@ -133,22 +133,22 @@ match_keyword (buffer_t * buffer,
 	       unsigned char * alphabet)
 {
   struct rule **key;
-  unsigned char *string = buffer->value + buffer->curr;
+  char *string = buffer->value + buffer->curr;
   int i;
   int res;
 
   /* First try the words */
-  if (words->min[*string])
-    for (key = words->max[*string]
-	 ; words->min[*string] <= key
+  if (words->min[(unsigned) *string])
+    for (key = words->max[(unsigned) *string]
+         ; words->min[(unsigned) *string] <= key
 	 ; key--)
       {
-	if (ustrprefix ((*key)->word, string)
-	    && !alphabet[string[ustrlen ((*key)->word)]])
+	if (strprefix ((*key)->word, string)
+	    && !alphabet[(unsigned char) string[strlen ((*key)->word)]])
 	  {
 	    token->rhs = (*key)->rhs;
-	    token_set_registers (buffer->curr, ustrlen ((*key)->word));
-	    buffer->curr += ustrlen ((*key)->word);
+	    token_set_registers (buffer->curr, strlen ((*key)->word));
+	    buffer->curr += strlen ((*key)->word);
 	    return 1;
 	  }
       }
@@ -185,21 +185,21 @@ match_operator (buffer_t * buffer,
 		struct words *words)
 {
   struct rule **key;
-  unsigned char *string = buffer->value + buffer->curr;
+  char *string = buffer->value + buffer->curr;
   int i;
   int res;
 
   /* First the words */
-  if (words->min[*string])
-    for (key = words->max[*string]
-	 ; words->min[*string] <= key
+  if (words->min[(unsigned char) *string])
+    for (key = words->max[(unsigned char) *string]
+         ; words->min[(unsigned char) *string] <= key
 	 ; key--)
       {
-	if (ustrprefix ((*key)->word, string))
+	if (strprefix ((*key)->word, string))
 	  {
 	    token->rhs = (*key)->rhs;
-	    token_set_registers (buffer->curr, ustrlen ((*key)->word));
-	    buffer->curr += ustrlen ((*key)->word);
+	    token_set_registers (buffer->curr, strlen ((*key)->word));
+	    buffer->curr += strlen ((*key)->word);
 	    return 1;
 	  }
       }
@@ -241,7 +241,7 @@ match_sequence (buffer_t * buffer, struct style_sheet *sheet)
 {
   int i;
   int res;
-  unsigned char *string = buffer->value + buffer->curr;
+  char *string = buffer->value + buffer->curr;
 
   /* In reversed order (in order to take the _last_ definition */
   for (i = (int) sheet->sequences->len - 1; i >= 0; i--)
@@ -266,11 +266,11 @@ match_sequence (buffer_t * buffer, struct style_sheet *sheet)
       else
 	{
 	  /* It's a string */
-	  if (ustrprefix (SEQ (i)->open->word, string))
+	  if (strprefix (SEQ (i)->open->word, string))
 	    {
-	      token_set_registers (buffer->curr, ustrlen (SEQ (i)->open->word));
+	      token_set_registers (buffer->curr, strlen (SEQ (i)->open->word));
 	      token->rhs = SEQ (i)->open->rhs;
-	      buffer->curr += ustrlen (SEQ (i)->open->word);
+	      buffer->curr += strlen (SEQ (i)->open->word);
 	      return SEQ (i);
 	    }
 	}
@@ -341,7 +341,7 @@ ssh_get_token (buffer_t * buffer, struct style_sheet *sheet)
     {				/* (not in sequence) */
       if ((sequence = match_sequence (buffer, sheet)))
 	return 1;
-      else if (sheet->alpha1[buffer->content[buffer->curr]])
+      else if (sheet->alpha1[(unsigned char) buffer->content[buffer->curr]])
 	{
 	  /* we are in a word since this was a char belonging to the
 	   * first alphabet */
@@ -378,9 +378,9 @@ ssh_get_token (buffer_t * buffer, struct style_sheet *sheet)
 
 #define GRAB_TAG(_tag_)                                          \
   do {                                                           \
-    ustrncat (_tag_,                                             \
-	      buffer->content + token_start (i),                 \
-	      (unsigned) (token_end (i) - token_start (i)));     \
+    strncat (_tag_,                                              \
+             buffer->content + token_start (i),                  \
+             (unsigned) (token_end (i) - token_start (i)));      \
   } while (0)
 
 /*
@@ -393,7 +393,7 @@ ssh_print_postscript (struct a2ps_job *Job,
 {
   struct fface_s fface;
   /* To grab the encoding switching instruction */
-  unsigned char bufenc[512];
+  char bufenc[512];
   int grabbing_encoding = false;
   size_t i;
 
@@ -429,11 +429,11 @@ ssh_print_postscript (struct a2ps_job *Job,
 	      {
 		/* Grabbing of the encoding name is completed */
 		struct encoding *newenc;
-		newenc = get_encoding_by_alias (job, (char *) bufenc);
+		newenc = get_encoding_by_alias (job, bufenc);
 /*          encoding_build_faces_wx (job, newenc); */
 		if (!newenc)
 		  error (0, 0, _ ("unknown encoding `%s', ignored"),
-			 quotearg ((char *) bufenc));
+			 quotearg (bufenc));
 		else
 		  ps_switch_encoding (Job, newenc);
 		*bufenc = '\0';
@@ -446,18 +446,18 @@ ssh_print_postscript (struct a2ps_job *Job,
 	if (token_dest (i)->string)
 	  {
 	    if (fface_get_flags (fface) & ff_Tag1)
-	      ustrcat (Job->tag1, token_dest (i)->string);
+	      strcat (Job->tag1, token_dest (i)->string);
 	    if (fface_get_flags (fface) & ff_Tag2)
-	      ustrcat (Job->tag2, token_dest (i)->string);
+	      strcat (Job->tag2, token_dest (i)->string);
 	    if (fface_get_flags (fface) & ff_Tag3)
-	      ustrcat (Job->tag3, token_dest (i)->string);
+	      strcat (Job->tag3, token_dest (i)->string);
 	    if (fface_get_flags (fface) & ff_Tag4)
-	      ustrcat (Job->tag4, token_dest (i)->string);
+	      strcat (Job->tag4, token_dest (i)->string);
 	    /* Grab the dynamic encodings */
 	    if (fface_get_flags (fface) & ff_Encoding)
 	      {
 		grabbing_encoding = true;
-		ustrcat (bufenc, token_dest (i)->string);
+		strcat (bufenc, token_dest (i)->string);
 	      }
 	  }
 	else

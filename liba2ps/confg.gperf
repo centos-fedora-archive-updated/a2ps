@@ -254,11 +254,11 @@ a2_read_config (a2ps_job * job, const char *path, const char *file)
 	  break;
 
 	case OutputFirstLine:
-	  xustrcpy (job->status->magic_number, argv[1]);
+	  xstrcpy (job->status->magic_number, argv[1]);
 	  break;
 
 	case PageLabelFormat:
-	  xustrcpy (job->status->page_label_format, argv[1]);
+	  xstrcpy (job->status->page_label_format, argv[1]);
 	  break;
 
 	case Medium:

@@ -153,3 +153,5 @@
 /manywarnings-c++.m4
 /manywarnings.m4
 /warnings.m4
+/rawmemchr.m4
+/strchrnul.m4

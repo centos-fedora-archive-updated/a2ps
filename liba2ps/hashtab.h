@@ -95,8 +95,8 @@ extern void *hash_deleted_item;
 } while (0)
 
 # define STRING_COMPARE(_x_, _y_, _result_) do { \
-  unsigned char const *xx = (unsigned char const *) (_x_) - 1; \
-  unsigned char const *yy = (unsigned char const *) (_y_) - 1; \
+  char const *xx = (char const *) (_x_) - 1; \
+  char const *yy = (char const *) (_y_) - 1; \
   do { \
     if (*++xx == '\0') { \
       yy++; \
@@ -136,8 +136,8 @@ extern void *hash_deleted_item;
 } while (0)
 
 # define STRING_CASE_COMPARE(_x_, _y_, _result_) do { \
-  unsigned char const *xx = (unsigned char const *) (_x_) - 1; \
-  unsigned char const *yy = (unsigned char const *) (_y_) - 1; \
+  char const *xx = (char const *) (_x_) - 1; \
+  char const *yy = (char const *) (_y_) - 1; \
   do { \
     if (*++xx == '\0') { \
       yy++; \

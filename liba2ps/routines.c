@@ -39,21 +39,10 @@ string_to_array (unsigned char arr[256], const unsigned char * string)
 }
 
 /*
- * Concatenation of a char. No malloc is done.
- */
-void
-ustrccat (unsigned char * string, unsigned char c)
-{
-  size_t len = strlen((char *)string);
-  *(string+len) = c;
-  *(string+len+1) = '\0';
-}
-
-/*
  * return true iff there are no upper case chars
  */
 int
-is_strlower (const unsigned char * string)
+is_strlower (const char * string)
 {
   for (/* skip */; *string != '\0'; string++)
     if (isupper(*string))

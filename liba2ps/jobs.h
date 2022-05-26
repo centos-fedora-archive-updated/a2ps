@@ -54,19 +54,19 @@ typedef struct a2ps_job
   /* Relative to the whole process */
   struct tm run_tm; 		/* Time when this program is run	*/
   enum backup_type backup_type;	/* When to backup output files		*/
-  int sheets;			/* BEWARE: current PAGE number		*/
-  int pages;			/* BEWARE: current VIRTUAL number	*/
-  int lines_folded;             /* Number of lines that were folded     */
-  int total_files;		/* id but files				*/
+  size_t sheets;		/* BEWARE: current PAGE number		*/
+  size_t pages;			/* BEWARE: current VIRTUAL number	*/
+  size_t lines_folded;		/* Number of lines that were folded     */
+  size_t total_files;		/* id but files				*/
   ORIENTATION orientation;	/* landscape mode ?			*/
   enum duplex_e duplex;		/* Recto verso printing ? 		*/
-  int columns;			/* number of columns/page		*/
-  int rows;			/* number of rows/page			*/
-  madir_t madir;		/* firt rows, or columns?
+  size_t columns;		/* number of columns/page		*/
+  size_t rows;			/* number of rows/page			*/
+  madir_t madir;		/* first rows, or columns?
 				 * (not major, because of a SunOS macro)*/
-  int virtual;			/* number of the virtual page on that sheet */
-  int copies;			/* number of copies			*/
-  int margin;			/* margin to leave for binding		*/
+  unsigned virtual;		/* number of the virtual page on that sheet */
+  unsigned copies;		/* number of copies			*/
+  unsigned margin;		/* margin to leave for binding		*/
 
   struct pair_htable * encodings_map;/* Content of the encoding.map file*/
   struct output * ps_encodings; /* PS definition of the encodings used	*/
@@ -83,8 +83,8 @@ typedef struct a2ps_job
   enum output_format output_format; /* ps, eps etc.			*/
   struct stream * output_stream;/* Where the result will be dumped	*/
 
-  bool folding;		/* Line folding option 			*/
-  int numbering;		/* Line numbering option 		*/
+  bool folding;			/* Line folding option 			*/
+  unsigned numbering;		/* Line numbering option 		*/
   /* Replace non printable char */
   enum unprintable_format unprintable_format;
   int interpret;		/* Interpret TAB, FF and BS chars option */
@@ -95,9 +95,9 @@ typedef struct a2ps_job
   char * prolog;		/* postscript header file 		*/
   struct medium * medium;	/* Medium to use 			*/
   char *medium_request;		/* The name of the medium choosen	*/
-  int tabsize;			/* length of tabulations		*/
-  int lines_requested;		/* Number of line per page 		*/
-  int columns_requested;	/* Number of columns per page		*/
+  unsigned tabsize;		/* length of tabulations		*/
+  unsigned lines_requested;	/* Number of line per page 		*/
+  unsigned columns_requested;	/* Number of columns per page		*/
   float fontsize;		/* Size of a char for body font 	*/
   struct encoding * encoding;/* What is the current char set ?	*/
   char * requested_encoding_name;/* Because encoding.map has not been
@@ -123,7 +123,7 @@ typedef struct a2ps_job
   char * water;				/* Water marks text			*/
 
   /* Used to grab headers etc. from the file */
-  unsigned char tag1[256], tag2[256], tag3[256], tag4[256];
+  char tag1[256], tag2[256], tag3[256], tag4[256];
 
   /* Definition of the macro meta sequences	*/
   struct pair_htable * macro_meta_sequences;

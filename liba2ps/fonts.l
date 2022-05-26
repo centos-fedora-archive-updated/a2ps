@@ -591,7 +591,7 @@ binary_font_dump_segment (FILE * in, FILE * out)
   enum segment_type segment_type;
   int magic;
   size_t length, read_length, length_to_read;
-  unsigned char buf [BUFSIZ];
+  char buf [BUFSIZ];
 
   magic = getc (in);
 
