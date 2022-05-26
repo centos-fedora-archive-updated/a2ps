@@ -175,7 +175,7 @@ a2ps_close_output_session (a2ps_job * job)
     }
 }
 
-const char *
+_GL_ATTRIBUTE_PURE const char *
 output_format_to_key (enum output_format format)
 {
   switch (format)

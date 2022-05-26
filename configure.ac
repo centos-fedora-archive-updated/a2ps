@@ -58,9 +58,6 @@ if test "$gl_gcc_warnings" = yes; then
   nw=
   nw="$nw -Wsystem-headers"   # Don’t let system headers trigger warnings
   nw="$nw -Wvla -Wstack-protector" # We use variable-length arrays
-  # FIXME: warnings we get too many of for now.
-  nw="$nw -Wsuggest-attribute=pure"
-  nw="$nw -Wsuggest-attribute=const"
 
   gl_MANYWARN_ALL_GCC([warnings])
 

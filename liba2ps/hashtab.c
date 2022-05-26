@@ -302,7 +302,7 @@ hash_maparg (struct hash_table_s *ht, hash_maparg_func_t map,
 
 /* Round a given number up to the nearest power of 2. */
 
-static unsigned long
+_GL_ATTRIBUTE_CONST static unsigned long
 round_up_2 (unsigned long rough)
 {
   unsigned long round;
