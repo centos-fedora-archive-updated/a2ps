@@ -48,6 +48,3 @@ LEX = @LEX@
 a2ps_LDADD = $(top_builddir)/liba2ps/liba2ps.la $(top_builddir)/liba2ps/libnowarnings.a libparse.a $(LIBINTL) ../lib/libgnu.la -lm $(LIBGC_LIBS) -lpaper # FIXME: hard coded.
 
 EXTRA_DIST = $(BUILT_SOURCES) $(bin_SCRIPTS)
-
-clean-local:
-	rm -rf *.dSYM
