@@ -27,14 +27,6 @@
 #include <termios.h>
 #include <sys/ioctl.h>
 
-/* The extra casts work around common compiler bugs,
-   e.g. Cray C 5.0.3.0 when t == time_t.  */
-#define TYPE_SIGNED(t) (! ((t) 0 < (t) -1))
-
-#ifndef INT_MAX
-# define INT_MAX TYPE_MAXIMUM (int)
-#endif
-
 #include "xstrtol.h"
 #include "quotearg.h"
 #include "error.h"

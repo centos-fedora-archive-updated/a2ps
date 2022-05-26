@@ -34,7 +34,6 @@
 #include "quotearg.h"
 
 #define MIN_CONTENT	1024 * 50 	/* 50 Kb buffer			*/
-#define CHUNK_MARGIN	1024		/* Be sure there is always that left */
 #define MIN_DERIVATIONS	10
 
 enum derivation_type

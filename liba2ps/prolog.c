@@ -71,9 +71,6 @@ a2ps_job_stream_hook ps_comment_hook = NULL;
 
 #define jdiv	job->divertion
 
-/* return the max of two >-comparable stuff */
-#define A2_MAX(X,Y)        (((X) > (Y)) ? (X) : (Y))
-
 
 /****************************************************************/
 /* Reporting the known prologues   				*/

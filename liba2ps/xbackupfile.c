@@ -32,8 +32,6 @@
 #include "error.h"
 #include "quotearg.h"
 
-#define STREQ(s1, s2)            (strcmp ((s1), (s2)) == 0)
-
 
 /* Non failing call to find_backup_file_name */
 char *

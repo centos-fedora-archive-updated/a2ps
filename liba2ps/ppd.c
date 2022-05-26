@@ -67,7 +67,6 @@ static void
 ppd_self_print (struct ppd * ppd, FILE * stream)
 {
 /* It must include the white spaces put before */
-#define TAB_MAX	76
   char * cp;
   char ** fonts;
 

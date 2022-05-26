@@ -57,9 +57,6 @@ struct token
 #define token_dest_fface(_i_)	\
     (token_dest(_i_)->face)
 
-#define token_dest_face(_i_)	\
-    (fface_get_face(token_dest_fface(_i_)))
-
 #define token_dest_fflags(_i_)	\
     (fface_get_flags(token_dest_fface(_i_)))
 

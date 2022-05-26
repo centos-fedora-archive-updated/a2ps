@@ -27,9 +27,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <stdbool.h>
-
 #include <dirent.h>
-#define NAMLEN(dirent) strlen((dirent)->d_name)
 
 #include "error.h"
 #include "darray.h"

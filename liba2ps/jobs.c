@@ -39,12 +39,6 @@
 #include "userdata.h"
 #include "xgethostname.h"
 
-/* Temporary file names should start with a2_
- * Don't make it too big (think of MSDOS), though by definition
- * it must be less than 5 chars.
- */
-#define a2ps_file_prefix	"a2_"
-
 /************************************************************************
  * Information about the user						*
  ************************************************************************/

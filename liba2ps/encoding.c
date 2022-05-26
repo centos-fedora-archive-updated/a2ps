@@ -563,7 +563,6 @@ encoding_resolve_composite_font (struct encoding * encoding,
  * Read of *.edf file, given its path
  */
 #define GET_TOKEN(from) (strtok ((from), " \t\n"))
-#define GET_LINE_TOKEN(from) (strtok ((from), "\n"))
 #define CHECK_TOKEN()                                                   \
   if (token2 == NULL)                                                   \
     error_at_line (1, 0, fname, firstline,				\

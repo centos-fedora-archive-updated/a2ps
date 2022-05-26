@@ -306,7 +306,6 @@ pair_table_self_print (struct hash_table_s * table, FILE * stream)
 }
 
 #define GET_TOKEN(from) (strtok ((from), " \t\n"))
-#define GET_LINE_TOKEN(from) (strtok ((from), "\n"))
 #define CHECK_TOKEN() 							\
   if (token2 == NULL) 							\
     error_at_line (1, 0, file, firstline, 				\

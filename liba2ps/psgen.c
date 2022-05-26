@@ -46,13 +46,6 @@
 	 || !IS_EMPTY(job->left_title)			\
 	 || !IS_EMPTY(job->right_title))
 
-/* Width in characters for line prefix	*/
-#define prefix_size	(job->numbering ? 5 : 0)
-
-/* Is this the first page for the current file?		*/
-#define is_first_page	\
-    ((job->pages - CURRENT_FILE (job)->first_page) > 1)
-
 #define jdiv	job->divertion
 
 /* return the max of two >-comparable stuff */
