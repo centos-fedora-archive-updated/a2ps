@@ -112,9 +112,12 @@ AH_BOTTOM([
 #define malloc GC_malloc
 #define calloc GC_calloc
 #define realloc GC_realloc
+#ifndef free
 #define free GC_free
+#endif
 #define strdup GC_strdup
 #define strndup GC_strndup
+#define reallocarray(ptr, nmemb, size) a2ps_reallocarray(ptr, nmemb, size)
 ])
 
 ad_FUNC_SYSTEMPAPERNAME

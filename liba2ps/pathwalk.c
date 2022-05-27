@@ -185,7 +185,7 @@ pw_prepend_string_to_path (char ** path1, const char * dir2)
   return pw_path_concat (path2, len2, path1, len1);
 }
 
-_GL_ATTRIBUTE_FORMAT_PRINTF(2, 0) void
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 0) void
 pw_fprintf_path (FILE * stream, const char * format, char * const * path)
 {
   if (path)

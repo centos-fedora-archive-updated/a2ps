@@ -1,85 +1,82 @@
-%{ /* -*- c -*- */
-/*
- * Lexer for afm files.
- *
- * Copyright (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
- * Copyright (c) 1995, 96, 97, 98, 99 Akim Demaille, Miguel Santana
- *
+%top{
+ /* -*- c -*- */
+ /*
+  * Lexer for afm files.
+  *
+  * Copyright (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+  * Copyright (c) 1995, 96, 97, 98, 99 Akim Demaille, Miguel Santana
+  *
+  */
+ 
+ /*
+  * This file is part of a2ps.
+  *
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation; either version 3, or (at your option)
+  * any later version.
+  *
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with this program; see the file COPYING.  If not, write to
+  * the Free Software Foundation, 59 Temple Place - Suite 330,
+  * Boston, MA 02111-1307, USA.
+  */
+   
+ #include <config.h>
+ 
+ #include "a2ps.h"
+ #include "routines.h"
+ #include "message.h"
+ #include "hashtab.h"
+ #include "jobs.h"
+ #include "pathwalk.h"
+ #include "fonts.h"
+ #include "psstat.h"
+ #include "pair_ht.h"
+ #include "dsc.h"
+ #include "quotearg.h"
+ 
+ /*
+   What this file is in charge of?
+ 
+   Its main responsabilities are:
+ 
+   - to be able to provide, given a font name and an encoding vector,
+   to return an unsigned int array [256] of the width of each char.
+ 
+   - to be able to dump the requirements (the needed IncludeResource: font)
+   so that we have a correct PS-3 file.
+ 
+   - to download a font file
+ 
+   To acheive this goal, the main task is reading the AFM file of a font,
+   to store what it has learnt into a hash table storing any pertinent
+   info read in previous AFM files. (We may need this info several times,
+   and we do not want to waste time).
+ 
+   This file is decomposed into several parts:
+ 
+   0. Handle the fonts.map files
+ 
+   1. The lexer of afm files.
+   The format is simple enough so that we do not need a parser.
+ 
+   2. The cells (of type struct font_info) handling.
+ 
+   3. The hash table maintenance.
+   This hash table is, as usually, stored in the a2ps_job so that it
+   does not pollute the space, and make liba2ps still "clean".
+ 
+   4. Download a font file
  */
+}
 
-/*
- * This file is part of a2ps.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; see the file COPYING.  If not, write to
- * the Free Software Foundation, 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
- */
-
-/*
- * $Id: fonts.l,v 1.1.1.1.2.1 2007/12/29 01:58:18 mhatta Exp $
- */
-
-#include <config.h>
-
-#include "a2ps.h"
-#include "routines.h"
-#include "message.h"
-#include "hashtab.h"
-#include "jobs.h"
-#include "pathwalk.h"
-#include "fonts.h"
-#include "psstat.h"
-#include "pair_ht.h"
-#include "dsc.h"
-#include "quotearg.h"
-
-/*
-  What this file is in charge of?
-
-  Its main responsabilities are:
-
-  - to be able to provide, given a font name and an encoding vector,
-  to return an unsigned int array [256] of the width of each char.
-
-  - to be able to dump the requirements (the needed IncludeResource: font)
-  so that we have a correct PS-3 file.
-
-  - to download a font file
-
-  To acheive this goal, the main task is reading the AFM file of a font,
-  to store what it has learnt into a hash table storing any pertinent
-  info read in previous AFM files. (We may need this info several times,
-  and we do not want to waste time).
-
-  This file is decomposed into several parts:
-
-  0. Handle the fonts.map files
-
-  1. The lexer of afm files.
-  The format is simple enough so that we do not need a parser.
-
-  2. The cells (of type struct font_info) handling.
-
-  3. The hash table maintenance.
-  This hash table is, as usually, stored in the a2ps_job so that it
-  does not pollute the space, and make liba2ps still "clean".
-
-  4. Down load a font file
-
-*/
-
-/************************************************************************/
+%{/************************************************************************/
 /*			fonts.map handling				*/
 /************************************************************************/
 struct pair_htable *

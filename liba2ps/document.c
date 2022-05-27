@@ -210,7 +210,7 @@ documentation_print_html (const char * documentation,
 }
 
 /* 3. Towards Texinfo */
-_GL_ATTRIBUTE_FORMAT_PRINTF(2, 0) void
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 0) void
 documentation_print_texinfo (const char * documentation,
 			     const char *format, FILE * stream)
 {

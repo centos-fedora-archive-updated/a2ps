@@ -139,7 +139,8 @@ get_float_in_range (const char * option, const char * arg,
 					   args_list,
 					   (const char *) types_list,
 					   sizeof (*types_list),
-					   (argmatch_exit_fn) abort)];
+					   (argmatch_exit_fn) abort,
+                                           true)];
 
   buf [0] = '\0';	/* means no error */
 

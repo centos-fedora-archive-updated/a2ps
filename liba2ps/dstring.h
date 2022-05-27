@@ -86,32 +86,32 @@ void ds_strccat (struct dstring *s, char c);
  * Sprintf variations
  */
 /* Sprintf in the dstring, resizing if necessary */
-_GL_ATTRIBUTE_FORMAT_PRINTF(2, 0)
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 0)
 void ds_vsprintf (struct dstring *s, const char *format,
                   va_list args);
 /* sprintf at the end of the dstring, resize if necessary */
-_GL_ATTRIBUTE_FORMAT_PRINTF(2, 0)
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 0)
 void ds_cat_vsprintf (struct dstring *s, const char *format,
                       va_list args);
 /* Same as the two previous, but much less care is taken to
  * make sure the dstring is big enough */
-_GL_ATTRIBUTE_FORMAT_PRINTF(2, 0)
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 0)
 void ds_unsafe_vsprintf (struct dstring *s, const char *format,
                          va_list args);
-_GL_ATTRIBUTE_FORMAT_PRINTF(2, 0)
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 0)
 void ds_unsafe_cat_vsprintf (struct dstring *s, const char *format,
                              va_list args);
 
 /* Same as the previous, but with variable num of args */
-_GL_ATTRIBUTE_FORMAT_PRINTF(2, 3)
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 3)
 void ds_sprintf (struct dstring *s, const char *format, ...);
 /* Like sprintf, but not too much carre is taken for length */
-_GL_ATTRIBUTE_FORMAT_PRINTF(2, 3)
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 3)
 void ds_unsafe_sprintf (struct dstring *s, const char *format, ...);
-_GL_ATTRIBUTE_FORMAT_PRINTF(2, 3)
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 3)
 void ds_cat_sprintf (struct dstring *s, const char *format, ...);
 /* Like sprintf, but not too much care is taken for length */
-_GL_ATTRIBUTE_FORMAT_PRINTF(2, 3)
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 3)
 void ds_unsafe_cat_sprintf (struct dstring *s, const char *format, ...);
 
 /*

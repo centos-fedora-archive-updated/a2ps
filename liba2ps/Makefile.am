@@ -37,13 +37,13 @@ routines.h psgen.h prolog.h faces.h useropt.h			\
 gen.h printers.h psstat.h caret.h metaseq.h options.h		\
 dsc.h fonts.h ppd.h prange.h stream.h document.h		\
 fjobs.h	common.h madir.h filalign.h lexppd.h			\
-system.h a2ps.h liba2ps.h yy2ppd.h
+system.h a2ps.h liba2ps.h yy2ppd.h gc-stubs.h
 
 liba2pssources = encoding.c media.c jobs.c output.c		\
 routines.c psgen.c prolog.c faces.c useropt.c			\
 gen.c printers.c psstat.c caret.c metaseq.c options.c		\
-dsc.c ppd.c prange.c stream.c document.c		\
-fjobs.c common.c madir.c filalign.c
+dsc.c ppd.c prange.c stream.c document.c			\
+fjobs.c common.c madir.c filalign.c gc-stubs.c
 
 mylibitheaders = msg.h msg.c message.h xstrrpl.h getshline.h pathwalk.h	\
 darray.h dstring.h printlen.h pair_ht.h filtdir.h str_ht.h		\

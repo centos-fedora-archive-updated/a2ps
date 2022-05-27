@@ -1,3 +1,4 @@
+/longlong.m4
 /xsize.m4
 /visibility.m4
 /uintmax_t.m4
@@ -32,7 +33,6 @@
 /ltversion.m4
 /ltsugar.m4
 /ltoptions.m4
-/longlong.m4
 /libtool.m4
 /fcntl-o.m4
 /extern-inline.m4
@@ -46,10 +46,8 @@
 /close.m4
 /closedir.m4
 /d-ino.m4
-/dirent-safer.m4
 /dirent_h.m4
 /dirfd.m4
-/dirname.m4
 /double-slash-root.m4
 /dup.m4
 /dup2.m4
@@ -64,7 +62,6 @@
 /fdopendir.m4
 /filenamecat.m4
 /fstat.m4
-/fstatat.m4
 /getcwd.m4
 /getdtablesize.m4
 /gethostname.m4
@@ -155,3 +152,17 @@
 /warnings.m4
 /rawmemchr.m4
 /strchrnul.m4
+/__inline.m4
+/builtin-expect.m4
+/calloc.m4
+/free.m4
+/locale_h.m4
+/open-slash.m4
+/pid_t.m4
+/pipe.m4
+/reallocarray.m4
+/setlocale_null.m4
+/std-gnu11.m4
+/vararrays.m4
+/year2038.m4
+/zzgnulib.m4

@@ -141,7 +141,7 @@ a2_read_config (a2ps_job * job, const char *path, const char *file)
     {
       struct keyword_s *keyword;
       /* An array of the arguments.  The first argument ARGV[0] is the
-	 name of the entry, eg 'Options:'. */
+	 name of the entry, e.g. 'Options:'. */
       int argc;
       char *argv [MAX_ARGC];
 
