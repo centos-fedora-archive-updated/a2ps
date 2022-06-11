@@ -731,7 +731,7 @@ dump_fonts (FILE * stream, struct a2ps_job * job)
       message (msg_font | msg_file, (stderr, "Dumping file `%s'\n", filename));
       fprintf (stream, "%%%%BeginResource: font %s\n", fonts [i]);
       if (!internal_font_file_dump (fp, stream))
-	error (1, 0, "Bad PostScript font file `%s'\n", filename);
+	error (1, 0, "bad PostScript font file `%s'\n", filename);
       fprintf (stream, "%%%%EndResource\n");
 
       /* release */

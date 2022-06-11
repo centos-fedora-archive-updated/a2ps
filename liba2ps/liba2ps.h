@@ -39,17 +39,6 @@
 # define __END_DECLS /* empty */
 #endif
 
-/*
- * The type bool must be defined, for instance with
-
- #if HAVE_STDBOOL_H
- # include <stdbool.h>
- #else
- typedef enum {false = 0, true = 1} bool;
- #endif
-
-*/
-
 __BEGIN_DECLS
 
 /*
@@ -59,10 +48,10 @@ struct a2ps_job;
 
 /* File liba2ps.h.extract */
 /* From faces.h */
-/* 
+/*
  * Available faces.  No_face should never be given to liba2ps.
  */
-enum face_e { 
+enum face_e {
   No_face = -1,
   First_face = 0,
   Plain = 0,

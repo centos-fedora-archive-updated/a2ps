@@ -25,7 +25,7 @@
 #ifndef _TITLE_H_
 #define _TITLE_H_
 
-# if defined (__STDC__) && __STDC__
+# if defined __STDC__ && __STDC__
 
 /* Print the title TITLE, which is a printf-style
    format string with optional args if msg_level is bigger than

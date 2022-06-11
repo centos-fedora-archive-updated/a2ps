@@ -2,7 +2,7 @@
 # -*- ksh -*-
 
 # This program checks that a2ps correctly backups only when needed
-# This test tries both -o foo.ps, and -P bak, bak being a printer
+# We try both -o foo.ps and -P bak, bak being a printer
 # that saves in a file (supposed to be backup'd).
 : ${SRCDIR=.}
 

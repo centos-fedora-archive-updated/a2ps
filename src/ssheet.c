@@ -782,7 +782,7 @@ load_style_sheet (const char * pseudo_key)
       /* This style sheet has to have its path as key.  This is used
 	 to ease to allow specifying a style sheet by its real path,
 	 instead of allowing key based file search.  It is also used
-	 to to check that an ssh file is OK, from a2ps-mode in
+	 to check that an ssh file is OK, from a2ps-mode in
 	 emacs.*/
       res = parse_style_sheet (pseudo_key);
     }
@@ -1276,8 +1276,8 @@ check_rules_doubles (const char * name, struct darray * rules)
   bool res = true;
 
   for (i = 1 ; i < rules->len ; i++)
-    if (!strcmp (((struct rule *) rules->content [i - 1])->word,
-		  ((struct rule *) rules->content [i])->word))
+    if (STREQ (((struct rule *) rules->content [i - 1])->word,
+               ((struct rule *) rules->content [i])->word))
       {
 	res = false;
 	error (0, 0, "%s.ssh:`%s' is defined twice",
@@ -1366,7 +1366,7 @@ require_style_sheet (const char * key)
   struct style_sheet * item;
   struct style_sheet token;
 
-  if (strequ (key, "plain"))
+  if (STREQ (key, "plain"))
     return;
 
   token.key = (char *) key;
@@ -1399,7 +1399,7 @@ get_style_sheet (const char * key)
   struct style_sheet * item;
   struct style_sheet token;
 
-  if (strequ (key, "plain"))
+  if (STREQ (key, "plain"))
     return NULL;
 
   /* There is some specials magic to build on the fly mixed style

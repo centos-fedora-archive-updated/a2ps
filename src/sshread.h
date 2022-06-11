@@ -25,7 +25,7 @@ struct a2ps_job;
 /*
  * Pretty print the current file of JOB
  */
-void ssh_print_postscript (struct a2ps_job * job, 
+void ssh_print_postscript (struct a2ps_job * job,
 				   buffer_t * buffer,
 				   struct style_sheet * sheet);
 

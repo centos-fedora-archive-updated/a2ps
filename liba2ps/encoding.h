@@ -50,7 +50,7 @@ int encoding_char_exists (struct encoding * enc,
 					enum face_e face, char c);
 int encoding_get_composite_flag (struct encoding * enc);
 struct encoding *
-get_encoding_by_alias (struct a2ps_job * job, 
+get_encoding_by_alias (struct a2ps_job * job,
 			       char *string);
 
 void set_encoding (struct a2ps_job * job,
@@ -68,7 +68,7 @@ const char * encoding_resolve_font_substitute
 const char * encoding_resolve_composite_font
 	(struct encoding * encoding,
 		 const char * font_name);
- 
+
 /*
  * Have a struct encoding determine the faces_wx
  */

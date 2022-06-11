@@ -101,7 +101,7 @@ vprintflen (const char *format,  va_list args)
 }
 
 int
-#if defined(VA_START) && __STDC__
+#if defined VA_START && __STDC__
 printflen (const char *format, ...)
 #else
 printflen (format, va_alist)

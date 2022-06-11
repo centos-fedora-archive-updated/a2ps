@@ -66,4 +66,3 @@ Tomek Burdziak (Polish)
 
 @item
 @email{mhatta@@gnu.org, Masayuki Hatta} (Maintains Japanese) 
-

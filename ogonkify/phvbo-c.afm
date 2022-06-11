@@ -60,4 +60,3 @@ CC zdotaccent 2 ; PCC z 0 0 ; PCC dotaccent 83 0 ;
 CC Zdotaccent 2 ; PCC Z 0 0 ; PCC dotaccent 182 206 ;
 EndComposites
 EndFontMetrics
-

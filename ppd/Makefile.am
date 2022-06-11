@@ -23,4 +23,3 @@ ppd_DATA = README					\
 level1.ppd level2.ppd
 
 EXTRA_DIST = $(ppd_DATA)
-

@@ -59,7 +59,7 @@ filterdir (const char *dir,
 /*    error (1, errno, _("cannot open directory `%s'"), dir);*/
 
   while ((dp = readdir (dirp)) != NULL)
-    /* Skip "." and ".." (some NFS filesystems' directories lack them). */
+    /* Skip "." and ".." (some NFS file systems' directories lack them). */
     if (IS_NOTDOTDOT (dp->d_name)
 	&& (!filter || (*filter) (dir, dp->d_name, filtarg)))
       fun (dir, dp->d_name, arg);

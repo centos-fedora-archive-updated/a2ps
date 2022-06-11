@@ -30,7 +30,6 @@
 #include "routines.h"
 #include "argmatch.h"
 #include "buffer.h"
-#include <assert.h>
 
 /****************************************************************/
 /*		 	Handling of the various eol styles	*/

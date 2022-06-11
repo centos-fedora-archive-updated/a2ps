@@ -22,7 +22,6 @@
 #include "jobs.h"
 #include "routines.h"
 #include "output.h"
-#include "assert.h"
 #include "pathwalk.h"
 #include "darray.h"
 #include "dstring.h"
@@ -161,7 +160,7 @@ output_is_to_void (struct output * out)
  * Equivalent of printf into an output
  */
 void
-#if defined(VA_START) && __STDC__
+#if defined VA_START && __STDC__
 output (struct output * out, const char *format, ...)
 #else
 output (out, format, va_alist)
@@ -341,7 +340,7 @@ output_file (struct output * out, a2ps_job * job,
 	token2 = GET_TOKEN (NULL);
 	CHECK_TOKEN ();
 	res = token2;
-	if (strequ (res, "file"))
+	if (STREQ (res, "file"))
 	  {
 	    /* We want to include a file only once */
 	    token2 = GET_TOKEN (NULL);

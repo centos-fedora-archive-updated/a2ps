@@ -25,7 +25,6 @@
 
 #include "hashtab.h"
 #include "xalloc.h"
-#include "error.h"
 
 static void hash_rehash (struct hash_table_s* ht);
 static unsigned long round_up_2 (unsigned long rough);

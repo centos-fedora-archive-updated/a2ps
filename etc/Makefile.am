@@ -57,7 +57,7 @@ DISTCLEANFILES = a2ps.cfg README
 a2ps.cfg: a2ps_cfg Makefile
 	sed "s!@libpath@!$(libpath)!" a2ps_cfg > a2ps.cfg
 
-# Building a time stamp to know the version.
+# Building a timestamp to know the version.
 README: README.in Makefile
 	sed "s!@date@!`date`!g;s!@version@!$(VERSION)!g"	\
 	$(srcdir)/README.in > README

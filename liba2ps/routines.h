@@ -40,7 +40,7 @@
 #define strsuffix(s1, s2)				\
     ((strlen (s1) < strlen (s2))			\
      ? 0						\
-     : !strcmp (s1 + strlen (s1) - strlen (s2), s2))
+     : STREQ (s1 + strlen (s1) - strlen (s2), s2))
 
 /*
  * Replace a malloc'd string with another

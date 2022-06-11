@@ -35,13 +35,13 @@ enum style_kind_e
 static enum style_kind_e
 string_to_style_kind (const char * string)
 {
-  if (strequ (string, "binary"))
+  if (STREQ (string, "binary"))
     return binary;
-  else if (strequ (string, "UNPRINTABLE"))
+  else if (STREQ (string, "UNPRINTABLE"))
     return unprintable;
-  else if (strequ (string, "plain"))
+  else if (STREQ (string, "plain"))
     return no_style;
-  else if (strequ (string, "delegate"))
+  else if (STREQ (string, "delegate"))
     return delegate;
   return sshparser;
 }
@@ -60,7 +60,7 @@ input_new (char * name)
   file_job = CURRENT_FILE (job);
 
   /* Retrieve file modification date and hour */
-  if (IS_EMPTY(name) || strequ (name, "-"))
+  if (IS_EMPTY(name) || STREQ (name, "-"))
     {
       file_job->is_stdin = true;
       file_job->name = job->stdin_filename;

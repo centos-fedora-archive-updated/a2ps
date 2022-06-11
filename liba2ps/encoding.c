@@ -139,7 +139,7 @@ encodings_map_new (void)
  */
 static char *
 encodings_map_resolve_alias (struct pair_htable * encodings_map,
-			     const char * alias)
+                             const char * alias)
 {
   return pair_get (encodings_map, alias);
 }
@@ -173,7 +173,7 @@ load_main_encodings_map (struct a2ps_job * job)
 }
 
 /************************************************************************/
-/*		     	wx handling					*/
+/*		        wx handling					*/
 /************************************************************************/
 static inline unsigned int *
 wx_new (void)
@@ -195,9 +195,9 @@ wx_self_print (unsigned int * wx, FILE * stream)
   if (wx)
     for (j = 0 ; j < 256 ; j += 8)
       fprintf (stream,
-	       "%3d: %04u %04u %04u %04u %04u %04u %04u %04u\n", j,
-	       wx [j + 0], wx [j + 1], wx [j + 2], wx [j + 3],
-	       wx [j + 4], wx [j + 5], wx [j + 6], wx [j + 7]);
+               "%3d: %04u %04u %04u %04u %04u %04u %04u %04u\n", j,
+               wx [j + 0], wx [j + 1], wx [j + 2], wx [j + 3],
+               wx [j + 4], wx [j + 5], wx [j + 6], wx [j + 7]);
   else
     fputs ("<No WX defined>\n", stream);
 }
@@ -224,11 +224,11 @@ wx_self_print (unsigned int * wx, FILE * stream)
  * it wx.
  */
 struct font_entry {
-  char * key;		/* eg. Courier-Ogonki 				*/
+  char * key;		/* eg. Courier-Ogonki                           */
   int used;		/* If used, need to be dump in the PS		*/
   int reencode;		/* E.g. Symbol is not to reencode		*/
   unsigned int * wx;	/* Not an array, because some fonts may
-			 * share their wx (Courier familly for instance	*/
+                         * share their wx (Courier familly for instance	*/
 };
 
 static unsigned long
@@ -272,9 +272,9 @@ static void
 font_entry_self_print (struct font_entry * entry, FILE * stream)
 {
   fprintf (stream, "***** %s ***** (%s, %s) ",
-	   entry->key,
-	   entry->used ? "used" : "not used",
-	   entry->reencode ? "to share between encodings" : "reencode");
+           entry->key,
+           entry->used ? "used" : "not used",
+           entry->reencode ? "to share between encodings" : "reencode");
   wx_self_print (entry->wx, stream);
 }
 
@@ -288,9 +288,9 @@ font_table_new (void)
 
   res = XMALLOC (hash_table);
   hash_init (res, 32,
-	     (hash_func_t) font_entry_hash_1,
-	     (hash_func_t) font_entry_hash_2,
-	     (hash_cmp_func_t) font_entry_hash_cmp);
+             (hash_func_t) font_entry_hash_1,
+             (hash_func_t) font_entry_hash_2,
+             (hash_cmp_func_t) font_entry_hash_cmp);
   return res;
 }
 
@@ -301,7 +301,7 @@ font_table_self_print (struct hash_table_s * table, FILE * stream)
   struct font_entry ** entries;
   entries = (struct font_entry **)
     hash_dump (table, NULL,
-	       (hash_cmp_func_t) font_entry_hash_qcmp);
+               (hash_cmp_func_t) font_entry_hash_qcmp);
 
   for (i = 0 ; entries[i] ; i++)
     font_entry_self_print (entries [i], stream);
@@ -313,7 +313,7 @@ font_table_self_print (struct hash_table_s * table, FILE * stream)
  */
 static inline void
 font_entry_add (struct hash_table_s * table,
-		const char * name, unsigned int * wx)
+                const char * name, unsigned int * wx)
 {
   hash_insert (table, font_entry_new (name, wx));
 }
@@ -347,21 +347,21 @@ struct encoding {
   char * documentation;		/* Useful pieces of text	*/
 
   char * default_font;		/* When a font can't be used
-				   define the font to use	*/
+                                   define the font to use	*/
   struct pair_htable * substitutes;	/* e.g. in latin2, don't use
-					 * Courier, but Courier-Ogonki	*/
+                                         * Courier, but Courier-Ogonki	*/
 
   struct pair_htable * composite;
 
   struct slantfont_info     slantfont[NB_FACES];
- 
+
   char * vector[256];	/* Define the char set			*/
   struct darray * font_names_used;
-				/* E.g. Courier has been used, but
-				 * Actually Courier_Ogonki is the real
-				 * font used (cf infra)			*/
+                                /* E.g. Courier has been used, but
+                                 * Actually Courier_Ogonki is the real
+                                 * font used (cf infra)			*/
   struct hash_table_s * fonts;	/* Contains cells that are
-				 * 1. name of font, 2. int wx[256] 	*/
+                                 * 1. name of font, 2. int wx[256]      */
   unsigned int * faces_wx[NB_FACES];
 
   unsigned int   composite_wx[NB_FACES];     /* fixed length font width */
@@ -389,9 +389,9 @@ encoding_new (const char * key)
   res->composite = pair_table_new ();
   res->slantfont[0].name = NULL;
   res->font_names_used = da_new ("List of font names", 10,
-				 da_linear, 10,
-				 (da_print_func_t) da_str_print,
-				 (da_cmp_func_t) da_str_cmp);
+                                 da_linear, 10,
+                                 (da_print_func_t) da_str_print,
+                                 (da_cmp_func_t) da_str_cmp);
   res->fonts = font_table_new ();
   for (i = 0 ; i < NB_FACES ; i++)
     res->faces_wx [i] = NULL;
@@ -405,7 +405,7 @@ encoding_new (const char * key)
  */
 static void
 encoding_add_font_substitute (struct encoding * encoding,
-			      const char * orig, const char * subs)
+                              const char * orig, const char * subs)
 {
   pair_add (encoding->substitutes, orig, subs);
 }
@@ -415,8 +415,8 @@ encoding_add_font_substitute (struct encoding * encoding,
  */
 static void
 encoding_add_composite_font (struct encoding * encoding,
-			      const char * orig, const char * subs,
-			      int wx, float ratio)
+                              const char * orig, const char * subs,
+                              int wx, float ratio)
 {
   encoding->composite_flag = true;
   pair_add2 (encoding->composite, orig, subs, wx, ratio);
@@ -427,8 +427,8 @@ encoding_add_composite_font (struct encoding * encoding,
  */
 static void
 encoding_add_slant_font (struct encoding * encoding,
-			 const char * new, const char * src,
-			 float ratio)
+                         const char * new, const char * src,
+                         float ratio)
 {
   static int num =  0;
   encoding->slantfont[num].name = strdup(new);
@@ -448,8 +448,8 @@ encoding_add_slant_font (struct encoding * encoding,
  */
 const char *
 encoding_resolve_font_substitute (struct a2ps_job * job,
-				  struct encoding * encoding,
-				  const char * font_list)
+                                  struct encoding * encoding,
+                                  const char * font_list)
 {
   const char * res = NULL;
   char * font_list_copy;
@@ -465,12 +465,12 @@ encoding_resolve_font_substitute (struct a2ps_job * job,
       /* Find if there is a substitute for that font */
       res = pair_get (encoding->substitutes, font_name);
       if (res)
-	res = xstrdup (res);
+        res = xstrdup (res);
       else
-	/* No. Check if this font is supported */
-	if (font_exists (job, font_name))
-	  /* Avoid returning sth alloca'd */
-	  res = xstrdup (font_name);
+        /* No. Check if this font is supported */
+        if (font_exists (job, font_name))
+          /* Avoid returning sth alloca'd */
+          res = xstrdup (font_name);
     }
   while (!res && (font_name = strtok (NULL, ",<>;")));
 
@@ -479,15 +479,15 @@ encoding_resolve_font_substitute (struct a2ps_job * job,
   if (!res)
     {
       if (encoding->default_font)
-	res = encoding->default_font;
+        res = encoding->default_font;
       else
-	error (1, 0, "Cannot find font %s, nor any substitute",
-	       last_font_name);
+        error (1, 0, "cannot find font %s, nor any substitute",
+               last_font_name);
     }
 
   message (msg_enc,
-	   (stderr, "In encoding %s, composite font for %s is resolved as %s\n",
-	    encoding->key, font_name, res));
+           (stderr, "In encoding %s, composite font for %s is resolved as %s\n",
+            encoding->key, font_name, res));
   return res;
 }
 
@@ -496,7 +496,7 @@ encoding_resolve_font_substitute (struct a2ps_job * job,
  */
 static unsigned
 composite_font_info_get_wx(struct encoding * encoding,
-			   const char * font_list)
+                           const char * font_list)
 {
   int wx = -1;
   char * font_list_copy;
@@ -513,7 +513,7 @@ composite_font_info_get_wx(struct encoding * encoding,
 
 static float
 composite_font_info_get_ratio(struct encoding * encoding,
-			      const char * font_list)
+                              const char * font_list)
 {
   float ratio= -1;
   char * font_list_copy;
@@ -530,7 +530,7 @@ composite_font_info_get_ratio(struct encoding * encoding,
 
 const char *
 encoding_resolve_composite_font (struct encoding * encoding,
-				  const char * font_list)
+                                  const char * font_list)
 {
   const char * res = NULL;
   char * font_list_copy;
@@ -549,13 +549,13 @@ encoding_resolve_composite_font (struct encoding * encoding,
       res = pair_get (encoding->composite, "default_composite__");
 
       if (!res)
-	error (1, 0, "Cannot find font %s, nor any composite font",
-	       font_name);
+        error (1, 0, "cannot find font %s, nor any composite font",
+               font_name);
     }
-  
+
   message (msg_enc,
-	   (stderr, "In encoding %s, font %s is resolved as %s\n",
-	    encoding->key, font_name, res));
+           (stderr, "In encoding %s, font %s is resolved as %s\n",
+            encoding->key, font_name, res));
   return res;
 }
 
@@ -566,11 +566,11 @@ encoding_resolve_composite_font (struct encoding * encoding,
 #define CHECK_TOKEN()                                                   \
   if (token2 == NULL)                                                   \
     error_at_line (1, 0, fname, firstline,				\
-		   _("missing argument for `%s'"), quotearg (token));
+                   _("missing argument for `%s'"), quotearg (token));
 
 static void
 load_encoding_description_file (a2ps_job * job,
-				struct encoding * encoding)
+                                struct encoding * encoding)
 {
   FILE * stream;
   char * buf = NULL;
@@ -590,154 +590,154 @@ load_encoding_description_file (a2ps_job * job,
     }
 
   message (msg_enc,
-	   (stderr, "Loading encoding file `%s.edf'\n", encoding->key));
+           (stderr, "Loading encoding file `%s.edf'\n", encoding->key));
   fname = xpw_find_file (job->common.path, encoding->key, ".edf");
   stream = xrfopen (fname);
 
   while (getshline_numbered (&firstline, &lastline,
-			     &buf, &bufsiz, stream) != -1)
+                             &buf, &bufsiz, stream) != -1)
     {
       token = GET_TOKEN (buf);
 
       if (!token)
-	/* Blank line */
-	continue;
+        /* Blank line */
+        continue;
 
-      if (strequ (token, "Vector:"))
-	{
-	  int c = 0;
-	  char buf2 [256];
+      if (STREQ (token, "Vector:"))
+        {
+          int c = 0;
+          char buf2 [256];
 
-	  while (c < 256)
-	    {
-	      if (!fgets (buf2, sizeof (buf2), stream))
-		error_at_line (1, 0, fname, firstline,
-			       _("missing argument for `%s'"), "`Vector:'");
-	      lastline++;
-	      token = GET_TOKEN (buf2);
-	      encoding->vector [c++] = xstrdup (token);
-	      while ((token2 = GET_TOKEN (NULL)))
-		encoding->vector [c++] = xstrdup (token2);
-	  }
-	}
-      else if (strequ (token, "Name:"))
-	{
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  encoding->name = xstrdup (token2);
-	}
-      else if (strequ (token, "Default:"))
-	{
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  encoding->default_font = xstrdup (token2);
-	}
-      else if (strequ (token, "Documentation"))
-	{
-	  char * documentation;
-	  char buf2 [BUFSIZ];
-	  size_t read_length;
+          while (c < 256)
+            {
+              if (!fgets (buf2, sizeof (buf2), stream))
+                error_at_line (1, 0, fname, firstline,
+                               _("missing argument for `%s'"), "`Vector:'");
+              lastline++;
+              token = GET_TOKEN (buf2);
+              encoding->vector [c++] = xstrdup (token);
+              while ((token2 = GET_TOKEN (NULL)))
+                encoding->vector [c++] = xstrdup (token2);
+          }
+        }
+      else if (STREQ (token, "Name:"))
+        {
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          encoding->name = xstrdup (token2);
+        }
+      else if (STREQ (token, "Default:"))
+        {
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          encoding->default_font = xstrdup (token2);
+        }
+      else if (STREQ (token, "Documentation"))
+        {
+          char * documentation;
+          char buf2 [BUFSIZ];
+          size_t read_length;
 
-	  /* We don't use getshline, because we do want the
-	   * ``empty'' lines to be kept: they separate the
-	   * paragraphs */
-	  while (fgets (buf2, sizeof(buf2), stream)
-		 && !strprefix ("EndDocumentation", buf2))
-	    {
-	      read_length = strlen (buf2);
-	      if (read_length < sizeof (buf2))
-		lastline++;
-	      /* Grow the obstack with the doc content */
-	      obstack_grow (&documentation_stack, buf2, read_length);
-	    }
+          /* We don't use getshline, because we do want the
+           * ``empty'' lines to be kept: they separate the
+           * paragraphs */
+          while (fgets (buf2, sizeof(buf2), stream)
+                 && !strprefix ("EndDocumentation", buf2))
+            {
+              read_length = strlen (buf2);
+              if (read_length < sizeof (buf2))
+                lastline++;
+              /* Grow the obstack with the doc content */
+              obstack_grow (&documentation_stack, buf2, read_length);
+            }
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wformat-nonliteral"
-	  if (!strprefix ("EndDocumentation", buf2))
-	    error (1, 0, fname, firstline,
-		   _("missing argument for `%s'"), "`Documentation'");
+          if (!strprefix ("EndDocumentation", buf2))
+            error (1, 0, fname, firstline,
+                   _("missing argument for `%s'"), "`Documentation'");
 #pragma GCC diagnostic pop
-	  /* Finish the obstack, and store in the encoding entry */
-	  obstack_1grow (&documentation_stack, '\0');
+          /* Finish the obstack, and store in the encoding entry */
+          obstack_1grow (&documentation_stack, '\0');
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wsign-conversion"
-	  documentation =
-	    (char *) obstack_finish (&documentation_stack);
+          documentation =
+            (char *) obstack_finish (&documentation_stack);
 #pragma GCC diagnostic pop
-	  obstack_free (&documentation_stack, documentation);
-	  encoding->documentation = xstrdup (documentation);
-    	}
-      else if (strequ (token, "Substitute:"))
-	{
-	  char * orig, * subs;
+          obstack_free (&documentation_stack, documentation);
+          encoding->documentation = xstrdup (documentation);
+        }
+      else if (STREQ (token, "Substitute:"))
+        {
+          char * orig, * subs;
 
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  orig = token2;
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  subs = token2;
-	  encoding_add_font_substitute (encoding, orig, subs);
-	}
-      else if (strequ (token, "DefaultComposite:"))
-	{
-	  char * subs;
-	  int wx;
-	  float ratio;
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          orig = token2;
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          subs = token2;
+          encoding_add_font_substitute (encoding, orig, subs);
+        }
+      else if (STREQ (token, "DefaultComposite:"))
+        {
+          char * subs;
+          int wx;
+          float ratio;
 
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  subs = token2;
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  wx = (int)(float)(atof(token2))*1000;
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  ratio = (float) atof(token2);
-	  encoding_add_composite_font(encoding, "default_composite__",
-				      subs, wx, ratio);
-	}
-      else if (strequ (token, "Composite:"))
-	{
-	  char * orig, * subs;
-	  int wx;
-	  float ratio;
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          subs = token2;
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          wx = (int)(float)(atof(token2))*1000;
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          ratio = (float) atof(token2);
+          encoding_add_composite_font(encoding, "default_composite__",
+                                      subs, wx, ratio);
+        }
+      else if (STREQ (token, "Composite:"))
+        {
+          char * orig, * subs;
+          int wx;
+          float ratio;
 
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  orig = token2;
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  subs = token2;
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  wx = (int)(float)(atof(token2))*1000;
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  ratio = (float) atof(token2);
-	  encoding_add_composite_font(encoding, orig, subs, wx, ratio);
-	}
-      else if (strequ (token, "SlantFont:"))
-	{
-	  char * new, * src;
-	  float ratio;
-	  unsigned int num;
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          orig = token2;
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          subs = token2;
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          wx = (int)(float)(atof(token2))*1000;
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          ratio = (float) atof(token2);
+          encoding_add_composite_font(encoding, orig, subs, wx, ratio);
+        }
+      else if (STREQ (token, "SlantFont:"))
+        {
+          char * new, * src;
+          float ratio;
+          unsigned int num;
 
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  new = token2;
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  src = token2;
-	  token2 = GET_TOKEN (NULL);
-	  CHECK_TOKEN ();
-	  ratio = (float) atof(token2);
-	  for (num = 0 ; encoding->slantfont[num].name ; num ++ );
-	  if (num > sizeof encoding->slantfont - 1){
-	      error_at_line (1, 0, fname, firstline,
-			   _("too many slant font: `%s'"), new);
-	  }
-	  encoding_add_slant_font(encoding, new, src, ratio);
-	}
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          new = token2;
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          src = token2;
+          token2 = GET_TOKEN (NULL);
+          CHECK_TOKEN ();
+          ratio = (float) atof(token2);
+          for (num = 0 ; encoding->slantfont[num].name ; num ++ );
+          if (num > sizeof encoding->slantfont - 1){
+              error_at_line (1, 0, fname, firstline,
+                           _("too many slant font: `%s'"), new);
+          }
+          encoding_add_slant_font(encoding, new, src, ratio);
+        }
       else
         error_at_line (1, 0, fname, firstline,
                        _("invalid option `%s'"), quotearg (token));
@@ -755,8 +755,8 @@ encoding_print_signature (struct encoding * item, FILE * stream)
   size_t i, title_len;
 
   title_len = (strlen (" ()")
-	       + strlen (item->name)
-	       + strlen (item->key));
+               + strlen (item->name)
+               + strlen (item->key));
   fprintf (stream, "%s (%s)\n", item->name, item->key);
   for (i = 0 ; i < title_len ; i++)
     putc ('-', stream);
@@ -770,18 +770,18 @@ encoding_print_signature (struct encoding * item, FILE * stream)
  */
 static void
 encoding_output_ps_vector (struct a2ps_job * job,
-			   struct encoding * encoding)
+                           struct encoding * encoding)
 {
   int c;
 
   output (job->ps_encodings, "%%%%BeginResource: encoding %sEncoding\n",
-	  encoding->name);
+          encoding->name);
   output (job->ps_encodings, "/%sEncoding [",
-	  encoding->name);
+          encoding->name);
   for (c = 0 ; c < 256 ; c++)
     {
       if (!(c % 8))
-	output_char (job->ps_encodings, '\n');
+        output_char (job->ps_encodings, '\n');
       output (job->ps_encodings, "/%s ", encoding->vector [c]);
     }
   output (job->ps_encodings, "\n] def\n");
@@ -810,7 +810,7 @@ encoding_self_print (struct encoding * item, FILE * stream)
   for (c = 0 ; c < 256 ; c++)
     {
       if (!(c % 8))
-	putc ('\n', stream);
+        putc ('\n', stream);
       fprintf (stream, "%-10s ", item->vector [c]);
     }
   putc ('\n', stream);
@@ -823,11 +823,11 @@ encoding_self_print (struct encoding * item, FILE * stream)
       int i;
       fprintf (stream, "Faces:\n");
       for (i = 0 ; base_faces [i] != -1 ; i++)
-	{
-	  face = base_faces [i];
-	  fprintf (stream, "Face %s (%d)\n", face_to_string (face), face);
-	  wx_self_print (item->faces_wx [face], stream);
-	}
+        {
+          face = base_faces [i];
+          fprintf (stream, "Face %s (%d)\n", face_to_string (face), face);
+          wx_self_print (item->faces_wx [face], stream);
+        }
     }
 }
 
@@ -851,7 +851,7 @@ encoding_get_key (struct encoding * enc)
 
 int
 encoding_char_exists (struct encoding * enc,
-			    enum face_e face, char c)
+                            enum face_e face, char c)
 {
   return enc->faces_wx[face][(unsigned char)c] != 0;
 }
@@ -874,8 +874,8 @@ encoding_get_composite_flag (struct encoding * enc)
  */
 static void
 dump_encoding_setup (FILE * stream,
-		     struct a2ps_job * job,
-		     struct encoding * encoding)
+                     struct a2ps_job * job,
+                     struct encoding * encoding)
 {
   size_t i, nb;
   size_t ns;
@@ -892,9 +892,9 @@ dump_encoding_setup (FILE * stream,
   for (i = 0 ; i < encoding->font_names_used->len ; i++)
     {
       real_font_name = encoding_resolve_font_substitute (job, encoding,
-							 font_names [i]);
+                                                         font_names [i]);
       if (!font_is_to_reencode (job, real_font_name))
-	da_remove_at (encoding->font_names_used, i);
+        da_remove_at (encoding->font_names_used, i);
     }
 
   /* The number of fonts that, finally, have to be encoded
@@ -907,39 +907,39 @@ dump_encoding_setup (FILE * stream,
 
   /* Create the dictionary and fill it */
   fprintf (stream, "%% Dictionary for %s support\n",
-	  encoding->name);
+          encoding->name);
   fprintf (stream, "/%sdict %zu dict begin\n", encoding->key,
-	   (encoding->composite_flag == true)? nb+nb+ns:nb+ns);
+           (encoding->composite_flag == true)? nb+nb+ns:nb+ns);
   for (i = 0 ; i < nb ; i++)
     fprintf (stream, "  /f%s %sEncoding /%s reencode_font\n",
-	     font_names [i],
-	     encoding->name,
-	     encoding_resolve_font_substitute (job, encoding, font_names [i]));
+             font_names [i],
+             encoding->name,
+             encoding_resolve_font_substitute (job, encoding, font_names [i]));
 
   /* Slant font setting */
   for (i = 0 ; encoding->slantfont[i].name ; i++ )
     fprintf (stream, "  /%s /%s %f slantfont  definefont pop\n",
-	     encoding->slantfont[i].name,
-	     encoding->slantfont[i].src,
-	     (double) encoding->slantfont[i].ratio);
+             encoding->slantfont[i].name,
+             encoding->slantfont[i].src,
+             (double) encoding->slantfont[i].ratio);
 
   /*
    * Composite font setting.
-   * If kanji font size is larger than alphabet character, 
+   * If kanji font size is larger than alphabet character,
    * set base font size to kanji charactor size.
    */
   if (encoding->composite_flag == true) {
     for (i = 0 ; i < nb ; i++)
       fprintf (stream, "  /f%s /f%s /%s %f %f false  compositefont "
-	               "%f scalefont def\n",
-	       font_names [i],
-	       font_names [i],
-	       encoding_resolve_composite_font (encoding, font_names [i]),
-	       (double) encoding->composite_ratio[i],
-	       (encoding->composite_ratio[i] > 1.0f) ?
-	       0 : (double) ((1.0f - encoding->composite_ratio[i]) / 2.0f),
-	       (encoding->composite_ratio[i] > 1.0f) ?
-	       (double) (1.0f / encoding->composite_ratio[i]) : 1.0);
+                       "%f scalefont def\n",
+               font_names [i],
+               font_names [i],
+               encoding_resolve_composite_font (encoding, font_names [i]),
+               (double) encoding->composite_ratio[i],
+               (encoding->composite_ratio[i] > 1.0f) ?
+               0 : (double) ((1.0f - encoding->composite_ratio[i]) / 2.0f),
+               (encoding->composite_ratio[i] > 1.0f) ?
+               (double) (1.0f / encoding->composite_ratio[i]) : 1.0);
   }
   fputs ("currentdict end def\n", stream);
 }
@@ -970,7 +970,7 @@ encoding_hash_cmp (struct encoding * x, struct encoding * y)
 
 static int
 encoding_hash_qcmp (struct encoding ** x,
-			  struct encoding ** y)
+                          struct encoding ** y)
 {
   return_STRING_COMPARE ((*x)->key, (*y)->key);
 }
@@ -985,9 +985,9 @@ encodings_table_new (void)
 
   res = XMALLOC (hash_table);
   hash_init (res, 32,
-	     (hash_func_t) encoding_hash_1,
-	     (hash_func_t) encoding_hash_2,
-	     (hash_cmp_func_t) encoding_hash_cmp);
+             (hash_func_t) encoding_hash_1,
+             (hash_func_t) encoding_hash_2,
+             (hash_cmp_func_t) encoding_hash_cmp);
   return res;
 }
 
@@ -996,7 +996,7 @@ encodings_table_new (void)
  */
 static void
 encoding_setup (struct a2ps_job * job,
-		      struct encoding * encoding)
+                      struct encoding * encoding)
 {
   char * cp;
 
@@ -1040,7 +1040,7 @@ encoding_add (struct a2ps_job * job, const char * key)
 
 void
 encoding_add_font_name_used (struct encoding * encoding,
-				   const char * name)
+                                   const char * name)
 {
   da_append (encoding->font_names_used, xstrdup (name));
 }
@@ -1064,32 +1064,32 @@ encoding_build_faces_wx (a2ps_job * job, struct encoding * encoding)
     {
       face = base_faces [i];
       encoding_add_font_name_used (encoding,
-				   job->face_eo_font [face]);
+                                   job->face_eo_font [face]);
       /* E.g. in Latin 2, don't use Courier but Courier-Ogonki */
       true_font_name =
-	encoding_resolve_font_substitute (job, encoding,
-					  job->face_eo_font [face]);
+        encoding_resolve_font_substitute (job, encoding,
+                                          job->face_eo_font [face]);
       /* Get the wx related to the FACE */
       font_info_get_wx_for_vector (job,
-				   true_font_name,
-				   encoding->vector,
-				   encoding->faces_wx [face]);
+                                   true_font_name,
+                                   encoding->vector,
+                                   encoding->faces_wx [face]);
 
       if (encoding->composite_flag)
-	{
-	  encoding->composite_ratio[i] =
-	    composite_font_info_get_ratio(encoding, 
-					  job->face_eo_font [face]);
+        {
+          encoding->composite_ratio[i] =
+            composite_font_info_get_ratio(encoding,
+                                          job->face_eo_font [face]);
 
-	  encoding->composite_wx[i] =
-	    composite_font_info_get_wx(encoding, 
-				       job->face_eo_font [face]);
+          encoding->composite_wx[i] =
+            composite_font_info_get_wx(encoding,
+                                       job->face_eo_font [face]);
 
-	  /* If kanji font size is larger than alphabet character, 
-	     fit kanji charactor size to base font size */
-	  if (encoding->composite_ratio[i] < 1.0f)
-            encoding->composite_wx[i] *= (unsigned) encoding->composite_ratio[i]; 
-	}
+          /* If kanji font size is larger than alphabet character,
+             fit kanji charactor size to base font size */
+          if (encoding->composite_ratio[i] < 1.0f)
+            encoding->composite_wx[i] *= (unsigned) encoding->composite_ratio[i];
+        }
     }
 }
 
@@ -1134,7 +1134,7 @@ get_encoding_by_alias (struct a2ps_job * job, char * alias)
  */
 void
 dump_encodings_setup (FILE * stream,
-		      struct a2ps_job * job)
+                      struct a2ps_job * job)
 {
   int i;
   struct encoding ** encodings;
@@ -1142,7 +1142,7 @@ dump_encodings_setup (FILE * stream,
   /* Get the list of the encodings */
   encodings = (struct encoding **)
     hash_dump (job->encodings, NULL,
-	       (hash_cmp_func_t) encoding_hash_qcmp);
+               (hash_cmp_func_t) encoding_hash_qcmp);
 
   for (i = 0 ; encodings [i] ; i++)
     dump_encoding_setup (stream, job, encodings [i]);
@@ -1168,17 +1168,17 @@ char_WX (a2ps_job * job, unsigned char c)
     {
     case hexa:
       {
-	char buf [3];
-	sprintf (buf, "%02x", c);
-	return _WX_ ('\\') + _WX_('x') + _WX_ (buf[0]) + _WX_ (buf[1]);
+        char buf [3];
+        sprintf (buf, "%02x", c);
+        return _WX_ ('\\') + _WX_('x') + _WX_ (buf[0]) + _WX_ (buf[1]);
       }
 
     case octal:
       {
-	char buf [4];
-	sprintf (buf, "%03o", c);
-	return (_WX_ ('\\')
-		+ _WX_ (buf [0]) + _WX_ (buf [1]) + _WX_ (buf [2]));
+        char buf [4];
+        sprintf (buf, "%03o", c);
+        return (_WX_ ('\\')
+                + _WX_ (buf [0]) + _WX_ (buf [1]) + _WX_ (buf [2]));
       }
 
     case space:
@@ -1189,30 +1189,30 @@ char_WX (a2ps_job * job, unsigned char c)
 
     case caret:
       if (0177 < c)
-	{
-	  wx += _WX_('M') + _WX_('-');
-	  c &= 0177;
-	}
+        {
+          wx += _WX_('M') + _WX_('-');
+          c &= 0177;
+        }
       if (c == 0177)
-	wx += _WX_('^') + _WX_('?');
+        wx += _WX_('^') + _WX_('?');
       else if (c < ' ')
-	wx += _WX_ ('^') + _WX_ (c + '@');
+        wx += _WX_ ('^') + _WX_ (c + '@');
       else
-	wx += _WX_ (c);
+        wx += _WX_ (c);
       return wx;
 
     case Emacs:
       if (0177 < c)
-	{
-	  wx += _WX_('M') + _WX_('-');
-	  c &= 0177;
-	}
+        {
+          wx += _WX_('M') + _WX_('-');
+          c &= 0177;
+        }
       if (c == 0177)
-	wx += _WX_('C') + _WX_('-') + _WX_('?');
+        wx += _WX_('C') + _WX_('-') + _WX_('?');
       else if (c < ' ')
-	wx += _WX_('C') + _WX_('-') + _WX_ (c + '@');
+        wx += _WX_('C') + _WX_('-') + _WX_ (c + '@');
       else
-	wx += _WX_ (c);
+        wx += _WX_ (c);
       return wx;
 
     default:
@@ -1258,7 +1258,7 @@ static int
 da_encoding_name_cmp (char * key1, char * key2, struct a2ps_job * job)
 {
   return strverscmp ((char *) encoding_get (job, key1)->name,
-		     (char *) encoding_get (job, key2)->name);
+                     (char *) encoding_get (job, key2)->name);
 }
 
 /*
@@ -1286,7 +1286,7 @@ list_encodings_long (a2ps_job * job, FILE * stream)
 
   /* We want them to be in order of the names, not keys */
   da_qsort_with_arg (entries,
-		     (da_cmp_arg_func_t) da_encoding_name_cmp, job);
+                     (da_cmp_arg_func_t) da_encoding_name_cmp, job);
 
   fputs (_("Known Encodings"), stream);
   putc ('\n', stream);
@@ -1308,10 +1308,10 @@ list_encodings_long (a2ps_job * job, FILE * stream)
  */
 static void
 encoding_texinfo_print_signature (struct encoding * encoding,
-					FILE * stream)
+                                        FILE * stream)
 {
   fprintf (stream, "@deftp {Encoding} {%s} (@file{%s.edf})\n",
-	   encoding->name, encoding->key);
+           encoding->name, encoding->key);
 
   documentation_print_texinfo (encoding->documentation, "%s", stream);
   fputs ("@end deftp\n\n", stream);
@@ -1331,7 +1331,7 @@ list_texinfo_encodings_long (a2ps_job * job, FILE * stream)
 
   /* We want them to be in order of the names, not keys */
   da_qsort_with_arg (entries,
-		     (da_cmp_arg_func_t) da_encoding_name_cmp, job);
+                     (da_cmp_arg_func_t) da_encoding_name_cmp, job);
 
   fputs ("The known encodings are:\n", stream);
 

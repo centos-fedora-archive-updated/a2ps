@@ -3,25 +3,20 @@
 # Copyright (c) 1988-2017 Free Software Foundation, Inc.
 
 # Package source files
-src/buffer.c
 src/delegate.c
 src/generate.c
 src/lexssh.l
 src/main.c
-# src/parsessh.c
 src/parsessh.y
-# src/sheets-map.c
 src/sheets-map.l
 src/select.c
 src/ssheet.c
-src/sshread.c
 src/versions.c
 
-# a2ps own files
+# a2ps’s own files
 liba2ps/caret.c
-liba2ps/confg.gperf
-#liba2ps/darray.c
-#liba2ps/dstring.c
+liba2ps/darray.c
+liba2ps/dstring.c
 liba2ps/encoding.c
 liba2ps/faces.c
 liba2ps/filtdir.c
@@ -35,7 +30,6 @@ liba2ps/metaseq.c
 liba2ps/options.c
 liba2ps/output.c
 liba2ps/pair_ht.c
-liba2ps/parseppd.y
 liba2ps/pathwalk.c
 liba2ps/ppd.c
 liba2ps/prange.c
@@ -43,8 +37,17 @@ liba2ps/printers.c
 liba2ps/prolog.c
 liba2ps/psgen.c
 liba2ps/routines.c
-# liba2ps/title.c uses __attribute__(Spec)
-liba2ps/tterm.c
 liba2ps/userdata.c
 liba2ps/useropt.c
 liba2ps/xbackupfile.c
+
+# gnulib files
+lib/argmatch.c
+lib/argmatch.h
+lib/error.c
+lib/getopt.c
+lib/obstack.c
+lib/openat-die.c
+lib/quotearg.c
+lib/version-etc.c
+lib/xalloc-die.c

@@ -17,7 +17,7 @@ AC_CONFIG_HEADERS([config.h])
 
 # Define the package name
 GNU_PACKAGE="GNU $PACKAGE"
-AC_DEFINE_UNQUOTED(GNU_PACKAGE, "$GNU_PACKAGE",
+AC_DEFINE_UNQUOTED([GNU_PACKAGE], "$GNU_PACKAGE",
 		   [The concatenation of the strings `GNU ', and PACKAGE.])
 AC_SUBST(GNU_PACKAGE)
 
@@ -129,13 +129,13 @@ AM_GNU_GETTEXT_VERSION([0.19.8])
 AM_GNU_GETTEXT([external], [need-ngettext])
 
 # In path separator character.
-AC_DEFINE_UNQUOTED(DIRECTORY_SEPARATOR, '/',
+AC_DEFINE_UNQUOTED([DIRECTORY_SEPARATOR], '/',
 		   [The char used to separate component of a path])
 # Between paths separator character.
-AC_DEFINE_UNQUOTED(PATH_SEPARATOR, ':',
+AC_DEFINE_UNQUOTED([PATH_SEPARATOR], ':',
 		   [The char used to separate paths.])
 # We define SYNTAX_TABLE so that regex uses syntax tables
-AC_DEFINE(SYNTAX_TABLE, 1,
+AC_DEFINE([SYNTAX_TABLE], 1,
 	  [Define to enable syntax table support in `regex'.])
 
 ## ---------------------------- ##

@@ -471,9 +471,9 @@ a2ps_printers_add (struct a2ps_printers_s * printers,
   command = token;
 
   /* Special printers. */
-  if (strequ (key, DEFAULT_PRINTER))
+  if (STREQ (key, DEFAULT_PRINTER))
     printer_set (&printers->default_printer, ppdkey, command);
-  else if (strequ (key, UNKNOWN_PRINTER))
+  else if (STREQ (key, UNKNOWN_PRINTER))
     printer_set (&printers->unknown_printer, ppdkey, command);
   else
     printer_table_add (printers->printers, key, ppdkey, command);
@@ -521,7 +521,7 @@ a2ps_printers_flag_output_set (struct a2ps_printers_s * printers,
 {
   printers->flag_output_is_printer = is_printer;
 
-  if (!is_printer && flag_output_name && strequ (flag_output_name, "-"))
+  if (!is_printer && flag_output_name && STREQ (flag_output_name, "-"))
     /* Request for stdin */
     printers->flag_output_name = NULL;
   else

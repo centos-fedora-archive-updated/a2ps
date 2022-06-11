@@ -28,14 +28,14 @@ struct a2ps_job;
  * Therefore we want to have a single bit to test the comments.
  * We also want, for the same reason, Invisible to be 0.
  *
- * I came down to 6 bits.  If somebody has something better, 
+ * I came down to 6 bits.  If somebody has something better,
  * I'll take it!
  * 5 4 3 2 1 0
  *           +- Weak/Strong
  *     +++++--- Keyword/Label/String/Symbol/Error
  *   +--------- Comment
  * +----------- Comment strong.
- * 
+ *
  * What gives:
  * 000000 Invisible			0
  * 000001 Plain				1
@@ -44,7 +44,7 @@ struct a2ps_job;
  * 000100 Label				4
  * 000101 Label_strong			5
  * 000110 String			6
- * 001000 Symbol 			8
+ * 001000 Symbol                        8
  * 001010 Error (the face "Error")	10
  * 010000 Comment			16
  * 100000 Comment_strong.		32
@@ -56,10 +56,10 @@ struct a2ps_job;
  */
 
 /* liba2ps.h:begin */
-/* 
+/*
  * Available faces.  No_face should never be given to liba2ps.
  */
-enum face_e { 
+enum face_e {
   No_face = -1,
   First_face = 0,
   Plain = 0,
@@ -77,7 +77,7 @@ enum face_e {
 /* liba2ps.h:end */
 
 
-/* 
+/*
  * What must be the dimension of the array indexed
  * by the faces? I.e. last plus one.
  */
@@ -95,5 +95,5 @@ void init_face_eo_font (struct a2ps_job * job);
 void check_face_eo_font (struct a2ps_job * job);
 int face_eo_font_is_set (struct a2ps_job * job);
 void face_set_font (struct a2ps_job * job,
-			    enum face_e face, const char * font_name);
+                            enum face_e face, const char * font_name);
 #endif

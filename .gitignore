@@ -19,3 +19,7 @@ Makefile.in
 /libtool
 /stamp-h1
 /a2ps-*.tar.gz
+/GNUmakefile
+/maint.mk
+/README-release
+/tight-scope.mk

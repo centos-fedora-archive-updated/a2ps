@@ -24,8 +24,6 @@
 /************************************************************************/
 #include <config.h>
 
-#include <assert.h>
-
 #include "a2ps.h"
 #include "routines.h"
 #include "options.h"
@@ -755,7 +753,7 @@ a2ps_handle_options (a2ps_job * job, int argc, char *argv[])
    shell-grouping mechanics (" and '), and them run
    a2ps_handle_options onto the arguement vector.
 
-   Return optind, i.e., the index of the the first non option argument.
+   Return optind, i.e., the index of the first non option argument.
    But I doubt arguments are allowed in user options.
 */
 int

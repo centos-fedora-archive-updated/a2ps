@@ -45,8 +45,10 @@
 #  havelib \
 #  isdir \
 #  long-options \
+#  maintainer-makefile \
 #  manywarnings \
 #  obstack \
+#  readme-release \
 #  sig2str \
 #  stpncpy \
 #  strchrnul \
@@ -68,8 +70,10 @@ gl_MODULES([
   havelib
   isdir
   long-options
+  maintainer-makefile
   manywarnings
   obstack
+  readme-release
   sig2str
   stpncpy
   strchrnul

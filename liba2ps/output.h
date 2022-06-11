@@ -42,7 +42,7 @@ typedef void (*delayed_routine_t) (FILE * stream, void * arg);
 struct output * output_new (const char * name);
 void output_report  (struct output * out, FILE * stream);
 
-# if defined (__STDC__) && __STDC__
+# if defined __STDC__ && __STDC__
 extern void output (struct output * out, const char *format, ...)
      __attribute__ ((__format__ (__printf__, 2, 3)));
 # else
@@ -77,4 +77,3 @@ void output_self_print (struct output * out, FILE * stream);
 void undivert (struct a2ps_job * job);
 void output_dump (struct output * out, FILE * stream);
 #endif
-

@@ -335,7 +335,7 @@ pair_table_load (struct hash_table_s * table, const char *file)
 	/* Blank but not empty */
 	continue;
 
-      if (strequ (token, "***"))
+      if (STREQ (token, "***"))
 	{
 	  /* Load another map file */
 	  token2 = GET_TOKEN (NULL);	/* A map file path	*/

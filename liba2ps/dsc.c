@@ -251,9 +251,9 @@ dump_needed_resources (FILE * stream, a2ps_job * job)
   for (i = 0 ; list [i] ; i ++)
     {
       /* Don't print the colors, because they have another section */
-      if (strequ (list [i]-> key, "color")
+      if (STREQ (list [i]-> key, "color")
 	  /* nor files, since they are yet included */
-	  || strequ (list [i]-> key, "file"))
+	  || STREQ (list [i]-> key, "file"))
 	continue;
 
       multivalued_entry_dump (stream, first,

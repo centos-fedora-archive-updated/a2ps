@@ -70,7 +70,7 @@ This document describes GNU @pack{} @value{VERSION}, a converter from
 various formats, included text, to PostScript converter, with
 pretty-printing abilities.
 
-Copyright @copyright{} 1988-2017 Free Software Foundation, Inc.
+Copyright @copyright{} 1988-2022 Free Software Foundation, Inc.
 
 Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -3363,7 +3363,7 @@ collecting @code{AFM} files, and digging information in them.
 Once the script has finished, a file @file{fonts.map.new} was created.
 Check its integrity, and if it's correct, either replace the old
 @file{fonts.map} with it, or rename @file{fonts.map.new} as
-@file{fonts.map} and place it higher in the the library path (for
+@file{fonts.map} and place it higher in the library path (for
 instance in your @file{~/.a2ps/} directory).
 
 
@@ -3371,8 +3371,8 @@ instance in your @file{~/.a2ps/} directory).
 @section Style Sheet Files
 @cindex @file{sheets.map}
 
-The style sheets are defined in various files.  See @pxref{Pretty
-Printing} for the structure of these files.  As for most other features,
+The style sheets are defined in various files (@pxref{Pretty
+Printing} for the structure of these files).  As for most other features,
 there is main file, a road map, which defines in which condition a style
 sheet should be used (@pxref{Map Files}).  This file is
 @file{sheets.map}.
@@ -5233,7 +5233,7 @@ interface to control the printer's output device.  @pack{} protects all
 page device options inside an if block so they have no effect in level 1
 interpreters.  Although all level 2 interpreters support page device,
 they do not have to support all page device options.  For example some
-printers can print in duplex mode and some can not.  Refer to the
+printers can print in duplex mode and some cannot.  Refer to the
 documentation of your printer for supported options.
 
 Here are some usable page device options which can be selected with the
@@ -6381,8 +6381,8 @@ a2ps -Dlp.options="-h -s" -P printer
 @end example
 
 @noindent
-You can also define @samp{lp.options} once for all, @xref{Defining
-Variables}.
+You can also define @samp{lp.options} once for all (@pxref{Defining
+Variables}).
 
 Finally, you can use @samp{Printer:} several times to reach a printer
 with different @code{lpr} options.
@@ -6474,7 +6474,7 @@ broken (giving @samp{100} instead of @samp{00}): @samp{%D}, @samp{%W},
 
 Nevertheless, please note that if you required a two digit year, expect
 to have @samp{Jan 1st, 00} someday.  @strong{You} are responsible of the
-format you want for the date: @xref{Escapes}.
+format you want for the date (@pxref{Escapes}).
 
 @node The Options Have Changed
 @subsection Why Have the Options Changed?

@@ -42,8 +42,8 @@ unprintable_format_to_string (enum unprintable_format format)
   case question_mark:
     return _("question-mark (i.e., `?')");
   }
-  error (1, 0, 
-	 "switch of unprintable_format_to_string");
+  error (1, 0,
+         "switch of unprintable_format_to_string");
   return NULL; /* For lint */
 }
 
@@ -74,18 +74,18 @@ escape_unprintable (a2ps_job * job, int c, char * res)
   case space:
     STRCCAT (res, ' ');
     return 1;
-    
+
   case caret:
     if (0177 < c) {
       strcat (res, "M-");
-      len += 2; 
+      len += 2;
       c &= 0177;
     }
-    
+
     if (c < ' ') {
       STRCCAT(res, '^');
       STRCCAT(res, c);
-      len += 2; 
+      len += 2;
     } else if (c == 0177) {
       strcat(res, "^?");
       len += 2;
@@ -98,14 +98,14 @@ escape_unprintable (a2ps_job * job, int c, char * res)
   case Emacs:
     if (0177 < c) {
       strcat(res, "M-");
-      len += 2; 
+      len += 2;
       c &= 0177;
     }
-    
+
     if (c < ' ') {
       strcat (res, "C-");
       STRCCAT(res, c);
-      len += 3; 
+      len += 3;
     } else if (c == 0177) {
       strcat(res, "C-?");
       len += 3;

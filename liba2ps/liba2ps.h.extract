@@ -1,8 +1,8 @@
 /* From faces.h */
-/* 
+/*
  * Available faces.  No_face should never be given to liba2ps.
  */
-enum face_e { 
+enum face_e {
   No_face = -1,
   First_face = 0,
   Plain = 0,

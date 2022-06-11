@@ -26,7 +26,7 @@
 `-------------------------*/
 
 #include <alloca.h>
-#define ALLOCA(t, n) ((t *) alloca (sizeof (t) * (n)))
+#define ALLOCA(t, n) (alloca (sizeof (t) * (n)))
 
 /*-------------------------------.
 | Stdio and missing prototypes.  |
@@ -46,8 +46,8 @@
 
 #include <string.h>
 
-#define strequ(s1, s2)		(strcmp ((s1), (s2)) == 0)
-#define strnequ(s1, s2, n)	(strncmp ((s1), (s2), (n)) == 0)
+#define STREQ(s1, s2)		(strcmp ((s1), (s2)) == 0)
+#define STRNEQ(s1, s2, n)	(strncmp ((s1), (s2), (n)) == 0)
 
 /*---------------.
 | Math headers.  |

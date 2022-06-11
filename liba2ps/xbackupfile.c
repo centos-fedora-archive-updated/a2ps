@@ -41,7 +41,7 @@ xfind_backup_file_name (const char * file, enum backup_type backup_type)
 
   res = find_backup_file_name (AT_FDCWD, file, backup_type);
   if (!res)
-    error (1, 0, _("Memory exhausted"));
+    error (1, 0, _("memory exhausted"));
 
   return res;
 }

@@ -378,7 +378,7 @@ pw_paste_file (char * const * path,
   while ((fgets (buf, sizeof (buf), fp)))
     {
       line++;
-      if (strnequ (buf, HDR_TAG, strlen (HDR_TAG)))
+      if (STRNEQ (buf, HDR_TAG, strlen (HDR_TAG)))
 	break;
     }
 
@@ -387,7 +387,7 @@ pw_paste_file (char * const * path,
   while ((fgets (buf, sizeof (buf), fp)))
     {
       line++;
-      if (strnequ (buf, INCL_TAG, strlen (INCL_TAG)))
+      if (STRNEQ (buf, INCL_TAG, strlen (INCL_TAG)))
 	{
 	  char * file = buf + strlen (INCL_TAG);
 	  file = strtok (file, " \n\t");

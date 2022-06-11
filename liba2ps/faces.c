@@ -66,7 +66,7 @@ string_to_face (const char * string)
   int i;
 
   for (i = 0 ; face_and_name[i].name ; i++)
-    if (strequ (string, face_and_name[i].name))
+    if (STREQ (string, face_and_name[i].name))
       return face_and_name[i].face;
   
   return No_face;

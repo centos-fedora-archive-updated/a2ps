@@ -23,5 +23,3 @@ pathwalk.[ch] (xmalloc.[ch])
 
 printlen.[ch]
 	Return the length that sprintf would use to print the arguments.
-
-

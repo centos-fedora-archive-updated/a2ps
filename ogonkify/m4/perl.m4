@@ -41,7 +41,7 @@ AC_DEFUN([jm_PERL],
 dnl The same, but the path to perl is wanted.
 dnl
 dnl By Akim Demaille, do not flame Jim for this :)
-AC_DEFUN(jm_PATH_PERL,
+AC_DEFUN([jm_PATH_PERL],
 [
   dnl FIXME: don't hard-code 5.003
   dnl FIXME: should we cache the result?

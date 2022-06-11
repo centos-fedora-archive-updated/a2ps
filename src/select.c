@@ -117,7 +117,7 @@ sheets_map_load_main (void)
   if (!file)
     {
       error (0, errno, _("cannot find file `%s'"), "sheets.map");
-      /* sheets.map can not be found: there is no automatic prettyprinting */
+      /* sheets.map cannot be found: there is no automatic prettyprinting */
       error (0, 0, _("automatic style selection cancelled"));
       return 0;
     }

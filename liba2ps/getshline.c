@@ -101,7 +101,7 @@ getshstr (unsigned * firstline, unsigned * lastline,
 
       if (c == terminator)
 	{
-	  /* The comment lines can not be continued by an
+	  /* The comment lines cannot be continued by an
 	   * escaped eol, so test this before quotation of eol */
 	  if (**lineptr == terminator || **lineptr == commentor)
 	    {
@@ -181,10 +181,10 @@ main(int argc, char *argv[])
   int res;
 
   if (argc < 2)
-    exit (1);
+    exit (EXIT_FAILURE);
   file = fopen (argv[1], "r");
   if (!file)
-    exit (1);
+    exit (EXIT_FAILURE);
 
   while ((res = getshline_numbered (&firstline, &lastline,
 				    &line_content, &line_size, file)) != -1)

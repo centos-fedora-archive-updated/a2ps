@@ -532,7 +532,7 @@ da_merge (struct darray * a1, struct darray * a2,
 	else
           c1++;
 
-      /* Take what is is a2 as long as it is smaller or equal to
+      /* Take what is a2 as long as it is smaller or equal to
        * what appeared last in a1 */
       while ((c2 < a2->len)
 	     && ((c1 == a1->len)

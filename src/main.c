@@ -24,7 +24,6 @@
 /************************************************************************/
 #include <config.h>
 
-#include <assert.h>
 #include <signal.h>
 #include <locale.h>
 
@@ -1070,7 +1069,7 @@ main (int argc, char *argv[])
       break;
 
     case b_help:
-      usage (0);
+      usage (EXIT_SUCCESS);
       break;
 
     case b_list_options:

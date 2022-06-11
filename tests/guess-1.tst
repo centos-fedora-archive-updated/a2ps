@@ -20,7 +20,7 @@ do
   # What are the filename and its type
   file=`echo $pair | sed "s/:.*//"g`
   lang=`echo $pair | sed "s/[^:]*://"g`
-  
+
   # Check that a2ps agrees
   res=`$CHK --guess $TST_DIR/$file | sed -e 's/[^(]*(//g' | sed -e 's/)[^)]*//g'`
   if test "$res" != $lang; then

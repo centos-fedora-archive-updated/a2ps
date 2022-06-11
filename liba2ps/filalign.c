@@ -22,7 +22,6 @@
 #include "filalign.h"
 #include "argmatch.h"
 #include "getnum.h"
-#include <assert.h>
 
 /*
  * Return a file_align mode

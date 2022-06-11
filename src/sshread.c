@@ -26,7 +26,6 @@
 #include "jobs.h"
 #include "fjobs.h"
 #include "psgen.h"
-#include "assert.h"
 #include "quotearg.h"
 
 /*
