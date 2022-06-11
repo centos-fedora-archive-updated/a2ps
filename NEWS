@@ -1,8 +1,9 @@
                     User visible changes in GNU a2ps.
 
-Version 4.15        May 10, 2022
- * New Maintainer.
- * This is a maintenance release.
+Version 4.15alpha1        May 10, 2022
+ * This is an alpha release, owing to the considerable changes since the
+   last version.
+ * New maintainer, Reuben Thomas.
  * Build:
    - Updated and fixed the build system, using gnulib and modern Autotools.
    - Remove OS/2 support.
