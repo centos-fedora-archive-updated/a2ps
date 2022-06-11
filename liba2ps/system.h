@@ -61,30 +61,6 @@
 `-------------------*/
 
 #include <ctype.h>
-/* Jim Meyering writes:
-
-   "... Some ctype macros are valid only for character codes that
-   isascii says are ASCII (SGI's IRIX-4.0.5 is one such system --when
-   using /bin/cc or gcc but without giving an ansi option).  So, all
-   ctype uses should be through macros like ISPRINT...  If
-   STDC_HEADERS is defined, then autoconf has verified that the ctype
-   macros don't need to be guarded with references to isascii. ...
-   Defining isascii to 1 should let any compiler worth its salt
-   eliminate the && through constant folding."  */
-
-#define ISASCII(c) isascii((int) c)
-#define ISBLANK(c) (ISASCII (c) && isblank   ((int) c))
-#define ISGRAPH(c) (ISASCII (c) && isgraph   ((int) c))
-#define ISPRINT(c) (ISASCII (c) && isprint   ((int) c))
-#define ISDIGIT(c) (ISASCII (c) && isdigit   ((int) c))
-#define ISALNUM(c) (ISASCII (c) && isalnum   ((int) c))
-#define ISALPHA(c) (ISASCII (c) && isalpha   ((int) c))
-#define ISCNTRL(c) (ISASCII (c) && iscntrl   ((int) c))
-#define ISLOWER(c) (ISASCII (c) && islower   ((int) c))
-#define ISPUNCT(c) (ISASCII (c) && ispunct   ((int) c))
-#define ISSPACE(c) (ISASCII (c) && isspace   ((int) c))
-#define ISUPPER(c) (ISASCII (c) && isupper   ((int) c))
-#define ISXDIGIT(c) (ISASCII (c) && isxdigit ((int) c))
 
 #include <sys/wait.h>
 #include <sys/types.h>

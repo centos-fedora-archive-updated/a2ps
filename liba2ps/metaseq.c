@@ -198,16 +198,16 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	if (str[i] == '-') {
 	  i++;
 	  justification = -1;
-	  if (!ISDIGIT ((int) str[i]))
+	  if (!isdigit ((int) str[i]))
 	    padding = str[i++];
 	}
 	if (str[i] == '+') {
 	  i++;
 	  justification = 1;
-	  if (!ISDIGIT ((int) str[i]))
+	  if (!isdigit ((int) str[i]))
 	    padding = str[i++];
 	}
-	while (ISDIGIT ((int) str[i]))
+	while (isdigit ((int) str[i]))
 	  width = width * 10 + (size_t) (str[i++] - '0');
 
 	/* Handle escapes. */
@@ -575,12 +575,12 @@ grow_user_string_obstack (struct obstack * user_string_stack,
 	    break;
 
 	  case '[':	/* `$[]' command line options */
-	    if (!ISDIGIT ((int) str[i]))
+	    if (!isdigit ((int) str[i]))
 	      error (1, 0,  _("%s: invalid argument for %s%c escape"),
 		     context_name, "$[", ']');
 	    {
 	      size_t value = 0;
-	      while (ISDIGIT ((int) str[i]))
+	      while (isdigit ((int) str[i]))
 		value = value * 10 + (size_t) (str[i++] - '0');
 	      if (str[i] == '\0')
 		error (1, 0,  _("%s: missing `%c' for %s%c escape"),
