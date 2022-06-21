@@ -7,7 +7,7 @@
   * Copyright (c) 1995, 96, 97, 98, 99 Akim Demaille, Miguel Santana
   *
   */
- 
+
  /*
   * This file is part of a2ps.
   *
@@ -26,9 +26,9 @@
   * the Free Software Foundation, 59 Temple Place - Suite 330,
   * Boston, MA 02111-1307, USA.
   */
-   
+
  #include <config.h>
- 
+
  #include "a2ps.h"
  #include "routines.h"
  #include "message.h"
@@ -40,38 +40,38 @@
  #include "pair_ht.h"
  #include "dsc.h"
  #include "quotearg.h"
- 
+
  /*
    What this file is in charge of?
- 
+
    Its main responsabilities are:
- 
+
    - to be able to provide, given a font name and an encoding vector,
    to return an unsigned int array [256] of the width of each char.
- 
+
    - to be able to dump the requirements (the needed IncludeResource: font)
    so that we have a correct PS-3 file.
- 
+
    - to download a font file
- 
+
    To acheive this goal, the main task is reading the AFM file of a font,
    to store what it has learnt into a hash table storing any pertinent
    info read in previous AFM files. (We may need this info several times,
    and we do not want to waste time).
- 
+
    This file is decomposed into several parts:
- 
+
    0. Handle the fonts.map files
- 
+
    1. The lexer of afm files.
    The format is simple enough so that we do not need a parser.
- 
+
    2. The cells (of type struct font_info) handling.
- 
+
    3. The hash table maintenance.
    This hash table is, as usually, stored in the a2ps_job so that it
    does not pollute the space, and make liba2ps still "clean".
- 
+
    4. Download a font file
  */
 }
@@ -470,7 +470,7 @@ font_info_get (struct a2ps_job * job, const char * key)
 int
 font_is_to_reencode (PARAM_UNUSED struct a2ps_job * job, const char * key)
 {
-  return !strequ (key, "Symbol");
+  return !STREQ (key, "Symbol");
 }
 
 /*
