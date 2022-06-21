@@ -9,7 +9,7 @@ a2ps@gnu.org.  Submit changes on a2ps-patches@gnu.org.
 
 Please send happiness messages to both Akim, Miguel & Masayuki
 (akim@freefriends.org, Miguel.Santana@st.com, mhatta@gnu.org), and
-*only* this kind of messages. 
+*only* this kind of messages.
 
 See the file ANNOUNCE for a presentation of a2ps, if you're still
 unsure it is indeed a filter from Anything To Probably Something.
@@ -26,13 +26,13 @@ Contents:
 1. Installation
 ===============
 
-Some notes on the distribution:
+*NOTE* If you are installing from a git clone, see README-git.
 
 Most of the work for the installation is done by ./configure.  If you
 never ever read the file `INSTALL', then you really should do it
 *now*.
 
-Some choices are to make, and to give to ./configure
+Some key options for ./configure are:
 
     --disable-nls
     	if you do not want to use Native Language Support
@@ -56,46 +56,10 @@ settings in the file etc/a2ps-site.cfg:
 Note (for novices). If you are not root, you should give
 ./configure the option --prefix=$HOME to be able to install.
 
-There are several things a2ps needs to know about your system in
-order to work properly.  Running configure should be enough to have
-apropriate values, nevertheless, it sure is better if you good check
-the following items:
-
-1. At the end of etc/a2ps_cfg, the lines
-  a. FileCommand:
-  b. Variable: lp.default
-  c. Variable: lp
-
-2. At the top of etc/a2ps-site.cfg, the lines
-  a. Options: --encoding=
-  b. Options: --medium=
-
-There are some architectures, typically Solaris, that will fail saying
-that symbols `bindtextdomain' etc. are missing.  Then re-configure but
-specifying --with-included-gettext.
-
-Remember that \`make install' is mandatory for a2ps to work correctly.
-Once the \`make install' done, you may remove the build directory (the
-one which has been extracted from the .gz, which you can also removed,
+Remember that `make install' is mandatory for a2ps to work correctly.
+Once the `make install' is done, you may remove the build directory (the
+one which has been extracted from the .gz, which you can also remove,
 BTW).
-
-If you encounter problems while configuring or running, it is likely
-that somebody already fell on the same problems.  Hence please read
-
-     http://www.gnu.org/software/a2ps/
-
-which lists the known problems, and the fixes.  Check out also for the
-FAQ, and for a newer version of a2ps: don't send me reports for
-prehistoric versions!
-
-If the trouble persists, then, indeed, you may wish to send a bug
-report (i.e. something *precise* about the problem and your
-configuration :-) to
-
-	mailto:bug-a2ps@gnu.org
-
-Do not, *ever*, send bug reports to a2ps@gnu.org.  Well, pleeeeeease,
-I mean.
 
 
 2. Distribution content
@@ -103,7 +67,8 @@ I mean.
 
 Some interesting files/directories you might want to look at are:
 
-README		This message
+README		This file
+README-git	Instructions for installing directly from git
 INSTALL		Information on the installation process
 ABOUT_NLS	A presentation of GNU's Native Language Support
 		project
@@ -116,7 +81,6 @@ po/		Files for the translation
 sheets/		Style sheets for pretty printing support
 tests/          Sanity checks of a2ps
 contrib/emacs/	Useful emacs files for a2ps
-contrib/sample/	A sample on using liba2ps
 ogonkify/	The full distribution of the fantastic
 		ogonkify package, that fixes a font designed for
 		Latin1 so that other Latin encodings are supported.
@@ -131,16 +95,14 @@ a2ps has a home page where the latest version may be found.
 
 There, you will also find the documentation in various formats.
 
-There is also a mailing list, to subscribe please see 
+Bug reports should be sent to bug-a2ps@gnu.org
+
+There is also a mailing list, to subscribe please see
 
 	http://lists.gnu.org/mailman/listinfo/a2ps
 
-*NOTE* The mailing list is not a place to drop your bug reports or the
-problems you have.  It is a place to discuss about a2ps, to make the
-announcements, wishes etc.  Before sending a mail there, remember many
-people will read your mail.
-
-Bug reports should be sent to bug-a2ps@gnu.org
+*NOTE* The mailing list is for discussion about a2ps, and for
+announcements.
 
 Local Variables:
 mode: indented-text
