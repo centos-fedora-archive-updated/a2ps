@@ -1,6 +1,6 @@
 # Process this file with automake to create Makefile.in
 #
-# Copyright 1995-2017 Free Software Foundation, Inc.
+# Copyright 1995-2022 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-AM_CPPFLAGS = -I$(top_builddir) -I$(srcdir) -I$(top_srcdir)/lib \
+AM_CPPFLAGS = -I$(top_builddir) -I$(srcdir) -I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-DLOCALEDIR=\"$(localedir)\" -DSYSCONFFILE=\"$(sysconfdir)/a2ps.cfg\" -DHAVE_CONFIG_H
 AM_CFLAGS = $(WARN_CFLAGS) $(LIBGC_FLAGS)
 
