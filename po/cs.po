@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: a2ps 4.12\n"
 "Report-Msgid-Bugs-To: bug-a2ps@gnu.org\n"
-"POT-Creation-Date: 2022-05-09 23:40+0100\n"
+"POT-Creation-Date: 2022-06-30 14:02+0100\n"
 "PO-Revision-Date: 1999-10-10 21:42+0200\n"
 "Last-Translator: Jiøí Pavlovský <pavlovsk@ff.cuni.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -14,35 +14,31 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/buffer.c:58
-msgid "any type"
-msgstr "jakýkoliv typ"
-
-#: src/delegate.c:129 liba2ps/confg.gperf:171 liba2ps/encoding.c:643
-#: liba2ps/encoding.c:689 liba2ps/encoding.c:729 liba2ps/output.c:295
-#: liba2ps/pair_ht.c:347 liba2ps/prolog.c:135
+#: src/delegate.c:110 liba2ps/encoding.c:569 liba2ps/encoding.c:615
+#: liba2ps/encoding.c:657 liba2ps/output.c:282 liba2ps/pair_ht.c:312
+#: liba2ps/prolog.c:137
 #, c-format
 msgid "missing argument for `%s'"
 msgstr "chybí argument pro `%s'"
 
-#: src/delegate.c:252 liba2ps/routines.c:151 liba2ps/xbackupfile.c:174
-#: liba2ps/xbackupfile.c:202 liba2ps/xbackupfile.c:210
+#: src/delegate.c:233 liba2ps/routines.c:136 liba2ps/xbackupfile.c:171
+#: liba2ps/xbackupfile.c:196 liba2ps/xbackupfile.c:204
 #, c-format
 msgid "cannot create file `%s'"
 msgstr "soubor `%s' nelze vytvoøit"
 
-#: src/delegate.c:261 src/select.c:190 liba2ps/routines.c:181
-#: liba2ps/routines.c:187
+#: src/delegate.c:242 src/select.c:188 liba2ps/routines.c:163
+#: liba2ps/routines.c:169
 #, c-format
 msgid "cannot open a pipe on `%s'"
 msgstr "rouru do `%s' nelze otevøít"
 
-#: src/delegate.c:381
+#: src/delegate.c:362
 #, c-format
 msgid "Delegation `%s', from %s to %s\n"
 msgstr "Pøedání `%s', od %s do %s\n"
 
-#: src/delegate.c:400 src/delegate.c:422
+#: src/delegate.c:380 src/delegate.c:400
 msgid "Applications configured for delegation"
 msgstr "Aplikace urèené k pøedávání úloh"
 
@@ -51,136 +47,134 @@ msgstr "Aplikace urèené k pøedávání úloh"
 msgid "`%s' is a directory"
 msgstr "`%s' je adresáø"
 
-#: src/generate.c:90 src/main.c:555 src/main.c:577 liba2ps/confg.gperf:201
-#: liba2ps/confg.gperf:364 liba2ps/routines.c:145
+#: src/generate.c:90 src/main.c:550 src/main.c:572 liba2ps/routines.c:130
 #, c-format
 msgid "cannot open file `%s'"
 msgstr "soubor `%s' nelze otevøít"
 
-#: src/generate.c:95 liba2ps/xbackupfile.c:150
+#: src/generate.c:95 liba2ps/xbackupfile.c:147
 #, c-format
 msgid "cannot get informations on file `%s'"
 msgstr "informace o souboru `%s' nelze získat"
 
-#: src/generate.c:162
+#: src/generate.c:160
 #, c-format
 msgid "[%s (%s): 1 page on 1 sheet]\n"
 msgstr "[%s (%s): poèet stran/listù: 1/1]\n"
 
-#: src/generate.c:168
-#, c-format
-msgid "[%s (%s): %d pages on 1 sheet]\n"
+#: src/generate.c:166
+#, fuzzy, c-format
+msgid "[%s (%s): %zu pages on 1 sheet]\n"
 msgstr "[%s (%s): poèet stran/listù: %d/1]\n"
 
-#: src/generate.c:175
-#, c-format
-msgid "[%s (%s): %d pages on %d sheets]\n"
+#: src/generate.c:173
+#, fuzzy, c-format
+msgid "[%s (%s): %zu pages on %zu sheets]\n"
 msgstr "[%s (%s): poèet stran/listù: %d/%d]\n"
 
-#: src/generate.c:202
+#: src/generate.c:200
 #, c-format
 msgid "[Total: 1 page on 1 sheet] %s\n"
 msgstr "[Celkem: poèet stran/listù: 1/1] %s\n"
 
-#: src/generate.c:206
-#, c-format
-msgid "[Total: %d pages on 1 sheet] %s\n"
+#: src/generate.c:204
+#, fuzzy, c-format
+msgid "[Total: %zu pages on 1 sheet] %s\n"
 msgstr "[Celkem: poèet stran/listù: %d/1] %s\n"
 
-#: src/generate.c:211
-#, c-format
-msgid "[Total: %d pages on %d sheets] %s\n"
+#: src/generate.c:209
+#, fuzzy, c-format
+msgid "[Total: %zu pages on %zu sheets] %s\n"
 msgstr "[Celkem: poèet stran/listù: %d/%d] %s\n"
 
-#: src/generate.c:220
+#: src/generate.c:218
 msgid "[1 line wrapped]\n"
 msgstr ""
 
-#: src/generate.c:223
+#: src/generate.c:221
 #, fuzzy, c-format
-msgid "[%d lines wrapped]\n"
+msgid "[%zu lines wrapped]\n"
 msgstr "øádkù na stránku - %d"
 
-#: src/generate.c:236
+#: src/generate.c:232
 msgid "[No output produced]\n"
 msgstr "[®ádný výstup nebyl vytvoøen]\n"
 
-#: src/generate.c:308
+#: src/generate.c:304
 #, c-format
 msgid "%s, delegated to %s"
 msgstr "%s pøedáno ke zpracování %s"
 
-#: src/generate.c:316
+#: src/generate.c:312
 #, c-format
 msgid "[%s (%s): failed.  Ignored]\n"
 msgstr "[%s (%s): neuspìlo. Ignorováno]\n"
 
-#: src/generate.c:324
+#: src/generate.c:320
 #, c-format
 msgid "[%s (unprintable): ignored]\n"
 msgstr "[%s (netisknutelné): Ignorováno]\n"
 
-#: src/generate.c:333
+#: src/generate.c:329
 #, c-format
 msgid "[%s (binary): ignored]\n"
 msgstr "[%s (binární data): ignorováno]\n"
 
-#: src/generate.c:354
+#: src/generate.c:350
 msgid "plain"
 msgstr "prostý"
 
-#: src/lexssh.l:350
+#: src/lexssh.l:353
 msgid "end-of-line in string constant"
 msgstr "neukonèená øetìzcová konstanta"
 
-#: src/lexssh.l:417 src/sheets-map.l:156 src/sheets-map.l:195
+#: src/lexssh.l:420 src/sheets-map.l:159 src/sheets-map.l:198
 #, fuzzy, c-format
 msgid "end of line inside a %s"
 msgstr "neukonèený regulární výraz"
 
-#: src/main.c:198
+#: src/main.c:197
 #, fuzzy, c-format
-#| msgid "received signal %d: %s"
 msgid "received SIG%s"
 msgstr "obdr¾en signál %d: %s"
 
-#: src/main.c:237
+#: src/main.c:236
 msgid "heavy"
 msgstr "maximální (heavy)"
 
-#: src/main.c:241
+#: src/main.c:240
 msgid "normal"
 msgstr "bì¾ná (normal)"
 
-#: src/main.c:245
+#: src/main.c:244
 msgid "none"
 msgstr "¾ádná (none)"
 
-#: src/main.c:319 src/main.c:323
+#: src/main.c:318 src/main.c:322
 msgid "yes"
 msgstr "ano"
 
-#: src/main.c:320 src/main.c:323 src/main.c:364
+#: src/main.c:319 src/main.c:322 src/main.c:360
 msgid "no"
 msgstr "ne"
 
-#: src/main.c:330
+#: src/main.c:328
 #, c-format
 msgid "Configuration status of %s %s\n"
 msgstr "Aktuální konfigurace %s %s\n"
 
-#: src/main.c:334 src/main.c:692
+#: src/main.c:332 src/main.c:687
 msgid "Sheets:\n"
 msgstr "Listy:\n"
 
-#: src/main.c:335
-#, c-format
+#: src/main.c:333
+#, fuzzy, c-format
 msgid ""
-"  medium          = %s%s, %s\n"
-"  page layout     = %d x %d, %s\n"
+"  medium          = %s, %s\n"
+"  page layout     = %zu x %zu, %s\n"
 "  borders         = %s\n"
 "  file alignment  = %s\n"
-"  interior margin = %d\n"
+"  interior margin = %u\n"
 msgstr ""
 "  médium                          = %s%s, %s\n"
 "  rozvr¾ení stránky               = %d x %d, %s\n"
@@ -188,48 +182,48 @@ msgstr ""
 "  tisk oddìlených souborù         = %s\n"
 "  vnitøní okraj                   = %d\n"
 
-#: src/main.c:344
+#: src/main.c:340
 msgid "portrait"
 msgstr "na vý¹ku"
 
-#: src/main.c:344
+#: src/main.c:340
 msgid "landscape"
 msgstr "na ¹íøku"
 
-#: src/main.c:353
-#, c-format
-msgid "%d characters per line"
+#: src/main.c:349
+#, fuzzy, c-format
+msgid "%u characters per line"
 msgstr "znakù na øádek - %d"
 
-#: src/main.c:356
-#, c-format
-msgid "%d lines per page"
+#: src/main.c:352
+#, fuzzy, c-format
+msgid "%u lines per page"
 msgstr "øádkù na stránku - %d"
 
-#: src/main.c:359
+#: src/main.c:355
 #, c-format
 msgid "font size is %gpt"
 msgstr "velikost písma je %gpt"
 
-#: src/main.c:368
+#: src/main.c:364
 msgid "each line"
 msgstr "ka¾dý øádek"
 
-#: src/main.c:372
-#, c-format
-msgid "each %d lines"
+#: src/main.c:368
+#, fuzzy, c-format
+msgid "each %u lines"
 msgstr "ka¾dý %d. øádek"
 
-#: src/main.c:375 src/main.c:713
+#: src/main.c:371 src/main.c:708
 msgid "Virtual pages:\n"
 msgstr "Virtuální stránky:\n"
 
-#: src/main.c:376
-#, c-format
+#: src/main.c:372
+#, fuzzy, c-format
 msgid ""
 "  number lines         = %s\n"
 "  format               = %s\n"
-"  tabulation size      = %d\n"
+"  tabulation size      = %u\n"
 "  non printable format = %s\n"
 msgstr ""
 "  èíslování øádkù                 = %s\n"
@@ -237,11 +231,11 @@ msgstr ""
 "  velikost tabulátoru             = %d\n"
 "  netisknutelné znaky             = %s\n"
 
-#: src/main.c:387
+#: src/main.c:383
 msgid "Headers:\n"
 msgstr "Hlavièky:\n"
 
-#: src/main.c:388
+#: src/main.c:384
 #, c-format
 msgid ""
 "  header       = %s\n"
@@ -262,11 +256,11 @@ msgstr ""
 "  pravý titulek                   = %s\n"
 "  zápatí                          = %s\n"
 
-#: src/main.c:407 src/main.c:742
+#: src/main.c:403 src/main.c:737
 msgid "Input:\n"
 msgstr "Vstup:\n"
 
-#: src/main.c:408
+#: src/main.c:404
 #, c-format
 msgid ""
 "  truncate lines = %s\n"
@@ -287,15 +281,15 @@ msgstr ""
 "  tisk binárních dat              = %s\n"
 "  pøedávání úloh                  = %s\n"
 
-#: src/main.c:433 src/main.c:499
+#: src/main.c:429 src/main.c:494
 msgid "selected automatically"
 msgstr "automatická volba"
 
-#: src/main.c:436 src/main.c:761
+#: src/main.c:432 src/main.c:756
 msgid "Pretty-printing:\n"
 msgstr "Tisk stylù:\n"
 
-#: src/main.c:437
+#: src/main.c:433
 #, c-format
 msgid ""
 "  style sheet     = %s\n"
@@ -306,15 +300,15 @@ msgstr ""
 "  úroveò zvýrazòování             = %s\n"
 "  úroveò oøezávání komentáøù      = %d\n"
 
-#: src/main.c:457
+#: src/main.c:453
 msgid "never make backups"
 msgstr "¾ádné zálo¾ní kopie"
 
-#: src/main.c:461
+#: src/main.c:457
 msgid "simple backups of every file"
 msgstr "jednoduché zálo¾ní kopie ka¾dého souboru"
 
-#: src/main.c:466
+#: src/main.c:462
 msgid ""
 "numbered backups of files already numbered,\n"
 "                            and simple of others"
@@ -322,15 +316,15 @@ msgstr ""
 "èíslované zálo¾ní kopie èíslovaných souborù\n"
 "                                    a jednoduché ostatních"
 
-#: src/main.c:471
+#: src/main.c:467
 msgid "numbered backups of every file"
 msgstr "èíslované zálo¾ní kopie v¹ech souborù"
 
-#: src/main.c:475 src/main.c:770
+#: src/main.c:471 src/main.c:765
 msgid "Output:\n"
 msgstr "Výstup:\n"
 
-#: src/main.c:476
+#: src/main.c:472
 #, c-format
 msgid ""
 "  destination     = %s\n"
@@ -341,18 +335,18 @@ msgstr ""
 "  kontrola verzí                  = %s\n"
 "  pøípona zálo¾ních kopií         = %s\n"
 
-#: src/main.c:489 src/main.c:781
+#: src/main.c:484 src/main.c:776
 msgid "PostScript:\n"
 msgstr "PostScript:\n"
 
-#: src/main.c:490
-#, c-format
+#: src/main.c:485
+#, fuzzy, c-format
 msgid ""
 "  magic number              = %s\n"
 "  Printer Description (PPD) = %s\n"
 "  default PPD               = %s\n"
 "  page label format         = %s\n"
-"  number of copies          = %d\n"
+"  number of copies          = %u\n"
 "  sides per sheet           = %s\n"
 "  page device definitions   = "
 msgstr ""
@@ -364,24 +358,24 @@ msgstr ""
 "  stran na list                   = %s\n"
 "  nastavení stránkového zaøízení  = "
 
-#: src/main.c:510
+#: src/main.c:505
 #, c-format
 msgid "  statusdict definitions    = "
 msgstr "  nastavení 'statusdict'          = "
 
-#: src/main.c:513
+#: src/main.c:508
 #, c-format
 msgid "  page prefeed              = %s\n"
 msgstr "  'page prefeed'                  = %s\n"
 
-#: src/main.c:522
+#: src/main.c:517
 msgid "Internals:\n"
 msgstr "Interní nastavení:\n"
 
-#: src/main.c:523
-#, c-format
+#: src/main.c:518
+#, fuzzy, c-format
 msgid ""
-"  verbosity level     = %d\n"
+"  verbosity level     = %u\n"
 "  file command        = %s\n"
 "  library path        = \n"
 msgstr ""
@@ -389,7 +383,7 @@ msgstr ""
 "  pøíkaz pro vyvolání file        = %s\n"
 "  cesta ke knihovnám              = \n"
 
-#: src/main.c:648
+#: src/main.c:643
 #, fuzzy, c-format
 msgid ""
 "Usage: %s [OPTION]... [FILE]...\n"
@@ -409,11 +403,11 @@ msgstr ""
 "pøepínaèe. Dlouhé pøepínaèe oznaèené * vy¾adují argument typu ano/ne,\n"
 "odpovídající krátké pøepínaèe mají význam 'ano'.\n"
 
-#: src/main.c:663
+#: src/main.c:658
 msgid "Tasks:\n"
 msgstr "Úlohy:\n"
 
-#: src/main.c:664
+#: src/main.c:659
 msgid ""
 "  --version        display version\n"
 "  --help           display this help\n"
@@ -441,7 +435,7 @@ msgstr ""
 "                                  printers, prologues, style-sheets,\n"
 "                                  user-options\n"
 
-#: src/main.c:675
+#: src/main.c:670
 msgid ""
 "After having performed the task, exit successfully.  Detailed lists may\n"
 "provide additional help on specific features.\n"
@@ -449,11 +443,11 @@ msgstr ""
 "Úloha byla úspì¹nì dokonèena. Nápovìdu ke konkrétním tématùm poskytne\n"
 "podrobný výpis.\n"
 
-#: src/main.c:683
+#: src/main.c:678
 msgid "Global:\n"
 msgstr "V¹eobecná nastavení:\n"
 
-#: src/main.c:684
+#: src/main.c:679
 msgid ""
 "  -q, --quiet, --silent      be really quiet\n"
 "  -v, --verbose[=LEVEL]      set verbosity on, or to LEVEL\n"
@@ -470,7 +464,7 @@ msgstr ""
 "  -D, --define=KLÍÈ[:HODNOTA]     zru¹í nebo nastaví promìnnou K na hodnotu "
 "H\n"
 
-#: src/main.c:693
+#: src/main.c:688
 #, fuzzy
 msgid ""
 "  -M, --medium=NAME      use output medium NAME\n"
@@ -503,7 +497,7 @@ msgstr ""
 "  -j, --borders*                  tiskne rámeèky kolem sloupcù\n"
 "      --margin[=VELIKOST]         nastaví VELIKOST vnitøních okrajù\n"
 
-#: src/main.c:706
+#: src/main.c:701
 msgid ""
 "The options -1.. -9 affect several primitive parameters to set up "
 "predefined\n"
@@ -513,7 +507,7 @@ msgid ""
 "options (`--columns', `--font-size' etc.).\n"
 msgstr ""
 
-#: src/main.c:714
+#: src/main.c:709
 msgid ""
 "      --line-numbers=NUM     precede each NUM lines with its line number\n"
 "  -C                         alias for --line-numbers=5\n"
@@ -538,11 +532,11 @@ msgstr ""
 "      --non-printable-format=FMT  nastaví zpùsob zpracování netisknutelných\n"
 "                                  znakù\n"
 
-#: src/main.c:725
+#: src/main.c:720
 msgid "Headings:\n"
 msgstr "Hlavièky:\n"
 
-#: src/main.c:727
+#: src/main.c:722
 #, no-c-format
 msgid ""
 "  -B, --no-header        no page headers at all\n"
@@ -566,11 +560,11 @@ msgstr ""
 "      --footer[=TEXT]\n"
 "      --right-footer[=TEXT]\n"
 
-#: src/main.c:738
+#: src/main.c:733
 msgid "The TEXTs may use special escapes.\n"
 msgstr "Vstup mù¾e pou¾ívat zvlá¹tní øídící znaky.\n"
 
-#: src/main.c:743
+#: src/main.c:738
 msgid ""
 "  -a, --pages[=RANGE]        select the pages to print\n"
 "  -c, --truncate-lines*      cut long lines\n"
@@ -594,7 +588,7 @@ msgstr ""
 "  -Z, --delegate*                 pøedá soubory ke zpracování jiné aplikaci\n"
 "      --toc[=TEXT]                vytvoøí obsah\n"
 
-#: src/main.c:755
+#: src/main.c:750
 msgid ""
 "When delegations are enabled, a2ps may use other applications to handle the\n"
 "processing of files that should not be printed as raw information, e.g., "
@@ -605,7 +599,7 @@ msgstr ""
 "které nemají být vyti¹tìny v pøímém formátu (napø. HTML, PostScript èi PDF,\n"
 "pou¾ít jiné aplikace.\n"
 
-#: src/main.c:762
+#: src/main.c:757
 msgid ""
 "  -E, --pretty-print[=LANG]  enable pretty-printing (set style to LANG)\n"
 "  --highlight-level=LEVEL    set pretty printing highlight LEVEL\n"
@@ -620,7 +614,7 @@ msgstr ""
 "  -g                              alias pro --highlight-level=heavy\n"
 "      --strip-level=ÚROVEÒ        ÚROVEÒ oøezávání komentáøù\n"
 
-#: src/main.c:771
+#: src/main.c:766
 #, fuzzy
 msgid ""
 "  -o, --output=FILE          leave output to file FILE.  If FILE is `-',\n"
@@ -640,7 +634,7 @@ msgstr ""
 "  -P, --printer=JMÉNO             výstup na tiskárnu JMÉNO\n"
 "  -d                              výstup na implicitní tiskárnu\n"
 
-#: src/main.c:782
+#: src/main.c:777
 msgid ""
 "      --prologue=FILE        include FILE.pro as PostScript prologue\n"
 "      --ppd[=KEY]            automatic PPD selection or set to KEY\n"
@@ -665,7 +659,7 @@ msgstr ""
 "  -k, --page-prefeed              zapne 'page prefeed'\n"
 "  -K, --no-page-prefeed           vypne 'page prefeed'\n"
 
-#: src/main.c:796
+#: src/main.c:791
 #, fuzzy
 msgid ""
 "By default a2ps is tuned to do what you want to, so trust it.  To pretty\n"
@@ -698,7 +692,7 @@ msgstr ""
 "    a2ps -=book paper.dvi.gz -d\n"
 
 #  /
-#: src/main.c:817
+#: src/main.c:812
 #, fuzzy
 msgid ""
 "News, updates and documentation: visit http://www.gnu.org/software/a2ps/.\n"
@@ -706,38 +700,38 @@ msgstr ""
 "Novinky, aktualizace a dokumentace: http://www.inf.enst.fr/~demaille/a2ps/\n"
 "Pøipomínky k pøekladu zasílejte na adresu <cs@li.org> (èesky).\n"
 
-#: src/main.c:819
+#: src/main.c:814
 msgid "Report bugs to <bug-a2ps@gnu.org>.\n"
 msgstr ""
 "Chyby v programu oznamujte na adrese <bug-a2ps@gnu.org> (pouze anglicky).\n"
 "Pøipomínky k pøekladu zasílejte na adresu <cs@li.org> (èesky).\n"
 
-#: src/main.c:1160
+#: src/main.c:1155
 msgid "Table of Content"
 msgstr "Obsah"
 
-#: src/parsessh.y:238
+#: src/parsessh.y:225
 #, c-format
 msgid "cannot process `%s' which requires a2ps version %s"
 msgstr "`%s' nelze zpracovat - vy¾aduje a2ps verze %s"
 
-#: src/sheets-map.l:114
+#: src/sheets-map.l:117
 #, c-format
 msgid "unexpected character `%c'"
 msgstr ""
 
-#: src/sheets-map.l:214 liba2ps/lexppd.l:213
+#: src/sheets-map.l:217 liba2ps/lexppd.l:212
 #, c-format
 msgid "too many includes"
 msgstr ""
 
-#: src/sheets-map.l:299 src/sheets-map.l:306
+#: src/sheets-map.l:301 src/sheets-map.l:308
 #, fuzzy, c-format
 msgid "no key defined for `%s'"
 msgstr "soubor `%s' nelze najít"
 
-#: src/select.c:119 src/ssheet.c:859 liba2ps/fonts.l:839 liba2ps/fonts.l:841
-#: liba2ps/fonts.l:843 liba2ps/pathwalk.c:325 liba2ps/pathwalk.c:411
+#: src/select.c:119 src/ssheet.c:797 liba2ps/fonts.l:720 liba2ps/fonts.l:722
+#: liba2ps/fonts.l:724 liba2ps/pathwalk.c:315 liba2ps/pathwalk.c:400
 #, c-format
 msgid "cannot find file `%s'"
 msgstr "soubor `%s' nelze najít"
@@ -747,29 +741,24 @@ msgstr "soubor `%s' nelze najít"
 msgid "automatic style selection cancelled"
 msgstr "automatická volba stylù vypnuta"
 
-#: src/select.c:200
+#: src/select.c:198
 #, c-format
 msgid "error running file(!)"
 msgstr ""
 
-#: src/ssheet.c:288
+#: src/ssheet.c:281
 #, c-format
 msgid "cannot compile regular expression `%s': %s"
 msgstr "regulární výraz `%s' nelze zkompilovat: %s"
 
-#: src/ssheet.c:967 src/ssheet.c:988
+#: src/ssheet.c:904 src/ssheet.c:925
 msgid "Known Style Sheets"
 msgstr "Pøipravené styly (jazyky)"
 
-#: src/ssheet.c:1454
+#: src/ssheet.c:1385
 #, c-format
 msgid "cannot find style sheet `%s': using plain style"
 msgstr "styl `%s' nelze najít: pou¾it prostý styl"
-
-#: src/sshread.c:441
-#, c-format
-msgid "unknown encoding `%s', ignored"
-msgstr "neznámé kódování `%s', ignorováno"
 
 #: src/versions.c:128
 #, c-format
@@ -800,40 +789,37 @@ msgstr "emacs (i.e. `C-c', M-C-c' etc.)"
 msgid "question-mark (i.e., `?')"
 msgstr "otazník (i.e. `?')"
 
-#: liba2ps/confg.gperf:160 liba2ps/encoding.c:811
+#: liba2ps/darray.c:83 liba2ps/darray.c:553
 #, c-format
-msgid "invalid option `%s'"
-msgstr "neznámý pøepínaè `%s'"
+msgid "Dynamic array `%s':\n"
+msgstr ""
 
-#: liba2ps/confg.gperf:233 liba2ps/confg.gperf:240 liba2ps/confg.gperf:247
+#: liba2ps/darray.c:84 liba2ps/dstring.c:72
 #, c-format
-msgid "invalid definition for printer `%s': %s"
-msgstr "neplatná definice pro tiskárnu `%s': %s"
+msgid "\tload: %zu/%zu (%2.1f%%)\n"
+msgstr ""
 
-#: liba2ps/confg.gperf:238 liba2ps/confg.gperf:241 liba2ps/printers.c:42
-msgid "Unknown Printer"
-msgstr "neznámá tiskárna"
-
-#: liba2ps/confg.gperf:245 liba2ps/confg.gperf:248 liba2ps/printers.c:41
-msgid "Default Printer"
-msgstr "implicitní tiskárna"
-
-#: liba2ps/confg.gperf:301 liba2ps/options.c:687
+#: liba2ps/darray.c:102 liba2ps/dstring.c:87
 #, c-format
-msgid "invalid variable identifier `%s'"
-msgstr "neplatné u¾ití promìnné `%s'"
+msgid "\toriginal size: %zu, growth: %s %zu\n"
+msgstr ""
 
-#: liba2ps/confg.gperf:330
+#: liba2ps/dstring.c:71
 #, c-format
-msgid "obsolete `%s' entry.  Ignored"
-msgstr "zastaralá volba `%s'. Ignorováno."
+msgid "Dynamic string:\n"
+msgstr ""
 
-#: liba2ps/encoding.c:805
+#: liba2ps/encoding.c:737
 #, c-format
 msgid "too many slant font: `%s'"
 msgstr ""
 
-#: liba2ps/encoding.c:1352 liba2ps/encoding.c:1373
+#: liba2ps/encoding.c:743
+#, c-format
+msgid "invalid option `%s'"
+msgstr "neznámý pøepínaè `%s'"
+
+#: liba2ps/encoding.c:1270 liba2ps/encoding.c:1291
 msgid "Known Encodings"
 msgstr "Pøipravená kódování"
 
@@ -842,13 +828,13 @@ msgstr "Pøipravená kódování"
 msgid "incomplete knowledge of faces"
 msgstr "nejsou známy v¹echny tváøe"
 
-#: liba2ps/filtdir.c:70
+#: liba2ps/filtdir.c:68
 #, c-format
 msgid "cannot close directory `%s'"
 msgstr "adresáø `%s' nelze zavøít"
 
 #: liba2ps/getnum.c:41 liba2ps/getnum.c:99 liba2ps/getnum.c:131
-#: liba2ps/getnum.c:199
+#: liba2ps/getnum.c:200
 #, c-format
 msgid "invalid argument `%s' for `%s'"
 msgstr "neplatný argument `%s' pro pøepínaè `%s'"
@@ -858,12 +844,12 @@ msgstr "neplatný argument `%s' pro pøepínaè `%s'"
 msgid "Valid arguments are integers n such that: %s\n"
 msgstr "Platnými argumenty jsou celá èísla n, pro nì¾ platí: %s\n"
 
-#: liba2ps/getnum.c:201
+#: liba2ps/getnum.c:202
 #, c-format
 msgid "Valid arguments are floats f such that: %s\n"
 msgstr "Platnými argumenty jsou reálná èísla f, pro nì¾ platí: %s\n"
 
-#: liba2ps/jobs.c:304
+#: liba2ps/jobs.c:284
 #, c-format
 msgid "unknown encoding `%s'"
 msgstr "neznámé kódování `%s'"
@@ -876,125 +862,131 @@ msgstr "nejdøíve øádky"
 msgid "columns first"
 msgstr "nejdøíve sloupce"
 
-#: liba2ps/media.c:158
+#: liba2ps/media.c:138
 #, c-format
 msgid "unknown medium `%s'"
 msgstr "neznámé médium `%s'"
 
-#: liba2ps/media.c:193 liba2ps/media.c:222
+#: liba2ps/media.c:166 liba2ps/media.c:193
 msgid "Known Media"
 msgstr "Pøipravená média"
 
-#: liba2ps/media.c:196
+#: liba2ps/media.c:169
 msgid "Name"
 msgstr "Jméno"
 
-#: liba2ps/media.c:197
+#: liba2ps/media.c:170
 msgid "dimensions"
 msgstr "rozmìry"
 
-#: liba2ps/metaseq.c:91 liba2ps/metaseq.c:100
+#: liba2ps/metaseq.c:82 liba2ps/metaseq.c:91
 #, c-format
 msgid "Known Variables"
 msgstr "Pøipravené promìnné"
 
-#: liba2ps/metaseq.c:149 liba2ps/metaseq.c:518 liba2ps/metaseq.c:535
-#: liba2ps/metaseq.c:595 liba2ps/metaseq.c:938 liba2ps/metaseq.c:959
+#: liba2ps/metaseq.c:140 liba2ps/metaseq.c:509 liba2ps/metaseq.c:526
+#: liba2ps/metaseq.c:586 liba2ps/metaseq.c:931 liba2ps/metaseq.c:951
 #, c-format
 msgid "%s: missing `%c' for %s%c escape"
 msgstr "%s: chybí `%c' pro øídící znak %s%c"
 
-#: liba2ps/metaseq.c:275 liba2ps/metaseq.c:287
+#: liba2ps/metaseq.c:266 liba2ps/metaseq.c:278
 #, c-format
 msgid "Printed by %s"
 msgstr "Vytiskl %s"
 
-#: liba2ps/metaseq.c:285
+#: liba2ps/metaseq.c:276
 #, c-format
 msgid "Printed by %s from %s"
 msgstr "Vytiskl %s z %s"
 
-#: liba2ps/metaseq.c:295 liba2ps/metaseq.c:314
+#: liba2ps/metaseq.c:286 liba2ps/metaseq.c:304
 #, c-format
 msgid "cannot get current working directory"
 msgstr "souèasný pracovní adresáø nelze urèit"
 
-#: liba2ps/metaseq.c:328 liba2ps/metaseq.c:521 liba2ps/metaseq.c:550
-#: liba2ps/metaseq.c:639 liba2ps/metaseq.c:941 liba2ps/metaseq.c:974
+#: liba2ps/metaseq.c:317 liba2ps/metaseq.c:512 liba2ps/metaseq.c:541
+#: liba2ps/metaseq.c:630 liba2ps/metaseq.c:934 liba2ps/metaseq.c:966
 #, c-format
 msgid "%s: too long argument for %s escape"
 msgstr "%s: pøíli¹ dlouhý argument pro øídící znak %s"
 
-#: liba2ps/metaseq.c:351 liba2ps/metaseq.c:662
-msgid "%b %d, %y"
+#: liba2ps/metaseq.c:342 liba2ps/metaseq.c:655
+#, fuzzy
+msgid "%b %d, %Y"
 msgstr "%d.%m. %y"
 
-#: liba2ps/metaseq.c:360 liba2ps/metaseq.c:671
+#: liba2ps/metaseq.c:351 liba2ps/metaseq.c:664
 msgid "%A %B %d, %Y"
 msgstr "%A %d.%B %Y"
 
-#: liba2ps/metaseq.c:406 liba2ps/metaseq.c:435 liba2ps/metaseq.c:478
-#: liba2ps/metaseq.c:711 liba2ps/metaseq.c:795 liba2ps/metaseq.c:854
-#: liba2ps/metaseq.c:909 liba2ps/metaseq.c:1086 liba2ps/metaseq.c:1221
-#: liba2ps/metaseq.c:1233 liba2ps/metaseq.c:1276
+#: liba2ps/metaseq.c:397 liba2ps/metaseq.c:426 liba2ps/metaseq.c:469
+#: liba2ps/metaseq.c:704 liba2ps/metaseq.c:788 liba2ps/metaseq.c:847
+#: liba2ps/metaseq.c:902 liba2ps/metaseq.c:1078 liba2ps/metaseq.c:1208
+#: liba2ps/metaseq.c:1219 liba2ps/metaseq.c:1262
 #, c-format
 msgid "%s: unknown `%s' escape `%c' (%d)"
 msgstr "%s: pro `%s' není øídící znak `%c' (%d) definován"
 
-#: liba2ps/metaseq.c:413 liba2ps/metaseq.c:802
-#, c-format
-msgid "Page %d"
+#: liba2ps/metaseq.c:404 liba2ps/metaseq.c:795
+#, fuzzy, c-format
+msgid "Page %zu"
 msgstr "Stránka %d"
 
-#: liba2ps/metaseq.c:418 liba2ps/metaseq.c:813
-#, c-format
-msgid "Page %d/%c"
+#: liba2ps/metaseq.c:409 liba2ps/metaseq.c:806
+#, fuzzy, c-format
+msgid "Page %zu/%c"
 msgstr "Stránka %d/%c"
 
-#: liba2ps/metaseq.c:580 liba2ps/metaseq.c:1008
+#: liba2ps/metaseq.c:571 liba2ps/metaseq.c:1000
 #, c-format
 msgid "%s: invalid separator `%s%c' for `%s' escape"
 msgstr "%s: neplatný separátor `%s%c' pro øídící znak `%s'"
 
-#: liba2ps/metaseq.c:588 liba2ps/metaseq.c:598
+#: liba2ps/metaseq.c:579 liba2ps/metaseq.c:589
 #, c-format
 msgid "%s: invalid argument for %s%c escape"
 msgstr "%s: neplatný argument pro øídící znak %s%c"
 
-#: liba2ps/metaseq.c:809
-#, c-format
-msgid "Page %d/%d"
-msgstr "Stránka %d/%d"
+#: liba2ps/metaseq.c:802
+#, fuzzy, c-format
+msgid "Page %zu/%zu"
+msgstr "Stránka %d/%c"
 
-#: liba2ps/metaseq.c:1253
+#: liba2ps/metaseq.c:1239
 msgid "output command"
 msgstr "výstupní pøíkaz"
 
-#: liba2ps/options.c:50
+#: liba2ps/options.c:48
 #, fuzzy
 msgid "Copyright (C) 1988-2017 Free Software Foundation, Inc."
 msgstr "Copyright (C) 1999 Free Software Foundation, Inc."
 
-#: liba2ps/options.c:292
+#: liba2ps/options.c:290
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Více informací získáte pøíkazem `%s --help'.\n"
 
-#: liba2ps/output.c:459
+#: liba2ps/options.c:674
+#, c-format
+msgid "invalid variable identifier `%s'"
+msgstr "neplatné u¾ití promìnné `%s'"
+
+#: liba2ps/output.c:428
 #, c-format
 msgid "invalid face `%s'"
 msgstr "neznámý pøepínaè `%s'"
 
-#: liba2ps/output.c:531
+#: liba2ps/output.c:499
 #, c-format
 msgid "`%s' with no matching `%s'"
 msgstr "`%s' bez odpovídajícího `%s'"
 
-#: liba2ps/ppd.c:96
+#: liba2ps/ppd.c:83
 msgid "Known Fonts"
 msgstr "Pøipravená písma"
 
-#: liba2ps/ppd.c:99
+#: liba2ps/ppd.c:86
 msgid ""
 "\n"
 "  None.\n"
@@ -1002,94 +994,350 @@ msgstr ""
 "\n"
 "  ®ádná.\n"
 
-#: liba2ps/ppd.c:137 liba2ps/ppd.c:153
+#: liba2ps/ppd.c:124 liba2ps/ppd.c:140
 msgid "Known PostScript Printer Descriptions"
 msgstr "Pøipravené popisy tiskáren"
 
-#: liba2ps/prange.c:295 liba2ps/prange.c:313
+#: liba2ps/prange.c:284 liba2ps/prange.c:302
 #, c-format
 msgid "invalid interval `%s'"
 msgstr "nepovolený interval `%s'"
 
-#: liba2ps/printers.c:391 liba2ps/printers.c:408
+#: liba2ps/printers.c:41
+msgid "Default Printer"
+msgstr "implicitní tiskárna"
+
+#: liba2ps/printers.c:42
+msgid "Unknown Printer"
+msgstr "neznámá tiskárna"
+
+#: liba2ps/printers.c:342 liba2ps/printers.c:359
 #, c-format
 msgid "no command for the `%s' (%s%s)"
 msgstr "¾ádný pøíkaz pro `%s' (%s%s)"
 
-#: liba2ps/printers.c:424
+#: liba2ps/printers.c:375
 msgid "sent to the standard output"
 msgstr "posláno na standardní výstup"
 
-#: liba2ps/printers.c:425
+#: liba2ps/printers.c:376
 msgid "sent to the default printer"
 msgstr "posláno na implicitní tiskárnu"
 
-#: liba2ps/printers.c:430
+#: liba2ps/printers.c:381
 #, c-format
 msgid "saved into the file `%s'"
 msgstr "ulo¾eno do souboru `%s'"
 
-#: liba2ps/printers.c:431
+#: liba2ps/printers.c:382
 #, c-format
 msgid "sent to the printer `%s'"
 msgstr "posláno na tiskárnu `%s'"
 
-#: liba2ps/printers.c:608 liba2ps/printers.c:616
+#: liba2ps/printers.c:559 liba2ps/printers.c:567
 msgid "Known Outputs (Printers, etc.)"
 msgstr "Pøipravené výstupní cíle (tiskárny apod.)"
 
-#: liba2ps/prolog.c:87 liba2ps/prolog.c:170
+#: liba2ps/prolog.c:84 liba2ps/prolog.c:169
 msgid "Known Prologues"
 msgstr "Pøipravené prology"
 
-#: liba2ps/prolog.c:568
+#: liba2ps/prolog.c:565
 #, c-format
 msgid "font %f too big"
 msgstr "písmo %f je pøíli¹ veliké"
 
-#: liba2ps/psgen.c:651
+#: liba2ps/psgen.c:631
 #, c-format
 msgid "`%s' is a binary file, printing aborted"
 msgstr "`%s' je binární soubor, tisk ukonèen"
 
-#: liba2ps/userdata.c:114
+#: liba2ps/userdata.c:104
 msgid "user"
 msgstr "u¾ivatel"
 
-#: liba2ps/userdata.c:115
+#: liba2ps/userdata.c:105
 msgid "Unknown User"
 msgstr "neznámý u¾ivatel"
 
-#: liba2ps/useropt.c:65
+#: liba2ps/useropt.c:56
 #, c-format
 msgid "unknown user option `%s'"
 msgstr "neznámá u¾ivatelsky definovaná zkratka `%s'"
 
-#: liba2ps/useropt.c:76 liba2ps/useropt.c:87
+#: liba2ps/useropt.c:67 liba2ps/useropt.c:78
 msgid "Known User Options"
 msgstr "Pøipravené u¾ivatelsky definované zkratky"
 
-#: liba2ps/xbackupfile.c:46
-#, c-format
-msgid "Memory exhausted"
+#: liba2ps/xbackupfile.c:44 lib/obstack.c:337 lib/obstack.c:339
+#: lib/xalloc-die.c:34
+#, fuzzy, c-format
+msgid "memory exhausted"
 msgstr "Není volná pamì»"
 
-#: liba2ps/xbackupfile.c:166 liba2ps/xbackupfile.c:178
+#: liba2ps/xbackupfile.c:163 liba2ps/xbackupfile.c:175
 #, c-format
 msgid "cannot rename file `%s' as `%s'"
 msgstr "soubor `%s' nelze pøejmenovat na `%s'"
 
-#: liba2ps/xbackupfile.c:181
+#: liba2ps/xbackupfile.c:178
 #, c-format
 msgid "restored file `%s'"
 msgstr "soubor `%s' obnoven"
 
+#: lib/argmatch.c:147
+#, fuzzy, c-format
+msgid "invalid argument %s for %s"
+msgstr "neplatný argument %s pro pøepínaè `%s'"
+
+#: lib/argmatch.c:148
+#, fuzzy, c-format
+msgid "ambiguous argument %s for %s"
+msgstr "nejednoznaèný argument `%s' pro pøepínaè `%s'"
+
+#: lib/argmatch.c:167 lib/argmatch.h:238
+msgid "Valid arguments are:"
+msgstr "Platné argumenty jsou:"
+
+#: lib/error.c:195
+msgid "Unknown system error"
+msgstr "Neznámá systémová chyba"
+
+#: lib/getopt.c:278
+#, fuzzy, c-format
+msgid "%s: option '%s%s' is ambiguous\n"
+msgstr "%s: pøepínaè `%s' není jednoznaèný\n"
+
+#: lib/getopt.c:284
+#, fuzzy, c-format
+msgid "%s: option '%s%s' is ambiguous; possibilities:"
+msgstr "%s: pøepínaè `%s' není jednoznaèný\n"
+
+#: lib/getopt.c:319
+#, fuzzy, c-format
+msgid "%s: unrecognized option '%s%s'\n"
+msgstr "%s: neznámý pøepínaè `%c%s'\n"
+
+#: lib/getopt.c:345
+#, fuzzy, c-format
+msgid "%s: option '%s%s' doesn't allow an argument\n"
+msgstr "%s: pøepínaè `%c%s' musí být zadán bez argumentu\n"
+
+#: lib/getopt.c:360
+#, fuzzy, c-format
+msgid "%s: option '%s%s' requires an argument\n"
+msgstr "%s: pøepínaè `%s' vy¾aduje argument\n"
+
+#: lib/getopt.c:621
+#, fuzzy, c-format
+msgid "%s: invalid option -- '%c'\n"
+msgstr "%s: neznámý pøepínaè -- %c\n"
+
+#: lib/getopt.c:636 lib/getopt.c:682
+#, fuzzy, c-format
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr "%s: pøepínaè vy¾aduje argument -- %c\n"
+
+#: lib/openat-die.c:38
+#, fuzzy, c-format
+msgid "unable to record current working directory"
+msgstr "souèasný pracovní adresáø nelze urèit"
+
+#: lib/openat-die.c:57
+#, fuzzy, c-format
+msgid "failed to return to initial working directory"
+msgstr "souèasný pracovní adresáø nelze urèit"
+
+#. TRANSLATORS:
+#. Get translations for open and closing quotation marks.
+#. The message catalog should translate "`" to a left
+#. quotation mark suitable for the locale, and similarly for
+#. "'".  For example, a French Unicode local should translate
+#. these to U+00AB (LEFT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), and U+00BB (RIGHT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), respectively.
+#.
+#. If the catalog has no translation, we will try to
+#. use Unicode U+2018 (LEFT SINGLE QUOTATION MARK) and
+#. Unicode U+2019 (RIGHT SINGLE QUOTATION MARK).  If the
+#. current locale is not Unicode, locale_quoting_style
+#. will quote 'like this', and clocale_quoting_style will
+#. quote "like this".  You should always include translations
+#. for "`" and "'" even if U+2018 and U+2019 are appropriate
+#. for your locale.
+#.
+#. If you don't know what to put here, please see
+#. <https://en.wikipedia.org/wiki/Quotation_marks_in_other_languages>
+#. and use glyphs suitable for your language.
+#: lib/quotearg.c:355
+msgid "`"
+msgstr ""
+
+#: lib/quotearg.c:356
+msgid "'"
+msgstr ""
+
+#: lib/version-etc.c:73
+#, c-format
+msgid "Packaged by %s (%s)\n"
+msgstr ""
+
+#: lib/version-etc.c:76
+#, fuzzy, c-format
+msgid "Packaged by %s\n"
+msgstr "Vytiskl %s"
+
+#. TRANSLATORS: Translate "(C)" to the copyright symbol
+#. (C-in-a-circle), if this symbol is available in the user's
+#. locale.  Otherwise, do not translate "(C)"; leave it as-is.
+#: lib/version-etc.c:83
+msgid "(C)"
+msgstr ""
+
+#. TRANSLATORS: The %s placeholder is the web address of the GPL license.
+#: lib/version-etc.c:88
+#, c-format
+msgid ""
+"License GPLv3+: GNU GPL version 3 or later <%s>.\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
+msgstr ""
+
+#. TRANSLATORS: %s denotes an author name.
+#: lib/version-etc.c:105
+#, c-format
+msgid "Written by %s.\n"
+msgstr "Napsal %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: lib/version-etc.c:109
+#, fuzzy, c-format
+msgid "Written by %s and %s.\n"
+msgstr "Napsal %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: lib/version-etc.c:113
+#, fuzzy, c-format
+msgid "Written by %s, %s, and %s.\n"
+msgstr "Napsal %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:120
+#, fuzzy, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"and %s.\n"
+msgstr "Napsal %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:127
+#, fuzzy, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr "Napsal %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:134
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, and %s.\n"
+msgstr ""
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:142
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, and %s.\n"
+msgstr ""
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:150
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:159
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:170
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, %s, and others.\n"
+msgstr ""
+
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: lib/version-etc.c:249
+#, fuzzy, c-format
+msgid "Report bugs to: %s\n"
+msgstr ""
+"Chyby v programu oznamujte na adrese <bug-a2ps@gnu.org> (pouze anglicky).\n"
+"Pøipomínky k pøekladu zasílejte na adresu <cs@li.org> (èesky).\n"
+
+#: lib/version-etc.c:251
+#, c-format
+msgid "Report %s bugs to: %s\n"
+msgstr ""
+
+#: lib/version-etc.c:255 lib/version-etc.c:257
+#, c-format
+msgid "%s home page: <%s>\n"
+msgstr ""
+
+#: lib/version-etc.c:260
+#, c-format
+msgid "General help using GNU software: <%s>\n"
+msgstr ""
+
+#~ msgid "any type"
+#~ msgstr "jakýkoliv typ"
+
+#~ msgid "unknown encoding `%s', ignored"
+#~ msgstr "neznámé kódování `%s', ignorováno"
+
+#~ msgid "invalid definition for printer `%s': %s"
+#~ msgstr "neplatná definice pro tiskárnu `%s': %s"
+
+#~ msgid "obsolete `%s' entry.  Ignored"
+#~ msgstr "zastaralá volba `%s'. Ignorováno."
+
+#~ msgid "Page %d/%d"
+#~ msgstr "Stránka %d/%d"
+
 #, fuzzy
 #~ msgid "Copyright (c) 1988-2017 Free Software Foundation, Inc."
 #~ msgstr "Copyright (C) 1999 Free Software Foundation, Inc."
-
-#~ msgid "Written by %s.\n"
-#~ msgstr "Napsal %s.\n"
 
 #~ msgid ""
 #~ "This is free software; see the source for copying conditions.  There is "
@@ -1114,51 +1362,20 @@ msgstr "soubor `%s' obnoven"
 #~ msgid "write error"
 #~ msgstr "chyba zápisu"
 
-#~ msgid "invalid argument %s for `%s'"
-#~ msgstr "neplatný argument %s pro pøepínaè `%s'"
-
-#, fuzzy
-#~ msgid "ambiguous argument %s for `%s'"
-#~ msgstr "nejednoznaèný argument `%s' pro pøepínaè `%s'"
-
-#~ msgid "Valid arguments are:"
-#~ msgstr "Platné argumenty jsou:"
-
-#~ msgid "%s: option `%s' is ambiguous\n"
-#~ msgstr "%s: pøepínaè `%s' není jednoznaèný\n"
-
 #~ msgid "%s: option `--%s' doesn't allow an argument\n"
 #~ msgstr "%s: pøepínaè `--%s' musí být zadán bez argumentu\n"
-
-#~ msgid "%s: option `%c%s' doesn't allow an argument\n"
-#~ msgstr "%s: pøepínaè `%c%s' musí být zadán bez argumentu\n"
-
-#~ msgid "%s: option `%s' requires an argument\n"
-#~ msgstr "%s: pøepínaè `%s' vy¾aduje argument\n"
 
 #~ msgid "%s: unrecognized option `--%s'\n"
 #~ msgstr "%s: neznámý pøepínaè `--%s'\n"
 
-#~ msgid "%s: unrecognized option `%c%s'\n"
-#~ msgstr "%s: neznámý pøepínaè `%c%s'\n"
-
 #~ msgid "%s: illegal option -- %c\n"
 #~ msgstr "%s: neznámý pøepínaè -- %c\n"
-
-#~ msgid "%s: invalid option -- %c\n"
-#~ msgstr "%s: neznámý pøepínaè -- %c\n"
-
-#~ msgid "%s: option requires an argument -- %c\n"
-#~ msgstr "%s: pøepínaè vy¾aduje argument -- %c\n"
 
 #~ msgid "%s: option `-W %s' is ambiguous\n"
 #~ msgstr "%s: pøepínaè `-W %s' není jednoznaèný\n"
 
 #~ msgid "%s: option `-W %s' doesn't allow an argument\n"
 #~ msgstr "%s: pøepínaè `-W %s' musí být zadán bez argumentu\n"
-
-#~ msgid "Unknown system error"
-#~ msgstr "Neznámá systémová chyba"
 
 #, fuzzy
 #~ msgid "end of line in a %s"
