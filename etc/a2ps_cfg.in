@@ -180,7 +180,6 @@ Variable: del.imagick @convert@ -page #wx#h
 # Use as `#{ps2pdf} INPUT OUTPUT'.
 # @COM_ps2pdf@Variable: ps2pdf gs -g"#wx#h" -r72 -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$N.pdf -c save pop -f #f0
 @COM_ps2pdf@Variable: ps2pdf ps2pdf -g"#wx#h" -r72
-@COM_distill@Variable: ps2pdf distill -pairs -pagesize #w #h pts
 
 #
 # Some macro for ToC or page label
