@@ -40,10 +40,6 @@ meant for the maintainers only.
 ** make check
 Use liberally.
 
-** Release checks
-Try to run the test suite with more severe conditions before a
-release:
-
 
 * Release Procedure
 
