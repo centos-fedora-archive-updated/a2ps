@@ -734,7 +734,7 @@ load_encoding_description_file (a2ps_job * job,
           for (num = 0 ; encoding->slantfont[num].name ; num ++ );
           if (num > sizeof encoding->slantfont - 1){
               error_at_line (1, 0, fname, firstline,
-                           _("too many slant font: `%s'"), new);
+                           _("too many slant fonts: `%s'"), new);
           }
           encoding_add_slant_font(encoding, new, src, ratio);
         }

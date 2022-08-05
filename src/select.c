@@ -195,7 +195,7 @@ file_verdict_on (const char *filename_)
   pclose (file_out);
   if (res == NULL)
     {
-      error (0, errno, _("error running file(!)"));
+      error (0, errno, _("error running file(1)"));
       return NULL;
     }
   message (msg_tool, (stderr, "file(1): %s", buf));
