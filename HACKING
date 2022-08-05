@@ -22,6 +22,10 @@ The correct response to most actual bugs is to write a new test case
 which demonstrates the bug.  Then fix the bug, re-run the test suite,
 and check everything in.
 
+** Releases
+
+See README-release.
+
 
 * Hacking
 
@@ -41,56 +45,9 @@ meant for the maintainers only.
 Use liberally.
 
 
-* Release Procedure
-
-** Tests
-See above.
-
-** Update the foreign files
-Running `make update' in the top level should make it all for you.
-This covers PO files too.  Beware that it happens that some PO files
-contain serious problems and are rejected by recent Gettext releases:
-fix them all, and complain to the Translation Project!
-
-Note that there might be *new* PO files.  Don't forget to update the
-whole machinery, which not only includes LINGUAS, but `git add'ing the
-PO files too.
-
-** Update NEWS
-The version number, *and* the date of the release (including for
-betas).
-
-** make alpha
-Running `make alpha' is absolutely perfect for beta releases: it makes
-the tarballs, the xdeltas, and prepares (in /tmp/) a proto
-announcement.  It is so neat, that that's what I use anyway for
-genuine releases, but adjusting things by hand (e.g., the urls in the
-announcement file).
-
-If it fails, you're on your own...
-
-It requires GNU Make.
-
-** Upload
-Put the tarballs/xdeltas where they should be.  Or put it somewhere,
-and send the URL to ftp-upload@gnu.org.
-
-** Bump the version number
-In configure.ac.  Run `make', check this in.
-
-** Announce
-Complete/fix the announcement file, and send it at least to
-info-gnu@gnu.org (if a real release, or a ``serious beta''),
-a2ps@gnu.org, and translation@iro.umontreal.ca.
-
-Send the same announcement on the comp.compilers newsgroup.  Do not
-make any Cc as the moderator will throw away anything cross-posted or
-Cc'ed.  It really needs to be a separate message.
-
-
 -----
 
-Copyright (C) 2003 Free Software Foundation, Inc.
+Copyright (C) 2003-2022 Free Software Foundation, Inc.
 
 This file is part of GNU A2ps.
 
