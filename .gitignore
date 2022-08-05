@@ -21,6 +21,7 @@ Makefile.in
 /po-gnulib
 /stamp-h1
 /a2ps-*.tar.gz
+/a2ps-*.tar.gz.sig
 /GNUmakefile
 /maint.mk
 /README-release
