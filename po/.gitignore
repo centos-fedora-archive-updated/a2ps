@@ -1,3 +1,9 @@
+/remove-potcdate.sin~
+/insert-header.sin~
+/en@quot.header~
+/en@boldquot.header~
+/Rules-quot~
+/Makevars.template~
 *.po
 *.gmo
 /.reference
