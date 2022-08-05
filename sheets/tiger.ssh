@@ -30,7 +30,7 @@ version is 0.1
 
 documentation is
    "Tiger is a toy language that serves as example of the book "
-   "url(http://www.cs.princeton.edu/~appel/modern/)url(Modern Compiler Implementation)url"
+   "url(https://www.cs.princeton.edu/~appel/modern/)url(Modern Compiler Implementation)url"
    "by Andrew W. Appel."
 end documentation
 

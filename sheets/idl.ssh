@@ -30,7 +30,7 @@ requires a2ps version 4.12
 documentation is
    "Style sheet for IDL 5.2 (Interactive Data Language)."
    "Obsolete routines are not supported."
-   "http://www.rsinc.com."
+   "https://www.rsinc.com."
 end documentation
 
 alphabets are

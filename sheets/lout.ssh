@@ -5,14 +5,14 @@
 # This style sheet is meant to work with Basser Lout
 # document formatting system files.
 # Further information about Lout is available at
-# 	  <URL:http://www.spbu.ru/~uwe/lout/>
+# 	  <URL:https://github.com/william8000/lout/>
 #
 # It should work for Lout version 3.17 and above.
 #
 # This steals some stuff from lout-mode.el, an Emacs
 # major-mode for editing Lout source, which is GPL'ed and
 # Copyright (C) 1997-1999 Eric Marsden <emarsden@mail.dotcom.fr>
-# See <URL:http://www.chez.com/emarsden/lout/>
+# See <URL:https://github.com/emacsattic/lout-mode>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

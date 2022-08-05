@@ -79,7 +79,7 @@ use the option -b to send only the missing part.
 Environment variables FIXPS, PSSELECT and PSSET, if defined, are used
 to find the tools.
 
-News, updates and documentation: http://www.inf.enst.fr/~demaille/a2ps/
+News, updates and documentation: https://www.gnu.org/software/a2ps
 Report bugs to <bug-a2ps@gnu.org>"
 
 help="Try \`$program --help' for more information."

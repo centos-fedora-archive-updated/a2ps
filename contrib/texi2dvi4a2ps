@@ -1,6 +1,5 @@
 #! /bin/sh
 # texi2dvi --- produce DVI (or PDF) files from Texinfo (or LaTeX) sources.
-# $Id: texi2dvi4a2ps,v 1.1.1.1.2.3 2007/12/29 01:58:11 mhatta Exp $
 #
 # Copyright (C) 1992, 93, 94, 95, 96, 97, 98, 99, 2001, 02
 # Free Software Foundation, Inc.
@@ -74,7 +73,7 @@ those commands, if they are set.
 
 Email bug reports to <bug-texinfo@gnu.org>,
 general questions and discussion to <help-texinfo@gnu.org>.
-Texinfo home page: http://www.gnu.org/software/texinfo/"
+Texinfo home page: https://www.gnu.org/software/texinfo/"
 
 # Initialize variables for option overriding and otherwise.
 # Don't use `unset' since old bourne shells don't have this command.

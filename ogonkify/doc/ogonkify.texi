@@ -5,7 +5,7 @@
 @setchapternewpage off
 @c %**end of header
 
-@c Time-stamp: <99/05/14 04:30:20 jec>
+@c Time-stamp: <2022-08-05 12:22:24 rrt>
 
 @dircategory Printing Tools
 @direntry
@@ -117,7 +117,7 @@ which is distributed with it. @xref{top,,a2ps manual,a2ps.info,a2ps manual}.
 @code{a2ps} can be obtained from:
 
 @example
-<URL:http://www-stud.enst.fr/~demaille/a2ps.html>
+<URL:https://www.gnu.org/software/a2ps>
 @end example
 
 @node genscript,  , a2ps, Using Ogonkify

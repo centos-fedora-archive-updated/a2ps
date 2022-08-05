@@ -12,7 +12,7 @@ uyar@cs.itu.edu.tr	Turgut Uyar	Turkish
 pavlovsk@ff.cuni.cz	Jiri Pavlovsky	Maintains Czech
 pnidv96@student.hv.se	Peter Nilsson	Maintains Swedish
 pmmm@camoes.rnl.ist.utl.pt	Pedro Miguel Marques Morais	Maintains Portugese
-voldemarus@geocities.com	Vladimir Vodolazkiy	Russian	has a @href{http://come.to/vodolaz, home page}.
+voldemarus@geocities.com	Vladimir Vodolazkiy	Russian
 pjsm@students.fct.unl.pt	Paulo Matos	Portugese
 jonr@sdata.no	Jon Ross	Maintains Norwegian
 IgorF@ix.netcom.com	Igor Furlan	Maintains Slovenian

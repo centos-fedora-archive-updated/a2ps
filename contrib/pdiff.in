@@ -64,7 +64,7 @@ Options for a2ps are given after \`--', for instance
 
     $ pdiff COPYING COPYING.LIB -- -Pdisplay
 
-News, updates and documentation: http://www.inf.enst.fr/~demaille/a2ps/.
+News, updates and documentation: https://www.gnu.org/software/a2ps/
 Report bugs to <bug-a2ps@gnu.org>."
 
 help="Try \`$program --help' for more information."

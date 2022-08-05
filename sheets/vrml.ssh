@@ -28,7 +28,7 @@ requires a2ps 4.12
 case sensitive
 documentation is
    "According to"
-   "   url(http://vag.vrml.org/VRML2.0/FINAL/spec/part1/grammar.html)url(Grammar Definition Version 2.0 ISO/IEC CD 14772)url."
+   "   url(https://www.web3d.org/documents/specifications/14772/V2.0/part1/grammar.html)url(Grammar Definition Version 2.0 ISO/IEC CD 14772)url."
 end documentation
 
 # Support for the main keywords

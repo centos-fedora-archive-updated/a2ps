@@ -22,8 +22,8 @@
 #
 
 #
-# This style sheet is based on the stratego grammar :
-# http://www.cwi.nl/~mdejonge/grammar-base/stratego.0.7/index.html
+# This style sheet is based on the stratego grammar:
+# http://strategoxt.org/
 #
 
 style "stratego" is

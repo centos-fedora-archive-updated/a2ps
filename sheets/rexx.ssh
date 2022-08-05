@@ -28,7 +28,7 @@ version is 0.22
 
 documentation is
   "This style sheet supports REXX."
-  "You can get information about REXX from the url(http://www.rexxla.org)url(REXX Language Association)url."
+  "You can get information about REXX from the url(https://www.rexxla.org)url(REXX Language Association)url."
 end documentation
 
 alphabets are

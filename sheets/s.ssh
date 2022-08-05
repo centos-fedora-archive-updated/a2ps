@@ -39,7 +39,7 @@ documentation is
    "debugger, access to certain system functions, and the ability to run"
    "programs stored in script files."
    ""
-   "R has a home page at `http://www.r-project.org/'.  It is free software"
+   "R has a home page at `https://www.r-project.org/'.  It is free software"
    "distributed under a GNU-style copyleft, and an official part of the GNU"
    "project (`GNU S')."
 end documentation

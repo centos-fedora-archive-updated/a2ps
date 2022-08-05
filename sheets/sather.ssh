@@ -40,7 +40,7 @@ documentation is
    "support higher-order functions and iteration abstraction as well as"
    "Common Lisp, CLU or Scheme."
    ""
-   "Implementation of the sheet based on the url(http://www.icsi.berkeley.edu/~sather/index.html)url(Sather home page)url."
+   "Implementation of the sheet based on the url(https://www.gnu.org/software/sather/)url(Sather home page)url."
    ""
    "Heavy highlighting uses symbols for common mathematical operators."
 end documentation
