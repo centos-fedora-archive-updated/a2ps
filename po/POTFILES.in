@@ -40,14 +40,3 @@ liba2ps/routines.c
 liba2ps/userdata.c
 liba2ps/useropt.c
 liba2ps/xbackupfile.c
-
-# gnulib files
-lib/argmatch.c
-lib/argmatch.h
-lib/error.c
-lib/getopt.c
-lib/obstack.c
-lib/openat-die.c
-lib/quotearg.c
-lib/version-etc.c
-lib/xalloc-die.c

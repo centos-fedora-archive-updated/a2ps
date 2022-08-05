@@ -1,3 +1,4 @@
+/ABOUT-NLS~
 *.o
 *.lo
 .deps
@@ -17,6 +18,7 @@ Makefile.in
 /configure
 /lib
 /libtool
+/po-gnulib
 /stamp-h1
 /a2ps-*.tar.gz
 /GNUmakefile

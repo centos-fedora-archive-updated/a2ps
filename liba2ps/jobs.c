@@ -117,6 +117,7 @@ a2ps_job_new (void)
   setlocale (LC_CTYPE, "");
 
   bindtextdomain (PACKAGE, LOCALEDIR);
+  bindtextdomain (PACKAGE "-gnulib", LOCALEDIR);
   textdomain (PACKAGE);
 
   /* Initialize tinyterm and lister. */

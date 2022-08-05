@@ -1,6 +1,9 @@
+*.po
+*.gmo
+/.reference
 /Makefile.in.in
 /Makefile.in.in~
-*.gmo
+/LINGUAS
 /POTFILES
 /a2ps.pot
 /remove-potcdate.sed

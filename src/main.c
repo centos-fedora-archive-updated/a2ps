@@ -936,6 +936,7 @@ main (int argc, char *argv[])
   setlocale (LC_CTYPE, "");
 
   bindtextdomain (PACKAGE, LOCALEDIR);
+  bindtextdomain (PACKAGE "-gnulib", LOCALEDIR);
   textdomain (PACKAGE);
 
   /* People don't want initializations when they just request a --help

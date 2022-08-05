@@ -31,12 +31,14 @@
 #  --lib=libgnu \
 #  --source-base=lib \
 #  --m4-base=m4 \
+#  --po-base=po-gnulib \
 #  --doc-base=doc \
 #  --tests-base=tests \
 #  --aux-dir=build-aux \
 #  --no-conditional-dependencies \
 #  --libtool \
 #  --macro-prefix=gl \
+#  --po-domain=a2ps \
 #  argmatch \
 #  backupfile \
 #  dirname \
@@ -87,12 +89,12 @@ gl_MODULES([
 gl_AVOID([])
 gl_SOURCE_BASE([lib])
 gl_M4_BASE([m4])
-gl_PO_BASE([])
+gl_PO_BASE([po-gnulib])
 gl_DOC_BASE([doc])
 gl_TESTS_BASE([tests])
 gl_LIB([libgnu])
 gl_MAKEFILE_NAME([])
 gl_LIBTOOL
 gl_MACRO_PREFIX([gl])
-gl_PO_DOMAIN([])
+gl_PO_DOMAIN([a2ps])
 gl_WITNESS_C_MACRO([])
