@@ -34,6 +34,7 @@ local-checks-to-skip = \
 	sc_bindtextdomain \
 	sc_GPL_version \
 	sc_indent \
+	sc_po_check \
 	sc_prohibit_atoi_atof \
 	sc_prohibit_gnu_make_extensions \
 	sc_prohibit_strncpy \
