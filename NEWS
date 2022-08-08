@@ -1,5 +1,8 @@
                     User visible changes in GNU a2ps.
 
+* Noteworthy changes in release ?.? (????-??-??) [?]
+
+
 * Noteworthy changes in release 4.14.91 (2022-08-08) [alpha]
  * Build:
    - Re-add a2ps to the Translation Project, and remove po files from git.
