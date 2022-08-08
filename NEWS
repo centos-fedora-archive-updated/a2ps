@@ -1,7 +1,13 @@
                     User visible changes in GNU a2ps.
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
-
+ * Build:
+   - Re-add a2ps to the Translation Project, and remove po files from git.
+ * Bug fixes:
+   - Remove reference to @COM_distill@ variable in a2ps_cfg.in.
+ * Documentation:
+   - Format --help output consistently to 80 columns.
+   - Fix a couple of message typos.
 
 * Noteworthy changes in release 4.14.90 (2022-07-17) [alpha]
  * This is an alpha release, owing to the considerable changes since the
