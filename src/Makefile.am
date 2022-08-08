@@ -20,7 +20,7 @@
 # it is needed for yacc and lex files (seems related to #line, but
 # I really don't understand why)...
 AM_CPPFLAGS = -I.. -I$(srcdir) -I$(top_srcdir)/liba2ps \
-	-I$(top_srcdir)/lib -DLOCALEDIR=\"$(localedir)\"
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib -DLOCALEDIR=\"$(localedir)\"
 AM_CFLAGS = $(WARN_CFLAGS) $(LIBGC_FLAGS)
 
 bin_SCRIPTS = a2ps-lpr-wrapper
