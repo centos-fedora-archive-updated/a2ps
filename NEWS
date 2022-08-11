@@ -1,5 +1,8 @@
                     User visible changes in GNU a2ps.
 
+* Noteworthy changes in release ?.? (????-??-??) [?]
+
+
 * Noteworthy changes in release 4.14.92 (2022-08-11) [alpha]
  * Documentation:
    - Undo reformatting of --help output from 4.14.91, so as not to annoy
