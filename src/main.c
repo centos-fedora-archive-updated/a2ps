@@ -647,7 +647,7 @@ Convert FILE(s) or standard input to PostScript.  By default, the output\n\
 is sent to the default printer.  An output file may be specified with -o.\n\
 \n\
 Mandatory arguments to long options are mandatory for short options too.\n\
-Long options marked with * require a yes/no argument, corresponding\n\
+Long options marked with `*' require a yes/no argument, corresponding\n\
 short options stand for `yes'.\n"),
 	   program_name);
 
@@ -803,14 +803,14 @@ To process a mailbox in 4 up,\n\
 \n\
     $ a2ps -=mail -4 mailbox\n\
 \n\
-To print as a booklet on the default printer, which is Duplex capable,\n\
+To print as a booklet on the default printer, which is duplex capable,\n\
 \n\
     $ a2ps -=book paper.dvi.gz -d\n"));
 
   /* Finally, some addresses. */
   sputc ('\n');
   sfputs (_("\
-News, updates and documentation: visit http://www.gnu.org/software/a2ps/.\n"));
+News, updates and documentation: visit http://www.gnu.org/software/a2ps/\n"));
   sfputs (_("Report bugs to <bug-a2ps@gnu.org>.\n"));
 
   exit (status);
