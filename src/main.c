@@ -630,17 +630,10 @@ list_features (struct a2ps_job *a_job, FILE * stream)
 | Print a usage message.  |
 `------------------------*/
 
-#define sfputs(String)	fputs (String, stream)
-#define sputc(Char)	putc (Char, stream)
-
 static void
 usage (int status)
 {
-  /* Currently, there seem to be no use in being able to use another
-     stream than STDOUT.  */
-  FILE *stream = stdout;
-
-  fprintf (stream, _("\
+  printf (_("\
 Usage: %s [OPTION]... [FILE]...\n\
 \n\
 Convert FILE(s) or standard input to PostScript.  By default, the output\n\
@@ -654,9 +647,9 @@ short options stand for `yes'.\n"),
   /*
    * Does not print, and exits with success
    */
-  sputc ('\n');
-  sfputs (_("Tasks:\n"));
-  sfputs (_("\
+  putchar ('\n');
+  puts (_("Tasks:\n"));
+  puts (_("\
   --version        display version\n\
   --help           display this help\n\
   --guess          report guessed types of FILES\n\
@@ -666,26 +659,26 @@ short options stand for `yes'.\n"),
   --list=TOPIC     detailed list on TOPIC (delegations, encodings, features,\n\
                    variables, media, ppd, printers, prologues, style-sheets,\n\
                    user-options)\n"));
-  sputc ('\n');
-  sfputs (_("\
+  putchar ('\n');
+  puts (_("\
 After having performed the task, exit successfully.  Detailed lists may\n\
 provide additional help on specific features.\n"));
 
   /*
    * Applies to the whole behavior
    */
-  sputc ('\n');
-  sfputs (_("Global:\n"));
-  sfputs (_("\
+  putchar ('\n');
+  puts (_("Global:\n"));
+  puts (_("\
   -q, --quiet, --silent      be really quiet\n\
   -v, --verbose[=LEVEL]      set verbosity on, or to LEVEL\n\
   -=, --user-option=OPTION   use the user defined shortcut OPTION\n\
       --debug                enable debugging features\n\
   -D, --define=KEY[:VALUE]   unset variable KEY or set to VALUE\n"));
 
-  sputc ('\n');
-  sfputs (_("Sheets:\n"));
-  sfputs (_("\
+  putchar ('\n');
+  puts (_("Sheets:\n"));
+  puts (_("\
   -M, --medium=NAME      use output medium NAME\n\
   -r, --landscape        print in landscape mode\n\
   -R, --portrait         print in portrait mode\n\
@@ -697,16 +690,16 @@ provide additional help on specific features.\n"));
                          page, sheet, or a number)\n\
   -j, --borders*         print borders around columns\n\
       --margin[=NUM]     define an interior margin of size NUM\n"));
-  sputc ('\n');
-  sfputs (_("\
+  putchar ('\n');
+  puts (_("\
 The options -1.. -9 affect several primitive parameters to set up predefined\n\
 layouts with 80 columns.  Therefore the order matters: `-R -f40 -2' is\n\
 equivalent to `-2'.  To modify the layout, use `-2Rf40', or compose primitive\n\
 options (`--columns', `--font-size' etc.).\n"));
 
-  sputc ('\n');
-  sfputs (_("Virtual pages:\n"));
-  sfputs (_("\
+  putchar ('\n');
+  puts (_("Virtual pages:\n"));
+  puts (_("\
       --line-numbers=NUM     precede each NUM lines with its line number\n\
   -C                         alias for --line-numbers=5\n\
   -f, --font-size=SIZE       use font SIZE (float) for the body text\n\
@@ -716,10 +709,10 @@ options (`--columns', `--font-size' etc.).\n"));
   -T, --tabsize=NUM          set tabulator size to NUM\n\
   --non-printable-format=FMT specify how non-printable chars are printed\n"));
 
-  sputc ('\n');
-  sfputs (_("Headings:\n"));
+  putchar ('\n');
+  puts (_("Headings:\n"));
   /* xgettext:no-c-format */
-  sfputs (_("\
+  puts (_("\
   -B, --no-header        no page headers at all\n\
   -b, --header[=TEXT]    set page header\n\
   -u, --underlay[=TEXT]  print TEXT under every page\n\
@@ -729,13 +722,13 @@ options (`--columns', `--font-size' etc.).\n"));
   --left-footer[=TEXT]   set sheet footers to TEXT\n\
   --footer[=TEXT]\n\
   --right-footer[=TEXT]\n"));
-  sputc ('\n');
-  sfputs (_("\
+  putchar ('\n');
+  puts (_("\
 The TEXTs may use special escapes.\n"));
 
-  sputc ('\n');
-  sfputs (_("Input:\n"));
-  sfputs (_("\
+  putchar ('\n');
+  puts (_("Input:\n"));
+  puts (_("\
   -a, --pages[=RANGE]        select the pages to print\n\
   -c, --truncate-lines*      cut long lines\n\
   -i, --interpret*           interpret tab, bs and ff chars\n\
@@ -746,24 +739,24 @@ The TEXTs may use special escapes.\n"));
       --print-anyway*        force binary printing\n\
   -Z, --delegate*            delegate files to another application\n\
       --toc[=TEXT]           generate a table of content\n"));
-  sputc ('\n');
-  sfputs (_("\
+  putchar ('\n');
+  puts (_("\
 When delegations are enabled, a2ps may use other applications to handle the\n\
 processing of files that should not be printed as raw information, e.g., HTML\n\
 PostScript, PDF etc.\n"));
 
-  sputc ('\n');
-  sfputs (_("Pretty-printing:\n"));
-  sfputs (_("\
+  putchar ('\n');
+  puts (_("Pretty-printing:\n"));
+  puts (_("\
   -E, --pretty-print[=LANG]  enable pretty-printing (set style to LANG)\n\
   --highlight-level=LEVEL    set pretty printing highlight LEVEL\n\
                              LEVEL can be none, normal or heavy\n\
   -g                         alias for --highlight-level=heavy\n\
   --strip-level=NUM          level of comments stripping\n"));
 
-  sputc ('\n');
-  sfputs (_("Output:\n"));
-  sfputs (_("\
+  putchar ('\n');
+  puts (_("Output:\n"));
+  puts (_("\
   -o, --output=FILE          leave output to file FILE.  If FILE is `-',\n\
                              leave output to stdout.\n\
   --version-control=WORD     override the usual version control\n\
@@ -772,9 +765,9 @@ PostScript, PDF etc.\n"));
   -d                         send output to the default printer\n\
                              (this is the default behavior)\n"));
 
-  sputc ('\n');
-  sfputs (_("PostScript:\n"));
-  sfputs (_("\
+  putchar ('\n');
+  puts (_("PostScript:\n"));
+  puts (_("\
       --prologue=FILE        include FILE.pro as PostScript prologue\n\
       --ppd[=KEY]            automatic PPD selection or set to KEY\n\
   -n, --copies=NUM           print NUM copies of each page\n\
@@ -787,8 +780,8 @@ PostScript, PDF etc.\n"));
 
 
   /* A short documentation. */
-  sputc ('\n');
-  sfputs (_("\
+  putchar ('\n');
+  puts (_("\
 By default a2ps is tuned to do what you want to, so trust it.  To pretty\n\
 print the content of the `src' directory and a table of content, and send the\n\
 result to the printer `lw',\n\
@@ -805,13 +798,10 @@ To process a mailbox in 4 up,\n\
 \n\
 To print as a booklet on the default printer, which is duplex capable,\n\
 \n\
-    $ a2ps -=book paper.dvi.gz -d\n"));
+    $ a2ps -=book paper.dvi.gz -d"));
 
   /* Finally, some addresses. */
-  sputc ('\n');
-  sfputs (_("\
-News, updates and documentation: visit http://www.gnu.org/software/a2ps/\n"));
-  sfputs (_("Report bugs to <bug-a2ps@gnu.org>.\n"));
+  emit_bug_reporting_address ();
 
   exit (status);
 }
@@ -1035,10 +1025,9 @@ main (int argc, char *argv[])
       /* Expand the strings given as arguments. */
       for (; argn < argc; argn++)
 	{
-	  fputs (expand_user_string (job, FIRST_FILE (job),
-				     "--list=expand", argv[argn]),
-		 stdout);
-	  putc ('\n', stdout);
+	  puts (expand_user_string (job, FIRST_FILE (job),
+                                    "--list=expand", argv[argn]));
+	  putchar ('\n');
 	}
       break;
 
@@ -1051,8 +1040,8 @@ main (int argc, char *argv[])
 	  cp = pw_find_file (job->common.path, argv[argn], NULL);
 	  if (cp)
 	    {
-	      fputs (cp, stdout);
-	      putc ('\n', stdout);
+	      puts (cp);
+	      putchar ('\n');
 	    }
 	}
       break;
