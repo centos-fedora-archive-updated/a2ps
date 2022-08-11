@@ -5,7 +5,7 @@ AC_COPYRIGHT([Copyright 2022 Free Software Foundation, Inc.])
 ## Initialization.  ##
 ## ---------------- ##
 
-AC_INIT([GNU a2ps], [4.14.91], [bug-a2ps@gnu.org])
+AC_INIT([GNU a2ps], [4.14.92], [bug-a2ps@gnu.org])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([build-aux])
 m4_pattern_forbid([^jm_[A-Z]])
