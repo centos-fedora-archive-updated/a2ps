@@ -94,7 +94,7 @@ typedef struct a2ps_job
   bool debug;			/* Are we in debug mode?		*/
   char * prolog;		/* postscript header file 		*/
   struct medium * medium;	/* Medium to use 			*/
-  char *medium_request;		/* The name of the medium choosen	*/
+  const char *medium_request;	/* The name of the medium choosen	*/
   unsigned tabsize;		/* length of tabulations		*/
   unsigned lines_requested;	/* Number of line per page 		*/
   unsigned columns_requested;	/* Number of columns per page		*/

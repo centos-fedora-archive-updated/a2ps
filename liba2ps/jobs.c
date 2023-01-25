@@ -201,8 +201,8 @@ a2ps_job_new (void)
   res->border = true;		/* print the surrounding border ?	*/
   res->debug = false;		/* No debugging				*/
   res->prolog = xstrdup ("bw");	/* default ps header file		*/
-  res->medium_request = NULL;	/* default paper is core dump		*/
-  res->medium = NULL;		/* default paper is core dump		*/
+  res->medium_request = LIBPAPER_MEDIUM;/* default paper is libpaper default */
+  res->medium = NULL;
   res->tabsize = 8;		/* length of tabulations		*/
   res->lines_requested = 0;	/* lines per page			*/
   res->columns_requested = 0;	/* columns per page			*/
