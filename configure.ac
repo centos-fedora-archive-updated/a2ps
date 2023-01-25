@@ -117,7 +117,7 @@ AH_BOTTOM([
 #endif
 #define strdup GC_strdup
 #define strndup GC_strndup
-#define reallocarray(ptr, nmemb, size) a2ps_reallocarray(ptr, nmemb, size)
+#define reallocarray a2ps_reallocarray
 ])
 
 ad_FUNC_SYSTEMPAPERNAME
