@@ -1382,8 +1382,7 @@ use output medium @var{medium}.  See the output of @samp{a2ps
 @samp{Legal}.
 
 The special @var{medium} @samp{libpaper} means that you want @pack{} to
-ask the library @code{libpaper} for the medium to use.  This choice is
-valid only if @code{libpaper} was available when @pack{} was configured.
+ask the library @code{libpaper} for the medium to use.
 See the man page of @code{paper} for more information.
 @end defvr
 
