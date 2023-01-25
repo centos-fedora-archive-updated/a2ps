@@ -1381,9 +1381,6 @@ use output medium @var{medium}.  See the output of @samp{a2ps
 @samp{A3}, @samp{A4}, @samp{A5}, @samp{B4}, @samp{B5}, @samp{Letter},
 @samp{Legal}.
 
-@samp{A4dj}, @samp{Letterdj} are also defined for Desk Jet owners, since
-that printer needs bigger margins.
-
 The special @var{medium} @samp{libpaper} means that you want @pack{} to
 ask the library @code{libpaper} for the medium to use.  This choice is
 valid only if @code{libpaper} was available when @pack{} was configured.
