@@ -16,8 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# .tst instead of .test to avoid tar warnings on MS-DOS
-
 TESTS =		\
 align-1.tst	\
 backup.tst	\
