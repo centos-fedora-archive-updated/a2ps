@@ -2636,7 +2636,7 @@ There are two formats supported:
 in which you must give both the size of the whole sheet, and the size of
 the printable area:
 @example
-# A4 for Desk Jets
+# A4 for HP DeskJets
 #      @var{name}     @var{w}      @var{h}     @var{llx}   @var{lly}   @var{urx}    @var{ury}
 Medium: A4dj    595    842    24    50    571    818
 @end example
