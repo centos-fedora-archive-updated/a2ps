@@ -127,7 +127,7 @@ a2ps_get_medium (a2ps_job * job, const char * name)
 
   token.name = NULL;
   if (strcaseequ (name, LIBPAPER_MEDIUM))
-    token.name = (char *) systempapername ();
+    token.name = (char *) defaultpapername ();
 
   if (!token.name)
     token.name = (char *) name;
