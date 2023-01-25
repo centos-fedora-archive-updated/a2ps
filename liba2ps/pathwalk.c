@@ -256,7 +256,7 @@ pw_file_exists_p (char * const * path,
 | SUFFIX).                                                          |
 `------------------------------------------------------------------*/
 
-static inline char *
+static char *
 _pw_find_file (char * const * path,
 	       const char * name, const char * suffix)
 {

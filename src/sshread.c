@@ -176,7 +176,7 @@ match_keyword (buffer_t * buffer,
  * Return true if there is a element of WORDS which operators-match
  * current point of BUFFER.  Fill TOKEN with the matching part.
  */
-static inline int
+static int
 match_operator (buffer_t * buffer,
 		struct words *words)
 {
