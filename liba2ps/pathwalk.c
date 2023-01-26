@@ -324,13 +324,13 @@ xpw_find_included_file (char * const *path,
 			const char *including_file,
 			const char *name, const char *suffix)
 {
-  char *dir;	/* Of the including file. */
+  const char *dir;	/* Of the including file. */
   char *res;
   struct stat statbuf;
 
   if (*name == DIRECTORY_SEPARATOR)
     /* Path is absolute */
-    dir = NULL;
+    dir = "";
   else
     /* Relative.  Give its root. */
     dir = dir_name (including_file);
