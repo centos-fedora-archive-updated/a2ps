@@ -33,7 +33,6 @@ delegate.c buffer.c versions.c ffaces.c
 noinst_HEADERS = main.h \
 read.h sshread.h ssheet.h select.h generate.h			\
 delegate.h buffer.h versions.h ffaces.h			\
-					\
 yy2ssh.h lexps.h
 
 noinst_LIBRARIES = libparse.a
@@ -46,5 +45,8 @@ AM_YFLAGS = -dtv
 LEX = @LEX@
 
 a2ps_LDADD = $(top_builddir)/liba2ps/liba2ps.la $(top_builddir)/liba2ps/libnowarnings.a libparse.a $(LIBINTL) ../lib/libgnu.la -lm $(LIBGC_LIBS) -lpaper # FIXME: hard coded.
+
+loc-local:
+	cd $(srcdir) && $(CLOC) $(CLOC_OPTS) $(a2ps_SOURCES) $(noinst_HEADERS) $(libparse_a_SOURCES) $(bin_SCRIPTS)
 
 EXTRA_DIST = $(BUILT_SOURCES) $(bin_SCRIPTS)

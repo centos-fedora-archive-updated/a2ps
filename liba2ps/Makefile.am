@@ -1,6 +1,6 @@
 # Process this file with automake to create Makefile.in
 #
-# Copyright 1995-2022 Free Software Foundation, Inc.
+# Copyright 1995-2023 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -108,5 +108,8 @@ liba2ps.h: $(liba2ps_h_sources)
 	  mv liba2ps.h.tmp2 liba2ps.h.tmp1;				\
 	done;								\
 	mv liba2ps.h.tmp1 liba2ps.h
+
+loc-local:
+	cd $(srcdir) && $(CLOC) $(CLOC_OPTS) $(liba2pssources) $(liba2psheaders) $(libitsources) $(libitheaders) $(mylibitsources) $(mylibitheaders) $(libnowarnings_a_SOURCES) $(liba2ps_h_sources)
 
 EXTRA_DIST = liba2ps.h $(liba2ps_h_sources) $(BUILT_SOURCES) confg.gperf

@@ -132,3 +132,5 @@ ogonkify: ogonkify.in
 	     $(srcdir)/compose.ps		\
 	     $(srcdir)/$*.ps > $@.tmp
 	@mv $@.tmp $@
+
+loc:

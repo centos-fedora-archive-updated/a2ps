@@ -281,6 +281,12 @@ if test x"${srcdir}" != x.; then
   AC_CONFIG_LINKS([man/Makefile.maint:man/Makefile.maint])
 fi
 
+# Code counting
+AM_EXTRA_RECURSIVE_TARGETS([loc])
+AC_PATH_PROG(CLOC, cloc, true)
+CLOC_OPTS="--autoconf --force-lang=C,h --force-lang=C,extract"
+AC_SUBST([CLOC_OPTS])
+
 AC_OUTPUT
 
 AC_MSG_RESULT([
