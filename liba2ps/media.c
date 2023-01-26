@@ -1,5 +1,5 @@
 /* media.c - used paper formats
-   Copyright 1988-2017 Free Software Foundation, Inc.
+   Copyright 1988-2023 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -99,6 +99,26 @@ add_medium (struct a2ps_job * job,
   a_medium->ury = ury;
 
   hash_insert (job->media, a_medium);
+}
+
+
+/*
+ * Add a medium with a margin of 24 points all round.
+ */
+void
+add_medium_with_default_margin (struct a2ps_job * job,
+                                const char * name,
+                                unsigned w, unsigned h)
+{
+  unsigned margin = 24;
+  unsigned llx, lly, urx = w, ury = h;
+  llx = lly = margin;
+  if (w > margin)
+    urx = w - margin;
+  if (h > margin)
+    ury = h - margin;
+
+  add_medium (job, name, w, h, llx, lly, urx, ury);
 }
 
 /*

@@ -62,6 +62,9 @@ void add_medium (struct a2ps_job * job,
 			const char * name,
 			unsigned w, unsigned h,
 			unsigned llx, unsigned lly, unsigned urx, unsigned ury);
+void add_medium_with_default_margin (struct a2ps_job * job,
+                                     const char * name,
+                                     unsigned w, unsigned h);
 
 void list_media_long (struct a2ps_job * job, FILE * stream);
 void list_media_short (struct a2ps_job * job, FILE * stream);

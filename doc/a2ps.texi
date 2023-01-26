@@ -1379,11 +1379,10 @@ This options specify the general layout, how the sheet should be used.
 use output medium @var{medium}.  See the output of @samp{a2ps
 --list=media} for the list of supported media.  Typical values are
 @samp{A3}, @samp{A4}, @samp{A5}, @samp{B4}, @samp{B5}, @samp{Letter},
-@samp{Legal}.
-
-The special @var{medium} @samp{libpaper} means that you want @pack{} to
-ask the library @code{libpaper} for the medium to use.
-See the man page of @code{paper} for more information.
+@samp{Legal}. The default is the user's preferred paper size, or the system
+default; see the man page of @code{paper} for how this is configured.
+The default paper size may also be requested explicitly with the name
+@samp{libpaper}.
 @end defvr
 
 @defvr {Option}  -r

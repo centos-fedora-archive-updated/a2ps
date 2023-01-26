@@ -263,21 +263,18 @@ a2_read_config (a2ps_job * job, const char *path, const char *file)
 
 	case Medium:
 	  {
-	    int w, h, llx, lly, urx, ury;
+	    unsigned w, h, llx, lly, urx, ury;
 
-	    switch (sscanf (argv[2], "%d %d %d %d %d %d",
+	    switch (sscanf (argv[2], "%u %u %u %u %u %u",
 			    &w, &h, &llx, &lly, &urx, &ury))
 	      {
 	      case 6:
 		/* BBox is also given */
+		add_medium (job, argv[1], w, h, llx, lly, urx, ury);
 		break;
 
 	      case 2:
-		/* A short hand has been used: use 24 points as a
-		  margin all around */
-		llx = lly = 24;
-		urx = w - 24;
-		ury = h - 24;
+		add_medium_with_default_margin (job, argv[1], w, h);
 		break;
 
 	      default:
@@ -285,7 +282,6 @@ a2_read_config (a2ps_job * job, const char *path, const char *file)
 			       "invalid number of arguments for `%s'",
 			       quotearg (argv[0]));
 	      }
-	    add_medium (job, argv[1], w, h, llx, lly, urx, ury);
 	  }
 	  break;
 

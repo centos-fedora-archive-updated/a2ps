@@ -1,5 +1,5 @@
 /* jobs.c - recording information about the print jobs
-   Copyright 1995-2017 Free Software Foundation, Inc.
+   Copyright 1995-2023 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -18,7 +18,11 @@
 
 #include <config.h>
 
+#include <assert.h>
 #include <locale.h>
+#include <math.h>
+
+#include <paper.h>
 
 #include "a2ps.h"
 #include "jobs.h"
@@ -140,7 +144,22 @@ a2ps_job_new (void)
   /*
    * Data that library needs (mostly read from config files)
    */
-  res->media = new_medium_table ();	/* Media defined by the user 	*/
+  res->media = new_medium_table ();	/* Media list. */
+  assert (paperinit () == 0);	/* Initialize libpaper. */
+  /* Add papers that libpaper knows about. */
+  for (const struct paper * paper = paperfirst();
+       paper != NULL;
+       paper = papernext (paper))
+    {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wfloat-conversion"
+      int w = rint (paperpswidth (paper));
+      int h = rint (paperpsheight (paper));
+#pragma GCC diagnostic pop
+      add_medium_with_default_margin (res, papername (paper),
+                                      (unsigned) w,
+                                      (unsigned) h);
+    }
 
   /* Short cuts defined by the user */
   res->user_options = user_options_table_new ();
@@ -306,4 +325,7 @@ a2ps_job_free (struct a2ps_job * job)
 
   /* Unlink and free the temporary files */
   a2ps_job_unlink_tmpfiles (job);
+
+  /* Shut down libpaper */
+  paperdone ();
 }

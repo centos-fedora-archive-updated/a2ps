@@ -14,7 +14,6 @@ FileCommand: @file_link@
 # Options for the tests
 ########################################################################
 # Medium used for the tests
-Medium: A4	 595     842
 Options: --medium=A4
 
 # Encoding is ISO Latin 1

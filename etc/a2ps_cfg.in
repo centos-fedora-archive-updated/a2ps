@@ -43,20 +43,7 @@
 # (Must be defined before --medium)				#
 #################################################################
 # Medium: name, width height [llx lly urx ury]
-Medium: A3	    842    1190
-Medium: A4	    595     842
-Medium: A5	    420     595
-Medium: B4	    729    1032
-Medium: B5	    516     729
-Medium: Letter	    612     792
-Medium: Legal	    612    1008
-Medium: Tabloid	    792    1224
-Medium: Ledger	   1224     792
-Medium: Statement   396	    612
-Medium: Executive   540     720
-Medium: Folio	    612     936
 Medium: Quarto	    610     780
-Medium: 10x14	    720    1008
 
 
 
