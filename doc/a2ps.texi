@@ -70,7 +70,7 @@ This document describes GNU @pack{} @value{VERSION}, a converter from
 various formats, included text, to PostScript converter, with
 pretty-printing abilities.
 
-Copyright @copyright{} 1988-2022 Free Software Foundation, Inc.
+Copyright @copyright{} 1988-2023 Free Software Foundation, Inc.
 
 Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
