@@ -633,6 +633,11 @@ list_features (struct a2ps_job *a_job, FILE * stream)
 static void
 usage (int status)
 {
+  /* TRANSLATORS: In version 4.14.93, strings in this file were reformatted
+     with whitespace changes only! Changes to the corresponding strings in
+     your language would be much appreciated, but is not important for user
+     understanding.
+   */
   printf (_("\
 Usage: %s [OPTION]... [FILE]...\n\
 \n\

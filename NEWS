@@ -1,7 +1,22 @@
                     User visible changes in GNU a2ps.
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
-
+ * Features:
+   - Use libpaper's paper sizes. This includes user-defined paper sizes
+     when using libpaper 2. It is still possible to define custom margins
+     using "Medium:" specifications in the configuration file, and the
+     one size defined by a2ps that libpaper does not know about, Quarto, is
+     retained for backwards compatiblity, and as an example.
+ * Bug fixes:
+   - Avoid a crash when a medium is not specified; instead, use the default
+     libpaper size (configured by the user or sysadmin, or the locale
+     default).
+   - Fix some other potential crashes and compiler warnings.
+ * Documentation:
+   - Reformat --help output consistently to 80 columns.
+ * Build:
+   - Require autoconf 2.71.
+   - Require libpaper.
 
 * Noteworthy changes in release 4.14.92 (2022-08-11) [alpha]
  * Documentation:
