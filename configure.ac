@@ -1,11 +1,11 @@
-AC_PREREQ([2.69])
+AC_PREREQ([2.71])
 AC_COPYRIGHT([Copyright 2023 Free Software Foundation, Inc.])
 
 ## ---------------- ##
 ## Initialization.  ##
 ## ---------------- ##
 
-AC_INIT([GNU a2ps], [4.14.93], [bug-a2ps@gnu.org])
+AC_INIT([GNU a2ps],[4.14.93],[bug-a2ps@gnu.org])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([build-aux])
 m4_pattern_forbid([^jm_[A-Z]])
@@ -35,12 +35,8 @@ AC_PROG_MAKE_SET
 AC_PATH_PROG(PERL, perl)
 
 # Check for the C compiler and the various oddities that may exist
-AC_PROG_CC_C99
+AC_PROG_CC
 gl_EARLY
-
-AS_IF([test "x$ac_cv_prog_cc_c99" = "xno"], [
-  AC_MSG_ERROR([GNU a2ps requires a C99 capable compiler!])
-])
 
 dnl Extra warnings with GCC
 AC_ARG_ENABLE([gcc-warnings],
@@ -85,7 +81,7 @@ AC_PROG_GPERF
 AM_PROG_AR
 
 # I want flex, and only flex
-AC_PROG_LEX
+AC_PROG_LEX([noyywrap])
 AC_MSG_CHECKING([whether LEX is flex])
 AS_CASE([`$LEX --version`],
   [flex*],
