@@ -21,7 +21,7 @@ GNULIB_SRCDIR ?= $(srcdir)/gnulib
 gnulib_dir = $(GNULIB_SRCDIR)
 
 # Set format of NEWS
-old_NEWS_hash := 51d6f0fbbed70394f791b4ab5748ce6a
+old_NEWS_hash := 69452ad460e2e9fb24aaba459cbf8677
 
 # Don't check 3rd-party sources or test files
 VC_LIST_ALWAYS_EXCLUDE_REGEX = tests/(g?ps-ref|tstfiles)/|regex.c$$
