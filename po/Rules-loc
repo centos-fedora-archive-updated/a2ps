@@ -1,0 +1,2 @@
+# Dummy rule to avoid error with recursive 'loc' target
+loc:

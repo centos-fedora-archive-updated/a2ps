@@ -4,14 +4,11 @@
 /en@boldquot.header~
 /Rules-quot~
 /Makevars.template~
-*.po
-*.gmo
 /.reference
 /Makefile.in.in
 /Makefile.in.in~
 /LINGUAS
 /POTFILES
-/a2ps.pot
 /remove-potcdate.sed
 /remove-potcdate.sin
 /quot.sed

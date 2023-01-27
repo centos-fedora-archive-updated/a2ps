@@ -1,6 +1,9 @@
 /ABOUT-NLS~
 *.o
 *.lo
+*.po
+*.pot
+*.gmo
 .deps
 .libs
 Makefile
@@ -18,7 +21,6 @@ Makefile.in
 /configure
 /lib
 /libtool
-/po-gnulib
 /stamp-h1
 /a2ps-*.tar.gz
 /a2ps-*.tar.gz.sig

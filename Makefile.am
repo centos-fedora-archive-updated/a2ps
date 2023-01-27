@@ -1,6 +1,6 @@
 # Process this file with automake to create Makefile.in
 #
-# Copyright 1995-2017 Free Software Foundation, Inc.
+# Copyright 1995-2023 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -54,3 +54,6 @@ AUTHORS: $(top_srcdir)/doc/translators.txt $(top_srcdir)/doc/$(MAKE_AUTHORS) $(t
 	&& srcdir=$(abs_top_srcdir)/doc $(PERL) $(abs_top_srcdir)/doc/$(MAKE_AUTHORS) > $@-t \
 	&& chmod 644 $@-t
 	mv doc/$@-t $@
+
+loc-local:
+	cd $(srcdir) && $(CLOC) $(CLOC_OPTS) doc/make-authors.pl
