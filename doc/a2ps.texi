@@ -6327,7 +6327,7 @@ weaker: without the file name, @pack{} can only get @code{file(1)}'s
 opinion (@pxref{Style Sheet Files}).  In general it means most
 delegations are safe, but there will probably be no pretty-printing.
 
-@samp{You} can supply a name to the standard input
+@emph{You} can supply a name to the standard input
 (@samp{--stdin=@var{name}}) with which it could guess the language.
 
 @node Change the Fonts
