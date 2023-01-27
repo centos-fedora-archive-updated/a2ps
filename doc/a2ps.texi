@@ -6858,6 +6858,12 @@ From that version, @email{akim@@freefriends.org, Akim Demaille}
 generalized the pretty-printing capabilities, implemented more languages
 support, and other features.
 
+Masayuki Hatta maintained a2ps for several years. Later, David Seifert
+modernized and cleaned up the code considerably. Latterly, Reuben Thomas
+did more clean-up and bug-fixing, and released version 4.15, the first
+release for many years.
+
+
 @node Thanks
 @section Thanks
 Patrick Andries and Roman Czyborra
@@ -6885,17 +6891,11 @@ the ultimate test: if he says I can release @pack{}, I rest reassured
 that, yes, this time it @strong{will} compile!  If @pack{} works today
 on your system, you should thank Graham too!
 
-Of course this list is not up to date, and never will.  We would like to
+Of course this list is not up to date, and never will be.  We would like to
 thank everybody that helped us, talked to us, and even criticized us
-with the intention to help us to improve @pack{}.  Of course it doesn't
-sound right, yes it sounds a little childish, but we can tell you: we
-would @strong{never} have the strength and the faith of building and
-maintaining @pack{} without the support of all these guys.
-
-While @pack{} is finally just a couple of bits on a hard disk, to us it
-is an adventure we live with other humans, and, boy, that's a darn good
-pleasure!
-
+with the intention to help us to improve @pack{}. In particular, many
+thanks to all those who wrote style sheets, translated @pack{},
+reported and fixed bugs, and gave us other feedback over the years.
 
 
 @c  #####
