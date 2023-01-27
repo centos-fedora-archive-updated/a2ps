@@ -384,7 +384,6 @@ How Can I ...?
 * Change the Fonts::            Tired of Courier?
 * The Old Option -b?::          Printing in Bold
 * Pass Options to lpr::         Disable the banner
-* Non PostScript Printers::     Using GhostScript
 * Man Pages with Underlines::   Now it Prints With Italics
 
 Please tell me...
@@ -2727,15 +2726,7 @@ Printer: file > $n.#.
 # E.g. `a2ps foo.c bar.h -P home' will save into `foo.ps'
 # in user's home
 Printer: home > $@{HOME@}/$N.#.
-
-# Here we address a printer which is not PostScript
-Printer: deskj | gs -q -sDEVICE=ljet3d -sOutputFile=- - \
-         | lpr -P laserwriter -h -l
 @end example
-
-@cindex Non PostScript printers
-MS-DOS users, and non-PostScript printer owners should take advantage in
-getting good configuration of these entries.
 
 
 @node Your Shortcuts
@@ -6319,7 +6310,6 @@ A mini how-to on @pack{}.
 * Change the Fonts::            Tired of Courier?
 * The Old Option -b?::          Printing in Bold
 * Pass Options to lpr::         Disable the banner
-* Non PostScript Printers::     Using GhostScript
 * Man Pages with Underlines::   Now it Prints With Italics
 @end menu
 
@@ -6379,57 +6369,6 @@ Variables}).
 Finally, you can use @samp{Printer:} several times to reach a printer
 with different @code{lpr} options.
 
-
-@node Non PostScript Printers
-@subsection How Can I Print on Non PostScript Printers?
-
-@quotation
-@i{I use @pack{} at work and wish to use it at home, but my printer is
-not PostScript.  How can I do?}
-@end quotation
-
-@code{Ghostscript} might be the tool you need (@pxref{Glossary}).  It
-support conversion to many different non PostScript printers.
-
-Here are some tips on how to use a non PostScript printer.  If somebody
-feels like writing a more precise documentation, she really is welcome.
-
-Please refer to the @code{Ghostscript} documentation for a precise
-description of the tuning you need.
-
-Basically, the first step you need is to achieve to call
-@code{Ghostscript} in a pipe chain.  In other words, try to find out the
-right arguments @code{Ghostscript} needs in order to print with a
-command like this:
-@example
-$ cat file.ps | gs @var{more arguments}
-@end example
-
-In general it is the same command as for calling @code{Ghostscript} with
-a filename, except that the file name to use is @samp{-}:
-@example
-$ cat file.ps \
-  | gs -q -dNOPAUSE -sDEVICE=deskjet -sOutputFile=- - -c quit\
-  | lp -d@var{printer-name}
-@end example
-
-Once it works, it is then easy to settle the right @code{Printer:} line
-in your configuration file (@pxref{Your Printers}).  For instance:
-@example
-Printer: djet \
-  | gs -q -dNOPAUSE -sDEVICE=deskjet -sOutputFile=- - -c quit\
-  | lp -d djet
-@end example
-
-@email{scancm@@biobase.dk, Christian Mondrup} uses @pack{} under Windows
-with a non PostScript printer.  He uses:
-@example
-DefaultPrinter: | //c/gstools/gs5.10/Gswin32c.exe         \
-   -Ic:\gstools\gs5.10;c:\gstools\gs5.10\fonts            \
-   -sDEVICE=ljet4 -sPAPERSIZE=a4 -dNOPAUSE -r300 -dSAFER  \
-   -sOutputFile="\\spool\HP LaserJet 5L (PCL)"            \
-   -q - -c quit
-@end example
 
 @node Man Pages with Underlines
 @subsection How Can I Print Man Pages with Underlines
