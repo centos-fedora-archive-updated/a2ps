@@ -397,7 +397,6 @@ Genesis
 
 * History::                     Where does it come from
 * Thanks::                      People who really helped
-* Translators::                 People who brought support of your tongue
 
 @end detailmenu
 @end menu
@@ -6837,7 +6836,6 @@ Here are some words on @pack{} and its history.
 @menu
 * History::                     Where does it come from
 * Thanks::                      People who really helped
-* Translators::                 People who brought support of your tongue
 @end menu
 
 @node History
@@ -6898,14 +6896,6 @@ While @pack{} is finally just a couple of bits on a hard disk, to us it
 is an adventure we live with other humans, and, boy, that's a darn good
 pleasure!
 
-
-
-@node Translators
-@section Translators
-Some people worked on the translation of @pack{}:
-@itemize @minus
-@include translators.texi
-@end itemize
 
 
 @c  #####

@@ -29,13 +29,12 @@ defs = $(top_builddir)/tests/defs
 A2PS = a2ps
 
 generated_texinfos = \
-encoding.texi prologue.texi sheets.texi translators.texi
+encoding.texi prologue.texi sheets.texi
 
 MAINTAINERCLEANFILES = $(generated_texinfos)
 CLEANFILES = a2ps.tmp a2ps.tps
 
-EXTRA_DIST = $(generated_texinfos) .a2psrc translators.txt \
-translators.pl
+EXTRA_DIST = $(generated_texinfos) .a2psrc
 
 # This is really the minimum form of dependency...
 sheets.texi: $(top_srcdir)/sheets/Makefile.am
@@ -49,11 +48,6 @@ encoding.texi: $(top_srcdir)/encoding/Makefile.am
 prologue.texi: $(top_srcdir)/ps/Makefile.am
 	. $(defs) ; LC_ALL= LC_COLLATE=fr \
 	$(xa2ps) --list=pro-texi > prologue.texi || rm prologue.texi
-
-translators.texi: $(srcdir)/translators.txt $(srcdir)/translators.pl
-	srcdir=$(srcdir)/ $(PERL) $(srcdir)/translators.pl > $@-t
-	chmod 644 $@-t
-	mv $@-t $@
 
 #
 # Various other outputs formats
