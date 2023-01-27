@@ -35,7 +35,7 @@ MAINTAINERCLEANFILES = $(generated_texinfos)
 CLEANFILES = a2ps.tmp a2ps.tps
 
 EXTRA_DIST = $(generated_texinfos) .a2psrc translators.txt \
-make-authors.pl translators.pl
+translators.pl
 
 # This is really the minimum form of dependency...
 sheets.texi: $(top_srcdir)/sheets/Makefile.am

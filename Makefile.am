@@ -23,13 +23,7 @@ SUBDIRS = build-aux etc ps ogonkify lib liba2ps src po-gnulib po \
 
 EXTRA_DIST = TODO ANNOUNCE FAQ m4/gnulib-cache.m4
 
-MAKE_AUTHORS = make-authors.pl
-
-## I shouldn't need this, it looks like a bug in Automake
-AMTAR = @AMTAR@
-AMTARFLAGS = @AMTARFLAGS@
-PERL = @PERL@
-all-local: FAQ AUTHORS
+all-local: FAQ
 
 prcs-diff:
 	thisver=`echo "Version-$(VERSION)" | sed 's/\./-/g'`; \
@@ -48,12 +42,3 @@ FAQ: $(top_srcdir)/doc/a2ps.texi
 	LC_ALL=C $(MAKEINFO) --no-header -I $(top_builddir)/doc $(top_srcdir)/doc/a2ps.texi | \
 	sed -n -f $(top_srcdir)/build-aux/make-faq.sed > FAQ-tmp
 	mv FAQ-tmp FAQ
-
-AUTHORS: $(top_srcdir)/doc/translators.txt $(top_srcdir)/doc/$(MAKE_AUTHORS) $(top_srcdir)/sheets/sheets.map
-	cd doc \
-	&& srcdir=$(abs_top_srcdir)/doc $(PERL) $(abs_top_srcdir)/doc/$(MAKE_AUTHORS) > $@-t \
-	&& chmod 644 $@-t
-	mv doc/$@-t $@
-
-loc-local:
-	cd $(srcdir) && $(CLOC) $(CLOC_OPTS) doc/make-authors.pl
