@@ -3,7 +3,7 @@
 
 # This program tries most common options of the program
 
-# This is were you installed the tested version of the program
+# This is where you installed the tested version of the program
 # (and the directories test, test-ps and diff)
 
 : ${SRCDIR=.}
