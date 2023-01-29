@@ -1,6 +1,6 @@
 # Process this file with automake to create Makefile.in
 #
-# Copyright 1995-2017 Free Software Foundation, Inc.
+# Copyright 1995-2023 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,12 +20,7 @@ AM_CFLAGS = $(WARN_CFLAGS)
 
 SUBDIRS = emacs
 
-bin_SCRIPTS = card fixps pdiff psmandup psset texi2dvi4a2ps
-bin_PROGRAMS = fixnt
-
-fixnt_SOURCES = fixnt.l
-fixnt_LDADD = $(LIBGC_LIBS)
-fixnt_CFLAGS =
+bin_SCRIPTS = card fixps pdiff psmandup texi2dvi4a2ps
 
 EXTRA_DIST = \
-	card.in fixps.in pdiff.in psmandup.in psset.in texi2dvi4a2ps
+	card.in pdiff.in psmandup.in texi2dvi4a2ps
