@@ -20,7 +20,7 @@ AM_CFLAGS = $(WARN_CFLAGS)
 
 SUBDIRS = emacs
 
-bin_SCRIPTS = card fixps pdiff psmandup texi2dvi4a2ps
+bin_SCRIPTS = card fixps pdiff psmandup
 
 EXTRA_DIST = \
-	card.in pdiff.in psmandup.in texi2dvi4a2ps
+	card.in pdiff.in psmandup.in

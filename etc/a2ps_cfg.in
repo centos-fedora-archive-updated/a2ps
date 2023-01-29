@@ -134,10 +134,8 @@ Variable: del.psselnup #{del.psselect} | #{del.psnup}
 # produces on stdout.
 Variable: del.dvips @dvips@ #?p|-pp#p|| #?V||-q| -T#wpt,#hpt -f
 
-# We use a modified texi2dvi which accepts -b (--batch), -c (--clean),
-# and -l (--language).
-Variable: del.texi2dvi \
- texi2dvi4a2ps -b -c #?V|--verbose|--quiet| 1>&2
+# Calls to texi2dvi.
+Variable: del.texi2dvi texi2dvi -q -c #?V|--verbose|--quiet| 1>&2
 
 # a2ps will be called upon decompressed files.
 Variable: del.a2ps\

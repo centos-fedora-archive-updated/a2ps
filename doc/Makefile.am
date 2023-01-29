@@ -20,7 +20,6 @@
 info_TEXINFOS = a2ps.texi regex.texi
 a2ps_TEXINFOS = a2ps.texi $(generated_texinfos) version.texi
 
-#TEXI2DVI = $(top_srcdir)/contrib/texi2dvi4a2ps
 TEXI2DVIFLAGS = -b -c -t "@setchapternewpage odd"
 
 # The a2ps of this package
