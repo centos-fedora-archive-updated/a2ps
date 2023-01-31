@@ -377,7 +377,6 @@ How Can I ...?
 Please tell me...
 
 * Is a2ps Y2K compliant?::      Printing dates in short format
-* The Options Have Changed::    Respect The Users
 * Why not using yacc::          Why Using Style Sheets
 
 Genesis
@@ -6163,7 +6162,6 @@ Wondering something?
 
 @menu
 * Is a2ps Y2K compliant?::      Printing dates in short format
-* The Options Have Changed::    Respect The Users
 * Why not using yacc::          Why Using Style Sheets
 @end menu
 
@@ -6172,36 +6170,11 @@ Wondering something?
 
 The famous Y2K@footnote{Year 2000.} problem...
 
-Yes, @pack{} is Y2K compliant... provided that you have either a version
-more recent than 4.10.3.  The expansions of the following escapes were
-broken (giving @samp{100} instead of @samp{00}): @samp{%D}, @samp{%W},
-@samp{$D}, @samp{$W}.
+Yes, @pack{} is Y2K compliant since version 4.10.3.
 
-Nevertheless, please note that if you required a two digit year, expect
-to have @samp{Jan 1st, 00} someday.  @strong{You} are responsible of the
-format you want for the date (@pxref{Escapes}).
-
-@node The Options Have Changed
-@subsection Why Have the Options Changed?
-
-@quotation
-@i{The options of this are not the same as in the previous versions.}
-@end quotation
-
-True.  But the old scheme (up to version 4.6.1) prevented us from
-offering more options.  We @strong{had} to drop it, and to fully
-redesign the options handling.
-
-Since that profound change, we try to change as little as possible
-between versions.  Nevertheless, as the time passes, we discover that
-some never used options should be renamed, or used for something else.
-In these cases, compatibility code is left for a long time.
-
-Anywhere you put options but the command line (e.g., in @pack{} configuration
-files or in shell scripts), @strong{avoid using short options}, since short
-options are much more likely to be changed (there are not so many, so it is
-a precious resource).  Since there are as many long options as one wants,
-we can leave compatibility code with the long options.
+Nevertheless, please note that you can still use two digit years.
+@strong{You} are responsible for your choice of date format
+(@pxref{Escapes}).
 
 @node Why not using yacc
 @subsection Why not having used @code{yacc} and such
