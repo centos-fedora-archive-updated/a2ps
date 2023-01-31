@@ -178,8 +178,11 @@ void
 prologues_list_texinfo (a2ps_job * job, FILE * stream)
 {
   fputs ("@table @samp\n", stream);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsuggest-attribute=format"
   prologues_list_long_internal (job, stream,
 				"@item %s\n", documentation_print_texinfo);
+#pragma GCC diagnostic pop
   fputs ("@end table\n", stream);
 }
 

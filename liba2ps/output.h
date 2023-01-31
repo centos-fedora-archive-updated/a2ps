@@ -19,20 +19,6 @@
 #ifndef _OUTPUT_H_
 #define _OUTPUT_H_
 
-# ifndef __attribute__
-/* This feature is available in gcc versions 2.5 and later.  */
-#  if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5) || __STRICT_ANSI__
-#   define __attribute__(Spec) /* empty */
-#  endif
-/* The __-protected variants of `format' and `printf' attributes
-   are accepted by gcc versions 2.6.4 (effectively 2.7) and later.  */
-#  if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 7)
-#   define __format__ format
-#   define __printf__ printf
-#  endif
-# endif
-
-
 struct output;
 typedef void (*delayed_routine_t) (FILE * stream, void * arg);
 
@@ -42,12 +28,8 @@ typedef void (*delayed_routine_t) (FILE * stream, void * arg);
 struct output * output_new (const char * name);
 void output_report  (struct output * out, FILE * stream);
 
-# if defined __STDC__ && __STDC__
-extern void output (struct output * out, const char *format, ...)
-     __attribute__ ((__format__ (__printf__, 2, 3)));
-# else
-void output ();
-# endif
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 3)
+void output (struct output * out, const char *format, ...);
 
 void output_char (struct output * out, char c);
 void output_delayed_size_t (struct output * out, size_t * ptr);

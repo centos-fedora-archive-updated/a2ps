@@ -101,18 +101,12 @@ vprintflen (const char *format,  va_list args)
 }
 
 int
-#if defined VA_START && __STDC__
 printflen (const char *format, ...)
-#else
-printflen (format, va_alist)
-   char * format;
-   va_dcl
-#endif
 {
   va_list args;
   int res;
 
-  VA_START (args, format);
+  va_start (args, format);
 
   res = vprintflen (format, args);
   va_end (args);

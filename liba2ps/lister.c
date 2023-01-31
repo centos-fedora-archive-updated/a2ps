@@ -36,12 +36,6 @@
 #include "tterm.h"
 #include "lister.h"
 
-#if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 8)
-#  define PARAM_UNUSED __attribute__ ((unused))
-#else
-#  define PARAM_UNUSED
-#endif
-
 /* Information about filling a column.  */
 struct world
 {
@@ -305,7 +299,7 @@ lister_vertical_format (struct lister * l,
 }
 
 void
-lister_fprint_vertical (struct lister * lister, PARAM_UNUSED FILE *unused,
+lister_fprint_vertical (struct lister * lister, _GL_UNUSED FILE *unused,
 			void **items, size_t item_number,
 			lister_width_t item_width_fn,
 			lister_print_t item_print_fn)
@@ -455,7 +449,7 @@ lister_horizontal_format (struct lister * l,
 /* FIXME: document */
 
 void
-lister_fprint_horizontal (struct lister * lister, PARAM_UNUSED FILE *unused,
+lister_fprint_horizontal (struct lister * lister, _GL_UNUSED FILE *unused,
 			  void **items, size_t item_number,
 			  lister_width_t item_width_fn,
 			  lister_print_t item_print_fn)
@@ -549,7 +543,7 @@ lister_print_horizontal (struct lister *lister,
 */
 
 void
-lister_fprint_separated (struct lister * lister,PARAM_UNUSED FILE *unused,
+lister_fprint_separated (struct lister * lister, _GL_UNUSED FILE *unused,
 			 void **items, size_t item_number,
 			 lister_width_t item_width_fn,
 			 lister_print_t item_print_fn)

@@ -202,7 +202,7 @@ stream_dump (FILE * stream, const char * filename)
  * Unlink the file FILENAME.
  */
 void
-unlink2 (PARAM_UNUSED void * dummy, const char * filename)
+unlink2 (_GL_UNUSED void * dummy, const char * filename)
 {
   message (msg_tool | msg_file, (stderr, "Unlinking file `%s'\n", filename));
 

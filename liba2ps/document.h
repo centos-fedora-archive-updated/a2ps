@@ -30,7 +30,7 @@ authors_print_texinfo (const char * authors, FILE * stream,
 			       const char * before);
 
 typedef void (*documentation_fn_t) (const char * documentation,
-				   const char * format,  FILE * stream) ;
+				   const char * format,  FILE * stream);
 
 void
 documentation_print_plain (const char * documentation,
@@ -40,6 +40,7 @@ void
 documentation_print_html (const char * documentation, 
 				  const char * format, FILE * stream);
 
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 0)
 void
 documentation_print_texinfo (const char * documentation,
 				     const char * format, FILE * stream);

@@ -29,8 +29,10 @@ char ** pw_append_string_to_path (char ** path1,
 char ** pw_prepend_string_to_path (char ** path1,
 					   const char * dir2);
 void pw_free_path (char ** path);
+
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 0)
 void pw_fprintf_path (FILE * stream,
-			   const char * format, char * const * path);
+                      const char * format, char * const * path);
 
 /*
  * Dump NAME.SUFFIX in the PATH on STDOUT

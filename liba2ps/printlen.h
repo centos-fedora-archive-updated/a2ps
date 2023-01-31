@@ -23,10 +23,11 @@
  * Return length of the string sprintf would produce. Always > 0
  */
 /*
- * Varaible arguments
+ * Variable arguments
  */
-extern int printflen (const char *format, ...)
-     __attribute__ ((__format__ (__printf__, 1, 2)));
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(1, 2)
+int printflen (const char *format, ...);
+
 
 /*
  * List of arguments.

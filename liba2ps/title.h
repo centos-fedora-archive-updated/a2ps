@@ -25,18 +25,12 @@
 #ifndef _TITLE_H_
 #define _TITLE_H_
 
-# if defined __STDC__ && __STDC__
-
 /* Print the title TITLE, which is a printf-style
    format string with optional args if msg_level is bigger than
    title_verbosity.*/
 
-extern void title (FILE * stream, char c, int center_p,
-		   const char *format, ...)
-     __attribute__ ((__format__ (__printf__, 4, 5)));
-
-# else
-void title ();
-# endif
+_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(4, 5)
+void title (FILE * stream, char c, int center_p,
+		   const char *format, ...);
 
 #endif /* not TITLE_H_ */

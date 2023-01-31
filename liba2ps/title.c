@@ -28,22 +28,7 @@
 
 #include <stdio.h>
 #include <string.h>
-
 #include <stdarg.h>
-#define VA_START(args, lastarg) va_start(args, lastarg)
-
-# ifndef __attribute__
-/* This feature is available in gcc versions 2.5 and later.  */
-#  if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5) || __STRICT_ANSI__
-#   define __attribute__(Spec) /* empty */
-#  endif
-/* The __-protected variants of `format' and `printf' attributes
-   are accepted by gcc versions 2.6.4 (effectively 2.7) and later.  */
-#  if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 7)
-#   define __format__ format
-#   define __printf__ printf
-#  endif
-# endif
 
 #include "title.h"
 #include "printlen.h"
@@ -58,7 +43,7 @@ title (FILE * stream, char c, int center_p, const char *format, ...)
   int padding;
   va_list args;
 
-  VA_START (args, format);
+  va_start (args, format);
 
   len = vprintflen (format, args);
 
@@ -70,7 +55,7 @@ title (FILE * stream, char c, int center_p, const char *format, ...)
     for (padding = 0 ; padding < 79 - len ; padding += 2)
       putc (' ', stream);
 
-  VA_START (args, format);
+  va_start (args, format);
 
   vfprintf (stream, format, args);
   va_end (args);

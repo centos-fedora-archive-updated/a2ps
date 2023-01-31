@@ -203,9 +203,8 @@ ds_sprintf (struct dstring * ds, const char *format, ...)
 {
   va_list args;
 
-  VA_START (args, format);
-  ds_vsprintf (ds,
-	       format, args);
+  va_start (args, format);
+  ds_vsprintf (ds, format, args);
   va_end (args);
 }
 
@@ -233,10 +232,8 @@ ds_cat_sprintf (struct dstring * ds, const char *format, ...)
 {
   va_list args;
 
-  VA_START (args, format);
-
-  ds_cat_vsprintf (ds,
-		   format, args);
+  va_start (args, format);
+  ds_cat_vsprintf (ds, format, args);
   va_end (args);
 }
 
@@ -263,9 +260,8 @@ ds_unsafe_sprintf (struct dstring * ds, const char *format, ...)
 {
   va_list args;
 
-  VA_START (args, format);
-  ds_unsafe_vsprintf (ds,
-		      format, args);
+  va_start (args, format);
+  ds_unsafe_vsprintf (ds, format, args);
   va_end (args);
 }
 
@@ -292,9 +288,8 @@ ds_unsafe_cat_sprintf (struct dstring * ds, const char *format, ...)
 {
   va_list args;
 
-  VA_START (args, format);
-  ds_unsafe_cat_vsprintf (ds,
-			  format, args);
+  va_start (args, format);
+  ds_unsafe_cat_vsprintf (ds, format, args);
   va_end (args);
 }
 

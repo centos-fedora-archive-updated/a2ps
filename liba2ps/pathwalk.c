@@ -185,7 +185,7 @@ pw_prepend_string_to_path (char ** path1, const char * dir2)
   return pw_path_concat (path2, len2, path1, len1);
 }
 
-_GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(2, 0) void
+void
 pw_fprintf_path (FILE * stream, const char * format, char * const * path)
 {
   if (path)
@@ -410,14 +410,14 @@ pw_paste_file (char * const * path,
 /* Helping functions for pw_glob. */
 
 static bool
-pw_filter_fnmatch (PARAM_UNUSED const char * dir, const char *file,
+pw_filter_fnmatch (_GL_UNUSED const char * dir, const char *file,
 		   const char *pattern)
 {
   return !fnmatch (pattern, file, 0);
 }
 
 static void
-pw_filter_da_append (PARAM_UNUSED const char * dir, const char *file,
+pw_filter_da_append (_GL_UNUSED const char * dir, const char *file,
 		     struct darray *da)
 {
   da_append (da, xstrdup (file));

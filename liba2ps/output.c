@@ -160,32 +160,17 @@ output_is_to_void (struct output * out)
  * Equivalent of printf into an output
  */
 void
-#if defined VA_START && __STDC__
 output (struct output * out, const char *format, ...)
-#else
-output (out, format, va_alist)
-  struct output * out;
-  char * format;
-  va_dcl
-#endif
 {
-#ifdef VA_START
   va_list args;
 
-  VA_START (args, format);
-#endif
+  va_start (args, format);
 
   if (out->to_void)
     return;
 
-#ifdef VA_START
-  ds_unsafe_cat_vsprintf (out->chunk,
-			 format, args);
+  ds_unsafe_cat_vsprintf (out->chunk, format, args);
   va_end (args);
-#else
-  ds_unsafe_cat_vsprintf (out->chunk,
-			 format, a1, a2, a3, a4, a5, a6, a7, a8);
-#endif
 }
 
 /*

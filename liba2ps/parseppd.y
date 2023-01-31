@@ -34,15 +34,6 @@
 
 #include "a2ps.h"
 
-/* We need to use the same `const' as bison, to avoid the following
-   prototypes to diverge from the function declarations */
-#undef const
-#ifndef __cplusplus
-# ifndef __STDC__
-#   define const
-# endif
-#endif
-
 #include "jobs.h"
 #include "ppd.h"
 #include "message.h"

@@ -468,7 +468,7 @@ font_info_get (struct a2ps_job * job, const char * key)
  * in the encoding specific dictionary
  */
 int
-font_is_to_reencode (PARAM_UNUSED struct a2ps_job * job, const char * key)
+font_is_to_reencode (_GL_UNUSED struct a2ps_job * job, const char * key)
 {
   return !STREQ (key, "Symbol");
 }
