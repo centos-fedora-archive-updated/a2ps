@@ -1,6 +1,6 @@
 # Process this file with automake to create Makefile.in
 #
-# Copyright 1988-2017 Free Software Foundation, Inc.
+# Copyright 1988-2023 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,4 +16,4 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-EXTRA_DIST = msdos.sh make-faq.sed update-ogonkify.sh
+EXTRA_DIST = make-faq.sed update-ogonkify.sh
