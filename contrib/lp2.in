@@ -145,7 +145,7 @@ for file in "$@"; do
      if test -n "$front"; then
         lp -o page-set=odd "$file"
      fi
-     if test -n "$front" -a -n "$back"; then
+     if test -n "$front" && test -n "$back"; then
         echo "Turn the paper over and press <Return>" 1>&2
         read
      fi
