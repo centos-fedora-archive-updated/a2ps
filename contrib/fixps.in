@@ -67,7 +67,7 @@ Report bugs to <bug-a2ps@gnu.org>"
 help="Try \`$program --help' for more information."
 
 # Parse command line arguments.
-option_without_arguments='vhsqDfn'
+option_without_arguments='vhqc'
 
 # Push a token among the arguments that will be used to notice when
 # we ended options/arguments parsing.
@@ -116,7 +116,7 @@ while test "x$1" != "x$arg_sep"; do
   case "$1" in
     -v | --v*) echo "$version"; exit 0;;
     -h | --h*) echo "$usage"; exit 0;;
-    -q | -s | --s* | --q*) verbose=:;;
+    -q | --q*) verbose=:;;
     # Delay debugging so that options parsing does not appear
     -D | --debug)  debug=: ;;
     -o | --output) shift ; output=$1 ;;
