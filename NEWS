@@ -1,7 +1,15 @@
                     User visible changes in GNU a2ps.
 
 * Noteworthy changes in release 4.14.94 (2023-01-31) [alpha]
-
+ * Features:
+   - Replace the 'psmandup' utility with simpler 'lp2' to directly print
+     documents to a simplex printer.
+   - Remove the outdated 'psset' and 'fixnt', and simplify 'fixps' to
+     always process its input with Ghostscript.
+ * Documentation
+   - Remove some obsolete explanations.
+ * Build
+   - Minor tidy up and removal of obsolete code.
 
 * Noteworthy changes in release 4.14.93 (2023-01-26) [alpha]
  * Features:
