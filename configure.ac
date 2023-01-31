@@ -251,7 +251,7 @@ AC_CONFIG_SUBDIRS(ogonkify)
 AC_CONFIG_FILES([contrib/card], [chmod +x contrib/card])
 AC_CONFIG_FILES([contrib/fixps], [chmod +x contrib/fixps])
 AC_CONFIG_FILES([contrib/pdiff], [chmod +x contrib/pdiff])
-AC_CONFIG_FILES([contrib/psmandup], [chmod +x contrib/psmandup])
+AC_CONFIG_FILES([contrib/lp2], [chmod +x contrib/lp2])
 
 AC_CONFIG_FILES([
   Makefile

@@ -55,8 +55,8 @@ UnknownPrinter: | #{lp} #o
 
 # dominique is a level 2 PostScript _without_ Duplex support.
 # Here I *want* a special command, not that of the UnknownPrinter.
-# We use the shell script psmandup to simulate Duplex.
-#Printer: dominique level2 | #?d#psmandup -n|## #{lp} dominique
+# We use the shell script lp2 to simulate Duplex.
+#Printer: dominique level2 | #?d#lp2|## #{lp} dominique
 
 # This is just to show that any command can be used.  Instead of
 # printing, the output is piped in `wc'.

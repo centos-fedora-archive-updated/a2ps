@@ -303,7 +303,7 @@ UserOption: book -1Dlp.hook=#{lp.hook.book} -s1
 # This variable defines a hook for `lp'.  The output is piped into
 # psbook in order to print a booklet.
 Variable: lp.hook.book \
-#?o! psbook #?V,,-q, | psnup -2 #?V,,-q, | psset -nt | \
+#?o! psbook #?V,,-q, | psnup -2 #?V,,-q, | \
 ! echo "Cannot be used with more than two pages per sheet." >&2 ; exit 1!
 
 

@@ -60,7 +60,7 @@ Pre@TeX{}
 * card: (a2ps) card.               Print Reference Cards
 * fixps: (a2ps) fixps.             Fixing Some Ill Designed PostScript Files
 * pdiff: (a2ps) pdiff.             Produce Pretty Comparison of Files
-* psmandup: (a2ps) psmandup.       Printing Duplex on Simplex Printers
+* lp2: (a2ps) lp2.                 Printing Duplex on Simplex Printers
 @end direntry
 
 @ifinfo
@@ -330,7 +330,7 @@ Contributions
 * card::                        Printing Reference Cards
 * fixps::                       Fixing Some Ill Designed PostScript Files
 * pdiff::                       Produce Pretty Comparison of Files
-* psmandup::                    Printing Duplex on Simplex Printers
+* lp2::                         Printing Duplex on Simplex Printers
 
 @code{card}
 
@@ -345,9 +345,9 @@ Contributions
 
 * Invoking pdiff::              Command Line Interface
 
-@code{psmandup}
+@code{lp2}
 
-* Invoking psmandup::           Command Line Interface
+* Invoking lp2::                Command Line Interface
 
 Frequently asked questions
 
@@ -5501,7 +5501,6 @@ Chroboczek.
 * card::                        Printing Reference Cards
 * fixps::                       Fixing Some Ill Designed PostScript Files
 * pdiff::                       Produce Pretty Comparison of Files
-* psmandup::                    Printing Duplex on Simplex Printers
 @end menu
 
 @c @node a2ps Emacs mode, card, Contributions, Contributions
@@ -5745,41 +5744,29 @@ pdiff COPYING COPYING.LIB -- -1 -P display
 Compares the files @file{COPYING} and @file{COPYING.LIB}, and prints it
 on the printer @code{display} (usually @code{Ghostview} or @code{gv}).
 
-@node psmandup
-@section @code{psmandup}
+@node lp2
+@section @code{lp2}
 
-I personally hate to print documents of hundreds of pages on a single
-sided printer.  Too bad, here there are no Duplex printers.  The idea is
-then simply first to print the odd pages, then the even in reversed
-order.  To make sure one flips the page in the meanwhile, the second
-half should be printed from the manual feed tray.
-
-Make a shell script that automates this, and you get @code{psmandup}.
+This program simplifies printing documents double-sided (duplex)
+or a single-sided (simplex) printer.  The idea is
+simply first to print the odd pages, then the even in reversed
+order.
 
 @menu
-* Invoking psmandup::           Command Line Interface
+* Invoking lp2::                Command Line Interface
 @end menu
 
-@node Invoking psmandup
-@subsection Invoking @code{psmandup}
+@node Invoking lp2
+@subsection Invoking @code{lp2}
 
 @example
-psmandup [@var{options}] [@var{file}]
+lp2 [@var{options}] [@var{file}]
 @end example
 
 @noindent
-produce a manual duplex version of the PostScript @var{file} (or of the
-standard input if no @var{file} is given, or if @var{file} is
-@samp{-}). Once the first half is printed, put the sheet stack in the
-manual feed tray for the second half@footnote{Many people seem to ignore
-that you can insert @strong{several} sheets in the manual feed tray.
-Try at least once, it will save you from hours spent feeding page per
-page by hand!}.
-
-Be aware that there is a time out for manually fed jobs, usually short,
-hence do not miss the moment when the printer asks for the stack.  If
-ever you missed that moment, see option @samp{--back} to recover the
-second half.
+print the given file using @code{lp}. First print the odd pages,
+then prompt the user to put the printed pages back in,
+then print the even pages in reverse order.
 
 Supported options are:
 
@@ -5793,42 +5780,19 @@ print a short help message and exit successfully.
 report the version and exit successfully.
 @end defvr
 
-@defvr {Option} -q
-@defvrx {Option} -@b{-}quiet
-@defvrx {Option} -@b{-}silent
-Run silently.
-@end defvr
-
-@defvr {Option} -D
-@defvrx {Option} -@b{-}debug
-enter in debug mode.
-@end defvr
-
-@defvr {Option} -o @var{file}
-@defvrx {Option} -@b{-}output=@var{file}
-specify the @var{file} in which is saved the output.
-@end defvr
-
 @defvr {Option} -f
 @defvrx {Option} -@b{-}front
-Output only the front pages, with no special PostScript feature request.
+Print only the front pages.
 @end defvr
 
 @defvr {Option} -b
 @defvrx {Option} -@b{-}back
-Output only the back pages, with a manual feed request.
-
-This option is especially useful when the manual feed time out expired
-before you could insert back the stack in the manual feed tray.
+Print only the back pages.
 @end defvr
-
-@code{psmandup} assumes the printer is Level 2, and supports manual
-feeding.  The @var{file} should be reasonably sane, otherwise
-@code{psmandup} fails miserably.
 
 Typical use is
 @example
-psmandup file.ps | lp
+lp2 file.ps
 @end example
 
 @noindent

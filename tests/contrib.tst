@@ -6,7 +6,7 @@
 
 . ./defs || exit 1
 
-for prog in card fixps pdiff psmandup
+for prog in card fixps pdiff lp2
 do
   for opt in --version --help
   do

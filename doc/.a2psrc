@@ -6,7 +6,7 @@ Printer: printer-doc\
 UserOption: make-doc -2ZPprinter-doc
 
 Printer: printer-book\
- | psbook | psnup -2 | psset -nt | gzip -c > $d/book-$N.ps.gz
+ | psbook | psnup -2 | gzip -c > $d/book-$N.ps.gz
 UserOption: make-book -1Pprinter-book
 
 Printer: printer-cover\

@@ -16,7 +16,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-man_MANS = a2ps.1 card.1 fixps.1 pdiff.1 psmandup.1
+man_MANS = a2ps.1 card.1 fixps.1 lp2.1 pdiff.1
 man_aux = $(man_MANS:.1=.x)
 
 irregular_men = a2ps.1 a2ps-lpr-wrapper.1

@@ -54,11 +54,9 @@ Contributions
 
 Some goodies are provided in the package:
  - card     pretty prints `--help' from programs
- - fixnt    fixes Windows NT PostScript files (thanks to Holger Bauer)
  - fixps    fixes most common problems in PostScript files
+ - lp2      eases Duplex printing on Simplex printers
  - pdiff    prints a comparison between two files
- - psmandup eases Duplex printing on Simplex printers
- - psset    inserts special PostScript requests (ManualFeed etc.)
 
 The full distribution of Ogonkify, by Juliusz Chroboczek, is also
 included.  Ogonkify let's you fix deficient Latin 2-6 support in

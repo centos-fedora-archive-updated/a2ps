@@ -1,5 +1,5 @@
 [NAME]
-psset \- insert page device request in PostScript files
+lp2 \- print duplex on non duplex printers
 
 [DESCRIPTION]
 .\" Add any additional description here
