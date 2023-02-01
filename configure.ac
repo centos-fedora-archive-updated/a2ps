@@ -21,9 +21,6 @@ AC_DEFINE_UNQUOTED([GNU_PACKAGE], "$GNU_PACKAGE",
 		   [The concatenation of the strings `GNU ', and PACKAGE.])
 AC_SUBST(GNU_PACKAGE)
 
-# Available translations
-ALL_LINGUAS="ca cs da de es fr it ja ko nl no pl pt ru sl sv tr"
-
 ## --------------------- ##
 ## Checks for programs.  ##
 ## --------------------- ##
