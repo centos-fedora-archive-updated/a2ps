@@ -115,7 +115,7 @@ AH_BOTTOM([
 
 ad_FUNC_SYSTEMPAPERNAME
 AS_IF([test "$ac_cv_lib_paper_systempapername" = ""],
-  AC_MSG_ERROR[a2ps needs libpaper to work])
+  [AC_MSG_ERROR([a2ps needs libpaper to work])])
 
 # Internationalization.
 AM_GNU_GETTEXT_VERSION([0.20])
