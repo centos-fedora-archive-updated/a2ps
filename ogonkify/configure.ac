@@ -1,6 +1,6 @@
-AC_PREREQ([2.69])
+AC_PREREQ([2.71])
 
-AC_INIT([Ogonkify], [0.7.0])
+AC_INIT([Ogonkify],[0.7.0])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([../build-aux])
 
@@ -57,8 +57,9 @@ esac
 ad_IBMFONTS
 
 AC_CONFIG_FILES(composeglyphs, [chmod +x composeglyphs])
-AC_OUTPUT([
+AC_CONFIG_FILES([
   Makefile
   ogonkify.in
   doc/Makefile
   m4/Makefile])
+AC_OUTPUT
