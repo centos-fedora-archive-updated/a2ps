@@ -19,17 +19,10 @@
    write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.  */
 
-/* AIX requires this to be the first thing in the file. */
-#if defined _AIX && !defined REGEX_MALLOC
-  #pragma alloca
-#endif
-
 #undef	_GNU_SOURCE
 #define _GNU_SOURCE
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #include <stddef.h>
 
@@ -80,16 +73,6 @@
    strings.  */
 # define gettext_noop(String) String
 #endif
-
-/* The `emacs' switch turns on certain matching commands
-   that make sense only in Emacs. */
-#ifdef emacs
-
-# include "lisp.h"
-# include "buffer.h"
-# include "syntax.h"
-
-#else  /* not emacs */
 
 /* If we are not linking with Emacs proper,
    we can't use the relocating allocator
@@ -175,8 +158,6 @@ init_syntax_once ()
 # endif /* not SYNTAX_TABLE */
 
 # define SYNTAX(c) re_syntax_table[c]
-
-#endif /* not emacs */
 
 /* Get the interface, including the syntax bits.  */
 #include <regex.h>
@@ -219,80 +200,15 @@ init_syntax_once ()
 #undef SIGN_EXTEND_CHAR
 #define SIGN_EXTEND_CHAR(c) ((signed char) (c))
 
-/* Should we use malloc or alloca?  If REGEX_MALLOC is not defined, we
-   use `alloca' instead of `malloc'.  This is because using malloc in
-   re_search* or re_match* could cause memory leaks when C-g is used in
-   Emacs; also, malloc is slower and causes storage fragmentation.  On
-   the other hand, malloc is more portable, and easier to debug.
-
-   Because we sometimes use alloca, some routines have to be macros,
-   not functions -- `alloca'-allocated space disappears at the end of the
-   function it is called in.  */
-
-#ifdef REGEX_MALLOC
-
-# define REGEX_ALLOCATE malloc
-# define REGEX_REALLOCATE(source, osize, nsize) realloc (source, nsize)
-# define REGEX_FREE free
-
-#else /* not REGEX_MALLOC  */
-
-/* Emacs already defines alloca, sometimes.  */
-# ifndef alloca
-
-/* Make alloca work the best possible way.  */
-#  ifdef __GNUC__
-#   define alloca __builtin_alloca
-#  else /* not __GNUC__ */
-#   if HAVE_ALLOCA_H
-#    include <alloca.h>
-#   endif /* HAVE_ALLOCA_H */
-#  endif /* not __GNUC__ */
-
-# endif /* not alloca */
-
-# define REGEX_ALLOCATE alloca
-
-/* Assumes a `char *destination' variable.  */
-# define REGEX_REALLOCATE(source, osize, nsize)				\
-  (destination = (char *) alloca (nsize),				\
-   memcpy (destination, source, osize))
-
-/* No need to do anything to free, after alloca.  */
-# define REGEX_FREE(arg) ((void)0) /* Do nothing!  But inhibit gcc warning.  */
-
-#endif /* not REGEX_MALLOC */
+#define REGEX_ALLOCATE malloc
+#define REGEX_REALLOCATE(source, osize, nsize) realloc (source, nsize)
+#define REGEX_FREE free
 
 /* Define how to allocate the failure stack.  */
 
-#if defined REL_ALLOC && defined REGEX_MALLOC
-
-# define REGEX_ALLOCATE_STACK(size)				\
-  r_alloc (&failure_stack_ptr, (size))
-# define REGEX_REALLOCATE_STACK(source, osize, nsize)		\
-  r_re_alloc (&failure_stack_ptr, (nsize))
-# define REGEX_FREE_STACK(ptr)					\
-  r_alloc_free (&failure_stack_ptr)
-
-#else /* not using relocating allocator */
-
-# ifdef REGEX_MALLOC
-
-#  define REGEX_ALLOCATE_STACK malloc
-#  define REGEX_REALLOCATE_STACK(source, osize, nsize) realloc (source, nsize)
-#  define REGEX_FREE_STACK free
-
-# else /* not REGEX_MALLOC */
-
-#  define REGEX_ALLOCATE_STACK alloca
-
-#  define REGEX_REALLOCATE_STACK(source, osize, nsize)			\
-   REGEX_REALLOCATE (source, osize, nsize)
-/* No need to explicitly free anything.  */
-#  define REGEX_FREE_STACK(arg)
-
-# endif /* not REGEX_MALLOC */
-#endif /* not using relocating allocator */
+#define REGEX_ALLOCATE_STACK malloc
+#define REGEX_REALLOCATE_STACK(source, osize, nsize) realloc (source, nsize)
+#define REGEX_FREE_STACK free
 
 
 /* True if `size1' is non-NULL and PTR is pointing anywhere inside
@@ -452,19 +368,6 @@ typedef enum
 
   wordbound,	/* Succeeds if at a word boundary.  */
   notwordbound	/* Succeeds if not at a word boundary.  */
-
-#ifdef emacs
-  ,before_dot,	/* Succeeds if before point.  */
-  at_dot,	/* Succeeds if at point.  */
-  after_dot,	/* Succeeds if after point.  */
-
-	/* Matches any character whose syntax is specified.  Followed by
-           a byte which contains a syntax code, e.g., Sword.  */
-  syntaxspec,
-
-	/* Matches any character whose syntax is not that specified.  */
-  notsyntaxspec
-#endif /* emacs */
 } re_opcode_t;
 
 /* Common operations on the compiled pattern.  */
@@ -787,32 +690,6 @@ print_partial_compiled_pattern (start, end)
 	case wordend:
 	  printf ("/wordend");
 
-# ifdef emacs
-	case before_dot:
-	  printf ("/before_dot");
-          break;
-
-	case at_dot:
-	  printf ("/at_dot");
-          break;
-
-	case after_dot:
-	  printf ("/after_dot");
-          break;
-
-	case syntaxspec:
-          printf ("/syntaxspec");
-	  mcnt = *p++;
-	  printf ("/%d", mcnt);
-          break;
-
-	case notsyntaxspec:
-          printf ("/notsyntaxspec");
-	  mcnt = *p++;
-	  printf ("/%d", mcnt);
-	  break;
-# endif /* emacs */
-
 	case wordchar:
 	  printf ("/wordchar");
           break;
@@ -1003,15 +880,6 @@ static const char *re_error_msgid[] =
    what config.h may say.  So don't take precautions for it.  */
 #ifdef __GNUC__
 # undef C_ALLOCA
-#endif
-
-/* The match routines may not allocate if (1) they would do it with malloc
-   and (2) it's not safe for them to use malloc.
-   Note that if REL_ALLOC is defined, matching would not use malloc for the
-   failure stack, but we would still use it for the register vectors;
-   so REL_ALLOC should not affect this.  */
-#if (defined C_ALLOCA || defined REGEX_MALLOC) && defined emacs
-# undef MATCH_MAY_ALLOCATE
 #endif
 
 
@@ -1858,7 +1726,7 @@ regex_compile (pattern, size, syntax, bufp)
   /* Always count groups, whether or not bufp->no_sub is set.  */
   bufp->re_nsub = 0;
 
-#if !defined emacs && !defined SYNTAX_TABLE
+#if !defined SYNTAX_TABLE
   /* Initialize the syntax table.  */
    init_syntax_once ();
 #endif
@@ -2660,27 +2528,6 @@ regex_compile (pattern, size, syntax, bufp)
                  }
                goto normal_char;
 
-#ifdef emacs
-            /* There is no way to specify the before_dot and after_dot
-               operators.  rms says this is ok.  --karl  */
-            case '=':
-              BUF_PUSH (at_dot);
-              break;
-
-            case 's':
-              laststart = b;
-              PATFETCH (c);
-              BUF_PUSH_2 (syntaxspec, syntax_spec_code[c]);
-              break;
-
-            case 'S':
-              laststart = b;
-              PATFETCH (c);
-              BUF_PUSH_2 (notsyntaxspec, syntax_spec_code[c]);
-              break;
-#endif /* emacs */
-
-
             case 'w':
 	      if (syntax & RE_NO_GNU_OPS)
 		goto normal_char;
@@ -2847,17 +2694,6 @@ regex_compile (pattern, size, syntax, bufp)
       {
 	fail_stack.size = (2 * re_max_failures * MAX_FAILURE_ITEMS);
 
-# ifdef emacs
-	if (! fail_stack.stack)
-	  fail_stack.stack
-	    = (fail_stack_elt_t *) xmalloc (fail_stack.size
-					    * sizeof (fail_stack_elt_t));
-	else
-	  fail_stack.stack
-	    = (fail_stack_elt_t *) xrealloc (fail_stack.stack,
-					     (fail_stack.size
-					      * sizeof (fail_stack_elt_t)));
-# else /* not emacs */
 	if (! fail_stack.stack)
 	  fail_stack.stack
 	    = (fail_stack_elt_t *) malloc (fail_stack.size
@@ -2867,7 +2703,6 @@ regex_compile (pattern, size, syntax, bufp)
 	    = (fail_stack_elt_t *) realloc (fail_stack.stack,
 					    (fail_stack.size
 					     * sizeof (fail_stack_elt_t)));
-# endif /* not emacs */
       }
 
     regex_grow_registers (num_regs);
@@ -3085,20 +2920,11 @@ re_compile_fastmap (bufp)
 #ifdef MATCH_MAY_ALLOCATE
   fail_stack_type fail_stack;
 #endif
-#ifndef REGEX_MALLOC
-  char *destination;
-#endif
 
   register char *fastmap = bufp->fastmap;
   unsigned char *pattern = bufp->buffer;
   unsigned char *p = pattern;
   register unsigned char *pend = pattern + bufp->used;
-
-#ifdef REL_ALLOC
-  /* This holds the pointer to the failure stack, when
-     it is allocated relocatably.  */
-  fail_stack_elt_t *failure_stack_ptr;
-#endif
 
   /* Assume that each path through the pattern can be null until
      proven otherwise.  We set this false at the bottom of switch
@@ -3212,34 +3038,6 @@ re_compile_fastmap (bufp)
 	    /* Otherwise, have to check alternative paths.  */
 	    break;
 	  }
-
-#ifdef emacs
-        case syntaxspec:
-	  k = *p++;
-	  for (j = 0; j < (1 << BYTEWIDTH); j++)
-	    if (SYNTAX (j) == (enum syntaxcode) k)
-	      fastmap[j] = 1;
-	  break;
-
-
-	case notsyntaxspec:
-	  k = *p++;
-	  for (j = 0; j < (1 << BYTEWIDTH); j++)
-	    if (SYNTAX (j) != (enum syntaxcode) k)
-	      fastmap[j] = 1;
-	  break;
-
-
-      /* All cases after this match the empty string.  These end with
-         `continue'.  */
-
-
-	case before_dot:
-	case at_dot:
-	case after_dot:
-          continue;
-#endif /* emacs */
-
 
         case no_op:
         case begline:
@@ -3491,17 +3289,6 @@ re_search_2 (bufp, string1, size1, string2, size2, startpos, range, regs, stop)
 	range = 1;
     }
 
-#ifdef emacs
-  /* In a forward search for something that starts with \=.
-     don't keep searching past point.  */
-  if (bufp->used > 0 && (re_opcode_t) bufp->buffer[0] == at_dot && range > 0)
-    {
-      range = PT - startpos;
-      if (range <= 0)
-	return -1;
-    }
-#endif /* emacs */
-
   /* Update the fastmap now if not correct already.  */
   if (fastmap && !bufp->fastmap_accurate)
     if (re_compile_fastmap (bufp) == -2)
@@ -3558,11 +3345,6 @@ re_search_2 (bufp, string1, size1, string2, size2, startpos, range, regs, stop)
 
       val = re_match_2_internal (bufp, string1, size1, string2, size2,
 				 startpos, regs, stop);
-#ifndef REGEX_MALLOC
-# ifdef C_ALLOCA
-      alloca (0);
-# endif
-#endif
 
       if (val >= 0)
 	return startpos;
@@ -3671,7 +3453,6 @@ weak_alias (__re_search_2, re_search_2)
 
 /* Matching routines.  */
 
-#ifndef emacs   /* Emacs never uses this.  */
 /* re_match is like re_match_2 except it takes only a single string.  */
 
 int
@@ -3683,17 +3464,11 @@ re_match (bufp, string, size, pos, regs)
 {
   int result = re_match_2_internal (bufp, NULL, 0, string, size,
 				    pos, regs, size);
-# ifndef REGEX_MALLOC
-#  ifdef C_ALLOCA
-  alloca (0);
-#  endif
-# endif
   return result;
 }
-# ifdef _LIBC
+#ifdef _LIBC
 weak_alias (__re_match, re_match)
-# endif
-#endif /* not emacs */
+#endif
 
 static boolean group_match_null_string_p _RE_ARGS ((unsigned char **p,
 						    unsigned char *end,
@@ -3731,11 +3506,6 @@ re_match_2 (bufp, string1, size1, string2, size2, pos, regs, stop)
 {
   int result = re_match_2_internal (bufp, string1, size1, string2, size2,
 				    pos, regs, stop);
-#ifndef REGEX_MALLOC
-# ifdef C_ALLOCA
-  alloca (0);
-# endif
-#endif
   return result;
 }
 #ifdef _LIBC
@@ -3793,12 +3563,6 @@ re_match_2_internal (bufp, string1, size1, string2, size2, pos, regs, stop)
 #ifdef DEBUG
   static unsigned failure_id = 0;
   unsigned nfailure_points_pushed = 0, nfailure_points_popped = 0;
-#endif
-
-#ifdef REL_ALLOC
-  /* This holds the pointer to the failure stack, when
-     it is allocated relocatably.  */
-  fail_stack_elt_t *failure_stack_ptr;
 #endif
 
   /* We fill all the registers internally, independent of what we
@@ -4991,60 +4755,6 @@ re_match_2_internal (bufp, string1, size1, string2, size2, pos, regs, stop)
 	    break;
           goto fail;
 
-#ifdef emacs
-  	case before_dot:
-          DEBUG_PRINT1 ("EXECUTING before_dot.\n");
- 	  if (PTR_CHAR_POS ((unsigned char *) d) >= point)
-  	    goto fail;
-  	  break;
-
-  	case at_dot:
-          DEBUG_PRINT1 ("EXECUTING at_dot.\n");
- 	  if (PTR_CHAR_POS ((unsigned char *) d) != point)
-  	    goto fail;
-  	  break;
-
-  	case after_dot:
-          DEBUG_PRINT1 ("EXECUTING after_dot.\n");
-          if (PTR_CHAR_POS ((unsigned char *) d) <= point)
-  	    goto fail;
-  	  break;
-
-	case syntaxspec:
-          DEBUG_PRINT2 ("EXECUTING syntaxspec %d.\n", mcnt);
-	  mcnt = *p++;
-	  goto matchsyntax;
-
-        case wordchar:
-          DEBUG_PRINT1 ("EXECUTING Emacs wordchar.\n");
-	  mcnt = (int) Sword;
-        matchsyntax:
-	  PREFETCH ();
-	  /* Can't use *d++ here; SYNTAX may be an unsafe macro.  */
-	  d++;
-	  if (SYNTAX (d[-1]) != (enum syntaxcode) mcnt)
-	    goto fail;
-          SET_REGS_MATCHED ();
-	  break;
-
-	case notsyntaxspec:
-          DEBUG_PRINT2 ("EXECUTING notsyntaxspec %d.\n", mcnt);
-	  mcnt = *p++;
-	  goto matchnotsyntax;
-
-        case notwordchar:
-          DEBUG_PRINT1 ("EXECUTING Emacs notwordchar.\n");
-	  mcnt = (int) Sword;
-        matchnotsyntax:
-	  PREFETCH ();
-	  /* Can't use *d++ here; SYNTAX may be an unsafe macro.  */
-	  d++;
-	  if (SYNTAX (d[-1]) == (enum syntaxcode) mcnt)
-	    goto fail;
-	  SET_REGS_MATCHED ();
-          break;
-
-#else /* not emacs */
 	case wordchar:
           DEBUG_PRINT1 ("EXECUTING non-Emacs wordchar.\n");
 	  PREFETCH ();
@@ -5062,7 +4772,6 @@ re_match_2_internal (bufp, string1, size1, string2, size2, pos, regs, stop)
           SET_REGS_MATCHED ();
           d++;
 	  break;
-#endif /* not emacs */
 
         default:
           abort ();
@@ -5307,11 +5016,6 @@ common_op_match_null_string_p (p, end, reg_info)
     case wordend:
     case wordbound:
     case notwordbound:
-#ifdef emacs
-    case before_dot:
-    case at_dot:
-    case after_dot:
-#endif
       break;
 
     case start_memory:
@@ -5499,266 +5203,3 @@ re_exec (s)
 }
 
 #endif /* _REGEX_RE_COMP */
-
-/* POSIX.2 functions.  Don't define these for Emacs.  */
-
-#ifndef emacs
-
-/* regcomp takes a regular expression as a string and compiles it.
-
-   PREG is a regex_t *.  We do not expect any fields to be initialized,
-   since POSIX says we shouldn't.  Thus, we set
-
-     `buffer' to the compiled pattern;
-     `used' to the length of the compiled pattern;
-     `syntax' to RE_SYNTAX_POSIX_EXTENDED if the
-       REG_EXTENDED bit in CFLAGS is set; otherwise, to
-       RE_SYNTAX_POSIX_BASIC;
-     `newline_anchor' to REG_NEWLINE being set in CFLAGS;
-     `fastmap' to an allocated space for the fastmap;
-     `fastmap_accurate' to zero;
-     `re_nsub' to the number of subexpressions in PATTERN.
-
-   PATTERN is the address of the pattern string.
-
-   CFLAGS is a series of bits which affect compilation.
-
-     If REG_EXTENDED is set, we use POSIX extended syntax; otherwise, we
-     use POSIX basic syntax.
-
-     If REG_NEWLINE is set, then . and [^...] don't match newline.
-     Also, regexec will try a match beginning after every newline.
-
-     If REG_ICASE is set, then we considers upper- and lowercase
-     versions of letters to be equivalent when matching.
-
-     If REG_NOSUB is set, then when PREG is passed to regexec, that
-     routine will report only success or failure, and nothing about the
-     registers.
-
-   It returns 0 if it succeeds, nonzero if it doesn't.  (See regex.h for
-   the return codes and their meanings.)  */
-
-int
-regcomp (preg, pattern, cflags)
-    regex_t *preg;
-    const char *pattern;
-    int cflags;
-{
-  reg_errcode_t ret;
-  reg_syntax_t syntax
-    = (cflags & REG_EXTENDED) ?
-      RE_SYNTAX_POSIX_EXTENDED : RE_SYNTAX_POSIX_BASIC;
-
-  /* regex_compile will allocate the space for the compiled pattern.  */
-  preg->buffer = 0;
-  preg->allocated = 0;
-  preg->used = 0;
-
-  /* Try to allocate space for the fastmap.  */
-  preg->fastmap = (char *) malloc (1 << BYTEWIDTH);
-
-  if (cflags & REG_ICASE)
-    {
-      unsigned i;
-
-      preg->translate
-	= (RE_TRANSLATE_TYPE) malloc (CHAR_SET_SIZE
-				      * sizeof (*(RE_TRANSLATE_TYPE)0));
-      if (preg->translate == NULL)
-        return (int) REG_ESPACE;
-
-      /* Map uppercase characters to corresponding lowercase ones.  */
-      for (i = 0; i < CHAR_SET_SIZE; i++)
-        preg->translate[i] = ISUPPER (i) ? TOLOWER (i) : i;
-    }
-  else
-    preg->translate = NULL;
-
-  /* If REG_NEWLINE is set, newlines are treated differently.  */
-  if (cflags & REG_NEWLINE)
-    { /* REG_NEWLINE implies neither . nor [^...] match newline.  */
-      syntax &= ~RE_DOT_NEWLINE;
-      syntax |= RE_HAT_LISTS_NOT_NEWLINE;
-      /* It also changes the matching behavior.  */
-      preg->newline_anchor = 1;
-    }
-  else
-    preg->newline_anchor = 0;
-
-  preg->no_sub = !!(cflags & REG_NOSUB);
-
-  /* POSIX says a null character in the pattern terminates it, so we
-     can use strlen here in compiling the pattern.  */
-  ret = regex_compile (pattern, strlen (pattern), syntax, preg);
-
-  /* POSIX doesn't distinguish between an unmatched open-group and an
-     unmatched close-group: both are REG_EPAREN.  */
-  if (ret == REG_ERPAREN) ret = REG_EPAREN;
-
-  if (ret == REG_NOERROR && preg->fastmap)
-    {
-      /* Compute the fastmap now, since regexec cannot modify the pattern
-	 buffer.  */
-      if (re_compile_fastmap (preg) == -2)
-	{
-	  /* Some error occured while computing the fastmap, just forget
-	     about it.  */
-	  free (preg->fastmap);
-	  preg->fastmap = NULL;
-	}
-    }
-
-  return (int) ret;
-}
-#ifdef _LIBC
-weak_alias (__regcomp, regcomp)
-#endif
-
-
-/* regexec searches for a given pattern, specified by PREG, in the
-   string STRING.
-
-   If NMATCH is zero or REG_NOSUB was set in the cflags argument to
-   `regcomp', we ignore PMATCH.  Otherwise, we assume PMATCH has at
-   least NMATCH elements, and we set them to the offsets of the
-   corresponding matched substrings.
-
-   EFLAGS specifies `execution flags' which affect matching: if
-   REG_NOTBOL is set, then ^ does not match at the beginning of the
-   string; if REG_NOTEOL is set, then $ does not match at the end.
-
-   We return 0 if we find a match and REG_NOMATCH if not.  */
-
-int
-regexec (preg, string, nmatch, pmatch, eflags)
-    const regex_t *preg;
-    const char *string;
-    size_t nmatch;
-    regmatch_t pmatch[];
-    int eflags;
-{
-  int ret;
-  struct re_registers regs;
-  regex_t private_preg;
-  int len = strlen (string);
-  boolean want_reg_info = !preg->no_sub && nmatch > 0;
-
-  private_preg = *preg;
-
-  private_preg.not_bol = !!(eflags & REG_NOTBOL);
-  private_preg.not_eol = !!(eflags & REG_NOTEOL);
-
-  /* The user has told us exactly how many registers to return
-     information about, via `nmatch'.  We have to pass that on to the
-     matching routines.  */
-  private_preg.regs_allocated = REGS_FIXED;
-
-  if (want_reg_info)
-    {
-      regs.num_regs = nmatch;
-      regs.start = TALLOC (nmatch * 2, regoff_t);
-      if (regs.start == NULL)
-        return (int) REG_NOMATCH;
-      regs.end = regs.start + nmatch;
-    }
-
-  /* Perform the searching operation.  */
-  ret = re_search (&private_preg, string, len,
-                   /* start: */ 0, /* range: */ len,
-                   want_reg_info ? &regs : (struct re_registers *) 0);
-
-  /* Copy the register information to the POSIX structure.  */
-  if (want_reg_info)
-    {
-      if (ret >= 0)
-        {
-          unsigned r;
-
-          for (r = 0; r < nmatch; r++)
-            {
-              pmatch[r].rm_so = regs.start[r];
-              pmatch[r].rm_eo = regs.end[r];
-            }
-        }
-
-      /* If we needed the temporary register info, free the space now.  */
-      free (regs.start);
-    }
-
-  /* We want zero return to mean success, unlike `re_search'.  */
-  return ret >= 0 ? (int) REG_NOERROR : (int) REG_NOMATCH;
-}
-#ifdef _LIBC
-weak_alias (__regexec, regexec)
-#endif
-
-
-/* Returns a message corresponding to an error code, ERRCODE, returned
-   from either regcomp or regexec.   We don't use PREG here.  */
-
-size_t
-regerror (errcode, preg, errbuf, errbuf_size)
-    int errcode;
-    const regex_t *preg;
-    char *errbuf;
-    size_t errbuf_size;
-{
-  const char *msg;
-  size_t msg_size;
-
-  if (errcode < 0
-      || errcode >= (int) (sizeof (re_error_msgid)
-			   / sizeof (re_error_msgid[0])))
-    /* Only error codes returned by the rest of the code should be passed
-       to this routine.  If we are given anything else, or if other regex
-       code generates an invalid error code, then the program has a bug.
-       Dump core so we can fix it.  */
-    abort ();
-
-  msg = gettext (re_error_msgid[errcode]);
-
-  msg_size = strlen (msg) + 1; /* Includes the null.  */
-
-  if (errbuf_size != 0)
-    {
-      if (msg_size > errbuf_size)
-        *((char *) mempcpy (errbuf, msg, errbuf_size - 1)) = '\0';
-      else
-        memcpy (errbuf, msg, msg_size);
-    }
-
-  return msg_size;
-}
-#ifdef _LIBC
-weak_alias (__regerror, regerror)
-#endif
-
-
-/* Free dynamically allocated space used by PREG.  */
-
-void
-regfree (preg)
-    regex_t *preg;
-{
-  if (preg->buffer != NULL)
-    free (preg->buffer);
-  preg->buffer = NULL;
-
-  preg->allocated = 0;
-  preg->used = 0;
-
-  if (preg->fastmap != NULL)
-    free (preg->fastmap);
-  preg->fastmap = NULL;
-  preg->fastmap_accurate = 0;
-
-  if (preg->translate != NULL)
-    free (preg->translate);
-  preg->translate = NULL;
-}
-#ifdef _LIBC
-weak_alias (__regfree, regfree)
-#endif
-
-#endif /* not emacs  */
