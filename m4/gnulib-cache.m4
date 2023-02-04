@@ -44,6 +44,7 @@
 #  dirname \
 #  filenamecat \
 #  gettext-h \
+#  gperf \
 #  havelib \
 #  isdir \
 #  long-options \
@@ -69,6 +70,7 @@ gl_MODULES([
   dirname
   filenamecat
   gettext-h
+  gperf
   havelib
   isdir
   long-options
