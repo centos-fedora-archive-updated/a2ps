@@ -76,7 +76,7 @@ confg.c: confg.gperf
 #
 # Building the header for using liba2ps
 #
-include_HEADERS = liba2ps.h
+noinst_HEADERS += liba2ps.h
 liba2ps_h_sources = liba2ps.h.in liba2ps.h.extract
 
 liba2ps_h_extract_sources = faces.h gen.h jobs.h confg.h
@@ -112,4 +112,4 @@ liba2ps.h: $(liba2ps_h_sources)
 loc-local:
 	cd $(srcdir) && $(CLOC) $(CLOC_OPTS) $(liba2pssources) $(liba2psheaders) $(libitsources) $(libitheaders) $(mylibitsources) $(mylibitheaders) $(libnowarnings_a_SOURCES) $(liba2ps_h_sources)
 
-EXTRA_DIST = liba2ps.h $(liba2ps_h_sources) $(BUILT_SOURCES) confg.gperf
+EXTRA_DIST = liba2ps.h $(liba2ps_h_sources) liba2ps.h $(BUILT_SOURCES) confg.gperf
