@@ -31,20 +31,7 @@
 # include <config.h>
 #endif
 
-#ifndef PARAMS
-# if defined __GNUC__ || (defined __STDC__ && __STDC__)
-#  define PARAMS(args) args
-# else
-#  define PARAMS(args) ()
-# endif  /* GCC.  */
-#endif  /* Not PARAMS.  */
-
-#if defined STDC_HEADERS && !defined emacs
-# include <stddef.h>
-#else
-/* We need this for `regex.h', and perhaps for the Emacs include files.  */
-# include <sys/types.h>
-#endif
+#include <stddef.h>
 
 #define WIDE_CHAR_SUPPORT (HAVE_WCTYPE_H && HAVE_WCHAR_H && HAVE_BTOWC)
 
@@ -109,12 +96,7 @@
    even if config.h says that we can.  */
 # undef REL_ALLOC
 
-# if defined STDC_HEADERS || defined _LIBC
-#  include <stdlib.h>
-# else
-char *malloc ();
-char *realloc ();
-# endif
+#include <stdlib.h>
 
 /* When used in Emacs's lib-src, we need to get bzero and bcopy somehow.
    If nothing else has been done, use the method below.  */
@@ -130,22 +112,12 @@ char *realloc ();
    This is used in most programs--a few other programs avoid this
    by defining INHIBIT_STRING_HEADER.  */
 # ifndef INHIBIT_STRING_HEADER
-#  if defined HAVE_STRING_H || defined STDC_HEADERS || defined _LIBC
-#   include <string.h>
-#   ifndef bzero
-#    ifndef _LIBC
-#     define bzero(s, n)	(memset (s, '\0', n), (s))
-#    else
-#     define bzero(s, n)	__bzero (s, n)
-#    endif
-#   endif
-#  else
-#   include <strings.h>
-#   ifndef memcmp
-#    define memcmp(s1, s2, n)	bcmp (s1, s2, n)
-#   endif
-#   ifndef memcpy
-#    define memcpy(d, s, n)	(bcopy (s, d, n), (d))
+#  include <string.h>
+#  ifndef bzero
+#   ifndef _LIBC
+#    define bzero(s, n)	(memset (s, '\0', n), (s))
+#   else
+#    define bzero(s, n)	__bzero (s, n)
 #   endif
 #  endif
 # endif
@@ -212,53 +184,29 @@ init_syntax_once ()
 /* isalpha etc. are used for the character classes.  */
 #include <ctype.h>
 
-/* Jim Meyering writes:
-
-   "... Some ctype macros are valid only for character codes that
-   isascii says are ASCII (SGI's IRIX-4.0.5 is one such system --when
-   using /bin/cc or gcc but without giving an ansi option).  So, all
-   ctype uses should be through macros like ISPRINT...  If
-   STDC_HEADERS is defined, then autoconf has verified that the ctype
-   macros don't need to be guarded with references to isascii. ...
-   Defining isascii to 1 should let any compiler worth its salt
-   eliminate the && through constant folding."
-   Solaris defines some of these symbols so we must undefine them first.  */
-
-#undef ISASCII
-#if defined STDC_HEADERS || (!defined isascii && !defined HAVE_ISASCII)
-# define ISASCII(c) 1
-#else
-# define ISASCII(c) isascii(c)
-#endif
-
 #ifdef isblank
-# define ISBLANK(c) (ISASCII (c) && isblank (c))
+# define ISBLANK(c) (isblank (c))
 #else
 # define ISBLANK(c) ((c) == ' ' || (c) == '\t')
 #endif
 #ifdef isgraph
-# define ISGRAPH(c) (ISASCII (c) && isgraph (c))
+# define ISGRAPH(c) (isgraph (c))
 #else
-# define ISGRAPH(c) (ISASCII (c) && isprint (c) && !isspace (c))
+# define ISGRAPH(c) (isprint (c) && !isspace (c))
 #endif
 
 #undef ISPRINT
-#define ISPRINT(c) (ISASCII (c) && isprint (c))
-#define ISDIGIT(c) (ISASCII (c) && isdigit (c))
-#define ISALNUM(c) (ISASCII (c) && isalnum (c))
-#define ISALPHA(c) (ISASCII (c) && isalpha (c))
-#define ISCNTRL(c) (ISASCII (c) && iscntrl (c))
-#define ISLOWER(c) (ISASCII (c) && islower (c))
-#define ISPUNCT(c) (ISASCII (c) && ispunct (c))
-#define ISSPACE(c) (ISASCII (c) && isspace (c))
-#define ISUPPER(c) (ISASCII (c) && isupper (c))
-#define ISXDIGIT(c) (ISASCII (c) && isxdigit (c))
-
-#ifdef _tolower
-# define TOLOWER(c) _tolower(c)
-#else
-# define TOLOWER(c) tolower(c)
-#endif
+#define ISPRINT(c) isprint (c)
+#define ISDIGIT(c) isdigit (c)
+#define ISALNUM(c) isalnum (c)
+#define ISALPHA(c) isalpha (c)
+#define ISCNTRL(c) iscntrl (c)
+#define ISLOWER(c) islower (c)
+#define ISPUNCT(c) ispunct (c)
+#define ISSPACE(c) isspace (c)
+#define ISUPPER(c) isupper (c)
+#define ISXDIGIT(c)isxdigit (c)
+#define TOLOWER(c) tolower(c)
 
 #ifndef NULL
 # define NULL (void *)0
@@ -269,12 +217,7 @@ init_syntax_once ()
    machines, compilers, `char' and `unsigned char' argument types.
    (Per Bothner suggested the basic approach.)  */
 #undef SIGN_EXTEND_CHAR
-#if __STDC__
-# define SIGN_EXTEND_CHAR(c) ((signed char) (c))
-#else  /* not __STDC__ */
-/* As in Harbison and Steele.  */
-# define SIGN_EXTEND_CHAR(c) ((((unsigned char) (c)) ^ 128) - 128)
-#endif
+#define SIGN_EXTEND_CHAR(c) ((signed char) (c))
 
 /* Should we use malloc or alloca?  If REGEX_MALLOC is not defined, we
    use `alloca' instead of `malloc'.  This is because using malloc in
@@ -378,12 +321,12 @@ typedef char boolean;
 #define false 0
 #define true 1
 
-static int re_match_2_internal PARAMS ((struct re_pattern_buffer *bufp,
+static int re_match_2_internal (struct re_pattern_buffer *bufp,
 					const char *string1, int size1,
 					const char *string2, int size2,
 					int pos,
 					struct re_registers *regs,
-					int stop));
+					int stop);
 
 /* These are the command codes that appear in compiled regular
    expressions.  Some opcodes are followed by argument bytes.  A
@@ -5780,14 +5723,7 @@ regerror (errcode, preg, errbuf, errbuf_size)
   if (errbuf_size != 0)
     {
       if (msg_size > errbuf_size)
-        {
-#if defined HAVE_MEMPCPY || defined _LIBC
-	  *((char *) __mempcpy (errbuf, msg, errbuf_size - 1)) = '\0';
-#else
-          memcpy (errbuf, msg, errbuf_size - 1);
-          errbuf[errbuf_size - 1] = 0;
-#endif
-        }
+        *((char *) mempcpy (errbuf, msg, errbuf_size - 1)) = '\0';
       else
         memcpy (errbuf, msg, msg_size);
     }

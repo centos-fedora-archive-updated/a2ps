@@ -50,6 +50,7 @@
 #  long-options \
 #  maintainer-makefile \
 #  manywarnings \
+#  mempcpy \
 #  obstack \
 #  readme-release \
 #  sig2str \
@@ -76,6 +77,7 @@ gl_MODULES([
   long-options
   maintainer-makefile
   manywarnings
+  mempcpy
   obstack
   readme-release
   sig2str
