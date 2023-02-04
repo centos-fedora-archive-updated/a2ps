@@ -37,7 +37,6 @@
  #include "yy2ssh.h"
  #include "parsessh.h"
  #include "xobstack.h"
- #include "regex.h"
 }
 
 %{

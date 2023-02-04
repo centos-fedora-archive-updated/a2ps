@@ -39,7 +39,6 @@
 #include "message.h"
 #include "routines.h"
 #include "yy2ssh.h"
-#include "regex.h"
 
 #define YYDEBUG 1
 #define YYERROR_VERBOSE 1
