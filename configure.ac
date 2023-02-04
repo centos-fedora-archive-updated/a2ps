@@ -227,8 +227,8 @@ a2_PSUTILS
 
 # ROFF delegation
 ad_CHECK_PROG(grog,
-[a2ps works better with groff.
-Consider fetching groff at any ftp site proposing GNU programs])
+[a2ps works better with GNU roff.
+Consider fetching groff from https://ftp.gnu.org/pub/groff])
 
 # Texinfo delegation
 ad_CHECK_PROGS([makeinfo, tex, latex])

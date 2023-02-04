@@ -32,6 +32,11 @@ The following dependencies are required to build a2ps:
   - BDW GC (libgc): https://www.hboehm.info/gc
   - libpaper: https://github.com/rrthomas/libpaper
 
+The following dependencies are highly recommended:
+
+  - psutils: https://github.com/rrthomas/psutils
+  - GNU roff: https://www.gnu.org/software/groff/
+
 Most of the work for the installation is done by ./configure.  If you
 never ever read the file `INSTALL', then you really should do it
 *now*.
