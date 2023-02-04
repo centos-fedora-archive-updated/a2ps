@@ -18,7 +18,7 @@
 
 AM_CPPFLAGS = -I$(top_builddir) -I$(srcdir) -I$(top_srcdir)/lib -I$(top_builddir)/lib \
 	-DLOCALEDIR=\"$(localedir)\" -DSYSCONFFILE=\"$(sysconfdir)/a2ps.cfg\" -DHAVE_CONFIG_H
-AM_CFLAGS = $(WARN_CFLAGS) $(LIBGC_FLAGS)
+AM_CFLAGS = $(WARN_CFLAGS) $(BDW_GC_FLAGS)
 
 #
 # Definition of the local target
@@ -59,11 +59,11 @@ libitsources = argv.c hashtab.c
 
 noinst_HEADERS = $(liba2psheaders) $(libitheaders) $(mylibitheaders)
 
-libnowarnings_a_CFLAGS = $(LIBGC_FLAGS)
-libnowarnings_a_LDFLAGS = $(LIBGC_LIBS)
+libnowarnings_a_CFLAGS = $(BDW_GC_FLAGS)
+libnowarnings_a_LDFLAGS = $(BDW_GC_LIBS)
 libnowarnings_a_SOURCES = fonts.l lexppd.l parseppd.y regex.c regex.h confg.c confg.h
 
-liba2ps_la_LDFLAGS = $(LIBGC_LIBS)
+liba2ps_la_LDFLAGS = $(BDW_GC_LIBS)
 liba2ps_la_SOURCES = $(liba2pssources) $(libitsources) $(mylibitsources)
 liba2ps_la_LIBADD = ../lib/libgnu.la $(LIBINTL) $(LIBSOCKET) $(GETHOSTNAME_LIB)
 

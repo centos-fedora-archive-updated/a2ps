@@ -21,7 +21,7 @@
 # I really don't understand why)...
 AM_CPPFLAGS = -I.. -I$(srcdir) -I$(top_srcdir)/liba2ps \
 	-I$(top_srcdir)/lib -I$(top_builddir)/lib -DLOCALEDIR=\"$(localedir)\"
-AM_CFLAGS = $(WARN_CFLAGS) $(LIBGC_FLAGS)
+AM_CFLAGS = $(WARN_CFLAGS) $(BDW_GC_FLAGS)
 
 bin_SCRIPTS = a2ps-lpr-wrapper
 bin_PROGRAMS = a2ps
@@ -37,14 +37,14 @@ yy2ssh.h lexps.h
 
 noinst_LIBRARIES = libparse.a
 libparse_a_SOURCES = parsessh.y lexssh.l lexps.l sheets-map.l
-libparse_a_CFLAGS = $(LIBGC_FLAGS)
+libparse_a_CFLAGS = $(BDW_GC_FLAGS)
 
 BUILT_SOURCES = parsessh.h lexssh.c lexps.c sheets-map.c
 
 AM_YFLAGS = -dtv
 LEX = @LEX@
 
-a2ps_LDADD = $(top_builddir)/liba2ps/liba2ps.la $(top_builddir)/liba2ps/libnowarnings.a libparse.a $(LIBINTL) ../lib/libgnu.la -lm $(LIBGC_LIBS) -lpaper # FIXME: hard coded.
+a2ps_LDADD = $(top_builddir)/liba2ps/liba2ps.la $(top_builddir)/liba2ps/libnowarnings.a libparse.a $(LIBINTL) ../lib/libgnu.la -lm $(BDW_GC_LIBS) -lpaper # FIXME: hard coded.
 
 loc-local:
 	cd $(srcdir) && $(CLOC) $(CLOC_OPTS) $(a2ps_SOURCES) $(noinst_HEADERS) $(libparse_a_SOURCES) $(bin_SCRIPTS)
