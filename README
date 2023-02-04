@@ -1,4 +1,3 @@
-
 		    a2ps README
 
            (or PRINTME if a2ps runs fine :)
@@ -27,6 +26,11 @@ Contents:
 ===============
 
 *NOTE* If you are installing from a git clone, see README-git.
+
+The following dependencies are required to build a2ps:
+
+  - BDW GC (libgc): https://www.hboehm.info/gc
+  - libpaper: https://github.com/rrthomas/libpaper
 
 Most of the work for the installation is done by ./configure.  If you
 never ever read the file `INSTALL', then you really should do it

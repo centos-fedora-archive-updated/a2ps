@@ -1,14 +1,14 @@
 These notes intend to help people working on the git version of a2ps.
 Only the sources are installed in the git repository (to ease the
-maintenance, merges etc.), therefore you will need the maintainer
-tools we depend upon:
+maintenance, merges etc.), therefore as well as the dependencies listed in
+README under "Installation" you will need the maintainer tools we depend
+upon:
 
   - Automake
   - Autoconf
   - Gettext
   - Libtool
   - Gperf
-  - libgc
 
 * First git checkout
 
