@@ -122,11 +122,11 @@ ogonkify: ogonkify.in
 #
 # Suffix rules
 #
-.afm.enc: composeglyphs.in
+%.enc: %.afm composeglyphs.in
 	@echo "Creating $* encoding vector..."
 	$(PERL) ./composeglyphs -e $< -E $*.enc
 
-.ps.pfa: ogonki.enc adobe.enc compose.ps
+%.pfa: %.ps ogonki.enc adobe.enc compose.ps
 	@cat $(srcdir)/${encoding}.enc		\
 	     $(srcdir)/${targetEncoding}.enc	\
 	     $(srcdir)/compose.ps		\
