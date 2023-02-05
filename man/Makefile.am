@@ -22,9 +22,8 @@ man_aux = $(man_MANS:.1=.x)
 irregular_men = a2ps.1 a2ps-lpr-wrapper.1
 a2ps.1 : $(top_srcdir)/src/main.c
 
-EXTRA_DIST = $(man_MANS) $(HELP2MAN) $(man_aux) \
+EXTRA_DIST = $(man_MANS) $(man_aux) \
   Makefile.maint GNUmakefile common.x a2ps-lpr-wrapper.1
-HELP2MAN = help2man
 MAINTAINERCLEANFILES = $(man_MANS)
 
 # For additional rules usually of interest only to the maintainer,

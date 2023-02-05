@@ -1,8 +1,6 @@
 # This -*- Makefile -*- uses features of GNU make.
 # It is included via GNUmakefile.
 
-HELP2MAN-run = $(PERL) -w -- $(srcdir)/$(HELP2MAN)
-
 # Depend on configure.ac to get version number changes.
 $(man_MANS): $(top_srcdir)/configure.ac common.x
 
@@ -12,11 +10,11 @@ regular_men = $(filter-out $(irregular_men),$(man_MANS))
 $(regular_men): %.1: $(top_srcdir)/contrib/%.in
 
 executable = $(firstword $(wildcard $(top_srcdir)/*/$(basename $@) $(top_builddir)/*/$(basename $@)))
-$(man_MANS): %.1: %.x $(HELP2MAN)
+$(man_MANS): %.1: %.x
 	@if test -f "$(executable)"; then \
 	  echo "Updating man page $@"; \
 	  rm -f $@-t; \
-	  $(HELP2MAN-run) \
+	  $(HELP2MAN) \
 	    --include=$(srcdir)/$(basename $@).x \
 	    --include=$(srcdir)/common.x \
 	    $(executable) > $@-t || exit 1; \

@@ -276,6 +276,10 @@ if test x"${srcdir}" != x.; then
   AC_CONFIG_LINKS([man/Makefile.maint:man/Makefile.maint])
 fi
 
+# help2man
+# Set a value even if not found, so that an invocation via build-aux/missing works
+AC_PATH_PROG([HELP2MAN], [help2man], [help2man])
+
 # Code counting
 AM_EXTRA_RECURSIVE_TARGETS([loc])
 AC_PATH_PROG(CLOC, cloc, true)
