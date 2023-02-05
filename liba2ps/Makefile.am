@@ -60,7 +60,6 @@ libitsources = argv.c hashtab.c
 noinst_HEADERS = $(liba2psheaders) $(libitheaders) $(mylibitheaders)
 
 libnowarnings_a_CFLAGS = $(BDW_GC_FLAGS)
-libnowarnings_a_LDFLAGS = $(BDW_GC_LIBS)
 libnowarnings_a_SOURCES = fonts.l lexppd.l parseppd.y regex.c regex.h confg.c confg.h
 
 liba2ps_la_LDFLAGS = $(BDW_GC_LIBS)
