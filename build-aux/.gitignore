@@ -19,3 +19,8 @@
 /gendocs.sh
 /gnu-web-doc-update
 /gnupload
+/bootstrap.in
+/extract-trace
+/funclib.sh
+/inline-source
+/options-parser

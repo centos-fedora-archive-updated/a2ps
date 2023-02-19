@@ -27,7 +27,7 @@
 
 
 # Specification in the form of a command-line invocation:
-# gnulib-tool --import --local-dir=gl \
+# gnulib-tool --import --local-dir=gl --local-dir=gl-mod/bootstrap \
 #  --lib=libgnu \
 #  --source-base=lib \
 #  --m4-base=m4 \
@@ -41,6 +41,7 @@
 #  --po-domain=a2ps \
 #  argmatch \
 #  backupfile \
+#  bootstrap \
 #  dirname \
 #  filenamecat \
 #  gettext-h \
@@ -64,10 +65,11 @@
 #  xstrtol
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
-gl_LOCAL_DIR([gl])
+gl_LOCAL_DIR([gl:gl-mod/bootstrap])
 gl_MODULES([
   argmatch
   backupfile
+  bootstrap
   dirname
   filenamecat
   gettext-h
