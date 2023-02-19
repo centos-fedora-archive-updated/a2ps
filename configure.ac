@@ -271,14 +271,12 @@ AC_CONFIG_FILES([
   ppd/Makefile
 ])
 
-if test x"${srcdir}" != x.; then
-  AC_CONFIG_LINKS([man/GNUmakefile:man/GNUmakefile])
-  AC_CONFIG_LINKS([man/Makefile.maint:man/Makefile.maint])
-fi
-
-# help2man
-# Set a value even if not found, so that an invocation via build-aux/missing works
+dnl help2man
+dnl Set a value even if not found, so that x-to-1 gives a better error.
 AC_PATH_PROG([HELP2MAN], [help2man], [help2man])
+CROSS_COMPILING=$cross_compiling
+AC_SUBST([CROSS_COMPILING])
+AC_CONFIG_FILES([build-aux/x-to-1], [chmod +x build-aux/x-to-1])
 
 # Code counting
 AM_EXTRA_RECURSIVE_TARGETS([loc])
