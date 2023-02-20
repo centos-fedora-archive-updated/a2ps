@@ -100,7 +100,7 @@ face_self_print (enum face_e face, FILE * stream)
 }
 
 /* convertion from a font to the postscript function */
-const char *
+_GL_ATTRIBUTE_PURE const char *
 face_eo_ps (enum face_e face)
 {
   switch (face) {
