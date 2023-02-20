@@ -1,6 +1,6 @@
                     User visible changes in GNU a2ps.
 
-* Noteworthy changes in release ?.? (????-??-??) [?]
+* Noteworthy changes in release 4.14.95 (2023-02-20) [alpha]
  * Build
   - Build man pages in a simpler and more robust way, using x-to-1 from
     gnulib.
