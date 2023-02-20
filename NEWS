@@ -1,7 +1,15 @@
                     User visible changes in GNU a2ps.
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
-
+ * Build
+  - Build man pages in a simpler and more robust way, using x-to-1 from
+    gnulib.
+  - Don't install useless liba2ps.h.
+  - Other minor build system improvements, including updating to more recent
+    autoconf and gettext.
+  - Don't require help2man or gperf to build from source.
+  - Document runtime dependencies.
+  - Minor code quality improvements.
 
 * Noteworthy changes in release 4.14.94 (2023-01-31) [alpha]
  * Features:
