@@ -1,6 +1,6 @@
                     User visible changes in GNU a2ps.
 
-* Noteworthy changes in release ?.? (????-??-??) [?]
+* Noteworthy changes in release 4.15 (2023-03-07) [stable]
  * New maintainer, Reuben Thomas.
  * Features:
    - Replace the 'psmandup' utility with simpler 'lp2' to directly print
