@@ -3040,7 +3040,7 @@ is landscape by looking for the keyword @samp{landscape} in it, using
 @code{strings(1)}:
 @example
 Delegation: dvips dvi:ps\
- if strings $f | sed 3q | fgrep landscape > /dev/null 2>&1; then \
+ if strings $f | sed 3q | grep -F landscape > /dev/null 2>&1; then \
    #@{d.dvips@} -T#hpt,#wpt $f -o #f0 && #?o|cat|#@{d.psnup@} -r| #f0;\
  else \
    #@{d.dvips@} $f -o #f0 && #@{d.psnup@} #f0; \

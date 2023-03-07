@@ -220,7 +220,7 @@ $3p<-$3p> $4l# lines\n||
 #   instance) by looking for `landscape' in the first strings of
 #   the DVI file.
 @COM_PSUTILS@@COM_dvips@Delegation: dvips dvi:ps\
-@COM_PSUTILS@@COM_dvips@   if strings '$f' | sed 10q | fgrep landscape > /dev/null 2>&1; then \
+@COM_PSUTILS@@COM_dvips@   if strings '$f' | sed 10q | grep -F landscape > /dev/null 2>&1; then \
 @COM_PSUTILS@@COM_dvips@     #{del.dvips} -T#hpt,#wpt '$f' -o #f0 && #?o|cat|#{del.psnup} -r| #f0; \
 @COM_PSUTILS@@COM_dvips@   else \
 @COM_PSUTILS@@COM_dvips@     #{del.dvips} '$f' -o #f0 && #{del.psnup} #f0; \

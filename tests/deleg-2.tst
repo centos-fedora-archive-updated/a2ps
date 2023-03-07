@@ -18,7 +18,7 @@ OUT_NAME=del.ps
 . $SRCDIR/defs || exit 1
 
 # a2ps should fail, saying it does not know the sheet test_delegation.ssh
-$CHK $OPT $TST_FILE -P void 2>&1 | fgrep 'cannot find style sheet' > /dev/null 2>&1
+$CHK $OPT $TST_FILE -P void 2>&1 | grep -F 'cannot find style sheet' > /dev/null 2>&1
 
-# Return status of fgrep
+# Return status of grep
 exit $?
