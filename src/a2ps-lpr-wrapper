@@ -1,38 +1,44 @@
-#!/bin/bash
+#!/bin/sh
 #
 # a2ps-lpr-wrapper - lp/lpr wrapper script for GNU a2ps
-#
 
-TEMP=`getopt -o d: -n 'a2ps-lpr-wrapper' -- "$@"`
-a2ps_printer=""
+set -e
 
-if [ $? != 0 ]; then echo "Terminating..." >&2; exit 1; fi
-
-# Note the quotes around `$TEMP': they are essential!
+TEMP=$(getopt -o d: -n 'a2ps-lpr-wrapper' -- "$@")
+if [ $? -ne 0 ]; then echo 'Error parsing options' >&2; fi
 eval set -- "$TEMP"
+unset TEMP
 
-while true ; do
+printer=""
+while true; do
   case "$1" in
-    -d) a2ps_printer=$2; shift 2 ;;
+    -d) printer=$2; shift 2 ;;
     --) shift; break ;;
-     *) echo "usage: a2ps-lpr-wrapper -d [printer] [files]"; exit 1 ;;
+     *) echo "Internal error" >&2; exit 1 ;;
   esac
 done
 
 # If lp (from CUPS) exists, just use it.
-if [ command -pv lp ]; then
-  if [ "x$a2ps_printer" != "x" ]; then d="-d $a2ps_printer"; else d=""; fi
-  command -p lp $d "$@"
-elif [ command -pv lpr ]; then
+if command -pv lp > /dev/null; then
+  printer_opt=-d
+  command="lp"
+elif command -pv lpr >/dev/null; then
   # In case lp is not available, then fall back to lpr.
-  if [ "x$a2ps_printer" != "x" ]; then P="-P $a2ps_printer"; else P=""; fi
-  command -p lpr $P "$@"
-elif [ command -pv rlpr ]; then
+  printer_opt=-P
+  command="lpr"
+elif command -pv rlpr >/dev/null; then
   # In case lpr is not available, then fall back to rlpr.
-  if [ "x$a2ps_printer" != "x" ]; then P="-P $a2ps_printer"; else P=""; fi
-  command -p rlpr $P "$@"
+  printer_opt=-P
+  command="rlpr"
 else
   # If none of lp, lpr and rlpr is available, then fail
-  echo "$0: lp/lpr/rlpr missing!"
+  echo "$0: no program found to print files"
   exit 1
 fi
+
+# Run the command
+opts=""
+if [ "$printer" != "" ]; then
+   opts="$printer_opt $printer"
+fi
+command -p "$command" $opts "$@"
