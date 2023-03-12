@@ -1,7 +1,10 @@
                     User visible changes in GNU a2ps.
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
-
+ * Bug fixes:
+   - Use “grep -F” rather than obsolete fgrep.
+   - Fix broken a2ps-lpr-wrapper script, and translate to sh for
+     portability.
 
 * Noteworthy changes in release 4.15 (2023-03-07) [stable]
  * New maintainer, Reuben Thomas.
