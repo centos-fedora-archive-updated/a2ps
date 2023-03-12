@@ -19,6 +19,7 @@
 
 GNULIB_SRCDIR ?= $(srcdir)/gnulib
 gnulib_dir = $(GNULIB_SRCDIR)
+manual_title = GNU a2ps
 
 # Set format of NEWS
 old_NEWS_hash := 595bc076c57c77d7c3ea86658048d070
