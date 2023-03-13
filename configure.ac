@@ -113,7 +113,7 @@ AH_BOTTOM([
 ])
 
 ad_FUNC_SYSTEMPAPERNAME
-AS_IF([test "$ac_cv_lib_paper_systempapername" = ""],
+AS_IF([test "$ac_cv_lib_paper_systempapername" = "no"],
   [AC_MSG_ERROR([a2ps needs libpaper to work])])
 
 # Internationalization.
