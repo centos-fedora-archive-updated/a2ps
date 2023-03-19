@@ -24,7 +24,7 @@
      when using libpaper 2. It is still possible to define custom margins
      using "Medium:" specifications in the configuration file, and the
      one size defined by a2ps that libpaper does not know about, Quarto, is
-     retained for backwards compatiblity, and as an example.
+     retained for backwards compatibility, and as an example.
  * Documentation
    - Remove some obsolete explanations.
    - Reformat --help output consistently to 80 columns.
