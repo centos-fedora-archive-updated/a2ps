@@ -44,15 +44,6 @@
 @end macro
 @end ifnottex
 
-@c TeX variants
-@macro PreTeX
-Pre@TeX{}
-@end macro
-
-@macro TeXScript
-@TeX{}Script
-@end macro
-
 @dircategory Printing Tools
 @direntry
 * a2ps: (a2ps).                    PostScript Generating Utility
@@ -275,7 +266,7 @@ PreScript
 * PreScript Commands::
 * PreScript examples::
 
-@PreTeX
+Pre@TeX{}
 
 * Special characters::
 * PreTeX Commands::
@@ -3860,7 +3851,7 @@ ypcat passwd |
 @end smallexample
 
 @node PreTeX
-@subsection @PreTeX
+@subsection Pre@TeX{}
 
 The aim of the Pre@TeX{} style sheet is to provide something similar to
 @code{PreScript}, but with a more @LaTeX{} like syntax.
@@ -3886,7 +3877,7 @@ special characters or symbols are introduced, they should be at the
 outer most level.
 
 @node PreTeX Commands
-@subsubsection @PreTeX Commands
+@subsubsection Pre@TeX{} Commands
 These commands required arguments.
 
 @table @samp
@@ -3927,7 +3918,7 @@ Quote @var{text} so that no special sequence will be interpreted.  In
 @itemx \end@{enumerate@}
 @itemx \begin@{description@}
 @itemx \end@{description@}
-These commands are legal in @LaTeX{} but have no sense in @PreTeX{}.
+These commands are legal in @LaTeX{} but have no sense in Pre@TeX{}.
 Hence there are simply ignored and not printed (if immediately followed
 by an end-of-line).
 @end table
@@ -3952,17 +3943,17 @@ If \forall x \in E, x \in F then E \subseteq F.
 @end example
 
 @noindent
-is perfectly legal in @PreTeX{}, it should be written
+is perfectly legal in Pre@TeX{}, it should be written
 @example
 If $\forall x \in E, x \in F$ then $E \subseteq F$.
 @end example
 
 @noindent
-for @LaTeX{}. Since in @PreTeX every @samp{$} is discarded (unless
+for @LaTeX{}. Since in Pre@TeX{} every @samp{$} is discarded (unless
 quoted by a @samp{\}), the second form is also admitted.
 
 @node TeXScript
-@subsection @TeXScript
+@subsection @TeX{}Script
 
 @code{@TeX{}Script} is a replacement of the old version of
 @code{PreScript}: it combines both the @pack{}-like and the
@@ -3973,7 +3964,7 @@ In addition it provides commands meant to ease processing of file for
 @pack{} by @LaTeX{}.
 
 Everything between @samp{%%TeXScript:skip} and @samp{%%TeXScript:piks}
-will be ignored in @code{@TeXScript}, so that there can be inserted
+will be ignored in @code{@TeX{}Script}, so that there can be inserted
 command definitions for @LaTeX{} exclusively.
 
 The commands @samp{\textbi} (for bold-italic) and @samp{\textsy} (for
@@ -3987,7 +3978,7 @@ preamble:
 %%TeXScript:piks
 @end example
 
-There is no way in @TeXScript to get an automatic numbering.  There is
+There is no way in @TeX{}Script to get an automatic numbering.  There is
 no equivalent to the @LaTeX{} environment @code{enumerate}.  But every
 command beginning by @code{\text} is doubled by a command beginning by
 @samp{\magic}.  @pack{} behaves the same way on both families of commands.
@@ -4002,7 +3993,7 @@ emulated.  For instance
 @end example
 
 @noindent
-will be treated the same way both in @TeXScript and @LaTeX{}.
+will be treated the same way both in @TeX{}Script and @LaTeX{}.
 
 @samp{\header} and @samp{\footer}, are not understood by @LaTeX{}.
 
