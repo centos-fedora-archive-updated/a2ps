@@ -48,7 +48,7 @@
 #define xstrcpy(s1, s2)					\
  do {				       			\
    const char *my_s2 = (s2);	       			\
-   s1 = !IS_EMPTY (my_s2) ? xstrdup (my_s2) : NULL;	\
+   s1 = !(my_s2 == NULL) ? xstrdup (my_s2) : NULL;      \
  } while (0)
 
 /*
