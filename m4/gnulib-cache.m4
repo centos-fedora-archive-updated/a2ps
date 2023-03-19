@@ -58,7 +58,7 @@
 #  stpncpy \
 #  strchrnul \
 #  strverscmp \
-#  version-etc \
+#  version-etc-fsf \
 #  xalloc \
 #  xgethostname \
 #  xstrndup \
@@ -86,7 +86,7 @@ gl_MODULES([
   stpncpy
   strchrnul
   strverscmp
-  version-etc
+  version-etc-fsf
   xalloc
   xgethostname
   xstrndup
