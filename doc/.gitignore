@@ -1,9 +1,13 @@
 *.aux
 *.cp
 *.cps
+*.dvi
 *.info
 *.log
+*.pdf
 *.toc
+*.t2d
+*.t2p
 *.tp
 *.tps
 *.vr
