@@ -45,8 +45,6 @@
 #define MAN_LINES               66	/* no lines for a man */
 extern char *program_name;
 
-const char version_etc_copyright[] = N_("Copyright (C) 1988-2017 Free Software Foundation, Inc.");
-
 /*
  * Hooks used
  */
