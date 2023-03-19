@@ -1,7 +1,11 @@
                     User visible changes in GNU a2ps.
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
-
+ * Bug fixes:
+   - Fix old crash when using --stdin="".
+ * Build
+   - Make configure stop if libpaper is not found.
+   - Enable building the manual for gnu.org.
 
 * Noteworthy changes in release 4.15.1 (2023-03-12) [stable]
  * Bug fixes:
