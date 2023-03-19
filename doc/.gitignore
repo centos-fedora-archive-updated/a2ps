@@ -1,4 +1,14 @@
+*.aux
+*.cp
+*.cps
 *.info
+*.log
+*.toc
+*.tp
+*.tps
+*.vr
+*.vrs
+/manual/
 /stamp-vti
 /encoding.texi
 /prologue.texi
