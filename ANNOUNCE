@@ -4,7 +4,7 @@ Description
 GNU a2ps is an Any to PostScript filter.  Of course it processes plain
 text files, but also pretty prints quite a few popular languages.
 
-Its slogan is precisely `` Do The Right Thing '', which means that
+Its slogan is precisely "Do The Right Thing", which means that
 though it is highly configurable, everything was made so that a novice
 user can do complicated PostScript manipulations.  For instance, it
 has the ability to delegate the processing of some files to other
