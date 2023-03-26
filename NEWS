@@ -1,7 +1,11 @@
                     User visible changes in GNU a2ps.
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
-
+ * Bug fixes:
+   - Fix fixps to use GhostScript’s ps2write device instead of defunct
+     pswrite.
+ * Build:
+   - Fix a problem building PDF version of manual.
 
 * Noteworthy changes in release 4.15.2 (2023-03-19) [stable]
  * Bug fixes:
