@@ -29,7 +29,7 @@ VC_LIST_ALWAYS_EXCLUDE_REGEX = tests/(g?ps-ref|tstfiles)/|regex.c$$
 
 _makefile_at_at_check_exceptions ?= '&& !/libpath/ && !/date/ && !/LIBDIR/'
 
-ignore_doubled_word_match_RE_ ?= ^doc/a2ps.texi:3708
+ignore_doubled_word_match_RE_ ?= ^doc/a2ps.texi:3699
 
 local-checks-to-skip = \
 	sc_bindtextdomain \
