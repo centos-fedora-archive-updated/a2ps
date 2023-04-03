@@ -6306,8 +6306,8 @@ It can be used either to view PostScript files (in general thanks to a
 graphic interface such as @code{Ghostview} or @code{gv} ...).
 
 @item Converting
-To may useful languages/formats: PDF, rewriting in portable PostScript
-or Encapsulated PS etc.
+It can convert to other languages/formats, e.g. portable PostScript,
+Encapsulated PS etc.
 
 @item Translating
 to a printer dedicated language, e.g., PCL.  In particular, thanks to
