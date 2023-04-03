@@ -49,7 +49,6 @@
 #include "routines.h"
 #include "lexps.h"
 #include "sig2str.h"
-#include "long-options.h"
 #include "version-etc.h"
 
 /* From basename.c */
@@ -938,12 +937,6 @@ main (int argc, char *argv[])
   bindtextdomain (PACKAGE "-gnulib", LOCALEDIR);
   textdomain (PACKAGE);
 
-  /* People don't want initializations when they just request a --help
-     or --version. */
-  parse_long_options (argc, argv,
-		      NULL, GNU_PACKAGE, VERSION,
-		      usage, "Akim Demaille", "Miguel Santana", (char const *) NULL);
-
   /* Catch the exits and signals to cleanup the mess.
 
      We do it now, though there is no tmp files before long, because I
@@ -1064,7 +1057,7 @@ main (int argc, char *argv[])
 
     case b_version:
       version_etc (stdout, NULL, GNU_PACKAGE, VERSION,
-		   "Akim Demaille", "Miguel Santana", NULL);
+		   "Akim Demaille", "Miguel Santana", "Reuben Thomas", NULL);
       break;
 
     case b_help:

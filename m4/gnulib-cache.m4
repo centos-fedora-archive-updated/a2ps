@@ -48,7 +48,6 @@
 #  gperf \
 #  havelib \
 #  isdir \
-#  long-options \
 #  maintainer-makefile \
 #  manywarnings \
 #  mempcpy \
@@ -76,7 +75,6 @@ gl_MODULES([
   gperf
   havelib
   isdir
-  long-options
   maintainer-makefile
   manywarnings
   mempcpy
