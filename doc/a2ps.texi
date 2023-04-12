@@ -2474,12 +2474,12 @@ file modification date in @samp{mm/dd/yy} format
 @cindex @file{a2ps.cfg}
 @cindex @file{a2ps-site.cfg}
 
-@pack{} reads several files before the command line options.  In the
+@pack{} reads several files before the command line options.  In
 order, they are:
 @enumerate
 @item
 @cindex @samp{A2PS_CONFIG}
-the system configuration file (usually @file{/usr/local/etc/a2ps.cfg})
+the system configuration file (typically @file{/usr/local/etc/a2ps.cfg})
 unless you have defined the environment variable @samp{A2PS_CONFIG}, in
 which case @pack{} reads the file it points to;
 
