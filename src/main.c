@@ -995,6 +995,20 @@ main (int argc, char *argv[])
 
   /* Process the command line options. */
   argn = a2ps_handle_options (job, argc, argv);
+  switch (behavior) {
+    case b_version:
+      version_etc (stdout, NULL, GNU_PACKAGE, VERSION,
+		   "Akim Demaille", "Miguel Santana", "Reuben Thomas", NULL);
+       return (EXIT_SUCCESS);
+      break;
+
+    case b_help:
+      usage (EXIT_SUCCESS);
+      break;
+
+    default: /* Ignore other options for now. */
+      break;
+  }
 
   /* Once a2ps.cfg is read, finish the building of a2ps_job */
   a2ps_job_finalize (job);
@@ -1053,15 +1067,6 @@ main (int argc, char *argv[])
          paths. */
       for (; argn < argc; argn++)
 	pw_glob_print (job->common.path, argv[argn], stdout);
-      break;
-
-    case b_version:
-      version_etc (stdout, NULL, GNU_PACKAGE, VERSION,
-		   "Akim Demaille", "Miguel Santana", "Reuben Thomas", NULL);
-      break;
-
-    case b_help:
-      usage (EXIT_SUCCESS);
       break;
 
     case b_list_options:
