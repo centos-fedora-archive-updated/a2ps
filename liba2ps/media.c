@@ -144,13 +144,10 @@ a2ps_get_medium (a2ps_job * job, const char * name)
 {
   struct medium *item;
   struct medium token;
-  bool free_name = false;
 
   token.name = NULL;
-  if (strcaseequ (name, LIBPAPER_MEDIUM)) {
+  if (strcaseequ (name, LIBPAPER_MEDIUM))
     token.name = (char *) systempapername ();
-    free_name = true;
-  }
 
   if (!token.name)
     token.name = (char *) name;
@@ -159,9 +156,6 @@ a2ps_get_medium (a2ps_job * job, const char * name)
 
   if (item == NULL)
     error (1, 0, _("unknown medium `%s'"), quotearg (token.name));
-
-  if (free_name)
-    free(token.name);
 
   return item;
 }
