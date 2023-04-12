@@ -39,7 +39,7 @@ noinst_LIBRARIES = libparse.a
 libparse_a_SOURCES = parsessh.y lexssh.l lexps.l sheets-map.l
 libparse_a_CFLAGS = $(BDW_GC_FLAGS)
 
-BUILT_SOURCES = parsessh.h lexssh.c lexps.c sheets-map.c
+BUILT_SOURCES = parsessh.c lexssh.c lexps.c sheets-map.c
 
 AM_YFLAGS = -dtv
 LEX = @LEX@
@@ -49,4 +49,4 @@ a2ps_LDADD = $(top_builddir)/liba2ps/liba2ps.la $(top_builddir)/liba2ps/libnowar
 loc-local:
 	cd $(srcdir) && $(CLOC) $(CLOC_OPTS) $(a2ps_SOURCES) $(noinst_HEADERS) $(libparse_a_SOURCES) $(bin_SCRIPTS)
 
-EXTRA_DIST = $(BUILT_SOURCES) $(bin_SCRIPTS)
+EXTRA_DIST = $(BUILT_SOURCES) parsessh.h $(bin_SCRIPTS)
