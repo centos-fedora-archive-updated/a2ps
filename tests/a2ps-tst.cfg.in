@@ -60,7 +60,7 @@ Variable: toc_test \\Keyword{Table of Content}\n\
 
 # Remove any information from the PS comments that may vary
 Variable: sedout \
-sed 's/^%%%%Creator.*/%%%%Creator: a version of a2ps/g;s/^%%%%CreationDate:.*/%%%%CreationDate: once upon a time/g;s!^/td (.*) def!/td (today) def!g'
+sed 's/^%%%%Creator.*/%%%%Creator: a version of a2ps/g;s/^%%%%CreationDate:.*/%%%%CreationDate: once upon a time/g;s!^/td (.*) def!/td (today) def!g;s/^%%%%DocumentMedia: a4/%%%%DocumentMedia: A4/'
 
 # Keep only the core of the document (not the prolog).  Send to stdout.
 Variable: awkout \
