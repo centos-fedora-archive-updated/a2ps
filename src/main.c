@@ -918,12 +918,6 @@ main (int argc, char *argv[])
 {
   int argn;
 
-  /* Architecture specific initialization. */
-#ifdef __EMX__
-  /* Wildcard expansion for OS/2 */
-  _wildcard (&argc, &argv);
-#endif
-
   /* Name under which this program was called. */
   program_name = base_name (argv[0]);
   /* program_invocation_name = xstrdup (program_name); */
@@ -1160,10 +1154,10 @@ main (int argc, char *argv[])
 	     * in is this one!
 	     * To this end, we need to put more information in file_job
 	     * on how its processing went. */
-	    
+
 	    struct file_job * file_job;
 	    size_t len;
-	    
+
 	    /* 'delegation_tmpname' is necessary not null else it is a
 	       failed job and we ignore it */
 	    file_job = CURRENT_FILE (job);
@@ -1173,7 +1167,7 @@ main (int argc, char *argv[])
 		len--;
 		file_job = job->jobs->content[len - 1];
 	      }
-	    
+
 	    a2ps_open_output_stream (job);
 	    pslex_dump (job->output_stream->fp, file_job->delegation_tmpname);
 	    unlink (file_job->delegation_tmpname);
