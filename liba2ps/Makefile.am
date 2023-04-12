@@ -69,6 +69,7 @@ liba2ps_la_LIBADD = ../lib/libgnu.la $(LIBINTL) $(LIBSOCKET) $(GETHOSTNAME_LIB)
 #
 # Handling the Gperf code
 #
+GPERF = gperf
 confg.c: confg.gperf
 	$(GPERF) $(GPERFFLAGS) $< >$@
 
