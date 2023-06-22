@@ -121,7 +121,7 @@ Variable: cfg.wrapped 1
 # psnup -1.
 # The files (in and out) are to be given if not stdin and stdout.
 Variable: del.psnup \
-   #?o!cat!@psnup@ -#v #?V||-q| #?j|-d|| #?r||-c| -p#p!
+   #?o!cat!@psnup@ -#v #?V||-q| #?j|-d|| #?r||-c| -w#w -h#h!
 
 # Passes to psselect for PS page selection.
 Variable: del.psselect \
