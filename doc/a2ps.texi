@@ -5948,7 +5948,7 @@ the paper.}
 @end quotation
 
 You are most probably printing with a bad medium, for instance using A4
-paper within @pack{}, while your printer uses Letter paper.  Some jet
+paper within @pack{}, while your printer uses Letter paper.  Some inkjet
 printers have a small printable area, and @pack{} may not expect it.  In
 both case, read @ref{Sheet Options}, option @samp{--medium} for more.
 
