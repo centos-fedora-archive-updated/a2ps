@@ -1,7 +1,10 @@
                     User visible changes in GNU a2ps.
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
-
+ * Bug fixes:
+   - Fix psnup delegation. It was incorrectly changed in 4.14.90.
+ * Documentation:
+   - Minor tweaks.
 
 * Noteworthy changes in release 4.15.4 (2023-04-13) [stable]
  * Bug fixes:
