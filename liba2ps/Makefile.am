@@ -30,7 +30,7 @@ noinst_LIBRARIES = libnowarnings.a
 AM_YFLAGS = -dtv
 # Use a struct, handle duplicates, produce ANSI-C
 GPERFFLAGS = -t -D -L ANSI-C
-BUILT_SOURCES = lexppd.h parseppd.c liba2ps.h confg.c
+BUILT_SOURCES = lexppd.h parseppd.h parseppd.c liba2ps.h confg.c
 
 liba2psheaders = encoding.h media.h jobs.h output.h		\
 routines.h psgen.h prolog.h faces.h useropt.h			\
