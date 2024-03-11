@@ -6,8 +6,16 @@
 Please send problem reports to bug-a2ps@gnu.org.  Ask questions on
 a2ps@gnu.org.  Submit changes on a2ps-patches@gnu.org.
 
-See the file ANNOUNCE for a presentation of a2ps, if you're still
-unsure it is indeed a filter from Anything To Probably Something.
+GNU a2ps is an Any to PostScript filter.  Of course it processes plain
+text files, but also pretty prints quite a few popular languages.
+
+Its slogan is precisely "Do The Right Thing", which means that
+though it is highly configurable, everything was made so that a novice
+user can do complicated PostScript manipulations.  For instance, it
+has the ability to delegate the processing of some files to other
+filters (such as groff, texi2dvi, dvips, gzip etc.), what allows a
+uniform treatment (n-up, page selection, duplex etc.) of heterogeneous
+files.
 
 
 Contents:

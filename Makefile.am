@@ -21,7 +21,7 @@
 SUBDIRS = build-aux etc ps ogonkify lib liba2ps src po-gnulib po \
 	tests sheets encoding afm fonts ppd contrib doc man
 
-EXTRA_DIST = TODO ANNOUNCE FAQ m4/gnulib-cache.m4
+EXTRA_DIST = TODO FAQ m4/gnulib-cache.m4
 
 all-local: FAQ
 
