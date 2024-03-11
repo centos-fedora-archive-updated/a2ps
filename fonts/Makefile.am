@@ -1,6 +1,6 @@
 # Process this file with automake to create Makefile.in
 #
-# Copyright 1988-2017 Free Software Foundation, Inc.
+# Copyright 1988-2024 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,14 +19,6 @@
 # As a new `feature' :), a2ps uses now even more directories
 fontsdir = $(pkgdatadir)/fonts
 
-pcg_fonts = pcfont.pfa
-
-## These fonts are *not* GPL.
-##cyrillic_fonts =					\
-##crr35__i.pfb crr36__i.pfb crr55__i.pfb crr56__i.pfb	\
-##colle8.pfb colle9.pfb colle10.pfb			\
-##textb18.pfb textb19.pfb textb20.pfb
-
-fonts_DATA = $(pcg_fonts)
+fonts_DATA = pcfont.pfa
 
 EXTRA_DIST = $(fonts_DATA)
