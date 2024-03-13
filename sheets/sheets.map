@@ -250,6 +250,7 @@ fortran:
 # GIF Images
 gif:	/*.gif/i
 	<GIF image*>
+	<GIF file*>
 
 # Haskell programs
 haskell:
@@ -336,6 +337,7 @@ pascal:	/*.pas/
 # PDF documents
 pdf:	/*.pdf/i
 	<PDF document*>
+	<* (PDF) *>
 
 # Perl files
 perl:	/*.p[ml]/
@@ -351,6 +353,7 @@ plsql:	/*.pk[sb]/
 # PNG files
 png:	/*.png/i
 	<PNG image*>
+	<PNG file*>
 
 # Portable Object (Gettext)
 po:	/*.po/
@@ -500,8 +503,9 @@ vtcl:	/*.vtcl/
 	<*vtcl*>
 
 # TIFF images
-tiff:	/.tif/i  /.tiff/i
+tiff:	/*.tif/i  /*.tiff/i
 	<TIFF image*>
+	<TIFF file*>
 
 # tk files
 tk:	/*.tk/
